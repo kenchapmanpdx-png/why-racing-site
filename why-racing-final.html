@@ -1,0 +1,743 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Why Racing Events | What's Your WHY?</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --brand-red: #E31837;
+            --brand-blue: #00205B;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f4f4f4;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: #333; }
+        h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        a { text-decoration: none; color: inherit; }
+
+        /* BUTTONS */
+        .btn {
+            padding: 14px 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 14px;
+        }
+        .btn-primary {
+            background: var(--brand-red);
+            color: white;
+            box-shadow: 0 4px 15px rgba(227, 24, 55, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #b00e26;
+            box-shadow: 0 6px 20px rgba(227, 24, 55, 0.5);
+        }
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid white;
+            color: white;
+        }
+        .btn-secondary:hover {
+            background: white;
+            color: var(--brand-blue);
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%);
+            transition: 0.4s;
+        }
+        nav.scrolled {
+            background: var(--brand-blue);
+            padding: 10px 5%;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; }
+        .logo span { color: var(--brand-red); }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--brand-red); }
+        .nav-btn {
+            background: white;
+            color: var(--brand-red);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        /* HERO - ANGULAR CUT */
+        header {
+            min-height: 100vh;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+            padding: 100px 20px 150px;
+        }
+        .hero-bg {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -2;
+            overflow: hidden;
+        }
+        .hero-bg video {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .hero-overlay {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(45deg, rgba(0, 32, 91, 0.9) 0%, rgba(227, 24, 55, 0.5) 100%);
+            z-index: -1;
+        }
+        .hero-content h1 {
+            font-size: 4rem;
+            line-height: 0.95;
+            margin-bottom: 20px;
+            color: white;
+            font-style: italic;
+        }
+        .hero-content h1 span { color: var(--brand-red); }
+        .hero-content p {
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            font-weight: 300;
+        }
+        .hero-proof {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin: 25px 0 35px;
+            flex-wrap: wrap;
+        }
+        .hero-proof span {
+            font-size: 14px;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .hero-proof i { color: var(--brand-red); }
+        .hero-buttons { display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; }
+
+        /* SCROLLING TICKER */
+        .stats-ticker {
+            background: var(--dark);
+            color: white;
+            padding: 18px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-bottom: 4px solid var(--brand-red);
+            margin-top: -80px;
+            position: relative;
+            z-index: 10;
+        }
+        .ticker-track {
+            display: inline-block;
+            animation: tickerScroll 25s linear infinite;
+        }
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 40px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .ticker-item i { color: var(--brand-red); }
+        @keyframes tickerScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* SECTIONS */
+        .section { padding: 80px 5%; }
+        .section-header { text-align: center; margin-bottom: 50px; }
+        .section-header h2 { font-size: 2.5rem; color: var(--brand-blue); font-style: italic; }
+        .section-header p { color: #666; font-size: 1.1rem; }
+
+        /* EVENT CARDS */
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .event-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+            transition: 0.4s;
+            border-bottom: 4px solid transparent;
+        }
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.15);
+            border-bottom: 4px solid var(--brand-red);
+        }
+        .card-img {
+            height: 220px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .card-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(transparent, rgba(0,0,0,0.5));
+        }
+        .card-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--brand-red);
+            color: white;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+            z-index: 2;
+        }
+        .card-body { padding: 25px; }
+        .card-date {
+            color: #888;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+        .card-title {
+            font-size: 1.6rem;
+            line-height: 1.1;
+            margin-bottom: 15px;
+            color: var(--brand-blue);
+            font-style: italic;
+        }
+        .card-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            color: #555;
+            font-weight: 600;
+        }
+        .card-meta i { color: var(--brand-red); }
+        .card-cta {
+            width: 100%;
+            background: var(--brand-blue);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .card-cta:hover { background: var(--brand-red); }
+
+        /* FEATURED SECTION - DARK ANGULAR */
+        .feature-section {
+            background: var(--brand-blue);
+            color: white;
+            padding: 100px 5%;
+            clip-path: polygon(0 8%, 100% 0, 100% 100%, 0 100%);
+            margin-top: -50px;
+        }
+        .feature-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            max-width: 1100px;
+            margin: 0 auto;
+            align-items: center;
+        }
+        .feature-tag {
+            color: var(--brand-red);
+            font-weight: 700;
+            letter-spacing: 2px;
+            font-size: 13px;
+            margin-bottom: 10px;
+        }
+        .feature-content h3 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-style: italic;
+        }
+        .feature-content p {
+            opacity: 0.9;
+            margin-bottom: 25px;
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .value-item {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            border-left: 4px solid var(--brand-red);
+        }
+        .value-item h4 {
+            color: white;
+            margin-bottom: 5px;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .value-item h4 i { color: var(--brand-red); }
+        .value-item p { font-size: 14px; margin: 0; opacity: 0.8; }
+
+        /* TILTED PHOTO CARD */
+        .photo-card {
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            transform: rotate(2deg);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+        .photo-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+        .photo-card-info {
+            padding: 15px;
+            color: #333;
+        }
+        .photo-card-info h4 { color: #333; margin-bottom: 10px; }
+        .photo-card-info .meta {
+            display: flex;
+            justify-content: space-between;
+            font-weight: 700;
+            font-size: 14px;
+        }
+        .photo-card-info .meta span:last-child { color: var(--brand-red); }
+
+        /* PRICE CARD */
+        .price-card {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            margin-top: 30px;
+            color: #333;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .price-current {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+        }
+        .price-old {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.2rem;
+            margin-left: 10px;
+        }
+        .price-save {
+            background: #28a745;
+            color: white;
+            padding: 6px 14px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 700;
+        }
+        .spots-left {
+            background: #fff3cd;
+            color: #856404;
+            padding: 10px 15px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+        .price-cta {
+            width: 100%;
+            background: var(--brand-red);
+            color: white;
+            border: none;
+            padding: 16px;
+            font-size: 15px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .price-cta:hover { background: #b00e26; }
+        .doubt-text {
+            text-align: center;
+            margin-top: 12px;
+            font-size: 12px;
+            color: #888;
+        }
+        .doubt-text i { color: #28a745; margin: 0 3px; }
+
+        /* STICKY BAR */
+        .sticky-bar {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            width: 100%;
+            background: white;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 999;
+            transition: bottom 0.5s;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.15);
+            border-top: 4px solid var(--brand-red);
+        }
+        .sticky-bar.visible { bottom: 0; }
+        .sticky-info { font-size: 12px; color: #666; }
+        .sticky-info strong { display: block; font-size: 16px; color: var(--brand-blue); }
+        .countdown {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.6rem;
+            color: var(--brand-blue);
+            font-weight: 700;
+        }
+        .countdown span { color: var(--brand-red); }
+
+        /* FOOTER */
+        footer {
+            background: #111;
+            color: #888;
+            padding: 50px 5% 100px;
+            text-align: center;
+        }
+        .footer-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+        .footer-brand span { color: var(--brand-red); }
+        .footer-tagline { margin-bottom: 25px; font-style: italic; }
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        .footer-links a { transition: 0.3s; }
+        .footer-links a:hover { color: var(--brand-red); }
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: 0.3s;
+        }
+        .footer-social a:hover {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+        .footer-copy { font-size: 13px; opacity: 0.5; }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .hero-content h1 { font-size: 2.8rem; }
+            header { clip-path: none; min-height: auto; padding: 120px 20px 100px; }
+            .stats-ticker { margin-top: 0; }
+            .feature-section { clip-path: none; margin-top: 0; padding: 60px 5%; }
+            .feature-grid { grid-template-columns: 1fr; }
+            .photo-card { transform: none; margin-top: 30px; }
+            .nav-links { display: none; }
+            .sticky-bar { flex-direction: column; gap: 12px; text-align: center; padding: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="navbar">
+    <a href="#" class="logo"><img src="data:image/webp;base64,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" alt="Why Racing Events" style="height:45px;"></a>
+    <div class="nav-links">
+        <a href="#">Races</a>
+        <a href="#">Results</a>
+        <a href="#">Training</a>
+        <a href="#">About</a>
+    </div>
+    <a href="#events" class="nav-btn">Find A Race</a>
+</nav>
+
+<!-- HERO -->
+<header>
+    <div class="hero-bg">
+            <video autoplay muted loop playsinline>
+                <source src="hero-video.mp4" type="video/mp4">
+            </video>
+        </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+        <h1>RUN. RIDE.<br><span>REMEMBER.</span></h1>
+        <p>Join the Pacific Northwest's most inclusive community of athletes. From first 5K to Ironman, your journey starts here.</p>
+        <div class="hero-proof">
+            <span><i class="fas fa-heart"></i> $3M+ Donated</span>
+            <span><i class="fas fa-users"></i> 50,000+ Athletes</span>
+            <span><i class="fas fa-star"></i> 4.8★ Rated</span>
+        </div>
+        <div class="hero-buttons">
+            <a href="#events" class="btn btn-primary">2026 Season Calendar</a>
+            <a href="#" class="btn btn-secondary">Watch Video</a>
+        </div>
+    </div>
+</header>
+
+<!-- SCROLLING TICKER -->
+<div class="stats-ticker">
+    <div class="ticker-track">
+        <span class="ticker-item"><i class="fas fa-heart"></i> $3M+ Donated to Charity</span>
+        <span class="ticker-item"><i class="fas fa-users"></i> 50,000+ Athletes Strong</span>
+        <span class="ticker-item"><i class="fas fa-trophy"></i> 21 Premier PNW Events</span>
+        <span class="ticker-item"><i class="fas fa-mountain"></i> Stunning Scenic Courses</span>
+        <span class="ticker-item"><i class="fas fa-medal"></i> Epic Swag & Medals</span>
+        <span class="ticker-item"><i class="fas fa-music"></i> Live Music & After Parties</span>
+        <span class="ticker-item"><i class="fas fa-heart"></i> $3M+ Donated to Charity</span>
+        <span class="ticker-item"><i class="fas fa-users"></i> 50,000+ Athletes Strong</span>
+        <span class="ticker-item"><i class="fas fa-trophy"></i> 21 Premier PNW Events</span>
+        <span class="ticker-item"><i class="fas fa-mountain"></i> Stunning Scenic Courses</span>
+        <span class="ticker-item"><i class="fas fa-medal"></i> Epic Swag & Medals</span>
+        <span class="ticker-item"><i class="fas fa-music"></i> Live Music & After Parties</span>
+    </div>
+</div>
+
+<!-- EVENTS -->
+<section id="events" class="section">
+    <div class="section-header">
+        <h2>Upcoming Events</h2>
+        <p>Choose your challenge. Experience the difference.</p>
+    </div>
+    <div class="event-grid">
+        <div class="event-card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1530143311094-34d807799e8f?w=600')">
+                <span class="card-tag">Halloween</span>
+            </div>
+            <div class="card-body">
+                <span class="card-date">October 2026</span>
+                <h3 class="card-title">Scary Run</h3>
+                <div class="card-meta">
+                    <span><i class="fas fa-route"></i> 5K / 10K / 15K</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Washougal, WA</span>
+                </div>
+                <button class="card-cta">Secure My Spot</button>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1516216628259-25081e130e8c?w=600')">
+                <span class="card-tag">Triathlon</span>
+            </div>
+            <div class="card-body">
+                <span class="card-date">August 7-8, 2026</span>
+                <h3 class="card-title">Columbia River Tri</h3>
+                <div class="card-meta">
+                    <span><i class="fas fa-swimmer"></i> Sprint / Olympic</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                </div>
+                <button class="card-cta">Secure My Spot</button>
+            </div>
+        </div>
+
+        <div class="event-card">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?w=600')">
+                <span class="card-tag">Marathon</span>
+            </div>
+            <div class="card-body">
+                <span class="card-date">August 29-30, 2026</span>
+                <h3 class="card-title">Appletree Marathon</h3>
+                <div class="card-meta">
+                    <span><i class="fas fa-road"></i> Boston Qualifier</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                </div>
+                <button class="card-cta">Secure My Spot</button>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FEATURED SECTION (DARK) -->
+<section class="feature-section">
+    <div class="feature-grid">
+        <div class="feature-content">
+            <span class="feature-tag">FEATURED RACE</span>
+            <h3>Scare Yourself Silly</h3>
+            <p>The Scary Run isn't just a run; it's a Halloween tradition. Costumes, eerie trails, and the best post-race party in the PNW.</p>
+            
+            <div class="value-item">
+                <h4><i class="fas fa-tshirt"></i> Epic Swag</h4>
+                <p>Oversized medals and technical hoodies included with registration.</p>
+            </div>
+            <div class="value-item">
+                <h4><i class="fas fa-beer"></i> After Party</h4>
+                <p>Free food, beer garden, and costume contests at the finish line.</p>
+            </div>
+
+            <!-- PRICE CARD WITH CONVERSION ELEMENTS -->
+            <div class="price-card">
+                <div class="price-row">
+                    <div>
+                        <span class="price-current">$45</span>
+                        <span class="price-old">$65</span>
+                    </div>
+                    <span class="price-save">SAVE $20</span>
+                </div>
+                <div class="spots-left">🔥 Only 127 Early Bird Spots Left!</div>
+                <button class="price-cta">Secure My Spot →</button>
+                <div class="doubt-text">
+                    <i class="fas fa-check-circle"></i> Free transfers
+                    <i class="fas fa-check-circle"></i> Secure checkout
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <div class="photo-card">
+                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600" alt="Course Map">
+                <div class="photo-card-info">
+                    <h4>Course Preview</h4>
+                    <div class="meta">
+                        <span>Start: 9:00 AM</span>
+                        <span>Elevation: 450ft</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <img src="data:image/webp;base64,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" alt="Why Racing Events" style="height: 50px; filter: brightness(0) invert(1); margin-bottom: 15px;">
+    <div class="footer-tagline">What's Your WHY?</div>
+    <div class="footer-links">
+        <a href="#">Events</a>
+        <a href="#">Training</a>
+        <a href="#">Results</a>
+        <a href="#">Volunteer</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="footer-social">
+        <a href="#"><i class="fab fa-facebook-f"></i></a>
+        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#"><i class="fab fa-twitter"></i></a>
+        <a href="#"><i class="fab fa-youtube"></i></a>
+    </div>
+    <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
+</footer>
+
+<!-- STICKY BAR -->
+<div id="stickyBar" class="sticky-bar">
+    <div class="sticky-info">
+        <span>Next Price Increase</span>
+        <strong>SCARY RUN 2026</strong>
+    </div>
+    <div class="countdown">
+        <span id="days">02</span>d <span id="hours">14</span>h <span id="mins">33</span>m <span id="secs">12</span>s
+    </div>
+    <a href="#" class="btn btn-primary">Lock In Price</a>
+</div>
+
+<script>
+// Nav scroll effect
+window.addEventListener('scroll', function() {
+    var nav = document.getElementById('navbar');
+    var sticky = document.getElementById('stickyBar');
+    
+    if (window.scrollY > 50) nav.classList.add('scrolled');
+    else nav.classList.remove('scrolled');
+
+    if (window.scrollY > 500) sticky.classList.add('visible');
+    else sticky.classList.remove('visible');
+});
+
+// Countdown
+var end = Date.now() + (2*24*60*60*1000) + (14*60*60*1000) + (33*60*1000);
+function updateTimer() {
+    var diff = end - Date.now();
+    if (diff < 0) diff = 0;
+    var d = Math.floor(diff / 86400000);
+    var h = Math.floor((diff % 86400000) / 3600000);
+    var m = Math.floor((diff % 3600000) / 60000);
+    var s = Math.floor((diff % 60000) / 1000);
+    document.getElementById('days').innerText = d < 10 ? '0'+d : d;
+    document.getElementById('hours').innerText = h < 10 ? '0'+h : h;
+    document.getElementById('mins').innerText = m < 10 ? '0'+m : m;
+    document.getElementById('secs').innerText = s < 10 ? '0'+s : s;
+}
+setInterval(updateTimer, 1000);
+updateTimer();
+</script>
+
+</body>
+</html>
