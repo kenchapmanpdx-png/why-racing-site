@@ -66,12 +66,11 @@
             transition: 0.4s;
         }
         nav.scrolled {
-            background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(227,24,55,0.8) 100%);
+            background: var(--brand-blue);
             padding: 10px 5%;
             box-shadow: 0 4px 20px rgba(0,0,0,0.2);
         }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; overflow: visible; padding: 10px 0; }
-        .logo img { filter: brightness(0) invert(1); transform: scale(1.5); transform-origin: left center; }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; }
         .logo span { color: var(--brand-red); }
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
@@ -114,24 +113,12 @@
             background: linear-gradient(45deg, rgba(0, 32, 91, 0.9) 0%, rgba(227, 24, 55, 0.5) 100%);
             z-index: -1;
         }
-        .hero-content .hero-tagline {
-            font-size: 4.1rem;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            margin-top: 30px;
-            margin-bottom: 30px;
-            font-weight: 700;
-            font-family: 'Oswald', sans-serif;
-            line-height: 1;
-        }
         .hero-content h1 {
-            font-size: 2rem;
-            line-height: 1;
-            margin-bottom: 40px;
+            font-size: 4rem;
+            line-height: 0.95;
+            margin-bottom: 20px;
             color: white;
             font-style: italic;
-            white-space: nowrap;
         }
         .hero-content h1 span { color: var(--brand-red); }
         .hero-content p {
@@ -519,8 +506,7 @@
 
         /* MOBILE */
         @media (max-width: 768px) {
-            .hero-content h1 { font-size: 1.8rem; white-space: normal; }
-            .hero-tagline { font-size: 1.8rem; letter-spacing: 2px; line-height: 1; }
+            .hero-content h1 { font-size: 2.8rem; }
             header { clip-path: none; min-height: auto; padding: 120px 20px 100px; }
             .stats-ticker { margin-top: 0; }
             .feature-section { clip-path: none; margin-top: 0; padding: 60px 5%; }
@@ -554,15 +540,16 @@
         </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <p class="hero-tagline">What's Your Why?</p>
-        <h1>RUN. RIDE. <span>REMEMBER.</span></h1>
-        <p>Join the Pacific Northwest's most inclusive community of athletes. Your journey starts here.</p>
+        <h1>RUN. RIDE.<br><span>REMEMBER.</span></h1>
+        <p>Join the Pacific Northwest's most inclusive community of athletes. From first 5K to Ironman, your journey starts here.</p>
         <div class="hero-proof">
             <span><i class="fas fa-heart"></i> $3M+ Donated</span>
             <span><i class="fas fa-users"></i> 50,000+ Athletes</span>
+            <span><i class="fas fa-star"></i> 4.8â˜… Rated</span>
         </div>
         <div class="hero-buttons">
             <a href="#events" class="btn btn-primary">2026 Season Calendar</a>
+            <a href="#" class="btn btn-secondary">Watch Video</a>
         </div>
     </div>
 </header>
@@ -626,7 +613,7 @@
 
         <!-- March -->
         <a href="pages/events/silver-falls-trail.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e366?w=600')">
+            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?w=600')">
                 <span class="card-tag">Trail</span>
             </div>
             <div class="card-body">
@@ -882,7 +869,7 @@
                 <h3 class="card-title">Battle to the Pacific</h3>
                 <div class="card-meta">
                     <span><i class="fas fa-users"></i> 120-Mile Team Relay</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Portland to Coast</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Portland → Coast</span>
                 </div>
                 <button class="card-cta">Secure My Spot</button>
             </div>
@@ -947,8 +934,8 @@
                     </div>
                     <span class="price-save">SAVE $20</span>
                 </div>
-                <div class="spots-left">🔥 Only 127 Early Bird Spots Left!</div>
-                <button class="price-cta">Secure My Spot →</button>
+                <div class="spots-left">ðŸ”¥ Only 127 Early Bird Spots Left!</div>
+                <button class="price-cta">Secure My Spot â†’</button>
                 <div class="doubt-text">
                     <i class="fas fa-check-circle"></i> Free transfers
                     <i class="fas fa-check-circle"></i> Secure checkout
@@ -988,7 +975,7 @@
         <a href="#"><i class="fab fa-twitter"></i></a>
         <a href="#"><i class="fab fa-youtube"></i></a>
     </div>
-    <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
+    <div class="footer-copy">Â© 2025 Why Racing Events Inc. â€¢ La Center, WA â€¢ (360) 314-4682</div>
 </footer>
 
 <!-- STICKY BAR -->
