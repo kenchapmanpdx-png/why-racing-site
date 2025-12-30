@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scary Run 2026 | Why Racing Events</title>
+    <meta name="description" content="The PNW's spookiest Halloween running event! Costumes, eerie trails, epic swag, and the best post-race party. October 24, 2026 in Washougal, WA.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --brand-red: #E31837; --brand-blue: #00205B; --dark: #0a0a0a; --light: #ffffff; --grey: #f4f4f4; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: #333; }
+        h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        a { text-decoration: none; color: inherit; }
+
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(227,24,55,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; }
+        .logo span { color: var(--brand-red); }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--brand-red); }
+        .nav-btn { background: white; color: var(--brand-red); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
+
+        .event-hero { height: 65vh; min-height: 450px; background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(227, 24, 55, 0.5)), url('https://images.unsplash.com/photo-1530143311094-34d807799e8f?w=1200') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; }
+        .event-hero-content .event-tag { background: var(--brand-red); padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
+        .event-hero-content h1 { font-size: 3.5rem; font-style: italic; margin-bottom: 15px; }
+        .event-hero-content .event-date { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+        .event-hero-content .event-location { font-size: 1.1rem; opacity: 0.9; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; }
+        .hero-cta { display: inline-block; background: var(--brand-red); color: white; padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; }
+        .hero-cta:hover { background: #b00e26; transform: translateY(-2px); }
+
+        /* COUNTDOWN BANNER */
+        .countdown-banner { background: var(--dark); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--brand-red); }
+        .countdown-label { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; }
+        .countdown-timer { display: flex; gap: 15px; }
+        .countdown-unit { text-align: center; }
+        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--brand-red); }
+        .countdown-text { font-size: 11px; text-transform: uppercase; opacity: 0.7; }
+
+        /* SOCIAL PROOF BAR */
+        .social-proof-bar { background: var(--grey); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 1px solid #ddd; }
+        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #555; }
+        .proof-item i { color: var(--brand-red); }
+        .proof-item .live-dot { width: 8px; height: 8px; background: #28a745; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .event-details { max-width: 1100px; margin: 0 auto; padding: 60px 5%; display: grid; grid-template-columns: 1.8fr 1fr; gap: 50px; }
+        .event-info h2 { font-size: 1.8rem; color: var(--brand-blue); font-style: italic; margin-bottom: 20px; }
+        .event-info p { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 20px; }
+        .event-info ul { list-style: none; margin-bottom: 30px; }
+        .event-info ul li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .event-info ul li i { color: var(--brand-red); width: 20px; }
+        .distances { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
+        .distance-tag { background: var(--grey); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: var(--brand-blue); border-left: 4px solid var(--brand-red); }
+
+        /* TESTIMONIAL */
+        .testimonial-box { background: #f8f9fa; border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 4px solid var(--brand-red); }
+        .testimonial-box p { font-style: italic; color: #555; margin-bottom: 15px; font-size: 15px; line-height: 1.7; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .testimonial-author .info { font-size: 13px; }
+        .testimonial-author .info strong { color: var(--brand-blue); display: block; }
+        .testimonial-stars { color: #ffc107; margin-bottom: 10px; font-size: 14px; }
+
+        /* REGISTRATION CARD */
+        .register-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); position: sticky; top: 100px; border-top: 5px solid var(--brand-red); }
+        .register-card h3 { font-size: 1.3rem; color: var(--brand-blue); margin-bottom: 5px; font-style: italic; text-align: center; }
+        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 20px; }
+        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--brand-red); letter-spacing: 2px; margin-bottom: 8px; }
+        .price-row { display: flex; justify-content: center; align-items: baseline; gap: 10px; }
+        .price-current { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; color: var(--brand-blue); }
+        .price-old { text-decoration: line-through; color: #999; font-size: 1.3rem; }
+        .price-save { background: #28a745; color: white; padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
+        .spots-warning { background: #fff3cd; color: #856404; padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; }
+        .register-btn { width: 100%; background: var(--brand-red); color: white; border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
+        .register-btn:hover { background: #b00e26; transform: translateY(-2px); }
+        .price-tiers { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .price-tier { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+        .price-tier-name { color: #555; }
+        .price-tier-amount { font-weight: 700; color: var(--brand-blue); }
+        .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; flex-wrap: wrap; }
+        .trust-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #666; }
+        .trust-badge i { color: #28a745; }
+        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: #999; }
+
+        /* FEATURES SECTION */
+        .course-section { background: var(--dark); color: white; padding: 60px 5%; }
+        .course-section h2 { text-align: center; font-size: 2rem; color: white; font-style: italic; margin-bottom: 40px; }
+        .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
+        .course-feature { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 12px; text-align: center; border-left: 4px solid var(--brand-red); }
+        .course-feature i { font-size: 2.5rem; color: var(--brand-red); margin-bottom: 15px; }
+        .course-feature h4 { color: white; margin-bottom: 10px; }
+        .course-feature p { color: rgba(255,255,255,0.8); font-size: 14px; }
+
+        /* FAQ */
+        .faq-section { padding: 60px 5%; max-width: 800px; margin: 0 auto; }
+        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--brand-blue); margin-bottom: 40px; font-style: italic; }
+        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+        .faq-question { font-weight: 700; color: var(--brand-blue); cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-answer { padding-top: 15px; color: #555; line-height: 1.7; }
+
+        footer { background: #111; color: #888; padding: 50px 5%; text-align: center; }
+        .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 10px; }
+        .footer-brand span { color: var(--brand-red); }
+        .footer-tagline { margin-bottom: 25px; font-style: italic; }
+        .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; }
+        .footer-links a { transition: 0.3s; }
+        .footer-links a:hover { color: var(--brand-red); }
+        .footer-copy { font-size: 13px; opacity: 0.5; }
+
+        @media (max-width: 900px) {
+            .event-hero-content h1 { font-size: 2.5rem; }
+            .event-details { grid-template-columns: 1fr; }
+            .register-card { position: static; }
+            .nav-links { display: none; }
+            .social-proof-bar { gap: 20px; }
+            .countdown-banner { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="../../index.html" class="logo">WHY<span>RACING</span></a>
+    <div class="nav-links">
+        <a href="../events.html">Races</a>
+        <a href="#">Results</a>
+        <a href="#">Training</a>
+        <a href="#">About</a>
+    </div>
+    <a href="#register" class="nav-btn">Register Now</a>
+</nav>
+
+<div class="event-hero">
+    <div class="event-hero-content">
+        <span class="event-tag">🎃 Halloween Favorite</span>
+        <div class="event-date">October 24, 2026</div>
+        <h1>Scary Run</h1>
+        <div class="event-location">
+            <i class="fas fa-map-marker-alt"></i> Washougal, WA
+        </div>
+        <a href="#register" class="hero-cta">Secure My Spot →</a>
+    </div>
+</div>
+
+<!-- COUNTDOWN BANNER -->
+<div class="countdown-banner">
+    <span class="countdown-label">🔥 Early Bird Pricing Ends In:</span>
+    <div class="countdown-timer">
+        <div class="countdown-unit"><div class="countdown-value" id="days">00</div><div class="countdown-text">Days</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="hours">00</div><div class="countdown-text">Hours</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="mins">00</div><div class="countdown-text">Mins</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="secs">00</div><div class="countdown-text">Secs</div></div>
+    </div>
+</div>
+
+<!-- SOCIAL PROOF BAR -->
+<div class="social-proof-bar">
+    <div class="proof-item"><div class="live-dot"></div> <strong>1,247</strong> runners registered</div>
+    <div class="proof-item"><i class="fas fa-star"></i> 4.9/5 rating (892 reviews)</div>
+    <div class="proof-item"><i class="fas fa-trophy"></i> Sold out 3 years running</div>
+</div>
+
+<section class="event-details">
+    <div class="event-info">
+        <h2>Scare Yourself Silly</h2>
+        <p>The Scary Run isn't just a race—it's a Halloween tradition! Join thousands of costumed runners for the Pacific Northwest's spookiest and most fun running event. Whether you're racing for a PR or just enjoying the eerie atmosphere, this is an experience you won't forget.</p>
+        <p>The course winds through scenic Washougal with surprise scares, themed aid stations, and the best post-race party of the season. Costumes are encouraged (and judged for prizes!).</p>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">Choose Your Distance</h3>
+        <div class="distances">
+            <span class="distance-tag">5K</span>
+            <span class="distance-tag">10K</span>
+            <span class="distance-tag">15K</span>
+        </div>
+
+        <!-- TESTIMONIAL -->
+        <div class="testimonial-box">
+            <div class="testimonial-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p>"This is hands-down my favorite race of the year! The costumes, the spooky course, the after-party—everything is perfect. I've done it 4 years in a row and already registered for next year!"</p>
+            <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Runner">
+                <div class="info">
+                    <strong>Michelle T.</strong>
+                    <span>4-time Scary Run finisher • Portland, OR</span>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">What's Included</h3>
+        <ul>
+            <li><i class="fas fa-medal"></i> Spooky oversized finisher medal</li>
+            <li><i class="fas fa-tshirt"></i> Halloween-themed premium tech hoodie</li>
+            <li><i class="fas fa-ghost"></i> Costume contest with amazing prizes</li>
+            <li><i class="fas fa-stopwatch"></i> Professional chip timing & results</li>
+            <li><i class="fas fa-beer"></i> Post-race beer garden & food</li>
+            <li><i class="fas fa-music"></i> Live music and celebration</li>
+            <li><i class="fas fa-heart"></i> Portion of proceeds to local charities</li>
+        </ul>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">Race Day Schedule</h3>
+        <ul>
+            <li><i class="fas fa-clock"></i> 6:30 AM - Packet Pickup Opens</li>
+            <li><i class="fas fa-clock"></i> 8:00 AM - 15K Start</li>
+            <li><i class="fas fa-clock"></i> 8:30 AM - 10K Start</li>
+            <li><i class="fas fa-clock"></i> 9:00 AM - 5K Start</li>
+            <li><i class="fas fa-clock"></i> 10:00 AM - Costume Contest</li>
+            <li><i class="fas fa-clock"></i> 10:30 AM - Awards & After Party</li>
+        </ul>
+    </div>
+
+    <div id="register" class="registration-sidebar">
+        <div class="register-card">
+            <h3>Register Now</h3>
+            <div class="price-highlight">
+                <div class="price-tier-label">🔥 Early Bird Pricing</div>
+                <div class="price-row">
+                    <span class="price-current">$45</span>
+                    <span class="price-old">$65</span>
+                </div>
+                <span class="price-save">You Save $20</span>
+            </div>
+            
+            <div class="spots-warning">⚡ Only 127 spots left at this price!</div>
+            
+            <button class="register-btn" onclick="window.location.href='https://runsignup.com/scary-run'">Count Me In! →</button>
+            
+            <div class="price-tiers">
+                <div class="price-tier">
+                    <span class="price-tier-name">Early Bird (ends Aug 31)</span>
+                    <span class="price-tier-amount">$45</span>
+                </div>
+                <div class="price-tier">
+                    <span class="price-tier-name">Regular (Sep 1 - Oct 15)</span>
+                    <span class="price-tier-amount">$55</span>
+                </div>
+                <div class="price-tier">
+                    <span class="price-tier-name">Race Week (Oct 16-24)</span>
+                    <span class="price-tier-amount">$65</span>
+                </div>
+            </div>
+            
+            <div class="trust-badges">
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Free Transfers</span>
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Secure Checkout</span>
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Instant Confirmation</span>
+            </div>
+            <div class="payment-icons">
+                <i class="fab fa-cc-visa fa-lg"></i>
+                <i class="fab fa-cc-mastercard fa-lg"></i>
+                <i class="fab fa-cc-paypal fa-lg"></i>
+                <i class="fab fa-cc-apple-pay fa-lg"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="course-section">
+    <h2>Why Runners Love Scary Run</h2>
+    <div class="course-features">
+        <div class="course-feature">
+            <i class="fas fa-ghost"></i>
+            <h4>Spooky Fun</h4>
+            <p>Themed aid stations, surprise scares, and Halloween atmosphere throughout the course</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-tshirt"></i>
+            <h4>Epic Swag</h4>
+            <p>Oversized finisher medal and premium Halloween-themed hoodie included</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-trophy"></i>
+            <h4>Costume Contest</h4>
+            <p>Amazing prizes for best costumes—creativity wins!</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-beer"></i>
+            <h4>Legendary After Party</h4>
+            <p>Free food, beer garden, and live music at the finish line</p>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <div class="faq-question">What time does packet pickup open?</div>
+        <div class="faq-answer">Packet pickup is available the day before (Friday, October 23) from 3pm-7pm at the race venue. Race morning pickup opens at 6:30 AM.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Is the course certified?</div>
+        <div class="faq-answer">The 10K course is USATF certified and qualifies for Boston Marathon qualifying times. The 5K and 15K are accurately measured but not certified.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">What is the refund/transfer policy?</div>
+        <div class="faq-answer">We offer free transfers up to 14 days before the event. Deferrals to the following year are available up to 7 days before. No refunds, but transfers are easy through your RunSignUp account.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Are strollers/dogs allowed?</div>
+        <div class="faq-answer">Strollers are welcome! Dogs in costume are allowed in the 5K only. Service animals are welcome in all distances.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Is the costume contest mandatory?</div>
+        <div class="faq-answer">Costumes are encouraged but not required. The contest happens after the race with prizes for Best Overall, Scariest, Most Creative, and Best Group costume.</div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-brand">WHY<span>RACING</span></div>
+    <div class="footer-tagline">What's Your WHY?</div>
+    <div class="footer-links">
+        <a href="../../index.html">Home</a>
+        <a href="../events.html">All Events</a>
+        <a href="#">Results</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 Why Racing Events Inc. | La Center, WA | (360) 314-4682</div>
+</footer>
+
+<script>
+// Countdown to Aug 31, 2026 (Early Bird deadline)
+var endDate = new Date('2026-08-31T23:59:59');
+function updateCountdown() {
+    var now = new Date().getTime(), diff = endDate - now;
+    if (diff < 0) { diff = 0; }
+    document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
+    document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+    document.getElementById('mins').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    document.getElementById('secs').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+}
+setInterval(updateCountdown, 1000); updateCountdown();
+</script>
+</body>
+</html>
