@@ -196,14 +196,14 @@
         .section { padding: 80px 5%; }
         .section-header { text-align: center; margin-bottom: 50px; }
         .section-header h2 { font-size: 2.5rem; color: var(--brand-blue); font-style: italic; }
-        .section-header p { color: #666; font-size: 1.1rem; }
+        .section-header p { color: #666; font-size: 1.1rem; margin-top: 10px; }
 
         /* EVENT CARDS */
         .event-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            max-width: 1200px;
+            max-width: 900px;
             margin: 0 auto;
         }
         .event-card {
@@ -295,6 +295,30 @@
             transition: 0.3s;
         }
         .card-cta:hover { background: var(--brand-red); }
+
+        /* VIEW ALL CTA */
+        .view-all-cta {
+            text-align: center;
+            margin-top: 50px;
+        }
+        .view-all-cta .btn {
+            font-size: 16px;
+            padding: 18px 40px;
+        }
+        .view-all-cta p {
+            margin-top: 15px;
+            color: #666;
+            font-size: 14px;
+        }
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--brand-blue);
+            color: var(--brand-blue);
+        }
+        .btn-outline:hover {
+            background: var(--brand-blue);
+            color: white;
+        }
 
         /* FEATURED SECTION - DARK ANGULAR */
         .feature-section {
@@ -585,14 +609,13 @@
     </div>
 </div>
 
-<!-- EVENTS -->
+<!-- UPCOMING EVENTS -->
 <section id="events" class="section">
     <div class="section-header">
-        <h2>2026 Race Calendar</h2>
-        <p>21 events across the Pacific Northwest. Choose your challenge.</p>
+        <h2>Upcoming Events</h2>
+        <p>Don't miss your next adventure. Registration is open!</p>
     </div>
     <div class="event-grid">
-        <!-- January -->
         <a href="pages/events/resolution-run.html" class="event-card">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?w=600')">
                 <span class="card-tag">New Year</span>
@@ -608,7 +631,6 @@
             </div>
         </a>
 
-        <!-- February -->
         <a href="pages/events/white-river-snowshoe.html" class="event-card">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1491002052546-bf38f186af56?w=600')">
                 <span class="card-tag">Winter</span>
@@ -623,301 +645,10 @@
                 <button class="card-cta">Secure My Spot</button>
             </div>
         </a>
-
-        <!-- March -->
-        <a href="pages/events/silver-falls-trail.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e366?w=600')">
-                <span class="card-tag">Trail</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">March 14, 2026</span>
-                <h3 class="card-title">Silver Falls Trail Challenge</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-mountain"></i> 10K / Half / 25K</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Silverton, OR</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <a href="pages/events/couve-clover-run.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1490730141103-6cac27abb37f?w=600')">
-                <span class="card-tag">St. Patrick's</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">March 14, 2026</span>
-                <h3 class="card-title">Couve Clover Run</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-route"></i> 5K / 10K / 15K</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <!-- April -->
-        <a href="pages/events/crown-stub-100.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?w=600')">
-                <span class="card-tag">Ultra</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">April 4-5, 2026</span>
-                <h3 class="card-title">Crown Stub 100</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-mountain"></i> 50K / 100K / 100M</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Stub Stewart, OR</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <a href="pages/events/stub-stewart-trail.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=600')">
-                <span class="card-tag">Trail</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">April 18, 2026</span>
-                <h3 class="card-title">Stub Stewart Trail Challenge</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-mountain"></i> 10K / Half / 30K</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Stub Stewart, OR</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <a href="pages/events/spring-classic.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=600')">
-                <span class="card-tag">Road Race</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">April 25, 2026</span>
-                <h3 class="card-title">Spring Classic</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-route"></i> 5K / 10K / Half</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <!-- May -->
-        <a href="pages/events/reflection-run.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=600')">
-                <span class="card-tag">Memorial Day</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">May 23, 2026</span>
-                <h3 class="card-title">Reflection Run</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-route"></i> 5K / 10K</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <!-- June -->
-        <a href="pages/events/pdx-triathlon-festival.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600')">
-                <span class="card-tag">Triathlon</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">June 6-7, 2026</span>
-                <h3 class="card-title">PDX Triathlon Festival</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-swimmer"></i> Sprint / Olympic / Kids</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Portland, OR</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <a href="pages/events/hagg-lake-triathlon.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600')">
-                <span class="card-tag">Triathlon</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">June 20, 2026</span>
-                <h3 class="card-title">Hagg Lake Triathlon</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-swimmer"></i> Sprint / Olympic</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Gaston, OR</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <!-- July -->
-        <a href="pages/events/bigfoot-5k-10k.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=600')">
-                <span class="card-tag">Fun Run</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">July 11, 2026</span>
-                <h3 class="card-title">Bigfoot 5K/10K</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-route"></i> 5K / 10K</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Skamania, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <a href="pages/events/hellz-bellz-ultra.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600')">
-                <span class="card-tag">Ultra</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">July 25, 2026</span>
-                <h3 class="card-title">Hellz Bellz Ultra</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-mountain"></i> 50K / 50M</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Washougal, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <!-- August -->
-        <a href="pages/events/columbia-river-tri.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1516216628259-25081e130e8c?w=600')">
-                <span class="card-tag">Triathlon</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">August 7-8, 2026</span>
-                <h3 class="card-title">Columbia River Tri Festival</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-swimmer"></i> Sprint / Olympic / Half</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <a href="pages/events/girlfriends-triathlon.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600')">
-                <span class="card-tag">Women's</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">August 15, 2026</span>
-                <h3 class="card-title">Girlfriends Triathlon</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-swimmer"></i> Super Sprint / Sprint</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <a href="pages/events/appletree-marathon.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?w=600')">
-                <span class="card-tag">BQ Course</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">August 29-30, 2026</span>
-                <h3 class="card-title">PeaceHealth Appletree Marathon</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-road"></i> 5K / 10K / Half / Full</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <!-- September -->
-        <a href="pages/events/pacific-coast-running.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600')">
-                <span class="card-tag">Beach</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">September 12, 2026</span>
-                <h3 class="card-title">Pacific Coast Running Festival</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-route"></i> 5K / 10K / Half</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Long Beach, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <a href="pages/events/girlfriends-half.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600')">
-                <span class="card-tag">Women's</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">September 26, 2026</span>
-                <h3 class="card-title">Girlfriends Half Marathon</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-route"></i> 5K / 10K / Half</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <!-- October -->
-        <a href="pages/events/scary-run.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1530143311094-34d807799e8f?w=600')">
-                <span class="card-tag">Halloween</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">October 24, 2026</span>
-                <h3 class="card-title">Scary Run</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-route"></i> 5K / 10K / 15K</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Washougal, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <!-- November -->
-        <a href="pages/events/battle-to-pacific.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?w=600')">
-                <span class="card-tag">Relay</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">November 7, 2026</span>
-                <h3 class="card-title">Battle to the Pacific</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-users"></i> 120-Mile Team Relay</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Portland to Coast</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <!-- December -->
-        <a href="pages/events/santas-holiday-hustle.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=600')">
-                <span class="card-tag">Holiday</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">December 5, 2026</span>
-                <h3 class="card-title">Santa's Holiday Hustle</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-route"></i> 5K / 10K</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
-
-        <a href="pages/events/pacific-crest-endurance.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600')">
-                <span class="card-tag">Ultra</span>
-            </div>
-            <div class="card-body">
-                <span class="card-date">December 12, 2026</span>
-                <h3 class="card-title">Pacific Crest Endurance Festival</h3>
-                <div class="card-meta">
-                    <span><i class="fas fa-mountain"></i> 50K / 50M / 100K</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Cascade Locks, OR</span>
-                </div>
-                <button class="card-cta">Secure My Spot</button>
-            </div>
-        </a>
+    </div>
+    <div class="view-all-cta">
+        <a href="pages/events.html" class="btn btn-outline">View All 2026 Events</a>
+        <p>21 races across the Pacific Northwest. Find your perfect challenge.</p>
     </div>
 </section>
 
