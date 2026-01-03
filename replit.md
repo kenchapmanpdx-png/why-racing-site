@@ -61,7 +61,13 @@ Each event detail page includes:
 - Fonts: Oswald (headings), Inter (body)
 - Event pages use themed hero backgrounds and colors per event type
 
-## Recent Changes (December 2025)
+## Recent Changes (January 2026)
+- Added distance filter bar to events calendar page with 8 filter options (All Events, 5K, 10K, Half Marathon, Marathon, Ultra 25K+, Trail Run, Triathlon)
+- All 21 event cards tagged with accurate data-distance attributes for filtering
+- JavaScript filtering hides/shows events and sections dynamically
+- Mobile-responsive filter bar with sticky positioning
+
+## Previous Changes (December 2025)
 - Applied conversion-optimized template to all 8 event pages
 - Added countdown timers with unique early bird deadlines per event
 - Added social proof elements and testimonials
