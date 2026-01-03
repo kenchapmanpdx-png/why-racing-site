@@ -211,9 +211,81 @@
         }
         .footer-copy { font-size: 13px; opacity: 0.5; }
 
+        .filter-bar {
+            background: white;
+            padding: 20px 5%;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 60px;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .filter-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brand-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .filter-label i { color: var(--brand-red); }
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+        .filter-btn {
+            padding: 10px 18px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #555;
+        }
+        .filter-btn:hover {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+        .filter-btn.active {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+            color: white;
+        }
+        .filter-btn.all-btn {
+            background: var(--brand-blue);
+            border-color: var(--brand-blue);
+            color: white;
+        }
+        .filter-btn.all-btn:hover {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+            display: none;
+        }
+        .no-results i { font-size: 3rem; margin-bottom: 15px; color: #ddd; }
+        .no-results h3 { color: var(--brand-blue); margin-bottom: 10px; }
+        .event-card.hidden { display: none; }
+
         @media (max-width: 768px) {
             .page-header h1 { font-size: 2rem; }
             .nav-links { display: none; }
+            .filter-bar { top: 55px; padding: 15px 5%; }
+            .filter-buttons { gap: 8px; }
+            .filter-btn { padding: 8px 14px; font-size: 12px; }
         }
     </style>
 </head>
@@ -235,13 +307,35 @@
     <p>21 events across the Pacific Northwest. Choose your challenge.</p>
 </div>
 
+<div class="filter-bar">
+    <div class="filter-container">
+        <div class="filter-label"><i class="fas fa-filter"></i> Filter by Distance</div>
+        <div class="filter-buttons">
+            <button class="filter-btn all-btn active" data-filter="all">All Events</button>
+            <button class="filter-btn" data-filter="5k">5K</button>
+            <button class="filter-btn" data-filter="10k">10K</button>
+            <button class="filter-btn" data-filter="half">Half Marathon</button>
+            <button class="filter-btn" data-filter="marathon">Marathon</button>
+            <button class="filter-btn" data-filter="ultra">Ultra (25K+)</button>
+            <button class="filter-btn" data-filter="trail">Trail Run</button>
+            <button class="filter-btn" data-filter="triathlon">Triathlon</button>
+        </div>
+    </div>
+</div>
+
+<div class="no-results" id="noResults">
+    <i class="fas fa-search"></i>
+    <h3>No Events Found</h3>
+    <p>Try selecting different distance filters above.</p>
+</div>
+
 <section class="section">
     <div class="section-header">
         <h2>January - March</h2>
         <p>Start the year strong with winter adventures</p>
     </div>
     <div class="event-grid">
-        <a href="events/resolution-run.html" class="event-card">
+        <a href="events/resolution-run.html" class="event-card" data-distance="5k 10k">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?w=600')">
                 <span class="card-tag">New Year</span>
             </div>
@@ -256,7 +350,7 @@
             </div>
         </a>
 
-        <a href="events/white-river-snowshoe.html" class="event-card">
+        <a href="events/white-river-snowshoe.html" class="event-card" data-distance="5k 10k trail">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1491002052546-bf38f186af56?w=600')">
                 <span class="card-tag">Winter</span>
             </div>
@@ -271,7 +365,7 @@
             </div>
         </a>
 
-        <a href="events/silver-falls-trail.html" class="event-card">
+        <a href="events/silver-falls-trail.html" class="event-card" data-distance="10k half ultra trail">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e366?w=600')">
                 <span class="card-tag">Trail</span>
             </div>
@@ -286,7 +380,7 @@
             </div>
         </a>
 
-        <a href="events/couve-clover-run.html" class="event-card">
+        <a href="events/couve-clover-run.html" class="event-card" data-distance="5k 10k">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1490730141103-6cac27abb37f?w=600')">
                 <span class="card-tag">St. Patrick's</span>
             </div>
@@ -309,7 +403,7 @@
         <p>Spring into action with trail runs and triathlons</p>
     </div>
     <div class="event-grid">
-        <a href="events/crown-stub-100.html" class="event-card">
+        <a href="events/crown-stub-100.html" class="event-card" data-distance="ultra trail">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1551632811-561732d1e306?w=600')">
                 <span class="card-tag">Ultra</span>
             </div>
@@ -324,7 +418,7 @@
             </div>
         </a>
 
-        <a href="events/stub-stewart-trail.html" class="event-card">
+        <a href="events/stub-stewart-trail.html" class="event-card" data-distance="10k half ultra trail">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1544723795-3fb6469f5b39?w=600')">
                 <span class="card-tag">Trail</span>
             </div>
@@ -339,7 +433,7 @@
             </div>
         </a>
 
-        <a href="events/spring-classic.html" class="event-card">
+        <a href="events/spring-classic.html" class="event-card" data-distance="5k 10k half">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=600')">
                 <span class="card-tag">Road Race</span>
             </div>
@@ -354,7 +448,7 @@
             </div>
         </a>
 
-        <a href="events/reflection-run.html" class="event-card">
+        <a href="events/reflection-run.html" class="event-card" data-distance="5k 10k">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1558981285-6f0c94958bb6?w=600')">
                 <span class="card-tag">Memorial Day</span>
             </div>
@@ -369,7 +463,7 @@
             </div>
         </a>
 
-        <a href="events/pdx-triathlon-festival.html" class="event-card">
+        <a href="events/pdx-triathlon-festival.html" class="event-card" data-distance="triathlon">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=600')">
                 <span class="card-tag">Triathlon</span>
             </div>
@@ -384,7 +478,7 @@
             </div>
         </a>
 
-        <a href="events/hagg-lake-triathlon.html" class="event-card">
+        <a href="events/hagg-lake-triathlon.html" class="event-card" data-distance="triathlon">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1517649763962-0c623066013b?w=600')">
                 <span class="card-tag">Triathlon</span>
             </div>
@@ -407,7 +501,7 @@
         <p>Summer racing at its finest</p>
     </div>
     <div class="event-grid">
-        <a href="events/bigfoot-5k-10k.html" class="event-card">
+        <a href="events/bigfoot-5k-10k.html" class="event-card" data-distance="5k 10k trail">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?w=600')">
                 <span class="card-tag">Fun Run</span>
             </div>
@@ -422,7 +516,7 @@
             </div>
         </a>
 
-        <a href="events/hellz-bellz-ultra.html" class="event-card">
+        <a href="events/hellz-bellz-ultra.html" class="event-card" data-distance="ultra trail">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600')">
                 <span class="card-tag">Ultra</span>
             </div>
@@ -437,7 +531,7 @@
             </div>
         </a>
 
-        <a href="events/columbia-river-tri.html" class="event-card">
+        <a href="events/columbia-river-tri.html" class="event-card" data-distance="triathlon half">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1516216628259-25081e130e8c?w=600')">
                 <span class="card-tag">Triathlon</span>
             </div>
@@ -452,7 +546,7 @@
             </div>
         </a>
 
-        <a href="events/girlfriends-triathlon.html" class="event-card">
+        <a href="events/girlfriends-triathlon.html" class="event-card" data-distance="triathlon">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600')">
                 <span class="card-tag">Women's</span>
             </div>
@@ -467,7 +561,7 @@
             </div>
         </a>
 
-        <a href="events/appletree-marathon.html" class="event-card">
+        <a href="events/appletree-marathon.html" class="event-card" data-distance="5k 10k half marathon">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1452626038306-9aae5e071dd3?w=600')">
                 <span class="card-tag">BQ Course</span>
             </div>
@@ -482,7 +576,7 @@
             </div>
         </a>
 
-        <a href="events/pacific-coast-running.html" class="event-card">
+        <a href="events/pacific-coast-running.html" class="event-card" data-distance="5k 10k half">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600')">
                 <span class="card-tag">Beach</span>
             </div>
@@ -497,7 +591,7 @@
             </div>
         </a>
 
-        <a href="events/girlfriends-half.html" class="event-card">
+        <a href="events/girlfriends-half.html" class="event-card" data-distance="5k 10k half">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=600')">
                 <span class="card-tag">Women's</span>
             </div>
@@ -520,7 +614,7 @@
         <p>Finish the year with fall favorites and holiday races</p>
     </div>
     <div class="event-grid">
-        <a href="events/scary-run.html" class="event-card">
+        <a href="events/scary-run.html" class="event-card" data-distance="5k 10k">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1530143311094-34d807799e8f?w=600')">
                 <span class="card-tag">Halloween</span>
             </div>
@@ -535,7 +629,7 @@
             </div>
         </a>
 
-        <a href="events/battle-to-pacific.html" class="event-card">
+        <a href="events/battle-to-pacific.html" class="event-card" data-distance="ultra">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?w=600')">
                 <span class="card-tag">Relay</span>
             </div>
@@ -550,7 +644,7 @@
             </div>
         </a>
 
-        <a href="events/santas-holiday-hustle.html" class="event-card">
+        <a href="events/santas-holiday-hustle.html" class="event-card" data-distance="5k 10k">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=600')">
                 <span class="card-tag">Holiday</span>
             </div>
@@ -565,7 +659,7 @@
             </div>
         </a>
 
-        <a href="events/pacific-crest-endurance.html" class="event-card">
+        <a href="events/pacific-crest-endurance.html" class="event-card" data-distance="ultra trail">
             <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=600')">
                 <span class="card-tag">Ultra</span>
             </div>
@@ -601,5 +695,45 @@
     <div class="footer-copy">&copy; 2025 Why Racing Events Inc. | La Center, WA | (360) 314-4682</div>
 </footer>
 
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    var filterBtns = document.querySelectorAll('.filter-btn');
+    var eventCards = document.querySelectorAll('.event-card');
+    var noResults = document.getElementById('noResults');
+    var sections = document.querySelectorAll('.section');
+    
+    filterBtns.forEach(function(btn) {
+        btn.addEventListener('click', function() {
+            var filter = this.dataset.filter;
+            
+            filterBtns.forEach(function(b) { b.classList.remove('active'); });
+            this.classList.add('active');
+            
+            var visibleCount = 0;
+            
+            eventCards.forEach(function(card) {
+                var distances = card.dataset.distance || '';
+                
+                if (filter === 'all' || distances.indexOf(filter) !== -1) {
+                    card.classList.remove('hidden');
+                    visibleCount++;
+                } else {
+                    card.classList.add('hidden');
+                }
+            });
+            
+            sections.forEach(function(section) {
+                var grid = section.querySelector('.event-grid');
+                if (grid) {
+                    var visibleCards = grid.querySelectorAll('.event-card:not(.hidden)');
+                    section.style.display = visibleCards.length === 0 ? 'none' : '';
+                }
+            });
+            
+            noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+        });
+    });
+});
+</script>
 </body>
 </html>
