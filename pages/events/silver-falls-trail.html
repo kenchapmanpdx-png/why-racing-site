@@ -8,99 +8,142 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --brand-red: #E31837; --brand-blue: #00205B; --dark: #0a0a0a; --light: #ffffff; --grey: #f4f4f4; }
+        :root {
+            --forest-green: #2e7d32;
+            --forest-green-dark: #1b5e20;
+            --forest-green-light: #4caf50;
+            --waterfall-blue: #0288d1;
+            --waterfall-blue-dark: #01579b;
+            --waterfall-blue-light: #03a9f4;
+            --earth-brown: #5d4037;
+            --earth-brown-light: #8d6e63;
+            --mist-white: #f5f9f5;
+            --mist-blue: #e3f2fd;
+            --brand-red: #E31837;
+            --brand-blue: #00205B;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f4f4f4;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Inter', sans-serif; background: var(--light); color: #333; }
+        body { font-family: 'Inter', sans-serif; background: var(--mist-white); color: #333; }
         h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
         a { text-decoration: none; color: inherit; }
 
-        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(227,24,55,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(27,94,32,0.97) 0%, rgba(46,125,50,0.97) 50%, rgba(2,136,209,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
         .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; }
-        .logo span { color: var(--brand-red); }
+        .logo span { color: var(--waterfall-blue-light); }
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
-        .nav-links a:hover { color: var(--brand-red); }
-        .nav-btn { background: white; color: var(--brand-red); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
+        .nav-links a:hover { color: var(--waterfall-blue-light); }
+        .nav-btn { background: white; color: var(--forest-green); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
+        .nav-btn:hover { background: var(--mist-blue); }
 
-        .event-hero { height: 60vh; min-height: 400px; background: linear-gradient(rgba(0, 32, 91, 0.8), rgba(34, 139, 34, 0.6)), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; }
-        .event-hero-content .event-tag { background: var(--brand-red); padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
-        .event-hero-content h1 { font-size: 3.5rem; font-style: italic; margin-bottom: 15px; }
+        .event-hero { height: 60vh; min-height: 450px; background: linear-gradient(135deg, rgba(27,94,32,0.85) 0%, rgba(46,125,50,0.7) 40%, rgba(2,136,209,0.6) 100%), url('https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1200') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; position: relative; overflow: hidden; }
+        .floating-icons { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; overflow: hidden; }
+        .floating-icon { position: absolute; font-size: 2rem; opacity: 0.4; animation: float 8s ease-in-out infinite; }
+        .floating-icon:nth-child(1) { left: 5%; top: 20%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { left: 15%; top: 60%; animation-delay: 1s; font-size: 1.5rem; }
+        .floating-icon:nth-child(3) { left: 85%; top: 25%; animation-delay: 2s; }
+        .floating-icon:nth-child(4) { left: 90%; top: 70%; animation-delay: 3s; font-size: 1.8rem; }
+        .floating-icon:nth-child(5) { left: 75%; top: 15%; animation-delay: 4s; font-size: 1.6rem; }
+        .floating-icon:nth-child(6) { left: 10%; top: 80%; animation-delay: 5s; }
+        .floating-icon:nth-child(7) { left: 50%; top: 10%; animation-delay: 2.5s; font-size: 1.4rem; }
+        .floating-icon:nth-child(8) { left: 60%; top: 85%; animation-delay: 3.5s; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(5deg); } }
+        .event-hero-content { position: relative; z-index: 2; }
+        .event-hero-content .event-tag { background: linear-gradient(135deg, var(--forest-green) 0%, var(--waterfall-blue) 100%); padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
+        .event-hero-content h1 { font-size: 3.5rem; font-style: italic; margin-bottom: 15px; text-shadow: 2px 2px 8px rgba(0,0,0,0.3); }
         .event-hero-content .event-date { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
         .event-hero-content .event-location { font-size: 1.1rem; opacity: 0.9; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; }
-        .hero-cta { display: inline-block; background: var(--brand-red); color: white; padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; }
-        .hero-cta:hover { background: #b00e26; transform: translateY(-2px); }
+        .hero-cta { display: inline-block; background: linear-gradient(135deg, var(--forest-green) 0%, var(--forest-green-dark) 100%); color: white; padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; box-shadow: 0 4px 15px rgba(46,125,50,0.4); }
+        .hero-cta:hover { background: linear-gradient(135deg, var(--forest-green-light) 0%, var(--forest-green) 100%); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46,125,50,0.5); }
 
-        .countdown-banner { background: var(--dark); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--brand-red); }
-        .countdown-label { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; }
+        .countdown-banner { background: linear-gradient(90deg, var(--forest-green-dark) 0%, var(--forest-green) 50%, var(--waterfall-blue-dark) 100%); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--waterfall-blue); }
+        .countdown-label { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; display: flex; align-items: center; gap: 10px; }
+        .countdown-label::before { content: '🌲'; font-size: 1.2rem; }
         .countdown-timer { display: flex; gap: 15px; }
         .countdown-unit { text-align: center; }
-        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--brand-red); }
-        .countdown-text { font-size: 11px; text-transform: uppercase; opacity: 0.7; }
+        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--mist-white); text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .countdown-text { font-size: 11px; text-transform: uppercase; opacity: 0.8; }
 
-        .social-proof-bar { background: var(--grey); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 1px solid #ddd; }
-        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #555; }
-        .proof-item i { color: var(--brand-red); }
-        .proof-item .live-dot { width: 8px; height: 8px; background: #28a745; border-radius: 50%; animation: pulse 2s infinite; }
+        .social-proof-bar { background: linear-gradient(135deg, var(--mist-white) 0%, var(--mist-blue) 100%); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 2px solid rgba(46,125,50,0.2); }
+        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--forest-green-dark); }
+        .proof-item i { color: var(--waterfall-blue); }
+        .proof-item .live-dot { width: 8px; height: 8px; background: var(--forest-green); border-radius: 50%; animation: pulse 2s infinite; }
         @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
 
         .event-details { max-width: 1100px; margin: 0 auto; padding: 60px 5%; display: grid; grid-template-columns: 1.8fr 1fr; gap: 50px; }
-        .event-info h2 { font-size: 1.8rem; color: var(--brand-blue); font-style: italic; margin-bottom: 20px; }
+        .event-info h2 { font-size: 1.8rem; color: var(--forest-green-dark); font-style: italic; margin-bottom: 20px; }
+        .event-info h2::before { content: '💧 '; }
         .event-info p { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 20px; }
         .event-info ul { list-style: none; margin-bottom: 30px; }
-        .event-info ul li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-weight: 600; }
-        .event-info ul li i { color: var(--brand-red); width: 20px; }
+        .event-info ul li { padding: 12px 0; border-bottom: 1px solid rgba(46,125,50,0.15); display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .event-info ul li i { color: var(--forest-green); width: 20px; }
+        .event-info h3 { color: var(--forest-green-dark); }
+        .event-info h3::before { content: '🌿 '; }
         .distances { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
-        .distance-tag { background: var(--grey); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: var(--brand-blue); border-left: 4px solid var(--brand-red); }
+        .distance-tag { background: linear-gradient(135deg, var(--mist-white) 0%, var(--mist-blue) 100%); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: var(--forest-green-dark); border-left: 4px solid var(--waterfall-blue); box-shadow: 0 2px 8px rgba(0,0,0,0.05); }
 
-        .testimonial-box { background: #f8f9fa; border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 4px solid var(--brand-red); }
+        .testimonial-box { background: linear-gradient(135deg, var(--mist-white) 0%, rgba(46,125,50,0.08) 100%); border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 4px solid var(--forest-green); box-shadow: 0 4px 15px rgba(46,125,50,0.1); }
         .testimonial-box p { font-style: italic; color: #555; margin-bottom: 15px; font-size: 15px; line-height: 1.7; }
         .testimonial-author { display: flex; align-items: center; gap: 12px; }
-        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--forest-green); }
         .testimonial-author .info { font-size: 13px; }
-        .testimonial-author .info strong { color: var(--brand-blue); display: block; }
+        .testimonial-author .info strong { color: var(--forest-green-dark); display: block; }
         .testimonial-stars { color: #ffc107; margin-bottom: 10px; font-size: 14px; }
 
-        .register-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); position: sticky; top: 100px; border-top: 5px solid var(--brand-red); }
-        .register-card h3 { font-size: 1.3rem; color: var(--brand-blue); margin-bottom: 5px; font-style: italic; text-align: center; }
-        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 20px; }
-        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--brand-red); letter-spacing: 2px; margin-bottom: 8px; }
+        .register-card { background: linear-gradient(180deg, white 0%, var(--mist-white) 100%); border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(46,125,50,0.15); position: sticky; top: 100px; border-top: 5px solid var(--forest-green); }
+        .register-card h3 { font-size: 1.3rem; color: var(--forest-green-dark); margin-bottom: 5px; font-style: italic; text-align: center; }
+        .register-card h3::before { content: '🏞️ '; }
+        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 1px solid rgba(46,125,50,0.2); margin-bottom: 20px; }
+        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--waterfall-blue); letter-spacing: 2px; margin-bottom: 8px; }
         .price-row { display: flex; justify-content: center; align-items: baseline; gap: 10px; }
-        .price-current { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; color: var(--brand-blue); }
+        .price-current { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; color: var(--forest-green-dark); }
         .price-old { text-decoration: line-through; color: #999; font-size: 1.3rem; }
-        .price-save { background: #28a745; color: white; padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
-        .spots-warning { background: #fff3cd; color: #856404; padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; }
-        .register-btn { width: 100%; background: var(--brand-red); color: white; border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
-        .register-btn:hover { background: #b00e26; transform: translateY(-2px); }
-        .price-tiers { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .price-save { background: linear-gradient(135deg, var(--forest-green) 0%, var(--forest-green-light) 100%); color: white; padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
+        .spots-warning { background: linear-gradient(135deg, #e8f5e9 0%, var(--mist-blue) 100%); color: var(--forest-green-dark); padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; border: 1px solid rgba(46,125,50,0.2); }
+        .spots-warning::before { content: '🍃 '; }
+        .register-btn { width: 100%; background: linear-gradient(135deg, var(--forest-green) 0%, var(--forest-green-dark) 100%); color: white; border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(46,125,50,0.3); }
+        .register-btn:hover { background: linear-gradient(135deg, var(--forest-green-light) 0%, var(--forest-green) 100%); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(46,125,50,0.4); }
+        .register-btn::before { content: '🌲 '; }
+        .price-tiers { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(46,125,50,0.2); }
         .price-tier { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
         .price-tier-name { color: #555; }
-        .price-tier-amount { font-weight: 700; color: var(--brand-blue); }
-        .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; flex-wrap: wrap; }
+        .price-tier-amount { font-weight: 700; color: var(--forest-green-dark); }
+        .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(46,125,50,0.2); flex-wrap: wrap; }
         .trust-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #666; }
-        .trust-badge i { color: #28a745; }
-        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: #999; }
+        .trust-badge i { color: var(--forest-green); }
+        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: var(--earth-brown-light); }
 
-        .course-section { background: var(--grey); padding: 60px 5%; }
-        .course-section h2 { text-align: center; font-size: 2rem; color: var(--brand-blue); font-style: italic; margin-bottom: 40px; }
-        .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .course-feature { background: white; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .course-feature i { font-size: 2.5rem; color: var(--brand-red); margin-bottom: 15px; }
-        .course-feature h4 { color: var(--brand-blue); margin-bottom: 10px; }
+        .course-section { background: linear-gradient(135deg, var(--forest-green-dark) 0%, var(--forest-green) 50%, var(--waterfall-blue-dark) 100%); padding: 60px 5%; position: relative; overflow: hidden; }
+        .course-section::before { content: '🍃'; position: absolute; top: 20px; left: 5%; font-size: 3rem; opacity: 0.15; }
+        .course-section::after { content: '🌊'; position: absolute; bottom: 20px; right: 5%; font-size: 3rem; opacity: 0.15; }
+        .course-section h2 { text-align: center; font-size: 2rem; color: white; font-style: italic; margin-bottom: 40px; text-shadow: 0 2px 4px rgba(0,0,0,0.2); }
+        .course-section h2::before { content: '🌲 '; }
+        .course-section h2::after { content: ' 💧'; }
+        .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
+        .course-feature { background: rgba(255,255,255,0.95); padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border-bottom: 4px solid var(--waterfall-blue); transition: transform 0.3s; }
+        .course-feature:hover { transform: translateY(-5px); }
+        .course-feature i { font-size: 2.5rem; color: var(--waterfall-blue); margin-bottom: 15px; }
+        .course-feature h4 { color: var(--forest-green-dark); margin-bottom: 10px; }
         .course-feature p { color: #666; font-size: 14px; }
 
-        .faq-section { padding: 60px 5%; max-width: 800px; margin: 0 auto; }
-        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--brand-blue); margin-bottom: 40px; font-style: italic; }
-        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
-        .faq-question { font-weight: 700; color: var(--brand-blue); cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-section { padding: 60px 5%; max-width: 800px; margin: 0 auto; background: var(--mist-white); }
+        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--forest-green-dark); margin-bottom: 40px; font-style: italic; }
+        .faq-section h2::before { content: '🌿 '; }
+        .faq-item { border-bottom: 1px solid rgba(46,125,50,0.15); padding: 20px 0; }
+        .faq-question { font-weight: 700; color: var(--forest-green-dark); cursor: pointer; display: flex; justify-content: space-between; }
         .faq-answer { padding-top: 15px; color: #555; line-height: 1.7; }
 
-        footer { background: #111; color: #888; padding: 50px 5%; text-align: center; }
+        footer { background: linear-gradient(135deg, var(--earth-brown) 0%, var(--forest-green-dark) 100%); color: rgba(255,255,255,0.8); padding: 50px 5%; text-align: center; }
         .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 10px; }
-        .footer-brand span { color: var(--brand-red); }
-        .footer-tagline { margin-bottom: 25px; font-style: italic; }
+        .footer-brand span { color: var(--waterfall-blue-light); }
+        .footer-tagline { margin-bottom: 25px; font-style: italic; color: rgba(255,255,255,0.7); }
+        .footer-tagline::before { content: '🏞️ '; }
         .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; }
-        .footer-links a { transition: 0.3s; }
-        .footer-links a:hover { color: var(--brand-red); }
+        .footer-links a { transition: 0.3s; color: rgba(255,255,255,0.8); }
+        .footer-links a:hover { color: var(--waterfall-blue-light); }
         .footer-copy { font-size: 13px; opacity: 0.5; }
 
         @media (max-width: 900px) {
@@ -110,6 +153,7 @@
             .nav-links { display: none; }
             .social-proof-bar { gap: 20px; }
             .countdown-banner { gap: 20px; }
+            .floating-icon { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -123,18 +167,28 @@
         <a href="#">Training</a>
         <a href="#">About</a>
     </div>
-    <a href="#register" class="nav-btn">Register Now</a>
+    <a href="#register" class="nav-btn">🌲 Register Now</a>
 </nav>
 
 <div class="event-hero">
+    <div class="floating-icons">
+        <span class="floating-icon">🌲</span>
+        <span class="floating-icon">💧</span>
+        <span class="floating-icon">🌿</span>
+        <span class="floating-icon">🏞️</span>
+        <span class="floating-icon">🍃</span>
+        <span class="floating-icon">🌊</span>
+        <span class="floating-icon">🌲</span>
+        <span class="floating-icon">💧</span>
+    </div>
     <div class="event-hero-content">
-        <span class="event-tag">Trail Running</span>
+        <span class="event-tag">🌲 Trail Running 💧</span>
         <div class="event-date">March 14, 2026</div>
         <h1>Silver Falls Trail Challenge</h1>
         <div class="event-location">
-            <i class="fas fa-map-marker-alt"></i> Silverton, OR
+            <i class="fas fa-map-marker-alt"></i> Silverton, OR 🏞️
         </div>
-        <a href="#register" class="hero-cta">Secure My Spot</a>
+        <a href="#register" class="hero-cta">🌿 Secure My Spot</a>
     </div>
 </div>
 
@@ -151,7 +205,7 @@
 <div class="social-proof-bar">
     <div class="proof-item"><div class="live-dot"></div> <strong>1,423</strong> runners registered</div>
     <div class="proof-item"><i class="fas fa-star"></i> 4.9/5 rating (567 reviews)</div>
-    <div class="proof-item"><i class="fas fa-water"></i> See 10 stunning waterfalls!</div>
+    <div class="proof-item"><i class="fas fa-water"></i> See 10 stunning waterfalls! 🌊</div>
 </div>
 
 <section class="event-details">
@@ -160,43 +214,43 @@
         <p>Experience the magic of Silver Falls State Park on one of the most stunning trail courses in the Pacific Northwest. This isn't just a race - it's a journey through Oregon's crown jewel, passing 10 breathtaking waterfalls including the iconic 177-foot South Falls.</p>
         <p>Whether you're tackling the 10K, half marathon, or the epic 50K ultra, you'll experience trails that literally take you behind waterfalls. This is bucket-list running at its finest.</p>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">Choose Your Distance</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; font-style: italic;">Choose Your Distance</h3>
         <div class="distances">
-            <span class="distance-tag">10K</span>
-            <span class="distance-tag">Half Marathon</span>
-            <span class="distance-tag">50K Ultra</span>
+            <span class="distance-tag">🏃 10K</span>
+            <span class="distance-tag">🌲 Half Marathon</span>
+            <span class="distance-tag">🏔️ 50K Ultra</span>
         </div>
 
         <div class="testimonial-box">
             <div class="testimonial-stars">
                 <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
             </div>
-            <p>"Running behind South Falls was unreal - you literally run behind a 177-foot waterfall! This trail race has the most stunning scenery I've ever experienced."</p>
+            <p>"Running behind South Falls was unreal - you literally run behind a 177-foot waterfall! This trail race has the most stunning scenery I've ever experienced." 🌊</p>
             <div class="testimonial-author">
                 <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=100" alt="Runner">
                 <div class="info">
                     <strong>James P.</strong>
-                    <span>Ultra runner - Bend, OR</span>
+                    <span>Ultra runner - Bend, OR 🌲</span>
                 </div>
             </div>
         </div>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">What's Included</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; font-style: italic;">What's Included</h3>
         <ul>
-            <li><i class="fas fa-medal"></i> Custom waterfall-themed finisher medal</li>
+            <li><i class="fas fa-medal"></i> Custom waterfall-themed finisher medal 🏅</li>
             <li><i class="fas fa-tshirt"></i> Technical trail running shirt</li>
             <li><i class="fas fa-stopwatch"></i> Professional chip timing & results</li>
             <li><i class="fas fa-cookie"></i> Aid stations with local treats</li>
-            <li><i class="fas fa-beer"></i> Oregon craft beer at finish</li>
-            <li><i class="fas fa-heart"></i> Portion of proceeds to park conservation</li>
+            <li><i class="fas fa-beer"></i> Oregon craft beer at finish 🍺</li>
+            <li><i class="fas fa-heart"></i> Portion of proceeds to park conservation 🌿</li>
         </ul>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">Race Day Schedule</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; font-style: italic;">Race Day Schedule</h3>
         <ul>
-            <li><i class="fas fa-clock"></i> 5:30 AM - 50K Start</li>
+            <li><i class="fas fa-clock"></i> 5:30 AM - 50K Start 🌄</li>
             <li><i class="fas fa-clock"></i> 7:00 AM - Half Marathon Start</li>
             <li><i class="fas fa-clock"></i> 8:00 AM - 10K Start</li>
-            <li><i class="fas fa-clock"></i> 12:00 PM - Awards & Celebration</li>
+            <li><i class="fas fa-clock"></i> 12:00 PM - Awards & Celebration 🎉</li>
         </ul>
     </div>
 
@@ -204,12 +258,12 @@
         <div class="register-card">
             <h3>Register Now</h3>
             <div class="price-highlight">
-                <div class="price-tier-label">Early Bird Pricing</div>
+                <div class="price-tier-label">💧 Early Bird Pricing</div>
                 <div class="price-row">
                     <span class="price-current">$55</span>
                     <span class="price-old">$75</span>
                 </div>
-                <span class="price-save">You Save $20</span>
+                <span class="price-save">🌿 You Save $20</span>
             </div>
             
             <div class="spots-warning">Only 156 early bird spots remaining!</div>
@@ -218,15 +272,15 @@
             
             <div class="price-tiers">
                 <div class="price-tier">
-                    <span class="price-tier-name">Early Bird (ends Jan 31)</span>
+                    <span class="price-tier-name">🌱 Early Bird (ends Jan 31)</span>
                     <span class="price-tier-amount">$55</span>
                 </div>
                 <div class="price-tier">
-                    <span class="price-tier-name">Regular (Feb 1 - Mar 7)</span>
+                    <span class="price-tier-name">🌲 Regular (Feb 1 - Mar 7)</span>
                     <span class="price-tier-amount">$65</span>
                 </div>
                 <div class="price-tier">
-                    <span class="price-tier-name">Race Week (Mar 8-14)</span>
+                    <span class="price-tier-name">🏁 Race Week (Mar 8-14)</span>
                     <span class="price-tier-amount">$75</span>
                 </div>
             </div>
@@ -251,22 +305,22 @@
     <div class="course-features">
         <div class="course-feature">
             <i class="fas fa-water"></i>
-            <h4>10 Waterfalls</h4>
+            <h4>🌊 10 Waterfalls</h4>
             <p>Experience Oregon's crown jewel park and its stunning cascade collection</p>
         </div>
         <div class="course-feature">
             <i class="fas fa-mountain"></i>
-            <h4>Technical Trails</h4>
+            <h4>🌲 Technical Trails</h4>
             <p>Challenging terrain perfect for trail runners of all abilities</p>
         </div>
         <div class="course-feature">
             <i class="fas fa-medal"></i>
-            <h4>Premium Swag</h4>
+            <h4>🏅 Premium Swag</h4>
             <p>Waterfall-themed finisher medal and technical trail shirt</p>
         </div>
         <div class="course-feature">
             <i class="fas fa-beer"></i>
-            <h4>Local Flavors</h4>
+            <h4>🍺 Local Flavors</h4>
             <p>Oregon craft beer and local treats at the finish line</p>
         </div>
     </div>
@@ -300,10 +354,10 @@
     <div class="footer-brand">WHY<span>RACING</span></div>
     <div class="footer-tagline">What's Your WHY?</div>
     <div class="footer-links">
-        <a href="../../index.html">Home</a>
-        <a href="../events.html">All Events</a>
-        <a href="#">Results</a>
-        <a href="#">Contact</a>
+        <a href="../../index.html">🏠 Home</a>
+        <a href="../events.html">🏃 All Events</a>
+        <a href="#">📊 Results</a>
+        <a href="#">📧 Contact</a>
     </div>
     <div class="footer-copy">&copy; 2025 Why Racing Events Inc. | La Center, WA | (360) 314-4682</div>
 </footer>

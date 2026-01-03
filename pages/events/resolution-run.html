@@ -8,99 +8,141 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --brand-red: #E31837; --brand-blue: #00205B; --dark: #0a0a0a; --light: #ffffff; --grey: #f4f4f4; }
+        :root {
+            --gold: #ffd700;
+            --champagne: #f7e7ce;
+            --midnight-blue: #191970;
+            --midnight-dark: #0f0f4a;
+            --sparkle-silver: #c0c0c0;
+            --brand-red: #E31837;
+            --brand-blue: #00205B;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f4f4f4;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--light); color: #333; }
         h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
         a { text-decoration: none; color: inherit; }
 
-        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(227,24,55,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, var(--midnight-dark) 0%, var(--midnight-blue) 50%, rgba(255, 215, 0, 0.9) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
         .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; }
-        .logo span { color: var(--brand-red); }
+        .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
-        .nav-links a:hover { color: var(--brand-red); }
-        .nav-btn { background: white; color: var(--brand-red); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-btn { background: var(--gold); color: var(--midnight-blue); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
 
-        .event-hero { height: 60vh; min-height: 400px; background: linear-gradient(rgba(0, 32, 91, 0.8), rgba(227, 24, 55, 0.6)), url('https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?w=1200') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; }
-        .event-hero-content .event-tag { background: var(--brand-red); padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
-        .event-hero-content h1 { font-size: 3.5rem; font-style: italic; margin-bottom: 15px; }
-        .event-hero-content .event-date { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+        .event-hero { height: 60vh; min-height: 400px; background: linear-gradient(135deg, rgba(25, 25, 112, 0.9) 0%, rgba(15, 15, 74, 0.85) 40%, rgba(255, 215, 0, 0.7) 100%), url('https://images.unsplash.com/photo-1513593771513-7b58b6c4af38?w=1200') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; position: relative; overflow: hidden; }
+        
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.8; } 50% { transform: translateY(-20px) rotate(10deg); opacity: 1; } }
+        @keyframes sparkle { 0%, 100% { opacity: 0.3; transform: scale(0.8); } 50% { opacity: 1; transform: scale(1.2); } }
+        @keyframes confetti { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(720deg); opacity: 0; } }
+        
+        .floating-icons { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; overflow: hidden; }
+        .floating-icon { position: absolute; font-size: 2rem; animation: float 4s ease-in-out infinite; }
+        .floating-icon:nth-child(1) { left: 5%; top: 20%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { left: 15%; top: 60%; animation-delay: 0.5s; font-size: 1.5rem; }
+        .floating-icon:nth-child(3) { left: 25%; top: 30%; animation-delay: 1s; }
+        .floating-icon:nth-child(4) { right: 25%; top: 25%; animation-delay: 1.5s; }
+        .floating-icon:nth-child(5) { right: 15%; top: 55%; animation-delay: 2s; font-size: 1.5rem; }
+        .floating-icon:nth-child(6) { right: 5%; top: 35%; animation-delay: 2.5s; }
+        .floating-icon:nth-child(7) { left: 40%; top: 15%; animation-delay: 0.3s; font-size: 1.2rem; }
+        .floating-icon:nth-child(8) { right: 40%; top: 70%; animation-delay: 1.8s; font-size: 1.2rem; }
+        
+        .sparkle-overlay { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; }
+        .sparkle { position: absolute; width: 4px; height: 4px; background: var(--gold); border-radius: 50%; animation: sparkle 2s ease-in-out infinite; box-shadow: 0 0 10px var(--gold), 0 0 20px var(--gold); }
+        .sparkle:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .sparkle:nth-child(2) { left: 20%; top: 50%; animation-delay: 0.3s; }
+        .sparkle:nth-child(3) { left: 30%; top: 35%; animation-delay: 0.6s; }
+        .sparkle:nth-child(4) { left: 50%; top: 15%; animation-delay: 0.9s; }
+        .sparkle:nth-child(5) { left: 60%; top: 45%; animation-delay: 1.2s; }
+        .sparkle:nth-child(6) { left: 70%; top: 25%; animation-delay: 1.5s; }
+        .sparkle:nth-child(7) { left: 80%; top: 55%; animation-delay: 1.8s; }
+        .sparkle:nth-child(8) { left: 90%; top: 30%; animation-delay: 2.1s; }
+        .sparkle:nth-child(9) { left: 15%; top: 70%; animation-delay: 0.4s; }
+        .sparkle:nth-child(10) { left: 85%; top: 65%; animation-delay: 1.1s; }
+
+        .event-hero-content { position: relative; z-index: 2; }
+        .event-hero-content .event-tag { background: linear-gradient(135deg, var(--gold) 0%, #ffec80 100%); padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; color: var(--midnight-blue); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
+        .event-hero-content h1 { font-size: 3.5rem; font-style: italic; margin-bottom: 15px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .event-hero-content .event-date { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; color: var(--champagne); }
         .event-hero-content .event-location { font-size: 1.1rem; opacity: 0.9; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; }
-        .hero-cta { display: inline-block; background: var(--brand-red); color: white; padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; }
-        .hero-cta:hover { background: #b00e26; transform: translateY(-2px); }
+        .hero-cta { display: inline-block; background: linear-gradient(135deg, var(--gold) 0%, #ffec80 100%); color: var(--midnight-blue); padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; box-shadow: 0 4px 20px rgba(255, 215, 0, 0.4); }
+        .hero-cta:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6); }
 
-        .countdown-banner { background: var(--dark); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--brand-red); }
-        .countdown-label { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; }
+        .countdown-banner { background: var(--midnight-blue); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--gold); }
+        .countdown-label { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; display: flex; align-items: center; gap: 8px; }
         .countdown-timer { display: flex; gap: 15px; }
         .countdown-unit { text-align: center; }
-        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--brand-red); }
-        .countdown-text { font-size: 11px; text-transform: uppercase; opacity: 0.7; }
+        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--gold); text-shadow: 0 0 10px rgba(255, 215, 0, 0.5); }
+        .countdown-text { font-size: 11px; text-transform: uppercase; opacity: 0.7; color: var(--champagne); }
 
-        .social-proof-bar { background: var(--grey); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 1px solid #ddd; }
-        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #555; }
-        .proof-item i { color: var(--brand-red); }
-        .proof-item .live-dot { width: 8px; height: 8px; background: #28a745; border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .social-proof-bar { background: linear-gradient(90deg, var(--midnight-dark) 0%, var(--midnight-blue) 100%); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 2px solid var(--gold); }
+        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: var(--champagne); }
+        .proof-item i { color: var(--gold); }
+        .proof-item .live-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 10px var(--gold); }
+        @keyframes pulse { 0%, 100% { opacity: 1; box-shadow: 0 0 10px var(--gold); } 50% { opacity: 0.5; box-shadow: 0 0 20px var(--gold); } }
 
         .event-details { max-width: 1100px; margin: 0 auto; padding: 60px 5%; display: grid; grid-template-columns: 1.8fr 1fr; gap: 50px; }
-        .event-info h2 { font-size: 1.8rem; color: var(--brand-blue); font-style: italic; margin-bottom: 20px; }
+        .event-info h2 { font-size: 1.8rem; color: var(--midnight-blue); font-style: italic; margin-bottom: 20px; }
         .event-info p { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 20px; }
         .event-info ul { list-style: none; margin-bottom: 30px; }
         .event-info ul li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-weight: 600; }
-        .event-info ul li i { color: var(--brand-red); width: 20px; }
+        .event-info ul li i { color: var(--gold); width: 20px; }
         .distances { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
-        .distance-tag { background: var(--grey); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: var(--brand-blue); border-left: 4px solid var(--brand-red); }
+        .distance-tag { background: var(--champagne); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: var(--midnight-blue); border-left: 4px solid var(--gold); }
 
-        .testimonial-box { background: #f8f9fa; border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 4px solid var(--brand-red); }
+        .testimonial-box { background: linear-gradient(135deg, #f8f9fa 0%, var(--champagne) 100%); border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 4px solid var(--gold); box-shadow: 0 4px 15px rgba(255, 215, 0, 0.15); }
         .testimonial-box p { font-style: italic; color: #555; margin-bottom: 15px; font-size: 15px; line-height: 1.7; }
         .testimonial-author { display: flex; align-items: center; gap: 12px; }
-        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold); }
         .testimonial-author .info { font-size: 13px; }
-        .testimonial-author .info strong { color: var(--brand-blue); display: block; }
-        .testimonial-stars { color: #ffc107; margin-bottom: 10px; font-size: 14px; }
+        .testimonial-author .info strong { color: var(--midnight-blue); display: block; }
+        .testimonial-stars { color: var(--gold); margin-bottom: 10px; font-size: 14px; }
 
-        .register-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); position: sticky; top: 100px; border-top: 5px solid var(--brand-red); }
-        .register-card h3 { font-size: 1.3rem; color: var(--brand-blue); margin-bottom: 5px; font-style: italic; text-align: center; }
-        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 20px; }
-        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--brand-red); letter-spacing: 2px; margin-bottom: 8px; }
+        .register-card { background: linear-gradient(180deg, white 0%, var(--champagne) 100%); border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(25, 25, 112, 0.2); position: sticky; top: 100px; border-top: 5px solid var(--gold); }
+        .register-card h3 { font-size: 1.3rem; color: var(--midnight-blue); margin-bottom: 5px; font-style: italic; text-align: center; }
+        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 1px solid rgba(255, 215, 0, 0.3); margin-bottom: 20px; }
+        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--gold); letter-spacing: 2px; margin-bottom: 8px; text-shadow: 0 0 10px rgba(255, 215, 0, 0.3); }
         .price-row { display: flex; justify-content: center; align-items: baseline; gap: 10px; }
-        .price-current { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; color: var(--brand-blue); }
+        .price-current { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; color: var(--midnight-blue); }
         .price-old { text-decoration: line-through; color: #999; font-size: 1.3rem; }
-        .price-save { background: #28a745; color: white; padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
-        .spots-warning { background: #fff3cd; color: #856404; padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; }
-        .register-btn { width: 100%; background: var(--brand-red); color: white; border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
-        .register-btn:hover { background: #b00e26; transform: translateY(-2px); }
-        .price-tiers { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .price-save { background: linear-gradient(135deg, var(--gold) 0%, #ffec80 100%); color: var(--midnight-blue); padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
+        .spots-warning { background: linear-gradient(90deg, var(--midnight-blue) 0%, var(--midnight-dark) 100%); color: var(--gold); padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; }
+        .register-btn { width: 100%; background: linear-gradient(135deg, var(--gold) 0%, #ffec80 100%); color: var(--midnight-blue); border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4); }
+        .register-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(255, 215, 0, 0.6); }
+        .price-tiers { margin-top: 20px; padding-top: 20px; border-top: 1px solid rgba(255, 215, 0, 0.3); }
         .price-tier { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
         .price-tier-name { color: #555; }
-        .price-tier-amount { font-weight: 700; color: var(--brand-blue); }
-        .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; flex-wrap: wrap; }
+        .price-tier-amount { font-weight: 700; color: var(--midnight-blue); }
+        .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid rgba(255, 215, 0, 0.3); flex-wrap: wrap; }
         .trust-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #666; }
-        .trust-badge i { color: #28a745; }
-        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: #999; }
+        .trust-badge i { color: var(--gold); }
+        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: var(--midnight-blue); }
 
-        .course-section { background: var(--grey); padding: 60px 5%; }
-        .course-section h2 { text-align: center; font-size: 2rem; color: var(--brand-blue); font-style: italic; margin-bottom: 40px; }
-        .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .course-feature { background: white; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .course-feature i { font-size: 2.5rem; color: var(--brand-red); margin-bottom: 15px; }
-        .course-feature h4 { color: var(--brand-blue); margin-bottom: 10px; }
-        .course-feature p { color: #666; font-size: 14px; }
+        .course-section { background: linear-gradient(135deg, var(--midnight-dark) 0%, var(--midnight-blue) 100%); padding: 60px 5%; position: relative; overflow: hidden; }
+        .course-section::before { content: ''; position: absolute; width: 100%; height: 100%; top: 0; left: 0; background-image: radial-gradient(circle, var(--gold) 1px, transparent 1px); background-size: 50px 50px; opacity: 0.1; animation: sparkle 3s ease-in-out infinite; }
+        .course-section h2 { text-align: center; font-size: 2rem; color: var(--gold); font-style: italic; margin-bottom: 40px; text-shadow: 0 0 20px rgba(255, 215, 0, 0.3); position: relative; z-index: 1; }
+        .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+        .course-feature { background: linear-gradient(180deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0.05) 100%); padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.2); border: 1px solid rgba(255, 215, 0, 0.2); backdrop-filter: blur(5px); }
+        .course-feature i { font-size: 2.5rem; color: var(--gold); margin-bottom: 15px; }
+        .course-feature h4 { color: var(--champagne); margin-bottom: 10px; }
+        .course-feature p { color: var(--sparkle-silver); font-size: 14px; }
 
         .faq-section { padding: 60px 5%; max-width: 800px; margin: 0 auto; }
-        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--brand-blue); margin-bottom: 40px; font-style: italic; }
-        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
-        .faq-question { font-weight: 700; color: var(--brand-blue); cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--midnight-blue); margin-bottom: 40px; font-style: italic; }
+        .faq-item { border-bottom: 1px solid rgba(255, 215, 0, 0.3); padding: 20px 0; }
+        .faq-question { font-weight: 700; color: var(--midnight-blue); cursor: pointer; display: flex; justify-content: space-between; }
         .faq-answer { padding-top: 15px; color: #555; line-height: 1.7; }
 
-        footer { background: #111; color: #888; padding: 50px 5%; text-align: center; }
+        footer { background: linear-gradient(135deg, var(--midnight-dark) 0%, var(--midnight-blue) 100%); color: var(--champagne); padding: 50px 5%; text-align: center; }
         .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 10px; }
-        .footer-brand span { color: var(--brand-red); }
-        .footer-tagline { margin-bottom: 25px; font-style: italic; }
+        .footer-brand span { color: var(--gold); }
+        .footer-tagline { margin-bottom: 25px; font-style: italic; color: var(--sparkle-silver); }
         .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; }
-        .footer-links a { transition: 0.3s; }
-        .footer-links a:hover { color: var(--brand-red); }
+        .footer-links a { transition: 0.3s; color: var(--champagne); }
+        .footer-links a:hover { color: var(--gold); }
         .footer-copy { font-size: 13px; opacity: 0.5; }
 
         @media (max-width: 900px) {
@@ -110,6 +152,7 @@
             .nav-links { display: none; }
             .social-proof-bar { gap: 20px; }
             .countdown-banner { gap: 20px; }
+            .floating-icon { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -123,23 +166,45 @@
         <a href="#">Training</a>
         <a href="#">About</a>
     </div>
-    <a href="#register" class="nav-btn">Register Now</a>
+    <a href="#register" class="nav-btn">🎉 Register Now</a>
 </nav>
 
 <div class="event-hero">
+    <div class="floating-icons">
+        <span class="floating-icon">🎆</span>
+        <span class="floating-icon">🎉</span>
+        <span class="floating-icon">✨</span>
+        <span class="floating-icon">🥂</span>
+        <span class="floating-icon">🌟</span>
+        <span class="floating-icon">🎊</span>
+        <span class="floating-icon">✨</span>
+        <span class="floating-icon">🎆</span>
+    </div>
+    <div class="sparkle-overlay">
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+        <div class="sparkle"></div>
+    </div>
     <div class="event-hero-content">
-        <span class="event-tag">New Year's Day</span>
-        <div class="event-date">January 1, 2026</div>
+        <span class="event-tag">🎊 New Year's Day 🎊</span>
+        <div class="event-date">✨ January 1, 2026 ✨</div>
         <h1>Resolution Run</h1>
         <div class="event-location">
             <i class="fas fa-map-marker-alt"></i> Vancouver, WA
         </div>
-        <a href="#register" class="hero-cta">Secure My Spot</a>
+        <a href="#register" class="hero-cta">🎉 Secure My Spot</a>
     </div>
 </div>
 
 <div class="countdown-banner">
-    <span class="countdown-label">Early Bird Pricing Ends In:</span>
+    <span class="countdown-label">🎉 Early Bird Pricing Ends In:</span>
     <div class="countdown-timer">
         <div class="countdown-unit"><div class="countdown-value" id="days">00</div><div class="countdown-text">Days</div></div>
         <div class="countdown-unit"><div class="countdown-value" id="hours">00</div><div class="countdown-text">Hours</div></div>
@@ -156,11 +221,11 @@
 
 <section class="event-details">
     <div class="event-info">
-        <h2>Start Your Year Strong</h2>
+        <h2>🌟 Start Your Year Strong</h2>
         <p>Kick off 2026 with the Resolution Run! This beloved New Year's Day tradition brings together runners of all abilities for a refreshing start to the year. Whether you're chasing a PR or just shaking off the holiday celebrations, this is your race.</p>
         <p>The flat, fast course winds through beautiful downtown Vancouver with stunning views of the Columbia River. After the race, enjoy our famous hot cocoa bar and celebration tent.</p>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">Choose Your Distance</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--midnight-blue); font-style: italic;">🏃 Choose Your Distance</h3>
         <div class="distances">
             <span class="distance-tag">5K</span>
             <span class="distance-tag">10K</span>
@@ -180,7 +245,7 @@
             </div>
         </div>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">What's Included</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--midnight-blue); font-style: italic;">🎁 What's Included</h3>
         <ul>
             <li><i class="fas fa-medal"></i> Custom 2026 finisher medal</li>
             <li><i class="fas fa-tshirt"></i> Premium long-sleeve tech shirt</li>
@@ -190,7 +255,7 @@
             <li><i class="fas fa-heart"></i> Portion of proceeds to local charities</li>
         </ul>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">Race Day Schedule</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--midnight-blue); font-style: italic;">📅 Race Day Schedule</h3>
         <ul>
             <li><i class="fas fa-clock"></i> 7:30 AM - Packet Pickup Opens</li>
             <li><i class="fas fa-clock"></i> 9:00 AM - 10K Start</li>
@@ -201,19 +266,19 @@
 
     <div id="register" class="registration-sidebar">
         <div class="register-card">
-            <h3>Register Now</h3>
+            <h3>🎊 Register Now</h3>
             <div class="price-highlight">
-                <div class="price-tier-label">Early Bird Pricing</div>
+                <div class="price-tier-label">✨ Early Bird Pricing ✨</div>
                 <div class="price-row">
                     <span class="price-current">$35</span>
                     <span class="price-old">$55</span>
                 </div>
-                <span class="price-save">You Save $20</span>
+                <span class="price-save">🎉 You Save $20</span>
             </div>
             
-            <div class="spots-warning">Only 83 early bird spots remaining!</div>
+            <div class="spots-warning">🔥 Only 83 early bird spots remaining!</div>
             
-            <button class="register-btn" onclick="window.location.href='https://runsignup.com/resolution-run'">Count Me In!</button>
+            <button class="register-btn" onclick="window.location.href='https://runsignup.com/resolution-run'">🥂 Count Me In!</button>
             
             <div class="price-tiers">
                 <div class="price-tier">
@@ -246,7 +311,7 @@
 </section>
 
 <section class="course-section">
-    <h2>What To Expect</h2>
+    <h2>✨ What To Expect ✨</h2>
     <div class="course-features">
         <div class="course-feature">
             <i class="fas fa-route"></i>
@@ -272,7 +337,7 @@
 </section>
 
 <section class="faq-section">
-    <h2>Frequently Asked Questions</h2>
+    <h2>❓ Frequently Asked Questions</h2>
     <div class="faq-item">
         <div class="faq-question">What time does packet pickup open?</div>
         <div class="faq-answer">Packet pickup is available the day before (December 31) from 3pm-7pm at Esther Short Park. Race morning pickup opens at 7:30 AM.</div>
@@ -297,7 +362,7 @@
 
 <footer>
     <div class="footer-brand">WHY<span>RACING</span></div>
-    <div class="footer-tagline">What's Your WHY?</div>
+    <div class="footer-tagline">🎆 What's Your WHY? 🎆</div>
     <div class="footer-links">
         <a href="../../index.html">Home</a>
         <a href="../events.html">All Events</a>

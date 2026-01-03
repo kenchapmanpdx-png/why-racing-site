@@ -8,99 +8,144 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root { --brand-red: #E31837; --brand-blue: #00205B; --dark: #0a0a0a; --light: #ffffff; --grey: #f4f4f4; }
+        :root {
+            --christmas-red: #c41e3a;
+            --christmas-red-dark: #9a1830;
+            --forest-green: #228b22;
+            --forest-green-dark: #1a6b1a;
+            --gold: #ffd700;
+            --gold-dark: #d4af37;
+            --snow-white: #fffafa;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f4f4f4;
+        }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Inter', sans-serif; background: var(--light); color: #333; }
         h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
         a { text-decoration: none; color: inherit; }
 
-        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(0,0,0,0.95) 0%, rgba(227,24,55,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.2); }
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, var(--christmas-red) 0%, var(--forest-green) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
         .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; }
-        .logo span { color: var(--brand-red); }
+        .logo span { color: var(--gold); }
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
-        .nav-links a:hover { color: var(--brand-red); }
-        .nav-btn { background: white; color: var(--brand-red); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
+        .nav-links a:hover { color: var(--gold); }
+        .nav-btn { background: var(--gold); color: var(--christmas-red); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
+        .nav-btn:hover { background: var(--gold-dark); }
 
-        .event-hero { height: 60vh; min-height: 400px; background: linear-gradient(rgba(227, 24, 55, 0.8), rgba(0, 100, 0, 0.6)), url('https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=1200') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; }
-        .event-hero-content .event-tag { background: #28a745; padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
-        .event-hero-content h1 { font-size: 3.5rem; font-style: italic; margin-bottom: 15px; }
+        .event-hero { height: 60vh; min-height: 400px; background: linear-gradient(135deg, rgba(196, 30, 58, 0.85) 0%, rgba(34, 139, 34, 0.75) 50%, rgba(196, 30, 58, 0.85) 100%), url('https://images.unsplash.com/photo-1482517967863-00e15c9b44be?w=1200') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; position: relative; overflow: hidden; }
+        .event-hero::before { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='20' fill='white' opacity='0.1'%3E❄%3C/text%3E%3C/svg%3E") repeat; opacity: 0.3; pointer-events: none; }
+        
+        .floating-decorations { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; overflow: hidden; }
+        .floating-icon { position: absolute; font-size: 2rem; animation: float 6s ease-in-out infinite; opacity: 0.8; }
+        .floating-icon:nth-child(1) { top: 15%; left: 5%; animation-delay: 0s; }
+        .floating-icon:nth-child(2) { top: 25%; right: 8%; animation-delay: 1s; font-size: 2.5rem; }
+        .floating-icon:nth-child(3) { bottom: 20%; left: 10%; animation-delay: 2s; }
+        .floating-icon:nth-child(4) { top: 40%; left: 3%; animation-delay: 3s; font-size: 1.8rem; }
+        .floating-icon:nth-child(5) { bottom: 30%; right: 5%; animation-delay: 4s; }
+        .floating-icon:nth-child(6) { top: 10%; right: 15%; animation-delay: 5s; font-size: 1.5rem; }
+        @keyframes float { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(-20px) rotate(10deg); } }
+
+        .event-hero-content { position: relative; z-index: 1; }
+        .event-hero-content .event-tag { background: var(--forest-green); padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; border: 2px solid var(--gold); }
+        .event-hero-content h1 { font-size: 3.5rem; font-style: italic; margin-bottom: 15px; text-shadow: 3px 3px 6px rgba(0,0,0,0.3); }
         .event-hero-content .event-date { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
         .event-hero-content .event-location { font-size: 1.1rem; opacity: 0.9; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; }
-        .hero-cta { display: inline-block; background: var(--brand-red); color: white; padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; }
-        .hero-cta:hover { background: #b00e26; transform: translateY(-2px); }
+        .hero-cta { display: inline-block; background: var(--gold); color: var(--christmas-red); padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; box-shadow: 0 4px 15px rgba(255,215,0,0.4); }
+        .hero-cta:hover { background: var(--gold-dark); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(255,215,0,0.5); }
 
-        .countdown-banner { background: var(--dark); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--brand-red); }
+        .countdown-banner { background: linear-gradient(90deg, var(--forest-green-dark), var(--forest-green), var(--forest-green-dark)); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--gold); position: relative; }
+        .countdown-banner::before { content: '🎄'; position: absolute; left: 20px; font-size: 1.5rem; }
+        .countdown-banner::after { content: '🎄'; position: absolute; right: 20px; font-size: 1.5rem; }
         .countdown-label { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; }
         .countdown-timer { display: flex; gap: 15px; }
         .countdown-unit { text-align: center; }
-        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--brand-red); }
+        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--gold); }
         .countdown-text { font-size: 11px; text-transform: uppercase; opacity: 0.7; }
 
-        .social-proof-bar { background: var(--grey); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 1px solid #ddd; }
-        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: #555; }
-        .proof-item i { color: var(--brand-red); }
-        .proof-item .live-dot { width: 8px; height: 8px; background: #28a745; border-radius: 50%; animation: pulse 2s infinite; }
-        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .social-proof-bar { background: linear-gradient(90deg, var(--christmas-red), var(--christmas-red-dark), var(--christmas-red)); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 3px solid var(--gold); }
+        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; color: white; }
+        .proof-item i { color: var(--gold); }
+        .proof-item .live-dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; animation: pulse 2s infinite; box-shadow: 0 0 10px var(--gold); }
+        @keyframes pulse { 0%, 100% { opacity: 1; transform: scale(1); } 50% { opacity: 0.5; transform: scale(1.2); } }
 
         .event-details { max-width: 1100px; margin: 0 auto; padding: 60px 5%; display: grid; grid-template-columns: 1.8fr 1fr; gap: 50px; }
-        .event-info h2 { font-size: 1.8rem; color: var(--brand-blue); font-style: italic; margin-bottom: 20px; }
+        .event-info h2 { font-size: 1.8rem; color: var(--forest-green); font-style: italic; margin-bottom: 20px; }
+        .event-info h2::before { content: '🎅 '; }
         .event-info p { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 20px; }
         .event-info ul { list-style: none; margin-bottom: 30px; }
         .event-info ul li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-weight: 600; }
-        .event-info ul li i { color: var(--brand-red); width: 20px; }
+        .event-info ul li i { color: var(--christmas-red); width: 20px; }
+        .event-info h3 { color: var(--forest-green); }
+        .event-info h3::before { content: '🎁 '; }
         .distances { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
-        .distance-tag { background: var(--grey); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: var(--brand-blue); border-left: 4px solid var(--brand-red); }
+        .distance-tag { background: linear-gradient(135deg, var(--snow-white), #f0f0f0); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: var(--forest-green); border-left: 4px solid var(--christmas-red); box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
 
-        .testimonial-box { background: #f8f9fa; border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 4px solid var(--brand-red); }
+        .testimonial-box { background: linear-gradient(135deg, #f0fff0, #e8f5e9); border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 5px solid var(--forest-green); position: relative; overflow: hidden; }
+        .testimonial-box::before { content: '🎄'; position: absolute; top: 10px; right: 15px; font-size: 1.5rem; opacity: 0.5; }
         .testimonial-box p { font-style: italic; color: #555; margin-bottom: 15px; font-size: 15px; line-height: 1.7; }
         .testimonial-author { display: flex; align-items: center; gap: 12px; }
-        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; border: 3px solid var(--forest-green); }
         .testimonial-author .info { font-size: 13px; }
-        .testimonial-author .info strong { color: var(--brand-blue); display: block; }
-        .testimonial-stars { color: #ffc107; margin-bottom: 10px; font-size: 14px; }
+        .testimonial-author .info strong { color: var(--forest-green); display: block; }
+        .testimonial-stars { color: var(--gold); margin-bottom: 10px; font-size: 14px; }
 
-        .register-card { background: white; border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(0,0,0,0.12); position: sticky; top: 100px; border-top: 5px solid var(--brand-red); }
-        .register-card h3 { font-size: 1.3rem; color: var(--brand-blue); margin-bottom: 5px; font-style: italic; text-align: center; }
-        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 20px; }
-        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--brand-red); letter-spacing: 2px; margin-bottom: 8px; }
+        .register-card { background: linear-gradient(180deg, var(--snow-white), white); border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(196,30,58,0.15); position: sticky; top: 100px; border: 3px solid var(--christmas-red); position: relative; overflow: hidden; }
+        .register-card::before { content: '❄️ 🎅 ❄️'; position: absolute; top: -5px; left: 50%; transform: translateX(-50%); font-size: 1.2rem; background: white; padding: 0 10px; }
+        .register-card h3 { font-size: 1.3rem; color: var(--forest-green); margin-bottom: 5px; font-style: italic; text-align: center; }
+        .register-card h3::after { content: ' 🎄'; }
+        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 2px dashed var(--christmas-red); margin-bottom: 20px; }
+        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--christmas-red); letter-spacing: 2px; margin-bottom: 8px; }
         .price-row { display: flex; justify-content: center; align-items: baseline; gap: 10px; }
-        .price-current { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; color: var(--brand-blue); }
+        .price-current { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; color: var(--forest-green); }
         .price-old { text-decoration: line-through; color: #999; font-size: 1.3rem; }
-        .price-save { background: #28a745; color: white; padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
-        .spots-warning { background: #fff3cd; color: #856404; padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; }
-        .register-btn { width: 100%; background: var(--brand-red); color: white; border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
-        .register-btn:hover { background: #b00e26; transform: translateY(-2px); }
+        .price-save { background: var(--forest-green); color: white; padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
+        .spots-warning { background: linear-gradient(90deg, #fff3cd, #ffe9a0); color: #856404; padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; border: 1px solid var(--gold); }
+        .spots-warning::before { content: '⚠️ '; }
+        .register-btn { width: 100%; background: linear-gradient(135deg, var(--christmas-red), var(--christmas-red-dark)); color: white; border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; box-shadow: 0 4px 15px rgba(196,30,58,0.3); }
+        .register-btn:hover { background: linear-gradient(135deg, var(--christmas-red-dark), #7a1020); transform: translateY(-2px); box-shadow: 0 6px 20px rgba(196,30,58,0.4); }
+        .register-btn::before { content: '🎁 '; }
+        .register-btn::after { content: ' 🎁'; }
         .price-tiers { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
         .price-tier { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
         .price-tier-name { color: #555; }
-        .price-tier-amount { font-weight: 700; color: var(--brand-blue); }
+        .price-tier-amount { font-weight: 700; color: var(--forest-green); }
         .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; flex-wrap: wrap; }
         .trust-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #666; }
-        .trust-badge i { color: #28a745; }
-        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: #999; }
+        .trust-badge i { color: var(--forest-green); }
+        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: var(--christmas-red); }
 
-        .course-section { background: var(--grey); padding: 60px 5%; }
-        .course-section h2 { text-align: center; font-size: 2rem; color: var(--brand-blue); font-style: italic; margin-bottom: 40px; }
+        .course-section { background: linear-gradient(180deg, var(--forest-green-dark), var(--forest-green)); padding: 60px 5%; position: relative; overflow: hidden; }
+        .course-section::before { content: '❄️'; position: absolute; top: 20px; left: 30px; font-size: 3rem; opacity: 0.2; animation: snowfall 4s ease-in-out infinite; }
+        .course-section::after { content: '❄️'; position: absolute; bottom: 20px; right: 30px; font-size: 3rem; opacity: 0.2; animation: snowfall 4s ease-in-out infinite 2s; }
+        @keyframes snowfall { 0%, 100% { transform: translateY(0) rotate(0deg); } 50% { transform: translateY(10px) rotate(180deg); } }
+        .course-section h2 { text-align: center; font-size: 2rem; color: white; font-style: italic; margin-bottom: 40px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
+        .course-section h2::before { content: '⭐ '; }
+        .course-section h2::after { content: ' ⭐'; }
         .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; }
-        .course-feature { background: white; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
-        .course-feature i { font-size: 2.5rem; color: var(--brand-red); margin-bottom: 15px; }
-        .course-feature h4 { color: var(--brand-blue); margin-bottom: 10px; }
+        .course-feature { background: white; padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 4px 15px rgba(0,0,0,0.15); border-top: 4px solid var(--christmas-red); transition: transform 0.3s; }
+        .course-feature:hover { transform: translateY(-5px); }
+        .course-feature i { font-size: 2.5rem; color: var(--christmas-red); margin-bottom: 15px; }
+        .course-feature h4 { color: var(--forest-green); margin-bottom: 10px; }
         .course-feature p { color: #666; font-size: 14px; }
 
         .faq-section { padding: 60px 5%; max-width: 800px; margin: 0 auto; }
-        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--brand-blue); margin-bottom: 40px; font-style: italic; }
+        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--forest-green); margin-bottom: 40px; font-style: italic; }
+        .faq-section h2::before { content: '🔔 '; }
+        .faq-section h2::after { content: ' 🔔'; }
         .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
-        .faq-question { font-weight: 700; color: var(--brand-blue); cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-question { font-weight: 700; color: var(--christmas-red); cursor: pointer; display: flex; justify-content: space-between; }
         .faq-answer { padding-top: 15px; color: #555; line-height: 1.7; }
 
-        footer { background: #111; color: #888; padding: 50px 5%; text-align: center; }
-        .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 10px; }
-        .footer-brand span { color: var(--brand-red); }
-        .footer-tagline { margin-bottom: 25px; font-style: italic; }
+        footer { background: linear-gradient(180deg, #1a1a1a, #111); color: #ccc; padding: 50px 5%; text-align: center; position: relative; overflow: hidden; }
+        footer::before { content: '🎄 ❄️ 🎅 ❄️ 🎄'; position: absolute; top: 0; left: 0; right: 0; text-align: center; font-size: 1.5rem; padding: 10px; background: linear-gradient(90deg, var(--christmas-red), var(--forest-green), var(--christmas-red)); }
+        .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 10px; margin-top: 30px; }
+        .footer-brand span { color: var(--gold); }
+        .footer-tagline { margin-bottom: 25px; font-style: italic; color: var(--gold); }
         .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; }
         .footer-links a { transition: 0.3s; }
-        .footer-links a:hover { color: var(--brand-red); }
+        .footer-links a:hover { color: var(--gold); }
         .footer-copy { font-size: 13px; opacity: 0.5; }
 
         @media (max-width: 900px) {
@@ -110,6 +155,8 @@
             .nav-links { display: none; }
             .social-proof-bar { gap: 20px; }
             .countdown-banner { gap: 20px; }
+            .countdown-banner::before, .countdown-banner::after { display: none; }
+            .floating-icon { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -123,23 +170,31 @@
         <a href="#">Training</a>
         <a href="#">About</a>
     </div>
-    <a href="#register" class="nav-btn">Register Now</a>
+    <a href="#register" class="nav-btn">🎅 Register Now</a>
 </nav>
 
 <div class="event-hero">
+    <div class="floating-decorations">
+        <span class="floating-icon">🎅</span>
+        <span class="floating-icon">🎄</span>
+        <span class="floating-icon">🎁</span>
+        <span class="floating-icon">⛄</span>
+        <span class="floating-icon">❄️</span>
+        <span class="floating-icon">🔔</span>
+    </div>
     <div class="event-hero-content">
-        <span class="event-tag">Holiday Fun</span>
+        <span class="event-tag">🎄 Holiday Fun 🎄</span>
         <div class="event-date">December 5, 2026</div>
         <h1>Santa's Holiday Hustle</h1>
         <div class="event-location">
             <i class="fas fa-map-marker-alt"></i> Vancouver, WA
         </div>
-        <a href="#register" class="hero-cta">Secure My Spot</a>
+        <a href="#register" class="hero-cta">🎁 Secure My Spot 🎁</a>
     </div>
 </div>
 
 <div class="countdown-banner">
-    <span class="countdown-label">Early Bird Pricing Ends In:</span>
+    <span class="countdown-label">🎄 Early Bird Pricing Ends In:</span>
     <div class="countdown-timer">
         <div class="countdown-unit"><div class="countdown-value" id="days">00</div><div class="countdown-text">Days</div></div>
         <div class="countdown-unit"><div class="countdown-value" id="hours">00</div><div class="countdown-text">Hours</div></div>
@@ -149,9 +204,9 @@
 </div>
 
 <div class="social-proof-bar">
-    <div class="proof-item"><div class="live-dot"></div> <strong>1,834</strong> Santas registered</div>
-    <div class="proof-item"><i class="fas fa-star"></i> 4.9/5 rating (956 reviews)</div>
-    <div class="proof-item"><i class="fas fa-gift"></i> Santa suits provided FREE!</div>
+    <div class="proof-item"><div class="live-dot"></div> <strong>1,834</strong> Santas registered 🎅</div>
+    <div class="proof-item"><i class="fas fa-star"></i> 4.9/5 rating (956 reviews) ⭐</div>
+    <div class="proof-item"><i class="fas fa-gift"></i> Santa suits provided FREE! 🎁</div>
 </div>
 
 <section class="event-details">
@@ -160,10 +215,10 @@
         <p>Get ready for the most festive run of the year! Santa's Holiday Hustle transforms downtown Vancouver into a sea of red and white as hundreds of Santas jingle through the decorated streets.</p>
         <p>Every registration includes a FREE Santa suit, so all you have to do is show up and spread holiday cheer. This family-friendly event includes a Kids Fun Run that's perfect for little elves of all ages!</p>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">Choose Your Distance</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; font-style: italic;">Choose Your Distance</h3>
         <div class="distances">
-            <span class="distance-tag">5K</span>
-            <span class="distance-tag">Kids Fun Run (1 mile)</span>
+            <span class="distance-tag">🏃 5K</span>
+            <span class="distance-tag">👶 Kids Fun Run (1 mile)</span>
         </div>
 
         <div class="testimonial-box">
@@ -180,23 +235,23 @@
             </div>
         </div>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">What's Included</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; font-style: italic;">What's Included</h3>
         <ul>
             <li><i class="fas fa-gift"></i> FREE Santa suit (included with registration!)</li>
-            <li><i class="fas fa-medal"></i> Holiday finisher medal</li>
-            <li><i class="fas fa-mug-hot"></i> Hot cocoa and holiday treats</li>
+            <li><i class="fas fa-medal"></i> Holiday finisher medal 🏅</li>
+            <li><i class="fas fa-mug-hot"></i> Hot cocoa and holiday treats ☕</li>
             <li><i class="fas fa-stopwatch"></i> Professional chip timing</li>
-            <li><i class="fas fa-camera"></i> Photos with Santa at finish line</li>
-            <li><i class="fas fa-child"></i> Family-friendly Kids Fun Run</li>
+            <li><i class="fas fa-camera"></i> Photos with Santa at finish line 📸</li>
+            <li><i class="fas fa-child"></i> Family-friendly Kids Fun Run 👨‍👩‍👧‍👦</li>
         </ul>
 
-        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">Race Day Schedule</h3>
+        <h3 style="margin-top: 30px; margin-bottom: 15px; font-style: italic;">Race Day Schedule</h3>
         <ul>
             <li><i class="fas fa-clock"></i> 7:30 AM - Packet Pickup & Santa Suit Distribution</li>
-            <li><i class="fas fa-clock"></i> 9:00 AM - 5K Start</li>
+            <li><i class="fas fa-clock"></i> 9:00 AM - 5K Start 🏁</li>
             <li><i class="fas fa-clock"></i> 9:30 AM - Kids Fun Run Start</li>
-            <li><i class="fas fa-clock"></i> 10:00 AM - Photos with Santa</li>
-            <li><i class="fas fa-clock"></i> 10:30 AM - Awards & Holiday Celebration</li>
+            <li><i class="fas fa-clock"></i> 10:00 AM - Photos with Santa 🎅</li>
+            <li><i class="fas fa-clock"></i> 10:30 AM - Awards & Holiday Celebration 🎉</li>
         </ul>
     </div>
 
@@ -204,12 +259,12 @@
         <div class="register-card">
             <h3>Register Now</h3>
             <div class="price-highlight">
-                <div class="price-tier-label">Early Bird Pricing</div>
+                <div class="price-tier-label">🎄 Early Bird Pricing 🎄</div>
                 <div class="price-row">
                     <span class="price-current">$35</span>
                     <span class="price-old">$50</span>
                 </div>
-                <span class="price-save">You Save $15</span>
+                <span class="price-save">🎁 You Save $15</span>
             </div>
             
             <div class="spots-warning">Only 178 early bird spots remaining!</div>
@@ -251,22 +306,22 @@
     <div class="course-features">
         <div class="course-feature">
             <i class="fas fa-tshirt"></i>
-            <h4>Santa Suit Included</h4>
+            <h4>🎅 Santa Suit Included</h4>
             <p>FREE Santa suit provided with every registration - just show up!</p>
         </div>
         <div class="course-feature">
             <i class="fas fa-child"></i>
-            <h4>Family Fun</h4>
+            <h4>👨‍👩‍👧‍👦 Family Fun</h4>
             <p>Kids Fun Run perfect for little elves of all ages</p>
         </div>
         <div class="course-feature">
             <i class="fas fa-holly-berry"></i>
-            <h4>Holiday Spirit</h4>
+            <h4>🎄 Holiday Spirit</h4>
             <p>Jingle all the way through decorated downtown streets</p>
         </div>
         <div class="course-feature">
             <i class="fas fa-camera"></i>
-            <h4>Great Photo Ops</h4>
+            <h4>📸 Great Photo Ops</h4>
             <p>Photos with Santa and festive finish line celebrations</p>
         </div>
     </div>
@@ -298,7 +353,7 @@
 
 <footer>
     <div class="footer-brand">WHY<span>RACING</span></div>
-    <div class="footer-tagline">What's Your WHY?</div>
+    <div class="footer-tagline">🎅 What's Your WHY? 🎅</div>
     <div class="footer-links">
         <a href="../../index.html">Home</a>
         <a href="../events.html">All Events</a>
