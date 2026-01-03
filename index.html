@@ -545,6 +545,44 @@
             color: white;
         }
 
+        /* SPONSOR TICKER */
+        .sponsor-ticker {
+            background: white;
+            padding: 30px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        .sponsor-ticker-label {
+            text-align: center;
+            font-size: 12px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+        .sponsor-track {
+            display: inline-block;
+            animation: sponsorScroll 30s linear infinite;
+        }
+        .sponsor-track img {
+            height: 50px;
+            margin: 0 50px;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+            vertical-align: middle;
+            filter: grayscale(100%);
+        }
+        .sponsor-track img:hover {
+            opacity: 1;
+            filter: grayscale(0%);
+        }
+        @keyframes sponsorScroll {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
         /* TRUST BADGES */
         .trust-badges {
             display: flex;
@@ -1076,6 +1114,26 @@
         </div>
     </div>
 </section>
+
+<!-- SPONSOR TICKER -->
+<div class="sponsor-ticker">
+    <div class="sponsor-ticker-label">Proud Partners</div>
+    <div class="sponsor-track">
+        <img src="images/sponsors/peacehealth.png" alt="PeaceHealth">
+        <img src="images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+        <img src="images/sponsors/pepsi.png" alt="PepsiCo">
+        <img src="images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+        <img src="images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+        <img src="images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+        <!-- Duplicate for seamless loop -->
+        <img src="images/sponsors/peacehealth.png" alt="PeaceHealth">
+        <img src="images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+        <img src="images/sponsors/pepsi.png" alt="PepsiCo">
+        <img src="images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+        <img src="images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+        <img src="images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+    </div>
+</div>
 
 <!-- FOOTER -->
 <footer>
