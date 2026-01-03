@@ -100,7 +100,7 @@
         .hero-bg {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            z-index: -2;
+            z-index: 0;
             overflow: hidden;
         }
         .hero-bg video {
@@ -114,13 +114,17 @@
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: url('https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=800&q=80') center center / cover no-repeat;
-            z-index: -2;
+            z-index: 0;
         }
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(45deg, rgba(0, 32, 91, 0.9) 0%, rgba(227, 24, 55, 0.5) 100%);
-            z-index: -1;
+            z-index: 1;
+        }
+        .hero-content {
+            position: relative;
+            z-index: 2;
         }
         .hero-content .hero-tagline {
             font-size: 4.1rem;
