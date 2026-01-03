@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hagg Lake Triathlon 2026 | Why Racing Events</title>
+    <meta name="description" content="Experience the Pacific Northwest's most scenic triathlon! Swim in pristine Hagg Lake, bike through rolling hills, and run shaded forest trails. June 20, 2026 in Gaston, OR.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { 
+            --theme-primary: #1565c0; 
+            --theme-secondary: #2e7d32; 
+            --theme-dark: #0d3c61; 
+            --theme-accent: #d7ccc8;
+            --theme-light-blue: #e3f2fd;
+            --brand-red: #E31837; 
+            --brand-blue: #00205B; 
+            --dark: #0a0a0a; 
+            --light: #ffffff; 
+            --grey: #f4f4f4; 
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: #333; }
+        h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        a { text-decoration: none; color: inherit; }
+
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(13,60,97,0.98) 0%, rgba(21,101,192,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; }
+        .logo span { color: var(--theme-accent); }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--theme-accent); }
+        .nav-btn { background: var(--theme-secondary); color: white; padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
+
+        .event-hero { 
+            height: 65vh; 
+            min-height: 450px; 
+            background: linear-gradient(rgba(13, 60, 97, 0.7), rgba(46, 125, 50, 0.5)), url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1200') center/cover; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: white; 
+            padding: 100px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .event-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='20' opacity='0.08'%3E🌊%3C/text%3E%3C/svg%3E") repeat;
+            background-size: 80px;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(5deg); }
+        }
+        .floating-icons {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .floating-icons span {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: floatIcon 15s infinite ease-in-out;
+        }
+        .floating-icons span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .floating-icons span:nth-child(2) { left: 20%; top: 60%; animation-delay: 2s; }
+        .floating-icons span:nth-child(3) { left: 70%; top: 30%; animation-delay: 4s; }
+        .floating-icons span:nth-child(4) { left: 80%; top: 70%; animation-delay: 1s; }
+        .floating-icons span:nth-child(5) { left: 50%; top: 10%; animation-delay: 3s; }
+        .floating-icons span:nth-child(6) { left: 90%; top: 50%; animation-delay: 5s; }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        .event-hero-content { position: relative; z-index: 2; }
+        .event-hero-content .event-tag { background: var(--theme-secondary); padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
+        .event-hero-content h1 { font-size: 4rem; margin-bottom: 15px; text-shadow: 3px 3px 0 var(--theme-primary), 6px 6px 0 rgba(0,0,0,0.3); letter-spacing: 4px; }
+        .event-hero-content .event-date { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+        .event-hero-content .event-location { font-size: 1.1rem; opacity: 0.9; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; }
+        .hero-cta { display: inline-block; background: var(--theme-secondary); color: white; padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; }
+        .hero-cta:hover { background: #1b5e20; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(46,125,50,0.4); }
+
+        .countdown-banner { background: var(--theme-dark); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--theme-primary); }
+        .countdown-label { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; }
+        .countdown-label::before { content: '🌊 '; }
+        .countdown-timer { display: flex; gap: 15px; }
+        .countdown-unit { text-align: center; }
+        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--theme-accent); }
+        .countdown-text { font-size: 11px; text-transform: uppercase; opacity: 0.7; }
+
+        .social-proof-bar { background: linear-gradient(90deg, #1a4d2e 0%, #0d3c61 100%); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 1px solid #2a5d3e; color: white; }
+        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+        .proof-item i { color: var(--theme-accent); }
+        .proof-item .live-dot { width: 8px; height: 8px; background: #4caf50; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .event-details { max-width: 1100px; margin: 0 auto; padding: 60px 5%; display: grid; grid-template-columns: 1.8fr 1fr; gap: 50px; }
+        .event-info h2 { font-size: 1.8rem; color: var(--theme-primary); margin-bottom: 20px; }
+        .event-info h2::before { content: '🏊 '; }
+        .event-info p { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 20px; }
+        .event-info ul { list-style: none; margin-bottom: 30px; }
+        .event-info ul li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .event-info ul li i { color: var(--theme-secondary); width: 20px; }
+        .distances { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
+        .distance-tag { background: linear-gradient(135deg, #0d3c61 0%, #1565c0 100%); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: white; border-left: 4px solid var(--theme-secondary); }
+
+        .testimonial-box { background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%); border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 4px solid var(--theme-primary); }
+        .testimonial-box p { font-style: italic; color: #555; margin-bottom: 15px; font-size: 15px; line-height: 1.7; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .testimonial-author .info { font-size: 13px; }
+        .testimonial-author .info strong { color: var(--theme-primary); display: block; }
+        .testimonial-stars { color: #ffc107; margin-bottom: 10px; font-size: 14px; }
+
+        .register-card { background: linear-gradient(180deg, #ffffff 0%, #e3f2fd 100%); border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(21,101,192,0.15); position: sticky; top: 100px; border-top: 5px solid var(--theme-primary); }
+        .register-card h3 { font-size: 1.3rem; color: var(--theme-primary); margin-bottom: 5px; text-align: center; }
+        .register-card h3::before { content: '🌲 '; }
+        .register-card h3::after { content: ' 🌲'; }
+        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 20px; }
+        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--theme-secondary); letter-spacing: 2px; margin-bottom: 8px; }
+        .price-row { display: flex; justify-content: center; align-items: baseline; gap: 10px; }
+        .price-current { font-family: 'Oswald', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--theme-primary); }
+        .price-label { font-size: 14px; color: #666; }
+        .price-save { background: var(--theme-secondary); color: white; padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
+        .spots-warning { background: #e3f2fd; color: var(--theme-dark); padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; }
+        .spots-warning::before { content: '🦆 '; }
+        .register-btn { width: 100%; background: linear-gradient(90deg, var(--theme-primary) 0%, #0d47a1 100%); color: white; border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
+        .register-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(21,101,192,0.4); }
+        .price-tiers { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .price-tier { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+        .price-tier-name { color: #555; }
+        .price-tier-amount { font-weight: 700; color: var(--theme-primary); }
+        .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; flex-wrap: wrap; }
+        .trust-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #666; }
+        .trust-badge i { color: var(--theme-secondary); }
+        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: #999; }
+
+        .course-section { background: linear-gradient(135deg, var(--theme-dark) 0%, #1a4d2e 100%); color: white; padding: 60px 5%; position: relative; overflow: hidden; }
+        .course-section::before {
+            content: '🌲';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            opacity: 0.2;
+        }
+        .course-section::after {
+            content: '🌊';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+        }
+        .course-section h2 { text-align: center; font-size: 2rem; color: white; margin-bottom: 40px; }
+        .course-section h2::before { content: '🏊 '; }
+        .course-section h2::after { content: ' 🚴'; }
+        .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+        .course-feature { background: rgba(255,255,255,0.08); padding: 30px; border-radius: 12px; text-align: center; border-left: 4px solid var(--theme-accent); backdrop-filter: blur(5px); }
+        .course-feature i { font-size: 2.5rem; color: var(--theme-accent); margin-bottom: 15px; }
+        .course-feature h4 { color: white; margin-bottom: 10px; }
+        .course-feature p { color: rgba(255,255,255,0.8); font-size: 14px; }
+
+        .faq-section { padding: 60px 5%; max-width: 800px; margin: 0 auto; }
+        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--theme-primary); margin-bottom: 40px; }
+        .faq-section h2::before { content: '🦆 '; }
+        .faq-section h2::after { content: ' 🦆'; }
+        .faq-item { border-bottom: 1px solid #eee; padding: 20px 0; }
+        .faq-question { font-weight: 700; color: var(--theme-primary); cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-answer { padding-top: 15px; color: #555; line-height: 1.7; }
+
+        footer { background: var(--theme-dark); color: #888; padding: 50px 5%; text-align: center; }
+        .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 10px; }
+        .footer-brand span { color: var(--theme-accent); }
+        .footer-tagline { margin-bottom: 25px; font-style: italic; }
+        .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; }
+        .footer-links a { transition: 0.3s; }
+        .footer-links a:hover { color: var(--theme-accent); }
+        .footer-copy { font-size: 13px; opacity: 0.5; }
+
+        @media (max-width: 900px) {
+            .event-hero-content h1 { font-size: 2.5rem; }
+            .event-details { grid-template-columns: 1fr; }
+            .register-card { position: static; }
+            .nav-links { display: none; }
+            .social-proof-bar { gap: 20px; }
+            .countdown-banner { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="../../index.html" class="logo">WHY<span>RACING</span></a>
+    <div class="nav-links">
+        <a href="../events.html">Races</a>
+        <a href="#">Results</a>
+        <a href="#">Training</a>
+        <a href="#">About</a>
+    </div>
+    <a href="#register" class="nav-btn">Register Now</a>
+</nav>
+
+<div class="event-hero">
+    <div class="floating-icons">
+        <span>🏊</span>
+        <span>🌊</span>
+        <span>🚴</span>
+        <span>🌲</span>
+        <span>🏃</span>
+        <span>🦆</span>
+    </div>
+    <div class="event-hero-content">
+        <span class="event-tag">Triathlon</span>
+        <div class="event-date">June 20, 2026</div>
+        <h1>Hagg Lake Triathlon</h1>
+        <div class="event-location">
+            <i class="fas fa-map-marker-alt"></i> Gaston, OR (Hagg Lake)
+        </div>
+        <a href="#register" class="hero-cta">🌊 Dive In & Register</a>
+    </div>
+</div>
+
+<div class="countdown-banner">
+    <span class="countdown-label">Early Bird Pricing Ends In:</span>
+    <div class="countdown-timer">
+        <div class="countdown-unit"><div class="countdown-value" id="days">00</div><div class="countdown-text">Days</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="hours">00</div><div class="countdown-text">Hours</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="mins">00</div><div class="countdown-text">Mins</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="secs">00</div><div class="countdown-text">Secs</div></div>
+    </div>
+</div>
+
+<div class="social-proof-bar">
+    <div class="proof-item"><div class="live-dot"></div> <strong>892</strong> athletes registered</div>
+    <div class="proof-item"><i class="fas fa-star"></i> 4.8/5 rating (567 reviews)</div>
+    <div class="proof-item"><i class="fas fa-water"></i> Oregon's most scenic triathlon</div>
+</div>
+
+<section class="event-details">
+    <div class="event-info">
+        <h2>Swim. Bike. Run. In Nature's Paradise</h2>
+        <p>Experience the Pacific Northwest's most beautiful triathlon at pristine Hagg Lake! Nestled in the scenic Tualatin Mountains, this event offers crystal-clear lake swimming, rolling countryside bike routes, and shaded forest trails that make every moment unforgettable.</p>
+        <p>Whether you're a first-time triathlete or seasoned competitor, Hagg Lake Triathlon delivers an experience that combines challenging athletic pursuits with the peaceful beauty of Oregon's natural landscape. Join us for a race you'll remember forever!</p>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🏊 Choose Your Distance</h3>
+        <div class="distances">
+            <span class="distance-tag">🌊 Sprint Distance</span>
+            <span class="distance-tag">🏆 Olympic Distance</span>
+        </div>
+
+        <div class="testimonial-box">
+            <div class="testimonial-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p>"The most beautiful triathlon course I've ever raced! Swimming in Hagg Lake at sunrise was magical, and the bike course through rolling farmland with Mount Hood views was incredible. The shaded run through the forest was the perfect finish. This is now my annual must-do event!"</p>
+            <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Triathlete">
+                <div class="info">
+                    <strong>David M.</strong>
+                    <span>3-time Hagg Lake finisher - Beaverton, OR</span>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🌲 What's Included</h3>
+        <ul>
+            <li><i class="fas fa-medal"></i> Custom Hagg Lake finisher medal</li>
+            <li><i class="fas fa-tshirt"></i> Premium technical tri shirt</li>
+            <li><i class="fas fa-water"></i> Fully supported aid stations</li>
+            <li><i class="fas fa-stopwatch"></i> Professional chip timing & results</li>
+            <li><i class="fas fa-utensils"></i> Post-race breakfast & recovery food</li>
+            <li><i class="fas fa-camera"></i> Professional race photography</li>
+            <li><i class="fas fa-first-aid"></i> Full medical support on course</li>
+        </ul>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🚴 Race Day Schedule</h3>
+        <ul>
+            <li><i class="fas fa-clock"></i> 5:30 AM - Transition Area Opens</li>
+            <li><i class="fas fa-clock"></i> 6:30 AM - Body Marking & Check-in</li>
+            <li><i class="fas fa-clock"></i> 7:00 AM - Olympic Distance Start</li>
+            <li><i class="fas fa-clock"></i> 7:30 AM - Sprint Distance Start</li>
+            <li><i class="fas fa-clock"></i> 11:00 AM - Awards Ceremony</li>
+            <li><i class="fas fa-clock"></i> 12:00 PM - Course Closes</li>
+        </ul>
+    </div>
+
+    <div id="register" class="registration-sidebar">
+        <div class="register-card">
+            <h3>Register Now</h3>
+            <div class="price-highlight">
+                <div class="price-tier-label">Early Bird Pricing</div>
+                <div class="price-row">
+                    <span class="price-current">$75</span>
+                    <span class="price-label">Sprint</span>
+                </div>
+                <div class="price-row" style="margin-top: 10px;">
+                    <span class="price-current">$95</span>
+                    <span class="price-label">Olympic</span>
+                </div>
+                <span class="price-save">🌊 Save $25 - Early Bird!</span>
+            </div>
+            
+            <div class="spots-warning">Limited spots - Reserve your wave now!</div>
+            
+            <button class="register-btn" onclick="window.location.href='https://runsignup.com/hagg-lake-triathlon'">🏊 Secure My Spot</button>
+            
+            <div class="price-tiers">
+                <div class="price-tier">
+                    <span class="price-tier-name">Early Bird (ends May 15)</span>
+                    <span class="price-tier-amount">$75 / $95</span>
+                </div>
+                <div class="price-tier">
+                    <span class="price-tier-name">Regular (May 16 - Jun 10)</span>
+                    <span class="price-tier-amount">$95 / $115</span>
+                </div>
+                <div class="price-tier">
+                    <span class="price-tier-name">Race Week (Jun 11-20)</span>
+                    <span class="price-tier-amount">$100 / $120</span>
+                </div>
+            </div>
+            
+            <div class="trust-badges">
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Free Transfers</span>
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Secure Checkout</span>
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Instant Confirmation</span>
+            </div>
+            <div class="payment-icons">
+                <i class="fab fa-cc-visa fa-lg"></i>
+                <i class="fab fa-cc-mastercard fa-lg"></i>
+                <i class="fab fa-cc-paypal fa-lg"></i>
+                <i class="fab fa-cc-apple-pay fa-lg"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="course-section">
+    <h2>Why Athletes Love Hagg Lake</h2>
+    <div class="course-features">
+        <div class="course-feature">
+            <i class="fas fa-water"></i>
+            <h4>Pristine Lake Swim</h4>
+            <p>Crystal-clear waters with stunning sunrise views. Calm conditions and perfect visibility for all skill levels.</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-bicycle"></i>
+            <h4>Scenic Bike Course</h4>
+            <p>Rolling hills through wine country with spectacular Mount Hood views. Well-maintained roads with minimal traffic.</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-tree"></i>
+            <h4>Shaded Forest Run</h4>
+            <p>Cool, tree-lined trails perfect for June racing. Gentle terrain with beautiful lake views throughout.</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-mountain"></i>
+            <h4>Nature's Beauty</h4>
+            <p>Surrounded by Oregon's stunning natural landscape. Wildlife, wildflowers, and mountain views at every turn.</p>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <div class="faq-question">What is the water temperature at Hagg Lake in June?</div>
+        <div class="faq-answer">The water temperature typically ranges from 65-72°F (18-22°C) in mid-June. Wetsuits are permitted and recommended for athletes who prefer extra warmth. We'll provide a water temperature update the week of the race.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Is there parking at the venue?</div>
+        <div class="faq-answer">Yes! Free parking is available at Scoggins Valley Park. The parking lot opens at 5:00 AM on race day. We recommend arriving early as this is a popular event. Carpooling is encouraged.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Where can spectators watch the race?</div>
+        <div class="faq-answer">Spectators can watch the swim from the beach area, view transitions near the boat ramp, and cheer runners along the lakeside trail. The finish line area has excellent viewing and the post-race celebration zone.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">What are the Sprint and Olympic distances?</div>
+        <div class="faq-answer">Sprint: 750m swim, 20km bike, 5km run. Olympic: 1500m swim, 40km bike, 10km run. Both courses are fully marked and supported with aid stations throughout.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">What is the refund/transfer policy?</div>
+        <div class="faq-answer">We offer free transfers up to 14 days before the event. Deferrals to the following year are available up to 7 days before. No refunds, but transfers are easy through your registration account.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Is this race beginner-friendly?</div>
+        <div class="faq-answer">Absolutely! Hagg Lake Triathlon welcomes first-time triathletes. The Sprint distance is perfect for beginners. We offer a pre-race clinic the day before and have excellent on-course support for athletes of all levels.</div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-brand">WHY<span>RACING</span></div>
+    <div class="footer-tagline">What's Your WHY?</div>
+    <div class="footer-links">
+        <a href="../../index.html">Home</a>
+        <a href="../events.html">All Events</a>
+        <a href="#">Results</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 Why Racing Events Inc. | La Center, WA | (360) 314-4682</div>
+</footer>
+
+<script>
+var endDate = new Date('2026-05-15T23:59:59');
+function updateCountdown() {
+    var now = new Date().getTime(), diff = endDate - now;
+    if (diff < 0) { diff = 0; }
+    document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
+    document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+    document.getElementById('mins').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    document.getElementById('secs').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+}
+setInterval(updateCountdown, 1000); updateCountdown();
+</script>
+
+</body>
+</html>

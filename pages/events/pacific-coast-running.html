@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacific Coast Running Festival 2026 | Why Racing Events</title>
+    <meta name="description" content="Experience the ultimate beach running event on the stunning Pacific Coast! 5K, 10K, and Half Marathon distances. September 12, 2026 in Long Beach, WA.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { 
+            --theme-primary: #0288d1; 
+            --theme-secondary: #ff7043; 
+            --theme-dark: #01579b; 
+            --theme-accent: #80cbc4;
+            --theme-sand: #d7ccc8;
+            --brand-red: #E31837; 
+            --brand-blue: #00205B; 
+            --dark: #0a0a0a; 
+            --light: #ffffff; 
+            --grey: #f4f4f4; 
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: #333; }
+        h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        a { text-decoration: none; color: inherit; }
+
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(1,87,155,0.98) 0%, rgba(2,136,209,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; }
+        .logo span { color: var(--theme-secondary); }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--theme-secondary); }
+        .nav-btn { background: var(--theme-secondary); color: white; padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
+
+        .event-hero { 
+            height: 65vh; 
+            min-height: 450px; 
+            background: linear-gradient(rgba(1, 87, 155, 0.7), rgba(2, 136, 209, 0.5)), url('https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1200') center/cover; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: white; 
+            padding: 100px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .event-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='20' opacity='0.1'%3E🌊%3C/text%3E%3C/svg%3E") repeat;
+            background-size: 80px;
+            animation: float 20s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(5deg); }
+        }
+        .floating-icons {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .floating-icons span {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: floatIcon 15s infinite ease-in-out;
+        }
+        .floating-icons span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .floating-icons span:nth-child(2) { left: 20%; top: 60%; animation-delay: 2s; }
+        .floating-icons span:nth-child(3) { left: 70%; top: 30%; animation-delay: 4s; }
+        .floating-icons span:nth-child(4) { left: 80%; top: 70%; animation-delay: 1s; }
+        .floating-icons span:nth-child(5) { left: 50%; top: 10%; animation-delay: 3s; }
+        .floating-icons span:nth-child(6) { left: 90%; top: 50%; animation-delay: 5s; }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-20px) rotate(10deg); }
+        }
+        .event-hero-content { position: relative; z-index: 2; }
+        .event-hero-content .event-tag { background: var(--theme-secondary); padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
+        .event-hero-content h1 { font-family: 'Oswald', sans-serif; font-size: 4rem; margin-bottom: 15px; text-shadow: 3px 3px 0 var(--theme-primary), 6px 6px 0 rgba(0,0,0,0.3); letter-spacing: 4px; }
+        .event-hero-content .event-date { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+        .event-hero-content .event-location { font-size: 1.1rem; opacity: 0.9; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; }
+        .hero-cta { display: inline-block; background: var(--theme-secondary); color: white; padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; }
+        .hero-cta:hover { background: #e64a19; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,112,67,0.4); }
+
+        .countdown-banner { background: var(--theme-dark); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--theme-secondary); }
+        .countdown-label { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; }
+        .countdown-label::before { content: '🏖️ '; }
+        .countdown-timer { display: flex; gap: 15px; }
+        .countdown-unit { text-align: center; }
+        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--theme-accent); }
+        .countdown-text { font-size: 11px; text-transform: uppercase; opacity: 0.7; }
+
+        .social-proof-bar { background: linear-gradient(90deg, #01579b 0%, #0288d1 100%); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 1px solid rgba(255,255,255,0.2); color: white; }
+        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+        .proof-item i { color: var(--theme-accent); }
+        .proof-item .live-dot { width: 8px; height: 8px; background: var(--theme-accent); border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .event-details { max-width: 1100px; margin: 0 auto; padding: 60px 5%; display: grid; grid-template-columns: 1.8fr 1fr; gap: 50px; }
+        .event-info h2 { font-size: 1.8rem; color: var(--theme-primary); margin-bottom: 20px; }
+        .event-info h2::before { content: '🌊 '; }
+        .event-info p { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 20px; }
+        .event-info ul { list-style: none; margin-bottom: 30px; }
+        .event-info ul li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .event-info ul li i { color: var(--theme-primary); width: 20px; }
+        .distances { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
+        .distance-tag { background: linear-gradient(135deg, #01579b 0%, #0288d1 100%); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: white; border-left: 4px solid var(--theme-secondary); }
+
+        .testimonial-box { background: linear-gradient(135deg, #e0f7fa 0%, var(--theme-sand) 100%); border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 4px solid var(--theme-primary); }
+        .testimonial-box p { font-style: italic; color: #555; margin-bottom: 15px; font-size: 15px; line-height: 1.7; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .testimonial-author .info { font-size: 13px; }
+        .testimonial-author .info strong { color: var(--theme-primary); display: block; }
+        .testimonial-stars { color: var(--theme-secondary); margin-bottom: 10px; font-size: 14px; }
+
+        .register-card { background: linear-gradient(180deg, #ffffff 0%, #e0f7fa 100%); border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(2,136,209,0.15); position: sticky; top: 100px; border-top: 5px solid var(--theme-primary); }
+        .register-card h3 { font-size: 1.3rem; color: var(--theme-primary); margin-bottom: 5px; text-align: center; }
+        .register-card h3::before { content: '🏖️ '; }
+        .register-card h3::after { content: ' 🌊'; }
+        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 1px solid #eee; margin-bottom: 20px; }
+        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--theme-secondary); letter-spacing: 2px; margin-bottom: 8px; }
+        .price-row { display: flex; justify-content: center; align-items: baseline; gap: 10px; }
+        .price-current { font-family: 'Oswald', sans-serif; font-size: 3rem; font-weight: 700; color: var(--theme-primary); }
+        .price-old { text-decoration: line-through; color: #999; font-size: 1.3rem; }
+        .price-save { background: var(--theme-accent); color: #01579b; padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
+        .spots-warning { background: #fff3e0; color: #e65100; padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; }
+        .spots-warning::before { content: '🌅 '; }
+        .register-btn { width: 100%; background: linear-gradient(90deg, var(--theme-secondary) 0%, #e64a19 100%); color: white; border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
+        .register-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(255,112,67,0.4); }
+        .price-tiers { margin-top: 20px; padding-top: 20px; border-top: 1px solid #eee; }
+        .price-tier { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #f0f0f0; font-size: 13px; }
+        .price-tier-name { color: #555; }
+        .price-tier-amount { font-weight: 700; color: var(--theme-primary); }
+        .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #eee; flex-wrap: wrap; }
+        .trust-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #666; }
+        .trust-badge i { color: var(--theme-accent); }
+        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: #999; }
+
+        .course-section { background: linear-gradient(135deg, var(--theme-dark) 0%, #0277bd 100%); color: white; padding: 60px 5%; position: relative; overflow: hidden; }
+        .course-section::before {
+            content: '🐚';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            opacity: 0.2;
+        }
+        .course-section::after {
+            content: '🦀';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.2;
+        }
+        .course-section h2 { text-align: center; font-size: 2rem; color: white; margin-bottom: 40px; }
+        .course-section h2::before { content: '🌊 '; }
+        .course-section h2::after { content: ' 🌊'; }
+        .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+        .course-feature { background: rgba(255,255,255,0.1); padding: 30px; border-radius: 12px; text-align: center; border-left: 4px solid var(--theme-secondary); backdrop-filter: blur(5px); }
+        .course-feature i { font-size: 2.5rem; color: var(--theme-accent); margin-bottom: 15px; }
+        .course-feature h4 { color: white; margin-bottom: 10px; }
+        .course-feature p { color: rgba(255,255,255,0.8); font-size: 14px; }
+
+        .faq-section { padding: 60px 5%; max-width: 800px; margin: 0 auto; background: linear-gradient(180deg, #fff 0%, var(--theme-sand) 100%); }
+        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--theme-primary); margin-bottom: 40px; }
+        .faq-section h2::before { content: '🐚 '; }
+        .faq-section h2::after { content: ' 🐚'; }
+        .faq-item { border-bottom: 1px solid #ccc; padding: 20px 0; }
+        .faq-question { font-weight: 700; color: var(--theme-primary); cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-answer { padding-top: 15px; color: #555; line-height: 1.7; }
+
+        footer { background: var(--theme-dark); color: #ccc; padding: 50px 5%; text-align: center; }
+        .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 10px; }
+        .footer-brand span { color: var(--theme-secondary); }
+        .footer-tagline { margin-bottom: 25px; font-style: italic; }
+        .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; }
+        .footer-links a { transition: 0.3s; }
+        .footer-links a:hover { color: var(--theme-secondary); }
+        .footer-copy { font-size: 13px; opacity: 0.5; }
+
+        @media (max-width: 900px) {
+            .event-hero-content h1 { font-size: 2.5rem; }
+            .event-details { grid-template-columns: 1fr; }
+            .register-card { position: static; }
+            .nav-links { display: none; }
+            .social-proof-bar { gap: 20px; }
+            .countdown-banner { gap: 20px; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="../../index.html" class="logo">WHY<span>RACING</span></a>
+    <div class="nav-links">
+        <a href="../events.html">Races</a>
+        <a href="#">Results</a>
+        <a href="#">Training</a>
+        <a href="#">About</a>
+    </div>
+    <a href="#register" class="nav-btn">Register Now</a>
+</nav>
+
+<div class="event-hero">
+    <div class="floating-icons">
+        <span>🏖️</span>
+        <span>🌊</span>
+        <span>🐚</span>
+        <span>🌅</span>
+        <span>🏃</span>
+        <span>🦀</span>
+    </div>
+    <div class="event-hero-content">
+        <span class="event-tag">Beach</span>
+        <div class="event-date">September 12, 2026</div>
+        <h1>Pacific Coast Running Festival</h1>
+        <div class="event-location">
+            <i class="fas fa-map-marker-alt"></i> Long Beach, WA
+        </div>
+        <a href="#register" class="hero-cta">🌊 Secure My Spot</a>
+    </div>
+</div>
+
+<div class="countdown-banner">
+    <span class="countdown-label">Early Bird Pricing Ends In:</span>
+    <div class="countdown-timer">
+        <div class="countdown-unit"><div class="countdown-value" id="days">00</div><div class="countdown-text">Days</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="hours">00</div><div class="countdown-text">Hours</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="mins">00</div><div class="countdown-text">Mins</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="secs">00</div><div class="countdown-text">Secs</div></div>
+    </div>
+</div>
+
+<div class="social-proof-bar">
+    <div class="proof-item"><div class="live-dot"></div> <strong>2,156</strong> runners registered</div>
+    <div class="proof-item"><i class="fas fa-star"></i> 4.9/5 rating (1,247 reviews)</div>
+    <div class="proof-item"><i class="fas fa-water"></i> Most scenic beach course in WA</div>
+</div>
+
+<section class="event-details">
+    <div class="event-info">
+        <h2>Run Where the Ocean Meets the Sand</h2>
+        <p>Experience the ultimate beach running adventure at the Pacific Coast Running Festival! Feel the ocean breeze, hear the waves crashing, and run along one of Washington's most stunning coastal stretches. Whether you're chasing a PR or simply soaking in the breathtaking views, this is the Pacific Northwest's premier beach running experience.</p>
+        <p>The course takes you along the beautiful Long Beach Peninsula, featuring firm packed sand, scenic ocean vistas, and the refreshing coastal atmosphere. Start your run at sunrise and finish to the sound of seagulls and the smell of salt air.</p>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🏖️ Choose Your Distance</h3>
+        <div class="distances">
+            <span class="distance-tag">🐚 5K</span>
+            <span class="distance-tag">🌊 10K</span>
+            <span class="distance-tag">🌅 Half Marathon</span>
+        </div>
+
+        <div class="testimonial-box">
+            <div class="testimonial-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p>"Absolutely the most beautiful course I've ever run! The ocean views are incredible, and running on the beach at sunrise was magical. The organization was flawless, and the post-race seafood celebration was the cherry on top. Can't wait to come back!"</p>
+            <div class="testimonial-author">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Runner">
+                <div class="info">
+                    <strong>Sarah M.</strong>
+                    <span>Half Marathon finisher - Seattle, WA</span>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🌊 What's Included</h3>
+        <ul>
+            <li><i class="fas fa-medal"></i> Ocean-themed finisher medal with sand dollar design</li>
+            <li><i class="fas fa-tshirt"></i> Premium coastal-themed tech shirt</li>
+            <li><i class="fas fa-umbrella-beach"></i> Beach-themed aid stations with electrolytes</li>
+            <li><i class="fas fa-stopwatch"></i> Professional chip timing & results</li>
+            <li><i class="fas fa-fish"></i> Post-race seafood celebration</li>
+            <li><i class="fas fa-music"></i> Live beach band and DJ</li>
+            <li><i class="fas fa-heart"></i> Portion of proceeds to ocean conservation</li>
+        </ul>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🌅 Race Day Schedule</h3>
+        <ul>
+            <li><i class="fas fa-clock"></i> 5:30 AM - Packet Pickup Opens</li>
+            <li><i class="fas fa-clock"></i> 6:30 AM - Half Marathon Start (Sunrise!)</li>
+            <li><i class="fas fa-clock"></i> 7:30 AM - 10K Start</li>
+            <li><i class="fas fa-clock"></i> 8:00 AM - 5K Start</li>
+            <li><i class="fas fa-clock"></i> 10:00 AM - Awards Ceremony</li>
+            <li><i class="fas fa-clock"></i> 10:30 AM - Beach Party & Seafood Fest</li>
+        </ul>
+    </div>
+
+    <div id="register" class="registration-sidebar">
+        <div class="register-card">
+            <h3>Register Now</h3>
+            <div class="price-highlight">
+                <div class="price-tier-label">Early Bird Pricing</div>
+                <div class="price-row">
+                    <span class="price-current">$35</span>
+                    <span class="price-old">$50</span>
+                </div>
+                <span class="price-save">Save $15 - 5K</span>
+            </div>
+            
+            <div class="spots-warning">Limited beach parking - register early!</div>
+            
+            <button class="register-btn" onclick="window.location.href='https://runsignup.com/pacific-coast-running'">🌊 Catch This Wave!</button>
+            
+            <div class="price-tiers">
+                <div class="price-tier">
+                    <span class="price-tier-name">5K Early Bird (ends Aug 1)</span>
+                    <span class="price-tier-amount">$35</span>
+                </div>
+                <div class="price-tier">
+                    <span class="price-tier-name">10K Early Bird (ends Aug 1)</span>
+                    <span class="price-tier-amount">$45</span>
+                </div>
+                <div class="price-tier">
+                    <span class="price-tier-name">Half Marathon Early Bird</span>
+                    <span class="price-tier-amount">$75</span>
+                </div>
+            </div>
+            
+            <div class="trust-badges">
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Free Transfers</span>
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Secure Checkout</span>
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Instant Confirmation</span>
+            </div>
+            <div class="payment-icons">
+                <i class="fab fa-cc-visa fa-lg"></i>
+                <i class="fab fa-cc-mastercard fa-lg"></i>
+                <i class="fab fa-cc-paypal fa-lg"></i>
+                <i class="fab fa-cc-apple-pay fa-lg"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="course-section">
+    <h2>Why Runners Love Pacific Coast</h2>
+    <div class="course-features">
+        <div class="course-feature">
+            <i class="fas fa-water"></i>
+            <h4>Stunning Ocean Views</h4>
+            <p>Run alongside the Pacific Ocean with panoramic coastal vistas the entire course</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-umbrella-beach"></i>
+            <h4>Beach Running Experience</h4>
+            <p>Packed sand makes for a unique and memorable running surface</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-sun"></i>
+            <h4>Sunrise Start</h4>
+            <p>Watch the sun rise over the ocean as you begin your race</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-fish"></i>
+            <h4>Seafood Celebration</h4>
+            <p>Fresh local seafood and refreshments await you at the finish line</p>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <div class="faq-question">What time does packet pickup open?</div>
+        <div class="faq-answer">Packet pickup is available the day before (Friday, September 11) from 2pm-7pm at the Long Beach Convention Center. Race morning pickup opens at 5:30 AM at the start line.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">What type of surface is the course?</div>
+        <div class="faq-answer">The course runs primarily on packed sand along the beach. We recommend trail or road running shoes with good traction. The sand is firm and well-maintained for optimal running conditions.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">What is the refund/transfer policy?</div>
+        <div class="faq-answer">We offer free transfers up to 14 days before the event. Deferrals to the following year are available up to 7 days before. No refunds, but transfers are easy through your RunSignUp account.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Is parking available at the beach?</div>
+        <div class="faq-answer">Yes! Free parking is available at designated beach lots. We recommend arriving early as spots fill up quickly. Shuttle service is available from overflow parking areas.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">What if there's bad weather?</div>
+        <div class="faq-answer">The race runs rain or shine - it's the Pacific Coast after all! In case of dangerous conditions (lightning, extreme winds), we'll communicate updates via email and social media. Dress in layers and be prepared for coastal weather.</div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-brand">WHY<span>RACING</span></div>
+    <div class="footer-tagline">What's Your WHY?</div>
+    <div class="footer-links">
+        <a href="../../index.html">Home</a>
+        <a href="../events.html">All Events</a>
+        <a href="#">Results</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 Why Racing Events Inc. | La Center, WA | (360) 314-4682</div>
+</footer>
+
+<script>
+var endDate = new Date('2026-08-01T23:59:59');
+function updateCountdown() {
+    var now = new Date().getTime(), diff = endDate - now;
+    if (diff < 0) { diff = 0; }
+    document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
+    document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+    document.getElementById('mins').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    document.getElementById('secs').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+}
+setInterval(updateCountdown, 1000); updateCountdown();
+</script>
+
+</body>
+</html>
