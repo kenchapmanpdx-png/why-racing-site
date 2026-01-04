@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Why Racing Events</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { --red: #E31837; --blue: #00205B; --grey: #f5f5f5; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; color: #333; line-height: 1.5; }
+        h1, h2, h3 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 0.5px; }
+        a { text-decoration: none; color: inherit; }
+        .btn { padding: 10px 24px; font-weight: 700; text-transform: uppercase; font-size: 12px; border-radius: 4px; display: inline-block; transition: 0.3s; }
+        .btn-primary { background: var(--red); color: white; }
+        .btn-primary:hover { background: #b00e26; }
+
+        /* NAV */
+        nav { position: fixed; top: 0; width: 100%; padding: 10px 4%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(0,0,0,0.95), rgba(227,24,55,0.9)); }
+        .logo img { filter: brightness(0) invert(1); height: 36px; }
+        .nav-links { display: flex; gap: 18px; }
+        .nav-links a { font-size: 11px; font-weight: 700; text-transform: uppercase; color: white; }
+        .nav-btn { background: white; color: var(--red); padding: 7px 14px; border-radius: 4px; font-weight: 700; font-size: 10px; }
+
+        /* HERO - Compact */
+        .hero { background: linear-gradient(135deg, var(--blue), var(--red)); padding: 100px 4% 40px; text-align: center; color: white; }
+        .hero h1 { font-size: 2.2rem; font-style: italic; margin-bottom: 8px; }
+        .hero p { font-size: 1rem; opacity: 0.9; max-width: 500px; margin: 0 auto; }
+
+        /* INTRO - Mission + Stats in one tight section */
+        .intro { padding: 30px 4%; background: var(--grey); }
+        .intro-inner { max-width: 1100px; margin: 0 auto; display: grid; grid-template-columns: 1fr 300px; gap: 30px; align-items: start; }
+        .intro h2 { font-size: 1.6rem; color: var(--blue); font-style: italic; margin-bottom: 10px; }
+        .intro p { font-size: 14px; color: #555; margin-bottom: 8px; }
+        .intro-img { border-radius: 8px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        .intro-img img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .stats { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; background: var(--blue); border-radius: 8px; padding: 15px 10px; margin-top: 20px; text-align: center; }
+        .stats h3 { font-size: 1.4rem; color: white; }
+        .stats h3 span { color: var(--red); }
+        .stats p { font-size: 9px; color: rgba(255,255,255,0.7); text-transform: uppercase; letter-spacing: 0.5px; }
+
+        /* VALUES - Inline row */
+        .values { padding: 25px 4%; display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; }
+        .value { display: flex; align-items: center; gap: 12px; background: white; padding: 15px 20px; border-radius: 8px; box-shadow: 0 3px 15px rgba(0,0,0,0.06); }
+        .value-icon { width: 45px; height: 45px; background: linear-gradient(135deg, var(--red), var(--blue)); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+        .value-icon i { font-size: 18px; color: white; }
+        .value h3 { font-size: 1rem; color: var(--blue); margin-bottom: 2px; }
+        .value p { font-size: 12px; color: #666; }
+
+        /* TEAM */
+        .team { padding: 30px 4%; background: var(--grey); }
+        .team-header { text-align: center; margin-bottom: 20px; }
+        .team-header h2 { font-size: 1.6rem; color: var(--blue); font-style: italic; }
+
+        /* Owners - horizontal card */
+        .owners { display: flex; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 8px 25px rgba(0,0,0,0.08); max-width: 850px; margin: 0 auto 25px; }
+        .owners-photo { width: 280px; flex-shrink: 0; }
+        .owners-photo img { width: 100%; height: 100%; object-fit: cover; min-height: 240px; }
+        .owners-info { padding: 20px 25px; }
+        .owners-info .role { color: var(--red); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+        .owners-info h3 { font-size: 1.4rem; color: var(--blue); font-style: italic; margin: 5px 0 10px; }
+        .owners-info p { font-size: 13px; color: #555; margin-bottom: 8px; }
+        .quote { background: var(--grey); padding: 10px 12px; border-left: 3px solid var(--red); border-radius: 4px; font-size: 12px; color: #666; font-style: italic; margin-top: 10px; }
+        .quote strong { display: block; font-size: 10px; color: var(--blue); font-style: normal; text-transform: uppercase; margin-bottom: 3px; }
+        .emails { margin-top: 10px; font-size: 11px; }
+        .emails a { color: var(--red); margin-right: 12px; }
+        .emails i { margin-right: 4px; }
+
+        /* Team grid - 4 columns, compact */
+        .team-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; max-width: 1000px; margin: 0 auto; }
+        .card { background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 5px 20px rgba(0,0,0,0.06); }
+        .card-photo { height: 140px; background: linear-gradient(135deg, var(--blue), var(--red)); }
+        .card-photo img { width: 100%; height: 100%; object-fit: cover; }
+        .card-info { padding: 12px 14px; }
+        .card-info .role { color: var(--red); font-size: 9px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
+        .card-info h3 { font-size: 0.95rem; color: var(--blue); font-style: italic; margin: 3px 0 6px; }
+        .card-info p { font-size: 11px; color: #555; margin-bottom: 6px; }
+        .card-info .quote { padding: 8px 10px; font-size: 10px; margin-top: 8px; }
+        .card-info .email { display: block; margin-top: 8px; font-size: 10px; color: var(--red); }
+
+        /* CHARITY - compact banner */
+        .charity { background: linear-gradient(135deg, var(--blue), var(--red)); padding: 35px 4%; text-align: center; color: white; }
+        .charity h2 { font-size: 1.4rem; font-style: italic; }
+        .charity .amount { font-family: 'Oswald', sans-serif; font-size: 2.8rem; margin: 10px 0; }
+        .charity p { font-size: 13px; opacity: 0.9; max-width: 500px; margin: 0 auto 15px; }
+        .charity .causes { display: flex; justify-content: center; gap: 20px; flex-wrap: wrap; margin-top: 15px; font-size: 10px; text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.75; }
+
+        /* CTA */
+        .cta { padding: 30px 4%; text-align: center; }
+        .cta h2 { font-size: 1.4rem; color: var(--blue); font-style: italic; margin-bottom: 8px; }
+        .cta p { font-size: 13px; color: #666; margin-bottom: 15px; }
+
+        /* FOOTER */
+        footer { background: #111; color: #777; padding: 25px 4%; text-align: center; font-size: 12px; }
+        .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.1rem; color: white; }
+        .footer-brand span { color: var(--red); }
+        .footer-links { display: flex; justify-content: center; gap: 15px; margin: 12px 0; }
+        .footer-links a:hover { color: var(--red); }
+        .footer-social { display: flex; justify-content: center; gap: 10px; margin-bottom: 12px; }
+        .footer-social a { width: 30px; height: 30px; border: 1px solid #444; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 12px; }
+        .footer-social a:hover { background: var(--red); border-color: var(--red); }
+        .footer-copy { opacity: 0.5; font-size: 11px; }
+
+        @media (max-width: 900px) {
+            .intro-inner { grid-template-columns: 1fr; }
+            .intro-img { max-width: 400px; }
+            .owners { flex-direction: column; }
+            .owners-photo { width: 100%; height: 200px; }
+            .team-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 1.8rem; }
+            .stats { grid-template-columns: repeat(2, 1fr); }
+            .values { flex-direction: column; align-items: center; }
+            .team-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="../index.html" class="logo"><img src="../images/logo-white.png" alt="Why Racing Events"></a>
+    <div class="nav-links">
+        <a href="events.html">Races</a>
+        <a href="#">Results</a>
+        <a href="#">Training</a>
+        <a href="about.html">About</a>
+    </div>
+    <a href="events.html" class="nav-btn">Find A Race</a>
+</nav>
+
+<section class="hero">
+    <h1>Our Story</h1>
+    <p>A community built on fitness, family, and fun—raising millions for causes that matter.</p>
+</section>
+
+<section class="intro">
+    <div class="intro-inner">
+        <div>
+            <h2>What's Your Why?</h2>
+            <p>Why Racing Events offers athletes of all abilities the chance to train for and complete races while raising funds for community causes. We believe in <strong>fitness, family, and fun!</strong></p>
+            <p>Great music, live bands, party atmosphere, and awesome swag make every event a blast. Our "WHY" is the people—we love seeing athletes push their limits and our amazing community come together.</p>
+            <div class="stats">
+                <div><h3>$3<span>M+</span></h3><p>Raised</p></div>
+                <div><h3>50<span>K+</span></h3><p>Athletes</p></div>
+                <div><h3>21</h3><p>Events</p></div>
+                <div><h3>40<span>+</span></h3><p>Years Exp</p></div>
+            </div>
+        </div>
+        <div class="intro-img">
+            <img src="https://images.unsplash.com/photo-1571008887538-b36bb32f4571?w=400" alt="Finish line">
+        </div>
+    </div>
+</section>
+
+<section class="values">
+    <div class="value">
+        <div class="value-icon"><i class="fas fa-heart"></i></div>
+        <div><h3>Fitness</h3><p>First 5K or 50th marathon—we support your journey.</p></div>
+    </div>
+    <div class="value">
+        <div class="value-icon"><i class="fas fa-users"></i></div>
+        <div><h3>Family</h3><p>Kids' dashes to relays—memories that last.</p></div>
+    </div>
+    <div class="value">
+        <div class="value-icon"><i class="fas fa-music"></i></div>
+        <div><h3>Fun</h3><p>Live bands, parties—the finish line is just the start.</p></div>
+    </div>
+</section>
+
+<section class="team">
+    <div class="team-header">
+        <h2>The Why Racing Family</h2>
+    </div>
+
+    <div class="owners">
+        <div class="owners-photo">
+            <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=500" alt="Karissa & Rod Schoene">
+        </div>
+        <div class="owners-info">
+            <span class="role">Owners & Race Directors</span>
+            <h3>Karissa & Rod Schoene</h3>
+            <p>We approach each event as a challenge to give athletes an experience they can't wait to share—and can't wait to come back! Having grown up in the Northwest, we're entrenched in this community. We love the competitive edge, seeing people push limits, and our amazing community.</p>
+            <div class="quote">
+                <strong>Our WHY?</strong>
+                To keep up with our kids; teach them to be good humans; enjoy all life has to offer.
+            </div>
+            <div class="emails">
+                <a href="mailto:Karissa@whyracingevents.com"><i class="fas fa-envelope"></i>Karissa@whyracingevents.com</a>
+                <a href="mailto:Rod@whyracingevents.com"><i class="fas fa-envelope"></i>Rod@whyracingevents.com</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="team-grid">
+        <div class="card">
+            <div class="card-photo"><img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=300" alt="Brock Schoene"></div>
+            <div class="card-info">
+                <span class="role">Race Director</span>
+                <h3>Brock Schoene</h3>
+                <p>Grew up at WHY Racing. Takes pride in connecting volunteers to athletes and supporting local beneficiaries.</p>
+                <div class="quote"><strong>My WHY?</strong>To better myself through running and nature.</div>
+                <a href="mailto:Brock@whyracingevents.com" class="email"><i class="fas fa-envelope"></i> Brock@whyracingevents.com</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-photo"><img src="https://images.unsplash.com/photo-1594381898411-846e7d193883?w=300" alt="Marla Stone"></div>
+            <div class="card-info">
+                <span class="role">Beneficiary & Volunteer Coord.</span>
+                <h3>Marla Stone</h3>
+                <p>Trail runner turned triathlete. Her joy is creating the best experience for athletes of all skill levels.</p>
+                <div class="quote"><strong>My WHY?</strong>Encourage others to test their limits.</div>
+                <a href="mailto:Marla@whyracingevents.com" class="email"><i class="fas fa-envelope"></i> Marla@whyracingevents.com</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-photo"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300" alt="Richard Jessup"></div>
+            <div class="card-info">
+                <span class="role">Operations Director</span>
+                <h3>Richard Jessup</h3>
+                <p>Working races since the late 1980's. Found a home with WHY in 2015. Two daughters also work here!</p>
+                <div class="quote"><strong>My WHY?</strong>Make my family proud.</div>
+                <a href="mailto:Richard@whyracingevents.com" class="email"><i class="fas fa-envelope"></i> Richard@whyracingevents.com</a>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-photo"><img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300" alt="Jim Mitts"></div>
+            <div class="card-info">
+                <span class="role">Swim Course Manager</span>
+                <h3>Jim Mitts</h3>
+                <p>Running since grade school AAU. Joined WHY in 2021. Loves multi-sport events.</p>
+                <div class="quote"><strong>My WHY?</strong>Have fun in the running community.</div>
+                <a href="mailto:jlmitts55@gmail.com" class="email"><i class="fas fa-envelope"></i> jlmitts55@gmail.com</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="charity">
+    <h2>Making a Difference</h2>
+    <div class="amount">$3,000,000+</div>
+    <p>Every registration supports local causes. We care about you and the community around you.</p>
+    <a href="events.html" class="btn btn-primary">Find Your Race</a>
+    <div class="causes">
+        <span>Northwest Battle Buddies</span>
+        <span>Police Activities League</span>
+        <span>Ainsley's Angels</span>
+        <span>Vancouver Public Schools</span>
+    </div>
+</section>
+
+<section class="cta">
+    <h2>Ready to Find Your Why?</h2>
+    <p>Join thousands of athletes who've discovered their purpose on the course.</p>
+    <a href="events.html" class="btn btn-primary">Browse All Events</a>
+</section>
+
+<footer>
+    <div class="footer-brand">WHY <span>RACING</span></div>
+    <div class="footer-links">
+        <a href="events.html">Races</a>
+        <a href="#">Results</a>
+        <a href="#">Training</a>
+        <a href="about.html">About</a>
+    </div>
+    <div class="footer-social">
+        <a href="https://facebook.com/WhyRacingEvents"><i class="fab fa-facebook-f"></i></a>
+        <a href="https://instagram.com/why_racing_events"><i class="fab fa-instagram"></i></a>
+        <a href="https://twitter.com/WhyRacingEvents"><i class="fab fa-twitter"></i></a>
+    </div>
+    <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
+</footer>
+
+</body>
+</html>
