@@ -93,13 +93,13 @@
         }
         .nav-links a:hover { color: var(--brand-red); }
 
-        /* --- CINEMATIC HERO SECTION --- */
+        /* --- HERO SECTION --- */
         .page-hero {
             background: linear-gradient(135deg, rgba(0, 32, 91, 0.9) 0%, rgba(0, 21, 64, 0.95) 100%),
                         url('https://images.unsplash.com/photo-1530143311094-34d807799e8f?q=80&w=2669&auto=format&fit=crop');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed; /* Parallax Effect */
+            background-attachment: fixed;
             padding: 200px 5% 120px;
             text-align: center;
             color: white;
@@ -121,10 +121,10 @@
             font-weight: 300;
         }
 
-        /* --- ANIMATED STATS SECTION --- */
+        /* --- STATS SECTION --- */
         .stats-section {
             padding: 0 5% 80px;
-            margin-top: -60px; /* Overlap effect */
+            margin-top: -60px;
             position: relative;
             z-index: 10;
         }
@@ -141,7 +141,6 @@
         }
         .stat-item { text-align: center; border-right: 1px solid #eee; }
         .stat-item:last-child { border-right: none; }
-        
         .stat-number {
             font-family: 'Oswald', sans-serif;
             font-size: 3.5rem;
@@ -159,7 +158,7 @@
             letter-spacing: 1px;
         }
 
-        /* --- BROKEN GRID MISSION SECTION --- */
+        /* --- MISSION SECTION --- */
         .mission-section { padding: 120px 5%; }
         .mission-grid {
             display: grid;
@@ -169,9 +168,7 @@
             max-width: 1200px;
             margin: 0 auto;
         }
-        
         .mission-image-wrapper { position: relative; }
-        /* The Offset Red Box */
         .mission-image-wrapper::before {
             content: '';
             position: absolute;
@@ -188,7 +185,6 @@
             box-shadow: 20px 20px 60px rgba(0,0,0,0.2);
             z-index: 1;
         }
-        
         .mission-content h2 { font-size: 3rem; margin-bottom: 20px; }
         .mission-content blockquote {
             border-left: 4px solid var(--brand-red);
@@ -200,7 +196,7 @@
             font-weight: 600;
         }
 
-        /* --- TEAM GRID --- */
+        /* --- TEAM SECTION --- */
         .team-section { background: var(--grey); padding: 100px 5%; }
         .section-header { text-align: center; margin-bottom: 60px; }
         .section-header h2 { font-size: 3rem; }
@@ -220,11 +216,9 @@
             transition: transform 0.3s;
         }
         .team-card:hover { transform: translateY(-10px); }
-        
-        .team-photo { height: 300px; overflow: hidden; }
+        .team-photo { height: 320px; overflow: hidden; }
         .team-photo img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
         .team-card:hover .team-photo img { transform: scale(1.05); }
-        
         .team-info { padding: 30px; }
         .team-role { color: var(--brand-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 15px; display: block; }
         
@@ -237,24 +231,30 @@
         }
         .team-why-full.expanded { max-height: 500px; opacity: 1; margin-top: 15px; }
 
-        /* --- VALUES --- */
-        .values-section { padding: 100px 5%; background: white; }
-        .values-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-            max-width: 1200px;
+        /* --- FOUNDER SECTION --- */
+        .founder-section {
+            background: white;
+            padding: 80px 5%;
+            border-top: 1px solid #eee;
+        }
+        .founder-container {
+            max-width: 1000px;
             margin: 0 auto;
-        }
-        .value-card {
-            text-align: center;
+            display: flex;
+            gap: 40px;
+            align-items: center;
+            background: #fafafa;
             padding: 40px;
-            border: 1px solid #eee;
             border-radius: 12px;
-            transition: 0.3s;
+            border-left: 5px solid var(--brand-red);
         }
-        .value-card:hover { border-color: var(--brand-red); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .value-card i { font-size: 2.5rem; color: var(--brand-red); margin-bottom: 20px; }
+        .founder-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
+        }
 
         /* --- CHARITY LOGO SECTION --- */
         .charity-section {
@@ -296,13 +296,13 @@
         }
         .footer-social a:hover { color: var(--brand-red); }
 
-        /* RESPONSIVE */
         @media (max-width: 900px) {
             .page-hero h1 { font-size: 3rem; }
             .stats-container { grid-template-columns: 1fr 1fr; gap: 40px; }
             .stat-item { border-right: none; }
             .mission-grid { grid-template-columns: 1fr; }
-            .values-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+            .founder-container { flex-direction: column; text-align: center; }
             .nav-links { display: none; }
         }
     </style>
@@ -416,6 +416,26 @@
 
             <div class="team-card">
                 <div class="team-photo">
+                    <img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=600" alt="Richard Jessup">
+                </div>
+                <div class="team-info">
+                    <h3>Richard Jessup</h3>
+                    <span class="team-role">Operations Director</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> "To encourage others to test their limits and to enjoy what every day has to offer..."
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"I grew up in San Diego and fell in love with the industry in the 1980s. I coordinate logistics, permits, and operations so athletes can focus on their race. It's a family affair—my daughters work here too!"</p>
+                        <a href="mailto:richard@whyracingevents.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">richard@whyracingevents.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo">
                     <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600" alt="Marla Stone">
                 </div>
                 <div class="team-info">
@@ -428,30 +448,55 @@
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">"...in our community. Whether it's Northwest Battle Buddies supporting veterans, or local schools getting funding for PE programs—every registration creates impact beyond the finish line."</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...in our community. I began trail running in my 30s and found my joy in assisting athletes of all skill levels. The WHY Family is a reality—we care about you and the community around you."</p>
                         <a href="mailto:marla@whyracing.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">marla@whyracing.com</a>
                     </div>
                 </div>
             </div>
+
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600" alt="Jim Mitts">
+                </div>
+                <div class="team-info">
+                    <h3>Jim Mitts</h3>
+                    <span class="team-role">Swim Course Manager</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> "Multi-sport events have a special energy. I want every athlete to feel safe..."
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"I've been in the triathlon community for decades. I manage swim courses because water safety is critical. Seeing athletes push themselves in three disciplines is what keeps me coming back."</p>
+                        <a href="mailto:jlmitts55@gmail.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">Contact Jim</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card" style="opacity: 0.8;">
+                <div class="team-photo" style="filter: grayscale(100%);">
+                    <img src="https://images.unsplash.com/photo-1554151228-14d9def656ec?w=600" alt="Jaime Miller">
+                </div>
+                <div class="team-info">
+                    <h3>Jaime Miller</h3>
+                    <span class="team-role">In Memoriam</span>
+                    <p style="font-size: 0.9rem; color: #666;">
+                        Our beloved former Marketing Director. We race to honor her legacy and spirit every single day.
+                    </p>
+                </div>
+            </div>
+
         </div>
     </section>
 
-    <section class="values-section">
-        <div class="values-grid">
-            <div class="value-card">
-                <i class="fas fa-heartbeat"></i>
-                <h3>Fitness</h3>
-                <p>We believe in the transformative power of movement. Every event is designed to help you become your best self.</p>
-            </div>
-            <div class="value-card">
-                <i class="fas fa-users"></i>
-                <h3>Family</h3>
-                <p>Racing is better together. We create events where families train, compete, and celebrate as one.</p>
-            </div>
-            <div class="value-card">
-                <i class="fas fa-smile-beam"></i>
-                <h3>Fun</h3>
-                <p>From costume contests to live bands to epic after-parties—we make every finish line a celebration.</p>
+    <section class="founder-section">
+        <div class="founder-container">
+            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600" alt="Sherri McMillan" class="founder-img">
+            <div>
+                <h3 style="margin-bottom: 10px; color: var(--brand-blue);">Sherri McMillan</h3>
+                <span style="color: var(--brand-red); font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;">FOUNDER & COMMUNITY PARTNER</span>
+                <p style="margin-top: 15px; color: #555;">Sherri founded Why Racing Events with a vision to create world-class events that give back. Today, she leads <strong>Why Community</strong>, our non-profit partner dedicated to providing racing opportunities to at-risk populations.</p>
             </div>
         </div>
     </section>
