@@ -69,7 +69,44 @@
             color: white;
         }
         
-        .logo img { height: 40px; filter: brightness(0) invert(1); }
+        .logo { 
+            font-family: 'Oswald', sans-serif; 
+            font-size: 22px; 
+            font-weight: 700; 
+            color: white;
+            text-decoration: none;
+        }
+        .logo span { color: var(--brand-red); }
+
+        /* SCROLLING TICKER */
+        .stats-ticker {
+            background: var(--dark);
+            color: white;
+            padding: 18px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-bottom: 4px solid var(--brand-red);
+        }
+        .ticker-track {
+            display: inline-block;
+            animation: tickerScroll 25s linear infinite;
+        }
+        .ticker-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            margin: 0 40px;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+        }
+        .ticker-item i { color: var(--brand-red); }
+        @keyframes tickerScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
 
         .nav-links { display: flex; gap: 25px; }
         .nav-links a { color: white; text-decoration: none; font-weight: 600; font-size: 0.9rem; }
@@ -248,7 +285,7 @@
 
     <nav>
         <a href="../index.html" class="logo">
-            <img src="https://whyracingevents.com/wp-content/uploads/2019/01/WhyRacingEvents_Logo_White.png" alt="Why Racing Events">
+            WHY <span>RACING</span>
         </a>
         <div class="nav-links">
             <a href="../index.html">Home</a>
@@ -275,6 +312,23 @@
         <p>Gain brand loyalty from thousands of active, educated, and high-income consumers. Why Racing Events isn't just a logo placement—it's a performance partnership.</p>
         <a href="#partner-form" class="btn btn-primary" style="background: white; color: var(--brand-red);">Download Partner Deck</a>
     </header>
+
+    <div class="stats-ticker">
+        <div class="ticker-track">
+            <span class="ticker-item"><i class="fas fa-heart"></i> Your Registration Supports Local Charities</span>
+            <span class="ticker-item"><i class="fas fa-users"></i> 50,000+ Athletes Strong</span>
+            <span class="ticker-item"><i class="fas fa-trophy"></i> 21 Premier PNW Events</span>
+            <span class="ticker-item"><i class="fas fa-mountain"></i> Stunning Scenic Courses</span>
+            <span class="ticker-item"><i class="fas fa-medal"></i> Epic Swag & Medals</span>
+            <span class="ticker-item"><i class="fas fa-music"></i> Live Music & After Parties</span>
+            <span class="ticker-item"><i class="fas fa-heart"></i> Your Registration Supports Local Charities</span>
+            <span class="ticker-item"><i class="fas fa-users"></i> 50,000+ Athletes Strong</span>
+            <span class="ticker-item"><i class="fas fa-trophy"></i> 21 Premier PNW Events</span>
+            <span class="ticker-item"><i class="fas fa-mountain"></i> Stunning Scenic Courses</span>
+            <span class="ticker-item"><i class="fas fa-medal"></i> Epic Swag & Medals</span>
+            <span class="ticker-item"><i class="fas fa-music"></i> Live Music & After Parties</span>
+        </div>
+    </div>
 
     <section class="stats-section">
         <div class="stats-grid">

@@ -110,6 +110,12 @@ Each event detail page includes:
 - CSS pseudo-elements (::before/::after) for themed decorations
 
 ## Recent Changes (January 2026)
+- Fixed broken external logo URLs by implementing text-based "WHY RACING" logo across all pages
+  - Blue text on light nav backgrounds (about.html, first-5k.html)
+  - White text on dark nav backgrounds (events.html, partners.html)
+  - Red accent on "RACING" consistently across all pages
+- Added scrolling sponsor ticker to all pages (charity support, athlete count, events, scenery)
+- Mobile hamburger navigation with full-screen overlay on all pages
 - Created themed pages for all 21 races in the 2026 calendar
 - Added 13 new event pages with unique theming:
   - Couve Clover Run (St. Patrick's Day)
