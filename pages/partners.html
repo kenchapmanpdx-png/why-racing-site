@@ -192,10 +192,55 @@
             font-family: 'Inter', sans-serif;
         }
 
+        /* MOBILE MENU */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 32, 91, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a {
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .mobile-menu a:hover { color: var(--brand-red); }
+
         @media (max-width: 768px) {
             header h1 { font-size: 2.5rem; }
             .profile-split { grid-template-columns: 1fr; }
             .nav-links { display: none; }
+            .hamburger { display: flex; }
         }
     </style>
 </head>
@@ -211,7 +256,19 @@
             <a href="first-5k.html">Your 1st 5K</a>
             <a href="about.html">About</a>
         </div>
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">Home</a>
+        <a href="events.html">Race Calendar</a>
+        <a href="first-5k.html">Your 1st 5K</a>
+        <a href="about.html">About</a>
+    </div>
 
     <header>
         <h1>Connect with the <br><span style="color: var(--brand-red);">Northwest's Best.</span></h1>
@@ -376,5 +433,14 @@
         <p>&copy; 2025 Why Racing Events. Together we achieve the extraordinary.</p>
     </footer>
 
+    <script>
+    function toggleMobileMenu() {
+        const hamburger = document.querySelector('.hamburger');
+        const mobileMenu = document.getElementById('mobileMenu');
+        hamburger.classList.toggle('active');
+        mobileMenu.classList.toggle('active');
+        document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+    }
+    </script>
 </body>
 </html>

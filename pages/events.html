@@ -280,9 +280,55 @@
         .no-results h3 { color: var(--brand-blue); margin-bottom: 10px; }
         .event-card.hidden { display: none; }
 
+        /* MOBILE MENU */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+        .hamburger.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+        .hamburger.active span:nth-child(2) { opacity: 0; }
+        .hamburger.active span:nth-child(3) { transform: rotate(-45deg) translate(7px, -6px); }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 32, 91, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        .mobile-menu.active { display: flex; }
+        .mobile-menu a {
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+        .mobile-menu a:hover { color: var(--brand-red); }
+
         @media (max-width: 768px) {
             .page-header h1 { font-size: 2rem; }
             .nav-links { display: none; }
+            .hamburger { display: flex; }
+            .nav-btn { display: none; }
             .filter-bar { top: 55px; padding: 15px 5%; }
             .filter-buttons { gap: 8px; }
             .filter-btn { padding: 8px 14px; font-size: 12px; }
@@ -299,8 +345,20 @@
         <a href="first-5k.html">Your 1st 5K</a>
         <a href="about.html">About</a>
     </div>
+    <div class="hamburger" onclick="toggleMobileMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+    </div>
     <a href="events.html" class="nav-btn">Find A Race</a>
 </nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    <a href="../index.html">Home</a>
+    <a href="events.html">2026 Calendar</a>
+    <a href="first-5k.html">Your 1st 5K</a>
+    <a href="about.html">About</a>
+</div>
 
 <div class="page-header">
     <h1>2026 Race Calendar</h1>
@@ -696,6 +754,14 @@
 </footer>
 
 <script>
+function toggleMobileMenu() {
+    const hamburger = document.querySelector('.hamburger');
+    const mobileMenu = document.getElementById('mobileMenu');
+    hamburger.classList.toggle('active');
+    mobileMenu.classList.toggle('active');
+    document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     var filterBtns = document.querySelectorAll('.filter-btn');
     var eventCards = document.querySelectorAll('.event-card');
