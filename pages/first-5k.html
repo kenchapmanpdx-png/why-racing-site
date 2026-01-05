@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your First 5K | Why Racing Events</title>
+    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --crimson: #C41E3A;
+            --crimson-dark: #9B1B30;
+            --crimson-glow: rgba(196, 30, 58, 0.12);
+            --midnight: #0B1120;
+            --navy: #141E30;
+            --ink: #1A1F35;
+            --cream: #FDF9F6;
+            --ivory: #FFFBF7;
+            --sand: #F5EDE4;
+            --champagne: #F7E7CE;
+            --gold: #D4AF37;
+            --bronze: #CD7F32;
+            --charcoal: #2D2D3A;
+            --slate: #4A4A5C;
+            --mist: #8A8A9C;
+            --emerald: #1B7340;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        html { 
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+        
+        body { 
+            font-family: 'Space Grotesk', sans-serif;
+            background: var(--ivory);
+            color: var(--charcoal);
+            line-height: 1.7;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* CUSTOM CURSOR */
+        .cursor {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--crimson);
+            border-radius: 50%;
+            position: fixed;
+            pointer-events: none;
+            z-index: 9999;
+            transition: transform 0.15s ease, opacity 0.15s ease;
+            mix-blend-mode: difference;
+        }
+
+        .cursor.hover {
+            transform: scale(2);
+            background: rgba(196, 30, 58, 0.1);
+        }
+
+        /* TYPOGRAPHY */
+        h1, h2, h3 { 
+            font-family: 'Italiana', serif;
+            font-weight: 400;
+            line-height: 1.05;
+        }
+
+        .display-text {
+            font-family: 'Syne', sans-serif;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -0.02em;
+        }
+
+        /* ORGANIC SHAPES */
+        .blob-1 {
+            position: absolute;
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(ellipse at center, var(--crimson-glow) 0%, transparent 70%);
+            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
+            filter: blur(60px);
+            animation: morphBlob 20s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        .blob-2 {
+            position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
+            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+            filter: blur(50px);
+            animation: morphBlob 15s ease-in-out infinite reverse;
+            pointer-events: none;
+        }
+
+        @keyframes morphBlob {
+            0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
+            25% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; }
+            50% { border-radius: 30% 60% 70% 40% / 50% 40% 60% 50%; transform: rotate(180deg) scale(1.1); }
+            75% { border-radius: 50% 40% 50% 60% / 40% 60% 40% 60%; }
+        }
+
+        /* GRAIN OVERLAY */
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10000;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+
+        /* NAV */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 28px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        nav.scrolled {
+            padding: 18px 5%;
+            background: rgba(255, 251, 247, 0.85);
+            backdrop-filter: blur(30px) saturate(180%);
+            -webkit-backdrop-filter: blur(30px) saturate(180%);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .logo { 
+            font-family: 'Syne', sans-serif;
+            font-size: 15px; 
+            font-weight: 800; 
+            color: var(--midnight); 
+            letter-spacing: 5px;
+            text-transform: uppercase;
+        }
+
+        .logo span { 
+            color: var(--crimson);
+            position: relative;
+        }
+
+        .logo span::after {
+            content: '';
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--crimson);
+        }
+        
+        .nav-links { 
+            display: flex; 
+            gap: 48px; 
+            align-items: center; 
+        }
+        
+        .nav-links a { 
+            font-size: 12px; 
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--slate);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background: var(--crimson);
+            border-radius: 50%;
+            transform: translateX(-50%) scale(0);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .nav-links a:hover { color: var(--crimson); }
+        .nav-links a:hover::before { transform: translateX(-50%) scale(1); }
+
+        /* HERO */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero .blob-1 {
+            top: -20%;
+            left: -10%;
+        }
+
+        .hero .blob-2 {
+            bottom: -30%;
+            right: 20%;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 180px 8% 120px 10%;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .hero-tag-line {
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, var(--crimson), transparent);
+        }
+
+        .hero-tag-text {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--crimson);
+        }
+
+        .hero-title {
+            font-size: clamp(4rem, 8vw, 7rem);
+            color: var(--midnight);
+            margin-bottom: 12px;
+            overflow: hidden;
+        }
+
+        .hero-title .line {
+            display: block;
+            overflow: hidden;
+        }
+
+        .hero-title .word {
+            display: inline-block;
+            transform: translateY(100%);
+            animation: revealWord 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        .hero-title .word:nth-child(1) { animation-delay: 0.1s; }
+        .hero-title .word:nth-child(2) { animation-delay: 0.2s; }
+        .hero-title .word:nth-child(3) { animation-delay: 0.3s; }
+        .hero-title .word:nth-child(4) { animation-delay: 0.4s; }
+
+        @keyframes revealWord {
+            to { transform: translateY(0); }
+        }
+
+        .hero-title em {
+            font-family: 'Italiana', serif;
+            font-style: italic;
+            color: var(--crimson);
+        }
+
+        .hero-subtitle-accent {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.4rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--mist);
+            margin-bottom: 36px;
+        }
+
+        .hero-desc {
+            font-size: 1.15rem;
+            color: var(--slate);
+            max-width: 480px;
+            line-height: 1.9;
+            margin-bottom: 50px;
+        }
+
+        .hero-quote-wrap {
+            position: relative;
+            max-width: 520px;
+            margin-bottom: 56px;
+        }
+
+        .hero-quote-deco {
+            position: absolute;
+            top: -30px;
+            left: -20px;
+            font-family: 'Italiana', serif;
+            font-size: 12rem;
+            line-height: 1;
+            color: var(--sand);
+            z-index: -1;
+            opacity: 0.6;
+        }
+
+        .hero-quote {
+            background: white;
+            padding: 36px 40px;
+            border-radius: 4px;
+            position: relative;
+            box-shadow: 
+                0 1px 2px rgba(0,0,0,0.02),
+                0 4px 8px rgba(0,0,0,0.02),
+                0 16px 32px rgba(0,0,0,0.04),
+                0 32px 64px rgba(0,0,0,0.04);
+        }
+
+        .hero-quote::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, var(--crimson), var(--gold));
+            border-radius: 4px 0 0 4px;
+        }
+
+        .hero-quote p {
+            font-family: 'Italiana', serif;
+            font-size: 1.35rem;
+            color: var(--charcoal);
+            line-height: 1.6;
+            font-style: italic;
+        }
+
+        .hero-quote cite {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 0.8rem;
+            font-style: normal;
+            font-weight: 600;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--mist);
+            margin-top: 20px;
+        }
+
+        .hero-quote cite::before {
+            content: '';
+            width: 24px;
+            height: 1px;
+            background: var(--mist);
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 20px;
+            background: var(--crimson);
+            color: white;
+            padding: 24px 48px;
+            border-radius: 60px;
+            font-weight: 700;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-cta::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.4s;
+        }
+
+        .hero-cta:hover::before { opacity: 1; }
+
+        .hero-cta:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 
+                0 20px 40px rgba(196, 30, 58, 0.25),
+                0 40px 80px rgba(196, 30, 58, 0.15);
+        }
+
+        .hero-cta i {
+            font-size: 14px;
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-cta:hover i {
+            transform: translateX(6px);
+        }
+
+        /* HERO IMAGE SIDE */
+        .hero-visual {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-image-mask {
+            position: absolute;
+            inset: 60px;
+            background: var(--sand);
+            overflow: hidden;
+            border-radius: 4px;
+            z-index: 1;
+        }
+
+        .hero-image-mask img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            scale: 1.1;
+            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .hero-visual:hover .hero-image-mask img {
+            transform: scale(1.05);
+        }
+
+        .hero-deco-text {
+            position: absolute;
+            bottom: 40px;
+            left: -10%;
+            font-family: 'Syne', sans-serif;
+            font-size: 12vw;
+            font-weight: 800;
+            color: transparent;
+            -webkit-text-stroke: 1px var(--champagne);
+            white-space: nowrap;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* SECTION HEADERS */
+        .section-padding {
+            padding: 160px 10%;
+        }
+
+        .section-header {
+            max-width: 800px;
+            margin-bottom: 80px;
+        }
+
+        .section-tag {
+            font-size: 11px;
+            font-weight: 700;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            color: var(--crimson);
+            margin-bottom: 24px;
+            display: block;
+        }
+
+        .section-title {
+            font-size: clamp(3rem, 6vw, 4.5rem);
+            color: var(--midnight);
+            margin-bottom: 32px;
+        }
+
+        .section-title em {
+            font-style: italic;
+            color: var(--crimson);
+        }
+
+        /* TRAINING TILES */
+        .training-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .training-card {
+            background: white;
+            padding: 60px 50px;
+            border-radius: 4px;
+            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            border: 1px solid rgba(0,0,0,0.03);
+        }
+
+        .training-card:hover {
+            transform: translateY(-16px);
+            box-shadow: 0 40px 80px rgba(0,0,0,0.08);
+            border-color: var(--crimson-glow);
+        }
+
+        .training-number {
+            font-family: 'Syne', sans-serif;
+            font-size: 4rem;
+            font-weight: 800;
+            color: var(--cream);
+            position: absolute;
+            top: 20px;
+            right: 40px;
+            transition: color 0.4s;
+        }
+
+        .training-card:hover .training-number {
+            color: var(--crimson-glow);
+        }
+
+        .training-icon {
+            width: 64px;
+            height: 64px;
+            background: var(--ivory);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 40px;
+            color: var(--crimson);
+            font-size: 24px;
+            transition: all 0.4s;
+        }
+
+        .training-card:hover .training-icon {
+            background: var(--crimson);
+            color: white;
+            transform: rotate(-10deg);
+        }
+
+        .training-card h3 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: var(--midnight);
+        }
+
+        .training-card p {
+            font-size: 1.05rem;
+            color: var(--slate);
+        }
+
+        /* 8-WEEK PLAN */
+        .plan-section {
+            background: var(--navy);
+            color: white;
+            border-radius: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .plan-section .blob-1 { background: radial-gradient(ellipse at center, rgba(196, 30, 58, 0.15) 0%, transparent 70%); top: -20%; right: -10%; left: auto; }
+
+        .plan-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 100px;
+            align-items: center;
+        }
+
+        .week-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .week-item {
+            background: rgba(255,255,255,0.03);
+            padding: 30px 40px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .week-item:hover {
+            background: rgba(255,255,255,0.08);
+            transform: scale(1.02);
+            border-color: var(--crimson);
+        }
+
+        .week-info {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .week-label {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--crimson);
+        }
+
+        .week-title {
+            font-family: 'Italiana', serif;
+            font-size: 1.6rem;
+        }
+
+        .week-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+
+        .week-item:hover .week-toggle {
+            background: var(--crimson);
+            border-color: var(--crimson);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--midnight);
+            color: white;
+            padding: 120px 10% 60px;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+            gap: 80px;
+            margin-bottom: 100px;
+        }
+
+        .footer-logo {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 800;
+            letter-spacing: 5px;
+            text-transform: uppercase;
+            margin-bottom: 30px;
+        }
+
+        .footer-logo span { color: var(--crimson); }
+
+        .footer-links h4 {
+            font-family: 'Syne', sans-serif;
+            font-size: 0.8rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--mist);
+            margin-bottom: 32px;
+        }
+
+        .footer-links ul { list-style: none; }
+        .footer-links li { margin-bottom: 16px; }
+        .footer-links a {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.6);
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: white; }
+
+        .footer-bottom {
+            padding-top: 60px;
+            border-top: 1px solid rgba(255,255,255,0.05);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        @media (max-width: 1200px) {
+            .hero { grid-template-columns: 1fr; }
+            .hero-visual { height: 60vh; order: -1; }
+            .training-grid { grid-template-columns: 1fr 1fr; }
+            .plan-grid { grid-template-columns: 1fr; gap: 60px; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .section-padding { padding: 100px 5%; }
+            .training-grid { grid-template-columns: 1fr; }
+            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="grain"></div>
+<div class="cursor"></div>
+
+<nav id="navbar">
+    <a href="../index.html" class="logo">WHY <span>RACING</span></a>
+    <div class="nav-links">
+        <a href="events.html">Races</a>
+        <a href="about.html">About</a>
+        <a href="first-5k.html">Your 1st 5K</a>
+    </div>
+    <a href="events.html" class="hero-cta" style="padding: 12px 28px; border-radius: 30px;">Find A Race</a>
+</nav>
+
+<section class="hero">
+    <div class="blob-1"></div>
+    <div class="blob-2"></div>
+    
+    <div class="hero-content">
+        <div class="hero-tag">
+            <div class="hero-tag-line"></div>
+            <div class="hero-tag-text">FOR THE BEGINNERS</div>
+        </div>
+        
+        <h1 class="hero-title">
+            <span class="line"><span class="word">Your</span> <span class="word">First</span></span>
+            <span class="line"><span class="word"><em>Five</em></span> <span class="word">Kilometers</span></span>
+        </h1>
+        
+        <div class="hero-subtitle-accent">Fitness. Family. Fun.</div>
+        
+        <p class="hero-desc">
+            The hardest part isn't the race—it's the decision to start. We're here to guide you from your first step to your first finish line.
+        </p>
+        
+        <div class="hero-quote-wrap">
+            <div class="hero-quote-deco">"</div>
+            <div class="hero-quote">
+                <p>The miracle isn't that I finished. The miracle is that I had the courage to start.</p>
+                <cite>John Bingham</cite>
+            </div>
+        </div>
+        
+        <div class="hero-buttons">
+            <a href="#training" class="hero-cta">
+                Start Training <i class="fas fa-arrow-right"></i>
+            </a>
+        </div>
+    </div>
+    
+    <div class="hero-visual">
+        <div class="hero-deco-text">START</div>
+        <div class="hero-image-mask">
+            <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1200" alt="Runner at sunrise">
+        </div>
+    </div>
+</section>
+
+<section id="training" class="section-padding">
+    <div class="section-header">
+        <span class="section-tag">The Essentials</span>
+        <h2 class="section-title">Everything you need to <em>begin</em></h2>
+    </div>
+    
+    <div class="training-grid">
+        <div class="training-card">
+            <div class="training-number">01</div>
+            <div class="training-icon"><i class="fas fa-shoe-prints"></i></div>
+            <h3>Right Gear</h3>
+            <p>You don't need expensive equipment. A supportive pair of running shoes and moisture-wicking socks are your best friends.</p>
+        </div>
+        
+        <div class="training-card">
+            <div class="training-number">02</div>
+            <div class="training-icon"><i class="fas fa-clock"></i></div>
+            <h3>Consistency</h3>
+            <p>It's not about speed; it's about showing up. Three days a week is plenty to build the foundation for your first 5K.</p>
+        </div>
+        
+        <div class="training-card">
+            <div class="training-number">03</div>
+            <div class="training-icon"><i class="fas fa-tint"></i></div>
+            <h3>Hydration</h3>
+            <p>Drink water throughout the day, not just during your runs. Your muscles need hydration to perform and recover.</p>
+        </div>
+    </div>
+</section>
+
+<section class="plan-section section-padding">
+    <div class="blob-1"></div>
+    <div class="plan-grid">
+        <div>
+            <span class="section-tag" style="color: var(--crimson);">The Roadmap</span>
+            <h2 class="section-title" style="color: white;">The 8-Week <em>Couch-to-5K</em> Plan</h2>
+            <p style="color: rgba(255,255,255,0.6); margin-bottom: 40px; font-size: 1.1rem;">
+                A gradual buildup designed to keep you injury-free and motivated. Most days involve a mix of walking and running.
+            </p>
+            <a href="events.html" class="hero-cta">Pick Your Race Date</a>
+        </div>
+        
+        <div class="week-list">
+            <div class="week-item">
+                <div class="week-info">
+                    <div class="week-label">Week 01</div>
+                    <div class="week-title">Building Habits</div>
+                </div>
+                <div class="week-toggle"><i class="fas fa-plus"></i></div>
+            </div>
+            <div class="week-item">
+                <div class="week-info">
+                    <div class="week-label">Week 02</div>
+                    <div class="week-title">The First Milestone</div>
+                </div>
+                <div class="week-toggle"><i class="fas fa-plus"></i></div>
+            </div>
+            <div class="week-item">
+                <div class="week-info">
+                    <div class="week-label">Week 04</div>
+                    <div class="week-title">Finding Your Rhythm</div>
+                </div>
+                <div class="week-toggle"><i class="fas fa-plus"></i></div>
+            </div>
+            <div class="week-item">
+                <div class="week-info">
+                    <div class="week-label">Week 06</div>
+                    <div class="week-title">The Long Push</div>
+                </div>
+                <div class="week-toggle"><i class="fas fa-plus"></i></div>
+            </div>
+            <div class="week-item">
+                <div class="week-info">
+                    <div class="week-label">Week 08</div>
+                    <div class="week-title">Race Week Glory</div>
+                </div>
+                <div class="week-toggle"><i class="fas fa-plus"></i></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-grid">
+        <div>
+            <div class="footer-logo">WHY <span>RACING</span></div>
+            <p style="color: rgba(255,255,255,0.5); font-size: 0.95rem; line-height: 1.8;">
+                We are a community-focused racing organization in the Pacific Northwest, dedicated to fitness, family, and fun.
+            </p>
+        </div>
+        
+        <div class="footer-links">
+            <h4>Navigate</h4>
+            <ul>
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="events.html">Races</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="first-5k.html">Your 1st 5K</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-links">
+            <h4>Support</h4>
+            <ul>
+                <li><a href="#">FAQ</a></li>
+                <li><a href="#">Contact Us</a></li>
+                <li><a href="#">Volunteer</a></li>
+                <li><a href="#">Charity</a></li>
+            </ul>
+        </div>
+        
+        <div class="footer-links">
+            <h4>Follow Us</h4>
+            <div style="display: flex; gap: 15px;">
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-strava"></i></a>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer-bottom">
+        <p>&copy; 2026 Why Racing Events Inc. All rights reserved.</p>
+        <p>Made with &hearts; in the Pacific Northwest</p>
+    </div>
+</footer>
+
+<script>
+    // Custom Cursor
+    const cursor = document.querySelector('.cursor');
+    document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
+    });
+
+    document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+    });
+
+    // Nav Scroll Effect
+    window.addEventListener('scroll', () => {
+        const nav = document.getElementById('navbar');
+        if (window.scrollY > 50) {
+            nav.classList.add('scrolled');
+        } else {
+            nav.classList.remove('scrolled');
+        }
+    });
+</script>
+
+</body>
+</html>
