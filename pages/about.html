@@ -90,34 +90,36 @@
         }
         .logo span { color: var(--brand-red); }
 
-        /* SCROLLING TICKER */
-        .stats-ticker {
-            background: var(--dark);
-            color: white;
-            padding: 18px 0;
+        /* SPONSOR TICKER */
+        .sponsor-ticker {
+            background: white;
+            padding: 40px 0;
             overflow: hidden;
             white-space: nowrap;
-            font-family: 'Oswald', sans-serif;
-            font-weight: 700;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        .sponsor-ticker-label {
+            text-align: center;
+            font-size: 15px;
+            color: #888;
             text-transform: uppercase;
-            border-bottom: 4px solid var(--brand-red);
+            letter-spacing: 2.5px;
+            margin-bottom: 25px;
         }
-        .ticker-track {
+        .sponsor-track {
             display: inline-block;
-            animation: tickerScroll 25s linear infinite;
+            animation: sponsorScroll 30s linear infinite;
         }
-        .ticker-item {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin: 0 40px;
-            font-size: 1.1rem;
-            letter-spacing: 1px;
+        .sponsor-track img {
+            height: 62.5px;
+            margin: 0 30px;
+            opacity: 1;
+            vertical-align: middle;
         }
-        .ticker-item i { color: var(--brand-red); }
-        @keyframes tickerScroll {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(-50%); }
+        @keyframes sponsorScroll {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
         }
 
         .nav-links { display: flex; gap: 30px; }
@@ -428,20 +430,21 @@
         <p>A community built on fitness, family, and fun—raising millions for causes that matter.</p>
     </section>
 
-    <div class="stats-ticker">
-        <div class="ticker-track">
-            <span class="ticker-item"><i class="fas fa-heart"></i> Your Registration Supports Local Charities</span>
-            <span class="ticker-item"><i class="fas fa-users"></i> 50,000+ Athletes Strong</span>
-            <span class="ticker-item"><i class="fas fa-trophy"></i> 21 Premier PNW Events</span>
-            <span class="ticker-item"><i class="fas fa-mountain"></i> Stunning Scenic Courses</span>
-            <span class="ticker-item"><i class="fas fa-medal"></i> Epic Swag & Medals</span>
-            <span class="ticker-item"><i class="fas fa-music"></i> Live Music & After Parties</span>
-            <span class="ticker-item"><i class="fas fa-heart"></i> Your Registration Supports Local Charities</span>
-            <span class="ticker-item"><i class="fas fa-users"></i> 50,000+ Athletes Strong</span>
-            <span class="ticker-item"><i class="fas fa-trophy"></i> 21 Premier PNW Events</span>
-            <span class="ticker-item"><i class="fas fa-mountain"></i> Stunning Scenic Courses</span>
-            <span class="ticker-item"><i class="fas fa-medal"></i> Epic Swag & Medals</span>
-            <span class="ticker-item"><i class="fas fa-music"></i> Live Music & After Parties</span>
+    <div class="sponsor-ticker">
+        <div class="sponsor-ticker-label">Proud Partners</div>
+        <div class="sponsor-track">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
         </div>
     </div>
 
