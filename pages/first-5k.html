@@ -4,914 +4,438 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your First 5K | Why Racing Events</title>
-    <link href="https://fonts.googleapis.com/css2?family=Italiana&family=Syne:wght@400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,400;1,9..144,600&family=Inter:wght@400;500;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        /* --- INTEGRATED BRANDING --- */
         :root {
-            --crimson: #C41E3A;
-            --crimson-dark: #9B1B30;
-            --crimson-glow: rgba(196, 30, 58, 0.12);
-            --midnight: #0B1120;
-            --navy: #141E30;
-            --ink: #1A1F35;
-            --cream: #FDF9F6;
-            --ivory: #FFFBF7;
-            --sand: #F5EDE4;
-            --champagne: #F7E7CE;
+            /* Official Why Racing Colors */
+            --brand-red: #E31837;    
+            --brand-blue: #00205B;
+            
+            /* Page Specific Palette (Softer/Warmer) */
+            --cream: #FAF7F2;
+            --white: #FFFFFF;
+            --sand: #F0E9DF;
             --gold: #D4AF37;
-            --bronze: #CD7F32;
-            --charcoal: #2D2D3A;
-            --slate: #4A4A5C;
-            --mist: #8A8A9C;
-            --emerald: #1B7340;
+            --charcoal: #2C2C2C;
+            --slate: #5A5A6E;
+            --mist: #8E8E9A;
+            --green: #1B7340;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         
         html { 
             scroll-behavior: smooth;
-            font-size: 16px;
+            -webkit-text-size-adjust: 100%;
         }
         
         body { 
-            font-family: 'Space Grotesk', sans-serif;
-            background: var(--ivory);
+            font-family: 'Inter', sans-serif;
+            background: var(--white);
             color: var(--charcoal);
             line-height: 1.7;
             overflow-x: hidden;
-            -webkit-font-smoothing: antialiased;
         }
 
-        /* CUSTOM CURSOR */
-        .cursor {
-            width: 20px;
-            height: 20px;
-            border: 2px solid var(--crimson);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9999;
-            transition: transform 0.15s ease, opacity 0.15s ease;
-            mix-blend-mode: difference;
-        }
-
-        .cursor.hover {
-            transform: scale(2);
-            background: rgba(196, 30, 58, 0.1);
-        }
-
-        /* TYPOGRAPHY */
-        h1, h2, h3 { 
-            font-family: 'Italiana', serif;
-            font-weight: 400;
-            line-height: 1.05;
-        }
-
-        .display-text {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-        }
-
-        /* ORGANIC SHAPES */
-        .blob-1 {
-            position: absolute;
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(ellipse at center, var(--crimson-glow) 0%, transparent 70%);
-            border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%;
-            filter: blur(60px);
-            animation: morphBlob 20s ease-in-out infinite;
-            pointer-events: none;
-        }
-
-        .blob-2 {
-            position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(ellipse at center, rgba(212, 175, 55, 0.08) 0%, transparent 70%);
-            border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
-            filter: blur(50px);
-            animation: morphBlob 15s ease-in-out infinite reverse;
-            pointer-events: none;
-        }
-
-        @keyframes morphBlob {
-            0%, 100% { border-radius: 40% 60% 70% 30% / 40% 50% 60% 50%; transform: rotate(0deg) scale(1); }
-            25% { border-radius: 60% 40% 30% 70% / 50% 60% 40% 60%; }
-            50% { border-radius: 30% 60% 70% 40% / 50% 40% 60% 50%; transform: rotate(180deg) scale(1.1); }
-            75% { border-radius: 50% 40% 50% 60% / 40% 60% 40% 60%; }
-        }
-
-        /* GRAIN OVERLAY */
-        .grain {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 10000;
-            opacity: 0.03;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
-        }
-
-        /* NAV */
+        /* Fraunces for Emotional Headers, Oswald for Brand Headers */
+        h1, h2 { font-family: 'Fraunces', serif; font-weight: 400; }
+        h3, h4 { font-family: 'Inter', sans-serif; font-weight: 700; }
+        
+        /* Utility */
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        img { max-width: 100%; height: auto; display: block; }
+        
+        /* --- NAVIGATION (MATCHES MAIN SITE) --- */
         nav {
             position: fixed;
             top: 0;
             width: 100%;
-            padding: 28px 5%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+            background: rgba(255,255,255,0.98);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            backdrop-filter: blur(10px);
         }
 
-        nav.scrolled {
-            padding: 18px 5%;
-            background: rgba(255, 251, 247, 0.85);
-            backdrop-filter: blur(30px) saturate(180%);
-            -webkit-backdrop-filter: blur(30px) saturate(180%);
-            border-bottom: 1px solid rgba(0,0,0,0.04);
-        }
-
-        .logo { 
-            font-family: 'Syne', sans-serif;
-            font-size: 15px; 
-            font-weight: 800; 
-            color: var(--midnight); 
-            letter-spacing: 5px;
+        .logo {
+            font-family: 'Oswald', sans-serif; /* Brand Font */
+            font-size: 24px; 
+            font-weight: 700; 
+            color: var(--brand-blue); 
+            letter-spacing: 1px;
             text-transform: uppercase;
+            font-style: italic;
         }
 
-        .logo span { 
-            color: var(--crimson);
-            position: relative;
-        }
+        .logo span { color: var(--brand-red); }
 
-        .logo span::after {
-            content: '';
-            position: absolute;
-            bottom: -2px;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: var(--crimson);
-        }
-        
-        .nav-links { 
-            display: flex; 
-            gap: 48px; 
-            align-items: center; 
-        }
-        
+        .nav-links { display: none; gap: 30px; }
         .nav-links a { 
-            font-size: 12px; 
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--slate);
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
+            font-size: 14px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            color: var(--brand-blue); 
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 1px;
+        }
+        
+        .btn-nav {
+            background: var(--brand-red);
+            color: white !important;
+            padding: 8px 24px;
+            border-radius: 4px;
         }
 
-        .nav-links a::before {
-            content: '';
-            position: absolute;
-            bottom: -8px;
-            left: 50%;
-            width: 4px;
-            height: 4px;
-            background: var(--crimson);
-            border-radius: 50%;
-            transform: translateX(-50%) scale(0);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .nav-links a:hover { color: var(--crimson); }
-        .nav-links a:hover::before { transform: translateX(-50%) scale(1); }
-
-        /* HERO */
+        /* --- HERO SECTION --- */
         .hero {
-            min-height: 100vh;
+            padding: 140px 20px 80px;
+            background: linear-gradient(180deg, var(--cream) 0%, var(--white) 100%);
+        }
+
+        .hero-inner {
+            max-width: 1200px;
+            margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1.2fr;
-            position: relative;
-            overflow: hidden;
+            gap: 60px;
         }
 
-        .hero .blob-1 {
-            top: -20%;
-            left: -10%;
-        }
-
-        .hero .blob-2 {
-            bottom: -30%;
-            right: 20%;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            padding: 180px 8% 120px 10%;
-            position: relative;
-            z-index: 2;
-        }
-
-        .hero-tag {
+        .hero-badge {
             display: inline-flex;
             align-items: center;
-            gap: 16px;
-            margin-bottom: 40px;
-        }
-
-        .hero-tag-line {
-            width: 60px;
-            height: 1px;
-            background: linear-gradient(90deg, var(--crimson), transparent);
-        }
-
-        .hero-tag-text {
-            font-size: 11px;
+            gap: 8px;
+            background: rgba(227, 24, 55, 0.1);
+            padding: 8px 16px;
+            border-radius: 100px;
+            font-size: 12px;
             font-weight: 700;
-            letter-spacing: 5px;
+            color: var(--brand-red);
+            letter-spacing: 1px;
             text-transform: uppercase;
-            color: var(--crimson);
+            margin-bottom: 24px;
+            font-family: 'Oswald', sans-serif;
         }
 
         .hero-title {
-            font-size: clamp(4rem, 8vw, 7rem);
-            color: var(--midnight);
-            margin-bottom: 12px;
-            overflow: hidden;
-        }
-
-        .hero-title .line {
-            display: block;
-            overflow: hidden;
-        }
-
-        .hero-title .word {
-            display: inline-block;
-            transform: translateY(100%);
-            animation: revealWord 1.2s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
-
-        .hero-title .word:nth-child(1) { animation-delay: 0.1s; }
-        .hero-title .word:nth-child(2) { animation-delay: 0.2s; }
-        .hero-title .word:nth-child(3) { animation-delay: 0.3s; }
-        .hero-title .word:nth-child(4) { animation-delay: 0.4s; }
-
-        @keyframes revealWord {
-            to { transform: translateY(0); }
+            font-size: 3rem;
+            color: var(--brand-blue);
+            line-height: 1.1;
+            margin-bottom: 24px;
         }
 
         .hero-title em {
-            font-family: 'Italiana', serif;
             font-style: italic;
-            color: var(--crimson);
-        }
-
-        .hero-subtitle-accent {
-            font-family: 'Syne', sans-serif;
-            font-size: clamp(1rem, 2vw, 1.4rem);
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            color: var(--mist);
-            margin-bottom: 36px;
+            color: var(--brand-red);
+            font-family: 'Fraunces', serif; /* Emotional Emphasis */
         }
 
         .hero-desc {
-            font-size: 1.15rem;
+            font-size: 1.1rem;
             color: var(--slate);
-            max-width: 480px;
-            line-height: 1.9;
-            margin-bottom: 50px;
-        }
-
-        .hero-quote-wrap {
-            position: relative;
-            max-width: 520px;
-            margin-bottom: 56px;
-        }
-
-        .hero-quote-deco {
-            position: absolute;
-            top: -30px;
-            left: -20px;
-            font-family: 'Italiana', serif;
-            font-size: 12rem;
-            line-height: 1;
-            color: var(--sand);
-            z-index: -1;
-            opacity: 0.6;
+            margin-bottom: 32px;
+            max-width: 500px;
         }
 
         .hero-quote {
-            background: white;
-            padding: 36px 40px;
-            border-radius: 4px;
-            position: relative;
-            box-shadow: 
-                0 1px 2px rgba(0,0,0,0.02),
-                0 4px 8px rgba(0,0,0,0.02),
-                0 16px 32px rgba(0,0,0,0.04),
-                0 32px 64px rgba(0,0,0,0.04);
-        }
-
-        .hero-quote::before {
-            content: '';
-            position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
-            width: 4px;
-            background: linear-gradient(180deg, var(--crimson), var(--gold));
-            border-radius: 4px 0 0 4px;
-        }
-
-        .hero-quote p {
-            font-family: 'Italiana', serif;
-            font-size: 1.35rem;
-            color: var(--charcoal);
-            line-height: 1.6;
+            border-left: 4px solid var(--brand-red);
+            padding-left: 20px;
+            margin-bottom: 32px;
             font-style: italic;
-        }
-
-        .hero-quote cite {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-family: 'Space Grotesk', sans-serif;
-            font-size: 0.8rem;
-            font-style: normal;
-            font-weight: 600;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            color: var(--mist);
-            margin-top: 20px;
-        }
-
-        .hero-quote cite::before {
-            content: '';
-            width: 24px;
-            height: 1px;
-            background: var(--mist);
+            color: var(--charcoal);
         }
 
         .hero-cta {
+            background: var(--brand-red);
+            color: white;
+            padding: 18px 36px;
+            border-radius: 4px; /* Matches Brand Shape */
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             display: inline-flex;
             align-items: center;
-            gap: 20px;
-            background: var(--crimson);
-            color: white;
-            padding: 24px 48px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 12px;
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(227, 24, 55, 0.3);
         }
-
-        .hero-cta::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.4s;
-        }
-
-        .hero-cta:hover::before { opacity: 1; }
 
         .hero-cta:hover {
-            transform: translateY(-4px) scale(1.02);
-            box-shadow: 
-                0 20px 40px rgba(196, 30, 58, 0.25),
-                0 40px 80px rgba(196, 30, 58, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(227, 24, 55, 0.4);
         }
 
-        .hero-cta i {
-            font-size: 14px;
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-cta:hover i {
-            transform: translateX(6px);
-        }
-
-        /* HERO IMAGE SIDE */
-        .hero-visual {
+        .hero-image {
             position: relative;
+            border-radius: 12px;
             overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
         }
 
-        .hero-image-mask {
+        .walking-badge {
             position: absolute;
-            inset: 60px;
-            background: var(--sand);
-            overflow: hidden;
-            border-radius: 4px;
-            z-index: 1;
-        }
-
-        .hero-image-mask img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            scale: 1.1;
-            transition: transform 1.2s cubic-bezier(0.16, 1, 0.3, 1);
-        }
-
-        .hero-visual:hover .hero-image-mask img {
-            transform: scale(1.05);
-        }
-
-        .hero-deco-text {
-            position: absolute;
-            bottom: 40px;
-            left: -10%;
-            font-family: 'Syne', sans-serif;
-            font-size: 12vw;
-            font-weight: 800;
-            color: transparent;
-            -webkit-text-stroke: 1px var(--champagne);
-            white-space: nowrap;
-            z-index: 0;
-            pointer-events: none;
-        }
-
-        /* SECTION HEADERS */
-        .section-padding {
-            padding: 160px 10%;
-        }
-
-        .section-header {
-            max-width: 800px;
-            margin-bottom: 80px;
-        }
-
-        .section-tag {
-            font-size: 11px;
-            font-weight: 700;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            color: var(--crimson);
-            margin-bottom: 24px;
-            display: block;
-        }
-
-        .section-title {
-            font-size: clamp(3rem, 6vw, 4.5rem);
-            color: var(--midnight);
-            margin-bottom: 32px;
-        }
-
-        .section-title em {
-            font-style: italic;
-            color: var(--crimson);
-        }
-
-        /* TRAINING TILES */
-        .training-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        .training-card {
+            top: 20px; right: 20px;
             background: white;
-            padding: 60px 50px;
-            border-radius: 4px;
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            border: 1px solid rgba(0,0,0,0.03);
-        }
-
-        .training-card:hover {
-            transform: translateY(-16px);
-            box-shadow: 0 40px 80px rgba(0,0,0,0.08);
-            border-color: var(--crimson-glow);
-        }
-
-        .training-number {
-            font-family: 'Syne', sans-serif;
-            font-size: 4rem;
-            font-weight: 800;
-            color: var(--cream);
-            position: absolute;
-            top: 20px;
-            right: 40px;
-            transition: color 0.4s;
-        }
-
-        .training-card:hover .training-number {
-            color: var(--crimson-glow);
-        }
-
-        .training-icon {
-            width: 64px;
-            height: 64px;
-            background: var(--ivory);
-            border-radius: 50%;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            color: var(--green);
+            font-size: 12px;
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 6px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        /* --- FEARS SECTION --- */
+        .section { padding: 100px 20px; }
+        .bg-light { background: var(--cream); }
+
+        .section-header { text-align: center; max-width: 700px; margin: 0 auto 60px; }
+        .section-label { color: var(--brand-red); font-weight: 700; text-transform: uppercase; letter-spacing: 2px; font-size: 12px; margin-bottom: 10px; font-family: 'Oswald', sans-serif;}
+        .section-title { font-size: 2.5rem; color: var(--brand-blue); margin-bottom: 15px; }
+
+        .fears-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 24px;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .fear-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            border: 1px solid rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+
+        .fear-card:hover { transform: translateY(-5px); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+
+        .fear-voice {
+            font-family: 'Fraunces', serif;
+            font-size: 1.2rem;
+            color: var(--brand-blue);
+            font-style: italic;
+            margin-bottom: 15px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--sand);
+        }
+
+        .fear-truth strong { color: var(--green); }
+
+        /* --- PERMISSION SECTION (The Brene Brown "Shame Tape" Counter) --- */
+        .permission-section {
+            background: var(--brand-blue);
+            color: white;
+            text-align: center;
+        }
+
+        .permission-section .section-title { color: white; }
+
+        .permission-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 800px;
+            margin: 0 auto 40px;
+        }
+
+        .permission-item {
+            background: rgba(255,255,255,0.05);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .permission-item i { font-size: 1.5rem; color: var(--brand-red); display: block; margin-bottom: 10px; }
+        
+        /* --- TIMELINE --- */
+        .timeline-track {
+            max-width: 900px;
+            margin: 0 auto;
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline-track::before {
+            content:''; position: absolute; top:0; bottom:0; left: 24px; width: 2px; background: var(--sand);
+        }
+
+        .timeline-item {
+            display: flex;
+            gap: 30px;
             margin-bottom: 40px;
-            color: var(--crimson);
-            font-size: 24px;
-            transition: all 0.4s;
+            position: relative;
         }
 
-        .training-card:hover .training-icon {
-            background: var(--crimson);
+        .timeline-icon {
+            width: 50px; height: 50px;
+            background: white;
+            border: 2px solid var(--brand-red);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            color: var(--brand-red);
+            z-index: 2;
+            flex-shrink: 0;
+        }
+
+        /* --- FINAL CTA --- */
+        .final-cta {
+            background: var(--brand-blue);
             color: white;
-            transform: rotate(-10deg);
-        }
-
-        .training-card h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-            color: var(--midnight);
-        }
-
-        .training-card p {
-            font-size: 1.05rem;
-            color: var(--slate);
-        }
-
-        /* 8-WEEK PLAN */
-        .plan-section {
-            background: var(--navy);
-            color: white;
-            border-radius: 0;
+            text-align: center;
+            padding: 100px 20px;
             position: relative;
             overflow: hidden;
         }
 
-        .plan-section .blob-1 { background: radial-gradient(ellipse at center, rgba(196, 30, 58, 0.15) 0%, transparent 70%); top: -20%; right: -10%; left: auto; }
-
-        .plan-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 100px;
-            align-items: center;
-        }
-
-        .week-list {
+        .trust-badges {
             display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        .week-item {
-            background: rgba(255,255,255,0.03);
-            padding: 30px 40px;
-            border-radius: 4px;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            cursor: pointer;
-            border: 1px solid rgba(255,255,255,0.05);
-        }
-
-        .week-item:hover {
-            background: rgba(255,255,255,0.08);
-            transform: scale(1.02);
-            border-color: var(--crimson);
-        }
-
-        .week-info {
-            display: flex;
-            align-items: center;
-            gap: 30px;
-        }
-
-        .week-label {
-            font-family: 'Syne', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: var(--crimson);
-        }
-
-        .week-title {
-            font-family: 'Italiana', serif;
-            font-size: 1.6rem;
-        }
-
-        .week-toggle {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            border: 1px solid rgba(255,255,255,0.1);
-            display: flex;
-            align-items: center;
             justify-content: center;
-            transition: all 0.3s;
+            gap: 30px;
+            margin-top: 40px;
+            opacity: 0.7;
+            font-size: 0.9rem;
         }
 
-        .week-item:hover .week-toggle {
-            background: var(--crimson);
-            border-color: var(--crimson);
-        }
+        .trust-badges div { display: flex; align-items: center; gap: 8px; }
 
-        /* FOOTER */
-        footer {
-            background: var(--midnight);
-            color: white;
-            padding: 120px 10% 60px;
-        }
-
-        .footer-grid {
-            display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
-            gap: 80px;
-            margin-bottom: 100px;
-        }
-
-        .footer-logo {
-            font-family: 'Syne', sans-serif;
-            font-size: 1.2rem;
-            font-weight: 800;
-            letter-spacing: 5px;
-            text-transform: uppercase;
-            margin-bottom: 30px;
-        }
-
-        .footer-logo span { color: var(--crimson); }
-
-        .footer-links h4 {
-            font-family: 'Syne', sans-serif;
-            font-size: 0.8rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            color: var(--mist);
-            margin-bottom: 32px;
-        }
-
-        .footer-links ul { list-style: none; }
-        .footer-links li { margin-bottom: 16px; }
-        .footer-links a {
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.6);
-            transition: color 0.3s;
-        }
-
-        .footer-links a:hover { color: white; }
-
-        .footer-social { display: flex; gap: 15px; }
-        .footer-social a { color: rgba(255,255,255,0.4); transition: color 0.3s; }
-        .footer-social a:hover { color: white; }
-
-        .footer-bottom {
-            padding-top: 60px;
-            border-top: 1px solid rgba(255,255,255,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.4);
-        }
-
-        @media (max-width: 1200px) {
-            .hero { grid-template-columns: 1fr; }
-            .hero-visual { height: 60vh; order: -1; }
-            .training-grid { grid-template-columns: 1fr 1fr; }
-            .plan-grid { grid-template-columns: 1fr; gap: 60px; }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .section-padding { padding: 100px 5%; }
-            .training-grid { grid-template-columns: 1fr; }
-            .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px; }
+        /* Responsive */
+        @media (min-width: 768px) {
+            .nav-links { display: flex; }
+            .hero-inner { grid-template-columns: 1fr 1fr; align-items: center; }
+            .permission-grid { grid-template-columns: repeat(4, 1fr); }
+            .hero-title { font-size: 3.5rem; }
+            .timeline-track::before { left: 50%; transform: translateX(-50%); }
+            .timeline-item { width: 50%; margin-left: auto; padding-left: 40px; }
+            .timeline-item:nth-child(even) { margin-left: 0; margin-right: auto; flex-direction: row-reverse; padding-right: 40px; padding-left: 0; text-align: right; }
+            .timeline-icon { position: absolute; left: 50%; transform: translateX(-50%); }
         }
     </style>
 </head>
 <body>
 
-<div class="grain"></div>
-<div class="cursor"></div>
-
-<nav id="navbar">
-    <a href="../index.html" class="logo">WHY <span>RACING</span></a>
-    <div class="nav-links">
-        <a href="events.html">Races</a>
-        <a href="about.html">About</a>
-        <a href="first-5k.html">Your 1st 5K</a>
-    </div>
-    <a href="events.html" class="hero-cta" style="padding: 12px 28px; border-radius: 30px;">Find A Race</a>
-</nav>
-
-<section class="hero">
-    <div class="blob-1"></div>
-    <div class="blob-2"></div>
-    
-    <div class="hero-content">
-        <div class="hero-tag">
-            <div class="hero-tag-line"></div>
-            <div class="hero-tag-text">FOR THE BEGINNERS</div>
+    <nav>
+        <a href="../index.html" class="logo">WHY <span>RACING</span></a>
+        <div class="nav-links">
+            <a href="events.html">Events</a>
+            <a href="first-5k.html">Your 1st 5K</a>
+            <a href="about.html">About</a>
+            <a href="events.html" class="btn-nav">Find A Race</a>
         </div>
-        
-        <h1 class="hero-title">
-            <span class="line"><span class="word">Your</span> <span class="word">First</span></span>
-            <span class="line"><span class="word"><em>Five</em></span> <span class="word">Kilometers</span></span>
-        </h1>
-        
-        <div class="hero-subtitle-accent">Fitness. Family. Fun.</div>
-        
-        <p class="hero-desc">
-            The hardest part isn't the race—it's the decision to start. We're here to guide you from your first step to your first finish line.
-        </p>
-        
-        <div class="hero-quote-wrap">
-            <div class="hero-quote-deco">"</div>
-            <div class="hero-quote">
-                <p>The miracle isn't that I finished. The miracle is that I had the courage to start.</p>
-                <cite>John Bingham</cite>
+    </nav>
+
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-heart"></i> For First-Timers</div>
+                <h1 class="hero-title">What If You Actually <em>Could?</em></h1>
+                <p class="hero-desc">You don't need to be faster, fitter, or more ready. You just need to show up. We'll be there at the finish line—and so will the version of you that's been waiting to emerge.</p>
+                <div class="hero-quote">"Every finisher at our races was once exactly where you are right now—wondering if they could actually do this."</div>
+                <a href="#final" class="hero-cta">Find My First Race <i class="fas fa-arrow-right"></i></a>
+            </div>
+            <div class="hero-image">
+                <div class="walking-badge"><i class="fas fa-check"></i> Walking 100% Welcome</div>
+                <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1000&q=80" alt="Runners at finish line">
             </div>
         </div>
-        
-        <div class="hero-buttons">
-            <a href="#training" class="hero-cta">
-                Start Training <i class="fas fa-arrow-right"></i>
-            </a>
-        </div>
-    </div>
-    
-    <div class="hero-visual">
-        <div class="hero-deco-text">START</div>
-        <div class="hero-image-mask">
-            <img src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1200" alt="Runner at sunrise">
-        </div>
-    </div>
-</section>
+    </section>
 
-<section id="training" class="section-padding">
-    <div class="section-header">
-        <span class="section-tag">The Essentials</span>
-        <h2 class="section-title">Everything you need to <em>begin</em></h2>
-    </div>
-    
-    <div class="training-grid">
-        <div class="training-card">
-            <div class="training-number">01</div>
-            <div class="training-icon"><i class="fas fa-shoe-prints"></i></div>
-            <h3>Right Gear</h3>
-            <p>You don't need expensive equipment. A supportive pair of running shoes and moisture-wicking socks are your best friends.</p>
+    <section class="section bg-light">
+        <div class="section-header">
+            <div class="section-label">You Are Not Alone</div>
+            <h2 class="section-title">That Voice In Your Head? <br>Everyone Hears It.</h2>
         </div>
-        
-        <div class="training-card">
-            <div class="training-number">02</div>
-            <div class="training-icon"><i class="fas fa-clock"></i></div>
-            <h3>Consistency</h3>
-            <p>It's not about speed; it's about showing up. Three days a week is plenty to build the foundation for your first 5K.</p>
+        <div class="fears-grid">
+            <div class="fear-card">
+                <div class="fear-voice">"What if I'm the slowest one there?"</div>
+                <div class="fear-truth"><strong>The Reality:</strong> Every race has a wide range of paces. Many people walk the entire thing. The only person tracking your time is you.</div>
+            </div>
+            <div class="fear-card">
+                <div class="fear-voice">"I'm not a 'real runner'."</div>
+                <div class="fear-truth"><strong>The Reality:</strong> If you run (or walk-run, or jog), you're a runner. No minimum speed required. You belong here.</div>
+            </div>
+            <div class="fear-card">
+                <div class="fear-voice">"People will judge me."</div>
+                <div class="fear-truth"><strong>The Reality:</strong> The running community cheers loudest for the back of the pack. You will feel welcomed, not judged.</div>
+            </div>
         </div>
-        
-        <div class="training-card">
-            <div class="training-number">03</div>
-            <div class="training-icon"><i class="fas fa-tint"></i></div>
-            <h3>Hydration</h3>
-            <p>Drink water throughout the day, not just during your runs. Your muscles need hydration to perform and recover.</p>
-        </div>
-    </div>
-</section>
+    </section>
 
-<section class="plan-section section-padding">
-    <div class="blob-1"></div>
-    <div class="plan-grid">
-        <div>
-            <span class="section-tag" style="color: var(--crimson);">The Roadmap</span>
-            <h2 class="section-title" style="color: white;">The 8-Week <em>Couch-to-5K</em> Plan</h2>
-            <p style="color: rgba(255,255,255,0.6); margin-bottom: 40px; font-size: 1.1rem;">
-                A gradual buildup designed to keep you injury-free and motivated. Most days involve a mix of walking and running.
-            </p>
-            <a href="events.html" class="hero-cta">Pick Your Race Date</a>
+    <section class="section permission-section">
+        <div class="section-header">
+            <div class="section-label" style="color: var(--gold);">A Reminder</div>
+            <h2 class="section-title">Permission Granted</h2>
+            <p style="opacity: 0.8;">The only person you need to beat is the voice telling you not to try.</p>
         </div>
-        
-        <div class="week-list">
-            <div class="week-item">
-                <div class="week-info">
-                    <div class="week-label">Week 01</div>
-                    <div class="week-title">Building Habits</div>
+        <div class="permission-grid">
+            <div class="permission-item">
+                <i class="fas fa-shoe-prints"></i>
+                <div>To walk when you need to</div>
+            </div>
+            <div class="permission-item">
+                <i class="fas fa-hourglass-half"></i>
+                <div>To be slow</div>
+            </div>
+            <div class="permission-item">
+                <i class="fas fa-expand-arrows-alt"></i>
+                <div>To take up space</div>
+            </div>
+            <div class="permission-item">
+                <i class="fas fa-tint"></i>
+                <div>To cry at the finish</div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <div class="section-label">The Journey</div>
+            <h2 class="section-title">From "I Can't" to "I Did"</h2>
+        </div>
+        <div class="timeline-track">
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-seedling"></i></div>
+                <div>
+                    <h4>Week 1-2</h4>
+                    <p>"Can I really do this?" You start moving. It's hard, but you show up.</p>
                 </div>
-                <div class="week-toggle"><i class="fas fa-plus"></i></div>
             </div>
-            <div class="week-item">
-                <div class="week-info">
-                    <div class="week-label">Week 02</div>
-                    <div class="week-title">The First Milestone</div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-bolt"></i></div>
+                <div>
+                    <h4>Week 5-6</h4>
+                    <p>"I might actually do this." You run a little further without stopping.</p>
                 </div>
-                <div class="week-toggle"><i class="fas fa-plus"></i></div>
             </div>
-            <div class="week-item">
-                <div class="week-info">
-                    <div class="week-label">Week 04</div>
-                    <div class="week-title">Finding Your Rhythm</div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fas fa-trophy"></i></div>
+                <div>
+                    <h4>Race Day</h4>
+                    <p>"I DID IT." The finish line. The medal. The new identity.</p>
                 </div>
-                <div class="week-toggle"><i class="fas fa-plus"></i></div>
-            </div>
-            <div class="week-item">
-                <div class="week-info">
-                    <div class="week-label">Week 06</div>
-                    <div class="week-title">The Long Push</div>
-                </div>
-                <div class="week-toggle"><i class="fas fa-plus"></i></div>
-            </div>
-            <div class="week-item">
-                <div class="week-info">
-                    <div class="week-label">Week 08</div>
-                    <div class="week-title">Race Week Glory</div>
-                </div>
-                <div class="week-toggle"><i class="fas fa-plus"></i></div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<footer>
-    <div class="footer-grid">
-        <div>
-            <div class="footer-logo">WHY <span>RACING</span></div>
-            <p style="color: rgba(255,255,255,0.5); font-size: 0.95rem; line-height: 1.8;">
-                We are a community-focused racing organization in the Pacific Northwest, dedicated to fitness, family, and fun.
-            </p>
+    <section class="final-cta" id="final">
+        <div class="section-header">
+            <h2 class="section-title" style="color: white; font-size: 3rem;">The Finish Line Is Waiting.<br><em>So Is Who You'll Become.</em></h2>
+            <p style="color: rgba(255,255,255,0.8);">You've thought about it long enough. Today is the day you stop wondering and start becoming.</p>
         </div>
+        <a href="events.html" class="hero-cta" style="background: white; color: var(--brand-red);">I'm In — Find My First Race</a>
         
-        <div class="footer-links">
-            <h4>Navigate</h4>
-            <ul>
-                <li><a href="../index.html">Home</a></li>
-                <li><a href="events.html">Races</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="first-5k.html">Your 1st 5K</a></li>
-            </ul>
+        <div class="trust-badges">
+            <div><i class="fas fa-medal"></i> Guaranteed Medal</div>
+            <div><i class="fas fa-exchange-alt"></i> Free Transfers</div>
+            <div><i class="fas fa-infinity"></i> No Time Cutoffs</div>
         </div>
-        
-        <div class="footer-links">
-            <h4>Support</h4>
-            <ul>
-                <li><a href="#">FAQ</a></li>
-                <li><a href="#">Contact Us</a></li>
-                <li><a href="#">Volunteer</a></li>
-                <li><a href="#">Charity</a></li>
-            </ul>
-        </div>
-        
-        <div class="footer-links">
-            <h4>Follow Us</h4>
-            <div class="footer-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-strava"></i></a>
-            </div>
-        </div>
-    </div>
-    
-    <div class="footer-bottom">
-        <p>&copy; 2026 Why Racing Events Inc. All rights reserved.</p>
-        <p>Made with &hearts; in the Pacific Northwest</p>
-    </div>
-</footer>
-
-<script>
-    // Custom Cursor
-    const cursor = document.querySelector('.cursor');
-    document.addEventListener('mousemove', (e) => {
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-    });
-
-    document.querySelectorAll('a, button').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-    });
-
-    // Nav Scroll Effect
-    window.addEventListener('scroll', () => {
-        const nav = document.getElementById('navbar');
-        if (window.scrollY > 50) {
-            nav.classList.add('scrolled');
-        } else {
-            nav.classList.remove('scrolled');
-        }
-    });
-</script>
+    </section>
 
 </body>
 </html>
