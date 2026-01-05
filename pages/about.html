@@ -216,12 +216,15 @@
             transition: transform 0.3s;
         }
         .team-card:hover { transform: translateY(-10px); }
+        
         .team-photo { height: 320px; overflow: hidden; }
         .team-photo img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
         .team-card:hover .team-photo img { transform: scale(1.05); }
+        
         .team-info { padding: 30px; }
         .team-role { color: var(--brand-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 15px; display: block; }
         
+        /* EXPAND BUTTON */
         .expand-btn {
             background: none; border: none; color: var(--brand-blue); 
             font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px; margin-top: 10px;
@@ -230,31 +233,6 @@
             max-height: 0; overflow: hidden; transition: 0.4s ease; opacity: 0;
         }
         .team-why-full.expanded { max-height: 500px; opacity: 1; margin-top: 15px; }
-
-        /* --- FOUNDER SECTION --- */
-        .founder-section {
-            background: white;
-            padding: 80px 5%;
-            border-top: 1px solid #eee;
-        }
-        .founder-container {
-            max-width: 1000px;
-            margin: 0 auto;
-            display: flex;
-            gap: 40px;
-            align-items: center;
-            background: #fafafa;
-            padding: 40px;
-            border-radius: 12px;
-            border-left: 5px solid var(--brand-red);
-        }
-        .founder-img {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            object-fit: cover;
-            flex-shrink: 0;
-        }
 
         /* --- CHARITY LOGO SECTION --- */
         .charity-section {
@@ -302,7 +280,6 @@
             .stat-item { border-right: none; }
             .mission-grid { grid-template-columns: 1fr; }
             .team-grid { grid-template-columns: 1fr; }
-            .founder-container { flex-direction: column; text-align: center; }
             .nav-links { display: none; }
         }
     </style>
@@ -374,6 +351,26 @@
         </div>
         
         <div class="team-grid">
+
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600" alt="Sherri McMillan">
+                </div>
+                <div class="team-info">
+                    <h3>Sherri McMillan</h3>
+                    <span class="team-role">Founder</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> "To inspire & empower millions of people to get into the best shape of their lives."
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Sherri founded Why Racing Events with a vision to create world-class events that give back. She now leads our non-profit partner, Why Community, focusing on health and fitness education.</p>
+                    </div>
+                </div>
+            </div>
+
             <div class="team-card">
                 <div class="team-photo">
                     <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600" alt="Karissa & Rod Schoene">
@@ -388,8 +385,7 @@
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">"...including our own. When we started Why Racing in 2010, we wanted to create something different—events where everyone feels welcome, where the back-of-the-packers get the same celebration as the elite runners."</p>
-                        <a href="mailto:karissa@whyracing.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">karissa@whyracing.com</a>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...Every event is an opportunity to change lives... including our own. When we started Why Racing in 2010, we wanted to create something different—events where everyone feels welcome, where the back-of-the-packers get the same celebration as the elite runners."</p>
                     </div>
                 </div>
             </div>
@@ -402,14 +398,32 @@
                     <h3>Brock Schoene</h3>
                     <span class="team-role">Marketing & Operations</span>
                     <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
-                        <strong>My WHY:</strong> "I grew up at finish lines. Racing isn't just our business, it's our family legacy..."
+                        <strong>My WHY:</strong> "I grew up at finish lines—literally running around timing equipment while my parents built this company..."
                     </p>
                     <button class="expand-btn" onclick="toggleExpand(this)">
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">"...I love seeing the look on someone's face when they cross their first finish line. That moment of 'I did it'—that's what we do this for. Brock manages social media, marketing campaigns, and day-of-race operations."</p>
-                        <a href="mailto:brock@whyracing.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">brock@whyracing.com</a>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...Racing isn't just our business... it's our family legacy. I love seeing the look on someone's face when they cross their first finish line. That moment of 'I did it'—that's what we do this for."</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=600" alt="Marla Stone">
+                </div>
+                <div class="team-info">
+                    <h3>Marla Stone</h3>
+                    <span class="team-role">Beneficiary Coordinator</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> "Every dollar we raise goes directly to organizations making a real difference in our community..."
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...I get to connect runners with causes... that matter to them personally. Whether it's Northwest Battle Buddies supporting veterans, or local schools getting funding for PE programs—every registration creates impact beyond the finish line."</p>
                     </div>
                 </div>
             </div>
@@ -422,34 +436,13 @@
                     <h3>Richard Jessup</h3>
                     <span class="team-role">Operations Director</span>
                     <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
-                        <strong>My WHY:</strong> "To encourage others to test their limits and to enjoy what every day has to offer..."
+                        <strong>My WHY:</strong> "There's a lot that goes into making race day feel effortless for athletes. Permits, equipment, volunteers..."
                     </p>
                     <button class="expand-btn" onclick="toggleExpand(this)">
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">"I grew up in San Diego and fell in love with the industry in the 1980s. I coordinate logistics, permits, and operations so athletes can focus on their race. It's a family affair—my daughters work here too!"</p>
-                        <a href="mailto:richard@whyracingevents.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">richard@whyracingevents.com</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="team-card">
-                <div class="team-photo">
-                    <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600" alt="Marla Stone">
-                </div>
-                <div class="team-info">
-                    <h3>Marla Stone</h3>
-                    <span class="team-role">Beneficiary Coordinator</span>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
-                        <strong>My WHY:</strong> "Every dollar we raise goes directly to organizations making a real difference..."
-                    </p>
-                    <button class="expand-btn" onclick="toggleExpand(this)">
-                        Read full story <i class="fas fa-chevron-down"></i>
-                    </button>
-                    <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">"...in our community. I began trail running in my 30s and found my joy in assisting athletes of all skill levels. The WHY Family is a reality—we care about you and the community around you."</p>
-                        <a href="mailto:marla@whyracing.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">marla@whyracing.com</a>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...safety crews... I handle the logistics so runners can focus on what matters: their race. When everything runs smoothly, that's when I know we've done our job."</p>
                     </div>
                 </div>
             </div>
@@ -462,42 +455,33 @@
                     <h3>Jim Mitts</h3>
                     <span class="team-role">Swim Course Manager</span>
                     <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
-                        <strong>My WHY:</strong> "Multi-sport events have a special energy. I want every athlete to feel safe..."
+                        <strong>My WHY:</strong> "I've been in the triathlon community for decades. Multi-sport events have a special energy..."
                     </p>
                     <button class="expand-btn" onclick="toggleExpand(this)">
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">"I've been in the triathlon community for decades. I manage swim courses because water safety is critical. Seeing athletes push themselves in three disciplines is what keeps me coming back."</p>
-                        <a href="mailto:jlmitts55@gmail.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">Contact Jim</a>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...athletes pushing themselves in three disciplines... and supporting each other through every transition. I manage swim courses because water safety is critical, and I want every athlete to feel confident on race day."</p>
                     </div>
                 </div>
             </div>
 
-            <div class="team-card" style="opacity: 0.8;">
+            <div class="team-card" style="border: 2px solid var(--brand-red);">
                 <div class="team-photo" style="filter: grayscale(100%);">
                     <img src="https://images.unsplash.com/photo-1554151228-14d9def656ec?w=600" alt="Jaime Miller">
                 </div>
                 <div class="team-info">
                     <h3>Jaime Miller</h3>
                     <span class="team-role">In Memoriam</span>
-                    <p style="font-size: 0.9rem; color: #666;">
-                        Our beloved former Marketing Director. We race to honor her legacy and spirit every single day.
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>Her WHY:</strong> "To spread joy, love, and energy to everyone I meet."
                     </p>
+                    <div class="team-why-full expanded" style="max-height: 500px; opacity: 1;">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Our beloved former Marketing Director. We race to honor her legacy and spirit every single day.</p>
+                    </div>
                 </div>
             </div>
 
-        </div>
-    </section>
-
-    <section class="founder-section">
-        <div class="founder-container">
-            <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600" alt="Sherri McMillan" class="founder-img">
-            <div>
-                <h3 style="margin-bottom: 10px; color: var(--brand-blue);">Sherri McMillan</h3>
-                <span style="color: var(--brand-red); font-weight: 700; font-size: 0.9rem; letter-spacing: 1px;">FOUNDER & COMMUNITY PARTNER</span>
-                <p style="margin-top: 15px; color: #555;">Sherri founded Why Racing Events with a vision to create world-class events that give back. Today, she leads <strong>Why Community</strong>, our non-profit partner dedicated to providing racing opportunities to at-risk populations.</p>
-            </div>
         </div>
     </section>
 
