@@ -27,8 +27,8 @@
         a { text-decoration: none; color: inherit; }
 
         nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(38,50,56,0.98) 0%, rgba(69,90,100,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
-        .logo { font-family: 'Oswald', sans-serif; font-size: 22px; font-weight: 700; color: white; }
-        .logo span { color: var(--theme-ice); }
+        .logo { text-decoration: none; padding: 5px 0; }
+        .logo img { height: 40px; filter: brightness(0) invert(1); }
         .nav-links { display: flex; gap: 25px; align-items: center; }
         .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
         .nav-links a:hover { color: var(--theme-ice); }
@@ -199,7 +199,7 @@
 <body>
 
 <nav>
-    <a href="../../index.html" class="logo">WHY<span>RACING</span></a>
+    <a href="../../index.html" class="logo"><img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Events"></a>
     <div class="nav-links">
         <a href="../events.html">Races</a>
         <a href="#">Results</a>

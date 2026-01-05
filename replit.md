@@ -110,10 +110,10 @@ Each event detail page includes:
 - CSS pseudo-elements (::before/::after) for themed decorations
 
 ## Recent Changes (January 2026)
-- Fixed broken external logo URLs by implementing text-based "WHY RACING" logo across all pages
-  - Blue text on light nav backgrounds (about.html, first-5k.html)
-  - White text on dark nav backgrounds (events.html, partners.html)
-  - Red accent on "RACING" consistently across all pages
+- Replaced text-based logo with actual logo image (attached_assets/why-racing-logo_1767589311719.png)
+  - Logo displays in black on light nav backgrounds (about.html, first-5k.html)
+  - Logo inverted to white on dark nav backgrounds (index.html, events.html, partners.html, event detail pages)
+  - Logo height: 45px on main pages, 40px on event detail pages
 - Added scrolling sponsor ticker to all pages (charity support, athlete count, events, scenery)
 - Mobile hamburger navigation with full-screen overlay on all pages
 - Created themed pages for all 21 races in the 2026 calendar
