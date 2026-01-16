@@ -452,8 +452,18 @@ Guidelines:
 app.post('/api/chat', async (req, res) => {
   const { messages } = req.body;
   
+  if (!messages || !Array.isArray(messages) || messages.length === 0) {
+    return res.status(400).json({ error: 'Messages array is required and must not be empty' });
+  }
+
+  for (const msg of messages) {
+    if (!msg.role || !msg.content || typeof msg.content !== 'string') {
+      return res.status(400).json({ error: 'Each message must have a role and content string' });
+    }
+  }
+
   if (!process.env.ANTHROPIC_API_KEY) {
-    return res.status(500).json({ error: 'ANTHROPIC_API_KEY not configured' });
+    return res.status(503).json({ error: 'Chat service is temporarily unavailable. Please contact us at info@whyracingevents.com or call (360) 314-4682' });
   }
 
   try {
@@ -473,10 +483,21 @@ app.post('/api/chat', async (req, res) => {
     });
 
     const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Anthropic API Error:', data);
+      return res.status(502).json({ error: 'Chat service encountered an error. Please try again later.' });
+    }
+
+    if (data.error) {
+      console.error('Anthropic API returned error:', data.error);
+      return res.status(502).json({ error: 'Chat service encountered an error. Please try again later.' });
+    }
+
     res.json(data);
   } catch (error) {
     console.error('Anthropic API Error:', error);
-    res.status(500).json({ error: 'Failed to get response' });
+    res.status(500).json({ error: 'Failed to connect to chat service. Please try again later.' });
   }
 });
 
