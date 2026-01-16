@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pacific Crest Endurance Festival 2026 | Why Racing Events</title>
+    <meta name="description" content="Conquer the legendary Pacific Crest Trail in this epic year-end ultra challenge. 50K, 50 Mile, and 100K distances through breathtaking mountain terrain. December 12, 2026 in Cascade Locks, OR.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root { 
+            --theme-primary: #455a64; 
+            --theme-secondary: #5d4037; 
+            --theme-dark: #263238; 
+            --theme-accent: #b3e5fc;
+            --theme-snow: #eceff1;
+            --theme-ice: #b3e5fc;
+            --brand-red: #E31837; 
+            --brand-blue: #00205B; 
+            --dark: #0a0a0a; 
+            --light: #ffffff; 
+            --grey: #f4f4f4; 
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: var(--light); color: #333; }
+        h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
+        a { text-decoration: none; color: inherit; }
+
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(38,50,56,0.98) 0%, rgba(69,90,100,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        .logo { text-decoration: none; padding: 5px 0; }
+        .logo img { height: 40px; filter: brightness(0) invert(1); }
+        .nav-links { display: flex; gap: 25px; align-items: center; }
+        .nav-links a { font-size: 13px; font-weight: 700; text-transform: uppercase; color: white; letter-spacing: 1px; }
+        .nav-links a:hover { color: var(--theme-ice); }
+        .nav-btn { background: var(--theme-secondary); color: white; padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
+
+        .event-hero { 
+            height: 65vh; 
+            min-height: 450px; 
+            background: linear-gradient(rgba(38, 50, 56, 0.75), rgba(69, 90, 100, 0.6)), url('../../images/heroes/pacific-crest.jpg') center/cover; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            text-align: center; 
+            color: white; 
+            padding: 100px 20px 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .event-hero::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='50' font-size='20' opacity='0.08'%3E🏔️%3C/text%3E%3C/svg%3E") repeat;
+            background-size: 100px;
+            animation: float 25s linear infinite;
+            pointer-events: none;
+        }
+        @keyframes float {
+            0% { transform: translateY(0) rotate(0deg); }
+            100% { transform: translateY(-100px) rotate(3deg); }
+        }
+        .floating-icons {
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            pointer-events: none;
+            overflow: hidden;
+        }
+        .floating-icons span {
+            position: absolute;
+            font-size: 2rem;
+            opacity: 0.3;
+            animation: floatIcon 18s infinite ease-in-out;
+        }
+        .floating-icons span:nth-child(1) { left: 10%; top: 20%; animation-delay: 0s; }
+        .floating-icons span:nth-child(2) { left: 20%; top: 60%; animation-delay: 2s; }
+        .floating-icons span:nth-child(3) { left: 70%; top: 30%; animation-delay: 4s; }
+        .floating-icons span:nth-child(4) { left: 80%; top: 70%; animation-delay: 1s; }
+        .floating-icons span:nth-child(5) { left: 50%; top: 10%; animation-delay: 3s; }
+        .floating-icons span:nth-child(6) { left: 90%; top: 50%; animation-delay: 5s; }
+        @keyframes floatIcon {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-25px) rotate(8deg); }
+        }
+        .event-hero-content { position: relative; z-index: 2; }
+        .event-hero-content .event-tag { background: var(--theme-secondary); padding: 8px 16px; font-size: 12px; font-weight: 700; text-transform: uppercase; border-radius: 4px; display: inline-block; margin-bottom: 15px; }
+        .event-hero-content h1 { font-size: 3.5rem; margin-bottom: 15px; text-shadow: 2px 2px 0 var(--theme-primary), 4px 4px 0 rgba(0,0,0,0.3); letter-spacing: 3px; }
+        .event-hero-content .event-date { font-size: 1.4rem; font-weight: 600; margin-bottom: 8px; }
+        .event-hero-content .event-location { font-size: 1.1rem; opacity: 0.9; display: flex; align-items: center; justify-content: center; gap: 8px; margin-bottom: 20px; }
+        .hero-cta { display: inline-block; background: var(--theme-secondary); color: white; padding: 16px 36px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 15px; transition: 0.3s; }
+        .hero-cta:hover { background: #4e342e; transform: translateY(-2px); box-shadow: 0 10px 30px rgba(93,64,55,0.4); }
+
+        .countdown-banner { background: var(--theme-dark); color: white; padding: 18px 5%; display: flex; justify-content: center; align-items: center; gap: 40px; flex-wrap: wrap; border-bottom: 4px solid var(--theme-ice); }
+        .countdown-label { font-family: 'Oswald', sans-serif; text-transform: uppercase; font-size: 14px; letter-spacing: 2px; }
+        .countdown-label::before { content: '🏔️ '; }
+        .countdown-timer { display: flex; gap: 15px; }
+        .countdown-unit { text-align: center; }
+        .countdown-value { font-family: 'Oswald', sans-serif; font-size: 2rem; font-weight: 700; color: var(--theme-ice); }
+        .countdown-text { font-size: 11px; text-transform: uppercase; opacity: 0.7; }
+
+        .social-proof-bar { background: linear-gradient(90deg, #37474f 0%, #263238 100%); padding: 15px 5%; display: flex; justify-content: center; gap: 40px; flex-wrap: wrap; border-bottom: 1px solid #455a64; color: white; }
+        .proof-item { display: flex; align-items: center; gap: 8px; font-size: 14px; font-weight: 600; }
+        .proof-item i { color: var(--theme-ice); }
+        .proof-item .live-dot { width: 8px; height: 8px; background: #81c784; border-radius: 50%; animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.5; } }
+
+        .event-details { max-width: 1100px; margin: 0 auto; padding: 60px 5%; display: grid; grid-template-columns: 1.8fr 1fr; gap: 50px; }
+        .event-info h2 { font-size: 1.8rem; color: var(--theme-primary); margin-bottom: 20px; }
+        .event-info h2::before { content: '⛰️ '; }
+        .event-info p { font-size: 1.05rem; line-height: 1.8; color: #555; margin-bottom: 20px; }
+        .event-info ul { list-style: none; margin-bottom: 30px; }
+        .event-info ul li { padding: 12px 0; border-bottom: 1px solid #eee; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+        .event-info ul li i { color: var(--theme-secondary); width: 20px; }
+        .distances { display: flex; gap: 15px; flex-wrap: wrap; margin-bottom: 30px; }
+        .distance-tag { background: linear-gradient(135deg, #37474f 0%, #263238 100%); padding: 12px 24px; border-radius: 6px; font-weight: 700; color: var(--theme-ice); border-left: 4px solid var(--theme-ice); }
+
+        .testimonial-box { background: linear-gradient(135deg, var(--theme-snow) 0%, #cfd8dc 100%); border-radius: 12px; padding: 25px; margin: 30px 0; border-left: 4px solid var(--theme-primary); }
+        .testimonial-box p { font-style: italic; color: #555; margin-bottom: 15px; font-size: 15px; line-height: 1.7; }
+        .testimonial-author { display: flex; align-items: center; gap: 12px; }
+        .testimonial-author img { width: 45px; height: 45px; border-radius: 50%; object-fit: cover; }
+        .testimonial-author .info { font-size: 13px; }
+        .testimonial-author .info strong { color: var(--theme-primary); display: block; }
+        .testimonial-stars { color: var(--theme-secondary); margin-bottom: 10px; font-size: 14px; }
+
+        .register-card { background: linear-gradient(180deg, #ffffff 0%, var(--theme-snow) 100%); border-radius: 12px; padding: 30px; box-shadow: 0 10px 40px rgba(69,90,100,0.2); position: sticky; top: 100px; border-top: 5px solid var(--theme-primary); }
+        .register-card h3 { font-size: 1.3rem; color: var(--theme-primary); margin-bottom: 5px; text-align: center; }
+        .register-card h3::before { content: '🏔️ '; }
+        .register-card h3::after { content: ' 🏔️'; }
+        .price-highlight { text-align: center; padding: 20px 0; border-bottom: 1px solid #cfd8dc; margin-bottom: 20px; }
+        .price-tier-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--theme-secondary); letter-spacing: 2px; margin-bottom: 8px; }
+        .price-row { display: flex; justify-content: center; align-items: baseline; gap: 10px; }
+        .price-current { font-family: 'Oswald', sans-serif; font-size: 2.5rem; font-weight: 700; color: var(--theme-primary); }
+        .price-label { font-size: 14px; color: #666; }
+        .price-save { background: var(--theme-ice); color: var(--theme-dark); padding: 6px 14px; border-radius: 4px; font-size: 12px; font-weight: 700; display: inline-block; margin-top: 10px; }
+        .spots-warning { background: #fff3e0; color: #e65100; padding: 12px 15px; border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; margin: 20px 0; }
+        .spots-warning::before { content: '⚠️ '; }
+        .register-btn { width: 100%; background: linear-gradient(90deg, var(--theme-primary) 0%, #37474f 100%); color: white; border: none; padding: 18px; font-size: 16px; font-weight: 700; text-transform: uppercase; border-radius: 6px; cursor: pointer; transition: 0.3s; letter-spacing: 1px; }
+        .register-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 30px rgba(69,90,100,0.4); }
+        .price-tiers { margin-top: 20px; padding-top: 20px; border-top: 1px solid #cfd8dc; }
+        .price-tier { display: flex; justify-content: space-between; padding: 10px 0; border-bottom: 1px solid #eceff1; font-size: 13px; }
+        .price-tier-name { color: #555; }
+        .price-tier-amount { font-weight: 700; color: var(--theme-primary); }
+        .trust-badges { display: flex; justify-content: center; gap: 15px; margin-top: 20px; padding-top: 15px; border-top: 1px solid #cfd8dc; flex-wrap: wrap; }
+        .trust-badge { display: flex; align-items: center; gap: 5px; font-size: 11px; color: #666; }
+        .trust-badge i { color: #81c784; }
+        .payment-icons { display: flex; justify-content: center; gap: 10px; margin-top: 15px; color: #999; }
+
+        .course-section { background: linear-gradient(135deg, #37474f 0%, #263238 100%); color: white; padding: 60px 5%; position: relative; overflow: hidden; }
+        .course-section::before {
+            content: '🌲';
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 4rem;
+            opacity: 0.15;
+        }
+        .course-section::after {
+            content: '🦅';
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 3rem;
+            opacity: 0.15;
+        }
+        .course-section h2 { text-align: center; font-size: 2rem; color: white; margin-bottom: 40px; }
+        .course-section h2::before { content: '⛰️ '; }
+        .course-section h2::after { content: ' ⛰️'; }
+        .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 1; }
+        .course-feature { background: rgba(255,255,255,0.08); padding: 30px; border-radius: 12px; text-align: center; border-left: 4px solid var(--theme-ice); backdrop-filter: blur(5px); }
+        .course-feature i { font-size: 2.5rem; color: var(--theme-ice); margin-bottom: 15px; }
+        .course-feature h4 { color: white; margin-bottom: 10px; }
+        .course-feature p { color: rgba(255,255,255,0.8); font-size: 14px; }
+
+        .faq-section { padding: 60px 5%; max-width: 800px; margin: 0 auto; }
+        .faq-section h2 { text-align: center; font-size: 2rem; color: var(--theme-primary); margin-bottom: 40px; }
+        .faq-item { border-bottom: 1px solid #cfd8dc; padding: 20px 0; }
+        .faq-question { font-weight: 700; color: var(--theme-primary); cursor: pointer; display: flex; justify-content: space-between; }
+        .faq-answer { padding-top: 15px; color: #555; line-height: 1.7; }
+
+        footer { background: var(--theme-dark); color: #90a4ae; padding: 50px 5%; text-align: center; }
+        .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 10px; }
+        .footer-brand span { color: var(--theme-ice); }
+        .footer-tagline { margin-bottom: 25px; font-style: italic; }
+        .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; }
+        .footer-links a { transition: 0.3s; }
+        .footer-links a:hover { color: var(--theme-ice); }
+        .footer-copy { font-size: 13px; opacity: 0.5; }
+
+        @media (max-width: 900px) {
+            .event-hero-content h1 { font-size: 2.5rem; }
+            .event-details { grid-template-columns: 1fr; }
+            .register-card { position: static; }
+            .nav-links { display: none; }
+            .social-proof-bar { gap: 20px; }
+            .countdown-banner { gap: 20px; }
+        }
+    
+        .video-section { background: linear-gradient(135deg, #f8f9fa 0%, white 100%); padding: 60px 5%; text-align: center; }
+        .video-section h2 { font-size: 2rem; color: var(--brand-blue, #00205B); font-style: italic; margin-bottom: 15px; }
+        .video-section .video-subtitle { color: #666; margin-bottom: 30px; font-size: 1.1rem; }
+        .video-container { max-width: 800px; margin: 0 auto; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 40px rgba(0, 32, 91, 0.15); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-cta { margin-top: 30px; }
+        .video-cta a { display: inline-block; background: var(--brand-red, #E31837); color: white; padding: 14px 32px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 14px; transition: 0.3s; }
+        .video-cta a:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(227, 24, 55, 0.4); }
+
+</style>
+</head>
+<body>
+
+<nav>
+    <a href="../../index.html" class="logo"><img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Events"></a>
+    <div class="nav-links">
+        <a href="../events.html">Races</a>
+        <a href="#">Results</a>
+        <a href="#">Training</a>
+        <a href="#">About</a>
+    </div>
+    <a href="#register" class="nav-btn">Register Now</a>
+</nav>
+
+<div class="event-hero">
+    <div class="floating-icons">
+        <span>🏔️</span>
+        <span>⛰️</span>
+        <span>🥾</span>
+        <span>❄️</span>
+        <span>🌲</span>
+        <span>🦅</span>
+    </div>
+    <div class="event-hero-content">
+        <span class="event-tag">Ultra</span>
+        <div class="event-date">December 12, 2026</div>
+        <h1>Pacific Crest Endurance Festival</h1>
+        <div class="event-location">
+            <i class="fas fa-map-marker-alt"></i> Cascade Locks, OR
+        </div>
+        <a href="#register" class="hero-cta">🏔️ Conquer the Crest</a>
+    </div>
+</div>
+
+<div class="countdown-banner">
+    <span class="countdown-label">Early Bird Pricing Ends In:</span>
+    <div class="countdown-timer">
+        <div class="countdown-unit"><div class="countdown-value" id="days">00</div><div class="countdown-text">Days</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="hours">00</div><div class="countdown-text">Hours</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="mins">00</div><div class="countdown-text">Mins</div></div>
+        <div class="countdown-unit"><div class="countdown-value" id="secs">00</div><div class="countdown-text">Secs</div></div>
+    </div>
+</div>
+
+<div class="social-proof-bar">
+    <div class="proof-item"><div class="live-dot"></div> <strong>847</strong> ultrarunners registered</div>
+    <div class="proof-item"><i class="fas fa-star"></i> 4.9/5 rating (523 reviews)</div>
+    <div class="proof-item"><i class="fas fa-mountain"></i> Epic PCT course</div>
+</div>
+
+<section class="event-details">
+    <div class="event-info">
+        <h2>Conquer the Pacific Crest</h2>
+        <p>End your year with the ultimate mountain challenge. The Pacific Crest Endurance Festival takes you through some of the most breathtaking terrain along the legendary Pacific Crest Trail. This isn't just a race—it's an epic journey through the heart of the Cascades.</p>
+        <p>From the misty forests to alpine meadows, you'll experience the raw beauty of the Pacific Northwest in winter. Aid stations are fully stocked, crews are experienced, and the finish line celebration is legendary. Whether you're chasing a buckle or personal redemption, this is your year-end epic.</p>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🥾 Choose Your Challenge</h3>
+        <div class="distances">
+            <span class="distance-tag">🏔️ 50K</span>
+            <span class="distance-tag">⛰️ 50 Mile</span>
+            <span class="distance-tag">🦅 100K</span>
+        </div>
+
+        <div class="testimonial-box">
+            <div class="testimonial-stars">
+                <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
+            </div>
+            <p>"The most majestic course I've ever run. When you crest that final ridge and see the Columbia River Gorge spread out below you, all the miles of suffering melt away. This race changed my life. The PCT is calling—answer it."</p>
+            <div class="testimonial-author">
+                <img src="../../images/athletes/dan.jpg" alt="Runner">
+                <div class="info">
+                    <strong>Marcus J.</strong>
+                    <span>100K finisher - Seattle, WA</span>
+                </div>
+            </div>
+        </div>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🎁 What's Included</h3>
+        <ul>
+            <li><i class="fas fa-medal"></i> Custom mountain-themed finisher buckle</li>
+            <li><i class="fas fa-vest"></i> Premium merino blend running vest</li>
+            <li><i class="fas fa-utensils"></i> Fully stocked aid stations with hot food</li>
+            <li><i class="fas fa-stopwatch"></i> Professional chip timing & live tracking</li>
+            <li><i class="fas fa-users"></i> Experienced crew support access</li>
+            <li><i class="fas fa-coffee"></i> Post-race hot soup & celebration</li>
+            <li><i class="fas fa-certificate"></i> ITRA points qualifying race</li>
+        </ul>
+
+        <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">📅 Race Day Schedule</h3>
+        <ul>
+            <li><i class="fas fa-clock"></i> 4:00 AM - 100K Start (Headlamps Required)</li>
+            <li><i class="fas fa-clock"></i> 5:30 AM - 50 Mile Start</li>
+            <li><i class="fas fa-clock"></i> 7:00 AM - 50K Start</li>
+            <li><i class="fas fa-clock"></i> 3:00 PM - Cutoff: Aid Station 4 (50M/100K)</li>
+            <li><i class="fas fa-clock"></i> 6:00 PM - 50K Course Closes</li>
+            <li><i class="fas fa-clock"></i> 10:00 PM - 50 Mile Course Closes</li>
+            <li><i class="fas fa-clock"></i> 2:00 AM (Dec 13) - 100K Course Closes</li>
+        </ul>
+    </div>
+
+    <div id="register" class="registration-sidebar">
+        <div class="register-card">
+            <h3>Register Now</h3>
+            <div class="price-highlight">
+                <div class="price-tier-label">Early Bird Pricing</div>
+                <div class="price-row">
+                    <span class="price-current">$95</span>
+                    <span class="price-label">50K</span>
+                </div>
+                <div class="price-row" style="margin-top: 8px;">
+                    <span class="price-current">$135</span>
+                    <span class="price-label">50 Mile</span>
+                </div>
+                <div class="price-row" style="margin-top: 8px;">
+                    <span class="price-current">$175</span>
+                    <span class="price-label">100K</span>
+                </div>
+                <span class="price-save">❄️ Save up to $40</span>
+            </div>
+            
+            <div class="spots-warning">100K spots filling fast - 67 remaining!</div>
+            
+            <button class="register-btn" onclick="window.location.href='https://ultrasignup.com/pacific-crest-endurance'">🏔️ Claim My Spot</button>
+            
+            <div class="price-tiers">
+                <div class="price-tier">
+                    <span class="price-tier-name">Early Bird (ends Oct 31)</span>
+                    <span class="price-tier-amount">$95 / $135 / $175</span>
+                </div>
+                <div class="price-tier">
+                    <span class="price-tier-name">Regular (Nov 1 - Dec 1)</span>
+                    <span class="price-tier-amount">$115 / $165 / $215</span>
+                </div>
+                <div class="price-tier">
+                    <span class="price-tier-name">Race Week (Dec 2-12)</span>
+                    <span class="price-tier-amount">$135 / $185 / $235</span>
+                </div>
+            </div>
+            
+            <div class="trust-badges">
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Deferrals Available</span>
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> ITRA Points</span>
+                <span class="trust-badge"><i class="fas fa-check-circle"></i> Secure Checkout</span>
+            </div>
+            <div class="payment-icons">
+                <i class="fab fa-cc-visa fa-lg"></i>
+                <i class="fab fa-cc-mastercard fa-lg"></i>
+                <i class="fab fa-cc-paypal fa-lg"></i>
+                <i class="fab fa-cc-apple-pay fa-lg"></i>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="course-section">
+    <h2>Why Runners Choose Pacific Crest</h2>
+    <div class="course-features">
+        <div class="course-feature">
+            <i class="fas fa-mountain"></i>
+            <h4>Legendary Terrain</h4>
+            <p>Run on the iconic Pacific Crest Trail through pristine wilderness and breathtaking vistas</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-snowflake"></i>
+            <h4>Winter Epic</h4>
+            <p>End your year with an unforgettable mountain challenge in December's crisp air</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-mug-hot"></i>
+            <h4>Full Support</h4>
+            <p>Hot food at aid stations, experienced crews, and 24-hour medical coverage</p>
+        </div>
+        <div class="course-feature">
+            <i class="fas fa-award"></i>
+            <h4>ITRA Qualifying</h4>
+            <p>Earn ITRA points and test yourself on a world-class ultra course</p>
+        </div>
+    </div>
+</section>
+
+<section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-item">
+        <div class="faq-question">What are the cutoff times for each distance?</div>
+        <div class="faq-answer">50K: 11 hours (6:00 PM finish). 50 Mile: 16.5 hours (10:00 PM finish). 100K: 22 hours (2:00 AM next day). Intermediate cutoffs apply at aid stations—see runner manual for details.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">What mandatory gear is required?</div>
+        <div class="faq-answer">All distances require: headlamp with spare batteries, emergency blanket, whistle, 1.5L hydration capacity, rain jacket, and warm layer. 100K runners also need drop bags at designated aid stations. Full list provided in runner manual.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Are pacers and crew allowed?</div>
+        <div class="faq-answer">Crew access is available at designated aid stations only. Pacers are allowed for 50 Mile (after mile 30) and 100K (after 50K mark). Pacers must register in advance—included with registration.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">What if there's snow on course?</div>
+        <div class="faq-answer">We monitor conditions closely. Light snow/ice is expected—trail spikes/microspikes recommended. In case of severe weather, we have backup course options and will communicate updates via email and social media.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">What is the refund/deferral policy?</div>
+        <div class="faq-answer">Deferrals to the following year are available until November 15 for a $25 fee. Transfers to another runner are allowed until December 1. No refunds available, but 100% deferral credit applies if race is cancelled due to conditions.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Is this race good for a first ultra?</div>
+        <div class="faq-answer">The 50K is appropriate for experienced trail runners ready to step up. The terrain is challenging but the support is excellent. We recommend having completed a trail marathon or significant mountain running before attempting this course.</div>
+    </div>
+</section>
+
+<section class="video-section">
+    <h2>🎬 See The Experience</h2>
+    <p class="video-subtitle">Watch what makes Pacific Crest Endurance Festival an unforgettable race day</p>
+    <div class="video-container">
+        <iframe 
+            src="https://www.youtube.com/embed/-v_I8dhvFGw" 
+            title="Pacific Crest Endurance Festival - Why Racing Events"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    <div class="video-cta">
+        <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i> Watch More Videos</a>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-brand">WHY<span>RACING</span></div>
+    <div class="footer-tagline">What's Your WHY?</div>
+    <div class="footer-links">
+        <a href="../../index.html">Home</a>
+        <a href="../events.html">All Events</a>
+        <a href="#">Results</a>
+        <a href="#">Contact</a>
+    </div>
+    <div class="footer-copy">&copy; 2025 Why Racing Events Inc. | La Center, WA | (360) 314-4682</div>
+</footer>
+
+<script>
+var endDate = new Date('2026-10-31T23:59:59');
+function updateCountdown() {
+    var now = new Date().getTime(), diff = endDate - now;
+    if (diff < 0) { diff = 0; }
+    document.getElementById('days').innerText = String(Math.floor(diff / 86400000)).padStart(2, '0');
+    document.getElementById('hours').innerText = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+    document.getElementById('mins').innerText = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+    document.getElementById('secs').innerText = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
+}
+setInterval(updateCountdown, 1000); updateCountdown();
+</script>
+
+</body>
+</html>

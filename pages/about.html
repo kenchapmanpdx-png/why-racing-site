@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us | Why Racing Events</title>
+    <meta name="description" content="Meet the team behind Why Racing Events. Family-owned race company in the Pacific Northwest since 2010.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        /* --- BRANDING VARIABLES --- */
+        :root {
+            --brand-red: #E31837;
+            --brand-blue: #00205B;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f4f4f4;
+            --glass: rgba(0, 32, 91, 0.95);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brand-blue);
+        }
+
+        a { text-decoration: none; color: inherit; transition: 0.3s; }
+        ul { list-style: none; }
+
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 14px 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 14px;
+        }
+        .btn-primary {
+            background: var(--brand-red);
+            color: white;
+            box-shadow: 0 4px 15px rgba(227, 24, 55, 0.3);
+        }
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #b00e26;
+            box-shadow: 0 8px 25px rgba(227, 24, 55, 0.5);
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0,0,0,0.05);
+            transition: 0.3s;
+        }
+        
+        .logo { 
+            text-decoration: none;
+            padding: 5px 0;
+        }
+        .logo img { height: 45px; }
+
+        /* SPONSOR TICKER */
+        .sponsor-ticker {
+            background: white;
+            padding: 40px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+        .sponsor-ticker-label {
+            text-align: center;
+            font-size: 15px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            margin-bottom: 25px;
+        }
+        .sponsor-track {
+            display: inline-block;
+            animation: sponsorScroll 30s linear infinite;
+        }
+        .sponsor-track img {
+            height: 62.5px;
+            margin: 0 30px;
+            opacity: 1;
+            vertical-align: middle;
+        }
+        @keyframes sponsorScroll {
+            0% { transform: translateX(-50%); }
+            100% { transform: translateX(0); }
+        }
+
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { 
+            font-size: 14px; 
+            font-weight: 700; 
+            text-transform: uppercase; 
+            color: var(--brand-blue); 
+            letter-spacing: 1px;
+        }
+        .nav-links a:hover { color: var(--brand-red); }
+
+        /* --- HERO SECTION --- */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(0, 32, 91, 0.9) 0%, rgba(0, 21, 64, 0.95) 100%),
+                        url('../images/homepage/community.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 200px 5% 120px;
+            text-align: center;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            position: relative;
+            z-index: 1;
+        }
+        .page-hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 20px;
+            color: white;
+            font-style: italic;
+        }
+        .page-hero p {
+            font-size: 1.4rem;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+            font-weight: 300;
+        }
+
+        /* --- STATS SECTION --- */
+        .stats-section {
+            padding: 0 5% 80px;
+            margin-top: -60px;
+            position: relative;
+            z-index: 10;
+        }
+        .stats-container {
+            background: white;
+            max-width: 1200px;
+            margin: 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.15);
+            padding: 50px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+        }
+        .stat-item { text-align: center; border-right: 1px solid #eee; }
+        .stat-item:last-child { border-right: none; }
+        .stat-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--brand-blue);
+            display: block;
+            line-height: 1;
+            margin-bottom: 10px;
+        }
+        .stat-label {
+            font-size: 13px;
+            text-transform: uppercase;
+            font-weight: 700;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        /* --- MISSION SECTION --- */
+        .mission-section { padding: 120px 5%; }
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .mission-image-wrapper { position: relative; }
+        .mission-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -20px; left: -20px;
+            width: 100%; height: 100%;
+            border: 4px solid var(--brand-red);
+            border-radius: 12px;
+            z-index: 0;
+        }
+        .mission-image img {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 20px 20px 60px rgba(0,0,0,0.2);
+            z-index: 1;
+        }
+        .mission-content h2 { font-size: 3rem; margin-bottom: 20px; }
+        .mission-content blockquote {
+            border-left: 4px solid var(--brand-red);
+            padding-left: 25px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--brand-blue);
+            font-weight: 600;
+        }
+
+        /* --- TEAM SECTION --- */
+        .team-section { background: var(--grey); padding: 100px 5%; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 3rem; }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .team-card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            overflow: hidden;
+            transition: transform 0.3s;
+        }
+        .team-card:hover { transform: translateY(-10px); }
+        .team-photo { height: 320px; overflow: hidden; }
+        .team-photo img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .team-card:hover .team-photo img { transform: scale(1.05); }
+        .team-info { padding: 30px; }
+        .team-role { color: var(--brand-red); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 15px; display: block; }
+        
+        .expand-btn {
+            background: none; border: none; color: var(--brand-blue); 
+            font-weight: 700; cursor: pointer; display: flex; align-items: center; gap: 5px; margin-top: 10px;
+        }
+        .team-why-full {
+            max-height: 0; overflow: hidden; transition: 0.4s ease; opacity: 0;
+        }
+        .team-why-full.expanded { max-height: 500px; opacity: 1; margin-top: 15px; }
+
+        /* --- VALUES SECTION --- */
+        .values-section { padding: 100px 5%; background: white; }
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .value-card {
+            text-align: center;
+            padding: 40px;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            transition: 0.3s;
+        }
+        .value-card:hover { border-color: var(--brand-red); box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .value-card i { font-size: 2.5rem; color: var(--brand-red); margin-bottom: 20px; }
+
+        /* --- CHARITY LOGO SECTION --- */
+        .charity-section {
+            background: var(--brand-blue);
+            color: white;
+            text-align: center;
+            padding: 100px 5%;
+        }
+        .charity-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+            opacity: 0.7;
+        }
+        .charity-logo-placeholder {
+            border: 2px solid rgba(255,255,255,0.3);
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 1px;
+        }
+
+        /* --- FOOTER --- */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 60px 5%;
+            text-align: center;
+            border-top: 4px solid var(--brand-red);
+        }
+        .footer-social a {
+            margin: 0 10px;
+            color: #888;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+        .footer-social a:hover { color: var(--brand-red); }
+
+        /* --- MOBILE MENU --- */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: var(--brand-blue);
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+        
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 32, 91, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+        .mobile-menu.active {
+            display: flex;
+        }
+        .mobile-menu a {
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+        .mobile-menu a:hover {
+            color: var(--brand-red);
+        }
+
+        @media (max-width: 900px) {
+            .page-hero h1 { font-size: 3rem; }
+            .stats-container { grid-template-columns: 1fr 1fr; gap: 40px; }
+            .stat-item { border-right: none; }
+            .mission-grid { grid-template-columns: 1fr; }
+            .team-grid { grid-template-columns: 1fr; }
+            .values-grid { grid-template-columns: 1fr; }
+            .nav-links { display: none; }
+            .hamburger { display: flex; }
+            nav .btn { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="../index.html" class="logo"><img src="../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Events"></a>
+        <div class="nav-links">
+            <a href="events.html">Race Calendar</a>
+            <a href="first-5k.html">Your 1st 5K</a>
+            <a href="about.html" style="color: var(--brand-red);">About</a>
+            <a href="partners.html">Partners</a>
+        </div>
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="events.html" class="btn btn-primary">Find Your Race</a>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="events.html">Race Calendar</a>
+        <a href="first-5k.html">Your 1st 5K</a>
+        <a href="about.html" style="color: var(--brand-red);">About</a>
+        <a href="partners.html">Partners</a>
+        <a href="events.html" class="btn btn-primary" style="margin-top: 20px;">Find Your Race</a>
+    </div>
+
+    <section class="page-hero">
+        <h1>THE STORY OF <br><span style="color: var(--brand-red);">WHY.</span></h1>
+        <p>A community built on fitness, family, and fun—raising millions for causes that matter.</p>
+    </section>
+
+    <section class="stats-section" id="stats-section">
+        <div class="stats-container">
+            <div class="stat-item">
+                <span class="stat-number" data-target="3000000">$0</span>
+                <span class="stat-label">Donated to Charity</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="50000">0</span>
+                <span class="stat-label">Athletes Served</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="21">0</span>
+                <span class="stat-label">Annual Events</span>
+            </div>
+            <div class="stat-item">
+                <span class="stat-number" data-target="15">0</span>
+                <span class="stat-label">Years Running</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="mission-section">
+        <div class="mission-grid">
+            <div class="mission-image-wrapper">
+                <div class="mission-image">
+                    <img src="../images/homepage/community.png&q=80" alt="Why Racing Community">
+                </div>
+            </div>
+            <div class="mission-content">
+                <h2>What's Your <span style="color: var(--brand-red);">WHY?</span></h2>
+                <p>Some of us race to get faster and stronger. Some to get healthy and fit. Some to lose weight. Others just to get to the finish line.</p>
+                <p>Some of us race because of how it makes us feel. Some to have fun and hang with our friends. Some race to give back to an important local charity.</p>
+                <blockquote>
+                    "Regardless of your WHY, we are all united on a mission to improve our own health while improving the lives of those in need."
+                </blockquote>
+                <p>That's the philosophy behind Why Racing Events. Since 2010, we've been bringing the Pacific Northwest community together through endurance events that celebrate every athlete—from first-timers to seasoned competitors.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="section-header">
+            <h2>Meet The Team</h2>
+            <p>The passionate people behind every finish line.</p>
+        </div>
+        
+        <div class="team-grid">
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/homepage/community.png" alt="Karissa & Rod Schoene">
+                </div>
+                <div class="team-info">
+                    <h3>Karissa & Rod Schoene</h3>
+                    <span class="team-role">Owners & Race Directors</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> "We believe in the power of community and the transformative nature of endurance sports..."
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...Every event is an opportunity to change lives... including our own. When we started Why Racing in 2010, we wanted to create something different—events where everyone feels welcome, where the back-of-the-packers get the same celebration as the elite runners."</p>
+                        <a href="mailto:karissa@whyracing.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">karissa@whyracing.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/homepage/community.png" alt="Richard Jessup">
+                </div>
+                <div class="team-info">
+                    <h3>Richard Jessup</h3>
+                    <span class="team-role">Operations Director</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> "To encourage others to test their limits and to enjoy what every day has to offer..."
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...I handle the logistics so runners can focus on what matters: their race. When everything runs smoothly, that's when I know we've done our job."</p>
+                        <a href="mailto:richard@whyracing.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">richard@whyracing.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/homepage/community.png" alt="Brock Schoene">
+                </div>
+                <div class="team-info">
+                    <h3>Brock Schoene</h3>
+                    <span class="team-role">Marketing & Operations</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> "I grew up at finish lines. Racing isn't just our business, it's our family legacy..."
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...I love seeing the look on someone's face when they cross their first finish line. That moment of 'I did it'—that's what we do this for. Brock manages social media, marketing campaigns, and day-of-race operations."</p>
+                        <a href="mailto:brock@whyracing.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">brock@whyracing.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/homepage/community.png" alt="Marla Stone">
+                </div>
+                <div class="team-info">
+                    <h3>Marla Stone</h3>
+                    <span class="team-role">Beneficiary Coordinator</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> "Every dollar we raise goes directly to organizations making a real difference..."
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...in our community. Whether it's Northwest Battle Buddies supporting veterans, or local schools getting funding for PE programs—every registration creates impact beyond the finish line."</p>
+                        <a href="mailto:marla@whyracing.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">marla@whyracing.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/homepage/community.png" alt="Jim Mitts">
+                </div>
+                <div class="team-info">
+                    <h3>Jim Mitts</h3>
+                    <span class="team-role">Swim Course Manager</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> "Multi-sport events have a special energy. I want every athlete to feel safe..."
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">"...and supporting each other through every transition. I manage swim courses because water safety is critical, and I want every athlete to feel confident on race day."</p>
+                        <a href="mailto:jlmitts55@gmail.com" style="color: var(--brand-red); font-size: 0.8rem; font-weight: 700; display: block; margin-top: 10px;">Contact Jim</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <section class="values-section">
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Fitness</h3>
+                <p>We believe in the transformative power of movement. Every event is designed to help you become your best self.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-users"></i>
+                <h3>Family</h3>
+                <p>Racing is better together. We create events where families train, compete, and celebrate as one.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-smile-beam"></i>
+                <h3>Fun</h3>
+                <p>From costume contests to live bands to epic after-parties—we make every finish line a celebration.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="charity-section">
+        <h2 style="font-size: 3rem; color: white;">Making a Difference</h2>
+        <p style="opacity: 0.9; max-width: 600px; margin: 0 auto;">We don't just run. We raise. Every registration supports local causes, ensuring our community grows stronger together.</p>
+        
+        <div class="charity-logos">
+            <div class="charity-logo-placeholder">NW BATTLE BUDDIES</div>
+            <div class="charity-logo-placeholder">POLICE ACTIVITIES LEAGUE</div>
+            <div class="charity-logo-placeholder">AINSLEY'S ANGELS</div>
+            <div class="charity-logo-placeholder">VANCOUVER PUBLIC SCHOOLS</div>
+        </div>
+        
+        <div style="margin-top: 50px;">
+            <a href="events.html" class="btn btn-primary" style="background: white; color: var(--brand-red);">Join The Movement</a>
+        </div>
+    </section>
+
+    <div class="sponsor-ticker">
+        <div class="sponsor-ticker-label">Proud Partners</div>
+        <div class="sponsor-track">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+        </div>
+    </div>
+
+    <footer>
+        <div style="font-family: 'Oswald', sans-serif; font-size: 24px; font-weight: 700; margin-bottom: 20px;">
+            WHY <span style="color: var(--brand-red);">RACING</span>
+        </div>
+        <div class="footer-social" style="margin-bottom: 30px;">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <p style="font-size: 0.8rem; opacity: 0.5;">© 2025 Why Racing Events Inc. • La Center, WA</p>
+    </footer>
+
+    <script>
+        // --- MOBILE MENU TOGGLE ---
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        // --- 1. EXPANDABLE TEAM CARDS ---
+        function toggleExpand(btn) {
+            const fullContent = btn.nextElementSibling;
+            const isExpanded = fullContent.classList.contains('expanded');
+            
+            fullContent.classList.toggle('expanded');
+            
+            btn.innerHTML = isExpanded 
+                ? 'Read full story <i class="fas fa-chevron-down"></i>' 
+                : 'Read less <i class="fas fa-chevron-up"></i>';
+        }
+
+        // --- 2. ANIMATED NUMBER COUNTERS ---
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200; 
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText.replace(/,/g, '').replace(/\$/g, '').replace(/\+/g, '');
+                    
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        let prefix = counter.getAttribute('data-target') === '3000000' ? '$' : '';
+                        let suffix = counter.getAttribute('data-target') === '3000000' || counter.getAttribute('data-target') === '50000' ? '+' : '';
+                        
+                        counter.innerText = prefix + Math.ceil(count + inc).toLocaleString() + suffix;
+                        setTimeout(updateCount, 20);
+                    } else {
+                        let prefix = counter.getAttribute('data-target') === '3000000' ? '$' : '';
+                        let suffix = counter.getAttribute('data-target') === '3000000' || counter.getAttribute('data-target') === '50000' ? '+' : '';
+                        counter.innerText = prefix + target.toLocaleString() + suffix;
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        // --- 3. TRIGGER ANIMATION ON SCROLL ---
+        let scrolled = false;
+        window.addEventListener('scroll', () => {
+            const section = document.getElementById('stats-section');
+            if(section) {
+                const sectionPos = section.getBoundingClientRect().top;
+                const screenPos = window.innerHeight / 1.3;
+
+                if(sectionPos < screenPos && !scrolled) {
+                    animateCounters();
+                    scrolled = true;
+                }
+            }
+        });
+    </script>
+</body>
+</html>

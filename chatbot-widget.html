@@ -1,0 +1,292 @@
+<div id="chatbot-root"></div>
+<script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<script type="text/babel">
+function WhyRacingChatbot() {
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [messages, setMessages] = React.useState([
+    { role: 'assistant', content: "Hi! 👋 I'm your Why Racing Events assistant. Ask me about our 2026 events, registration, course records, packet pickup times, or anything else!" }
+  ]);
+  const [input, setInput] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(false);
+  const messagesEndRef = React.useRef(null);
+
+  React.useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
+  const sendMessage = async () => {
+    if (!input.trim() || isLoading) return;
+
+    const userMessage = input.trim();
+    setInput('');
+    setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+    setIsLoading(true);
+
+    try {
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [...messages.slice(1), { role: 'user', content: userMessage }]
+        })
+      });
+
+      const data = await response.json();
+      const assistantMessage = data.content?.[0]?.text || "Sorry, I couldn't process that. Please try again!";
+      setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
+    } catch (error) {
+      setMessages(prev => [...prev, { 
+        role: 'assistant', 
+        content: "Oops! Something went wrong. Please try again or contact us at info@whyracingevents.com or call (360) 314-4682" 
+      }]);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      sendMessage();
+    }
+  };
+
+  const styles = {
+    toggleButton: {
+      position: 'fixed',
+      bottom: '24px',
+      right: '24px',
+      width: '60px',
+      height: '60px',
+      background: 'linear-gradient(135deg, #E31837 0%, #00205B 100%)',
+      borderRadius: '50%',
+      border: 'none',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      boxShadow: '0 4px 20px rgba(227, 24, 55, 0.4)',
+      zIndex: 9999,
+      transition: 'transform 0.2s, box-shadow 0.2s'
+    },
+    chatWindow: {
+      position: 'fixed',
+      bottom: '100px',
+      right: '24px',
+      width: '400px',
+      maxWidth: 'calc(100vw - 48px)',
+      height: '550px',
+      maxHeight: 'calc(100vh - 140px)',
+      background: '#ffffff',
+      borderRadius: '20px',
+      boxShadow: '0 10px 40px rgba(0, 0, 0, 0.15)',
+      display: 'flex',
+      flexDirection: 'column',
+      overflow: 'hidden',
+      zIndex: 9999,
+      border: '1px solid rgba(0,0,0,0.08)'
+    },
+    header: {
+      background: 'linear-gradient(135deg, #E31837 0%, #00205B 100%)',
+      color: '#ffffff',
+      padding: '20px',
+      display: 'flex',
+      alignItems: 'center',
+      gap: '12px'
+    },
+    headerIcon: {
+      width: '45px',
+      height: '45px',
+      background: 'rgba(255,255,255,0.2)',
+      borderRadius: '50%',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      fontSize: '24px'
+    },
+    headerText: {
+      flex: 1
+    },
+    headerTitle: {
+      margin: 0,
+      fontSize: '18px',
+      fontWeight: 'bold'
+    },
+    headerSubtitle: {
+      margin: 0,
+      fontSize: '12px',
+      opacity: 0.9
+    },
+    messagesContainer: {
+      flex: 1,
+      overflowY: 'auto',
+      padding: '20px',
+      background: '#f8fafc',
+      display: 'flex',
+      flexDirection: 'column',
+      gap: '16px'
+    },
+    messageRow: (isUser) => ({
+      display: 'flex',
+      justifyContent: isUser ? 'flex-end' : 'flex-start'
+    }),
+    messageBubble: (isUser) => ({
+      maxWidth: '85%',
+      padding: '12px 16px',
+      borderRadius: isUser ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+      background: isUser ? 'linear-gradient(135deg, #E31837 0%, #00205B 100%)' : '#ffffff',
+      color: isUser ? '#ffffff' : '#1f2937',
+      fontSize: '14px',
+      lineHeight: '1.5',
+      boxShadow: isUser ? 'none' : '0 2px 8px rgba(0,0,0,0.06)',
+      border: isUser ? 'none' : '1px solid rgba(0,0,0,0.04)'
+    }),
+    loadingDots: {
+      display: 'flex',
+      gap: '6px',
+      padding: '8px 0'
+    },
+    dot: (delay) => ({
+      width: '8px',
+      height: '8px',
+      background: '#cbd5e1',
+      borderRadius: '50%',
+      animation: `bounce 0.6s infinite ${delay}ms`
+    }),
+    inputContainer: {
+      padding: '16px 20px',
+      background: '#ffffff',
+      borderTop: '1px solid #e5e7eb',
+      display: 'flex',
+      gap: '12px',
+      alignItems: 'center'
+    },
+    input: {
+      flex: 1,
+      padding: '12px 18px',
+      borderRadius: '25px',
+      border: '2px solid #e5e7eb',
+      fontSize: '14px',
+      outline: 'none',
+      transition: 'border-color 0.2s'
+    },
+    sendButton: {
+      width: '44px',
+      height: '44px',
+      borderRadius: '50%',
+      background: 'linear-gradient(135deg, #E31837 0%, #00205B 100%)',
+      border: 'none',
+      cursor: 'pointer',
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      transition: 'opacity 0.2s, transform 0.2s'
+    }
+  };
+
+  return (
+    <>
+      <style>{`
+        @keyframes bounce {
+          0%, 100% { transform: translateY(0); }
+          50% { transform: translateY(-6px); }
+        }
+        #why-racing-chat-toggle:hover {
+          transform: scale(1.05);
+          box-shadow: 0 6px 25px rgba(227, 24, 55, 0.5);
+        }
+        #why-racing-chat-input:focus {
+          border-color: #E31837;
+        }
+        #why-racing-send-btn:hover:not(:disabled) {
+          transform: scale(1.05);
+        }
+        #why-racing-send-btn:disabled {
+          opacity: 0.5;
+          cursor: not-allowed;
+        }
+      `}</style>
+
+      <button
+        id="why-racing-chat-toggle"
+        onClick={() => setIsOpen(!isOpen)}
+        style={styles.toggleButton}
+        aria-label="Toggle chat"
+      >
+        {isOpen ? (
+          <svg width="24" height="24" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+          </svg>
+        ) : (
+          <svg width="28" height="28" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+          </svg>
+        )}
+      </button>
+
+      {isOpen && (
+        <div style={styles.chatWindow}>
+          <div style={styles.header}>
+            <div style={styles.headerIcon}>🏃</div>
+            <div style={styles.headerText}>
+              <h3 style={styles.headerTitle}>Why Racing Events</h3>
+              <p style={styles.headerSubtitle}>Ask about events, registration, and more!</p>
+            </div>
+          </div>
+
+          <div style={styles.messagesContainer}>
+            {messages.map((msg, i) => (
+              <div key={i} style={styles.messageRow(msg.role === 'user')}>
+                <div style={styles.messageBubble(msg.role === 'user')}>
+                  {msg.content}
+                </div>
+              </div>
+            ))}
+            {isLoading && (
+              <div style={styles.messageRow(false)}>
+                <div style={styles.messageBubble(false)}>
+                  <div style={styles.loadingDots}>
+                    <span style={styles.dot(0)}></span>
+                    <span style={styles.dot(150)}></span>
+                    <span style={styles.dot(300)}></span>
+                  </div>
+                </div>
+              </div>
+            )}
+            <div ref={messagesEndRef} />
+          </div>
+
+          <div style={styles.inputContainer}>
+            <input
+              id="why-racing-chat-input"
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyPress={handleKeyPress}
+              placeholder="Ask about events, registration..."
+              style={styles.input}
+              disabled={isLoading}
+            />
+            <button
+              id="why-racing-send-btn"
+              onClick={sendMessage}
+              disabled={isLoading || !input.trim()}
+              style={styles.sendButton}
+            >
+              <svg width="20" height="20" fill="none" stroke="#fff" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <line x1="22" y1="2" x2="11" y2="13"></line>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+              </svg>
+            </button>
+          </div>
+        </div>
+      )}
+    </>
+  );
+}
+
+ReactDOM.createRoot(document.getElementById('chatbot-root')).render(<WhyRacingChatbot />);
+</script>
