@@ -9,7 +9,7 @@
     <style>
         :root {
             --brand-red: #E31837;
-            --brand-blue: #00205B;
+            --brand-blue: #111111;
             --dark: #0a0a0a;
             --light: #ffffff;
             --grey: #f4f4f4;
@@ -339,7 +339,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0, 32, 91, 0.98);
+            background: rgba(17, 17, 17, 0.98);
             z-index: 999;
             flex-direction: column;
             justify-content: center;
@@ -912,19 +912,19 @@ function WhyRacingChatbot() {
         #why-send-btn:hover:not(:disabled) { transform: scale(1.05); }
         #why-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
       `}</style>
-      <button id="why-chat-toggle" onClick={() => setIsOpen(!isOpen)} style={{position:'fixed',bottom:'24px',right:'24px',width:'60px',height:'60px',background:'linear-gradient(135deg, #E31837 0%, #00205B 100%)',borderRadius:'50%',border:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 4px 20px rgba(227, 24, 55, 0.4)',zIndex:9999,transition:'transform 0.2s, box-shadow 0.2s'}} aria-label="Toggle chat">
+      <button id="why-chat-toggle" onClick={() => setIsOpen(!isOpen)} style={{position:'fixed',bottom:'24px',right:'24px',width:'60px',height:'60px',background:'linear-gradient(135deg, #E31837 0%, #111111 100%)',borderRadius:'50%',border:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 4px 20px rgba(227, 24, 55, 0.4)',zIndex:9999,transition:'transform 0.2s, box-shadow 0.2s'}} aria-label="Toggle chat">
         {isOpen ? <svg width="24" height="24" fill="none" stroke="#fff" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> : <svg width="28" height="28" fill="none" stroke="#fff" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
       </button>
       {isOpen && (
         <div style={{position:'fixed',bottom:'100px',right:'24px',width:'400px',maxWidth:'calc(100vw - 48px)',height:'550px',maxHeight:'calc(100vh - 140px)',background:'#fff',borderRadius:'20px',boxShadow:'0 10px 40px rgba(0,0,0,0.15)',display:'flex',flexDirection:'column',overflow:'hidden',zIndex:9999,border:'1px solid rgba(0,0,0,0.08)'}}>
-          <div style={{background:'linear-gradient(135deg, #E31837 0%, #00205B 100%)',color:'#fff',padding:'20px',display:'flex',alignItems:'center',gap:'12px'}}>
+          <div style={{background:'linear-gradient(135deg, #E31837 0%, #111111 100%)',color:'#fff',padding:'20px',display:'flex',alignItems:'center',gap:'12px'}}>
             <div style={{width:'45px',height:'45px',background:'rgba(255,255,255,0.2)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'24px'}}>🏃</div>
             <div><h3 style={{margin:0,fontSize:'18px',fontWeight:'bold'}}>Why Racing Events</h3><p style={{margin:0,fontSize:'12px',opacity:0.9}}>Ask about events, registration, and more!</p></div>
           </div>
           <div style={{flex:1,overflowY:'auto',padding:'20px',background:'#f8fafc',display:'flex',flexDirection:'column',gap:'16px'}}>
             {messages.map((msg, i) => (
               <div key={i} style={{display:'flex',justifyContent:msg.role === 'user' ? 'flex-end' : 'flex-start'}}>
-                <div style={{maxWidth:'85%',padding:'12px 16px',borderRadius:msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',background:msg.role === 'user' ? 'linear-gradient(135deg, #E31837 0%, #00205B 100%)' : '#fff',color:msg.role === 'user' ? '#fff' : '#1f2937',fontSize:'14px',lineHeight:'1.5',boxShadow:msg.role === 'user' ? 'none' : '0 2px 8px rgba(0,0,0,0.06)',border:msg.role === 'user' ? 'none' : '1px solid rgba(0,0,0,0.04)'}}>{msg.content}</div>
+                <div style={{maxWidth:'85%',padding:'12px 16px',borderRadius:msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',background:msg.role === 'user' ? 'linear-gradient(135deg, #E31837 0%, #111111 100%)' : '#fff',color:msg.role === 'user' ? '#fff' : '#1f2937',fontSize:'14px',lineHeight:'1.5',boxShadow:msg.role === 'user' ? 'none' : '0 2px 8px rgba(0,0,0,0.06)',border:msg.role === 'user' ? 'none' : '1px solid rgba(0,0,0,0.04)'}}>{msg.content}</div>
               </div>
             ))}
             {isLoading && <div style={{display:'flex',justifyContent:'flex-start'}}><div style={{padding:'12px 16px',borderRadius:'18px 18px 18px 4px',background:'#fff',boxShadow:'0 2px 8px rgba(0,0,0,0.06)'}}><div style={{display:'flex',gap:'6px'}}><span style={{width:'8px',height:'8px',background:'#cbd5e1',borderRadius:'50%',animation:'chatBounce 0.6s infinite 0ms'}}/><span style={{width:'8px',height:'8px',background:'#cbd5e1',borderRadius:'50%',animation:'chatBounce 0.6s infinite 150ms'}}/><span style={{width:'8px',height:'8px',background:'#cbd5e1',borderRadius:'50%',animation:'chatBounce 0.6s infinite 300ms'}}/></div></div></div>}
@@ -932,7 +932,7 @@ function WhyRacingChatbot() {
           </div>
           <div style={{padding:'16px 20px',background:'#fff',borderTop:'1px solid #e5e7eb',display:'flex',gap:'12px',alignItems:'center'}}>
             <input id="why-chat-input" type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={handleKeyPress} placeholder="Ask about events, registration..." style={{flex:1,padding:'12px 18px',borderRadius:'25px',border:'2px solid #e5e7eb',fontSize:'14px',outline:'none'}} disabled={isLoading} />
-            <button id="why-send-btn" onClick={sendMessage} disabled={isLoading || !input.trim()} style={{width:'44px',height:'44px',borderRadius:'50%',background:'linear-gradient(135deg, #E31837 0%, #00205B 100%)',border:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center'}}><svg width="20" height="20" fill="none" stroke="#fff" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+            <button id="why-send-btn" onClick={sendMessage} disabled={isLoading || !input.trim()} style={{width:'44px',height:'44px',borderRadius:'50%',background:'linear-gradient(135deg, #E31837 0%, #111111 100%)',border:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center'}}><svg width="20" height="20" fill="none" stroke="#fff" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
           </div>
         </div>
       )}
