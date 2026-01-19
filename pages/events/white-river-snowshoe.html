@@ -32,7 +32,7 @@
         .nav-btn { background: white; color: var(--deep-blue); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
         .nav-btn:hover { background: var(--frost-white); }
 
-        .event-hero { height: 60vh; min-height: 400px; background: linear-gradient(135deg, rgba(2,119,189,0.85) 0%, rgba(79,195,247,0.7) 50%, rgba(255,255,255,0.4) 100%), url('https://images.unsplash.com/photo-1491002052546-bf38f186af56?w=1200') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; position: relative; overflow: hidden; }
+        .event-hero { height: 60vh; min-height: 400px; background: linear-gradient(135deg, rgba(2,119,189,0.85) 0%, rgba(79,195,247,0.7) 50%, rgba(255,255,255,0.4) 100%), url('../../images/action/hagg-lake-run.jpg') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; position: relative; overflow: hidden; }
         
         .floating-icons { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; z-index: 1; }
         .floating-icon { position: absolute; font-size: 2rem; animation: float 6s ease-in-out infinite; opacity: 0.7; }
@@ -152,7 +152,17 @@
             .countdown-banner { gap: 20px; }
             .floating-icon { font-size: 1.5rem; }
         }
-    </style>
+    
+        .video-section { background: linear-gradient(135deg, #f8f9fa 0%, white 100%); padding: 60px 5%; text-align: center; }
+        .video-section h2 { font-size: 2rem; color: var(--brand-blue, #111111); font-style: italic; margin-bottom: 15px; }
+        .video-section .video-subtitle { color: #666; margin-bottom: 30px; font-size: 1.1rem; }
+        .video-container { max-width: 800px; margin: 0 auto; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 40px rgba(17, 17, 17, 0.15); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-cta { margin-top: 30px; }
+        .video-cta a { display: inline-block; background: var(--brand-red, #E31837); color: white; padding: 14px 32px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 14px; transition: 0.3s; }
+        .video-cta a:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(227, 24, 55, 0.4); }
+
+</style>
 </head>
 <body>
 
@@ -233,7 +243,7 @@
             </div>
             <p>"Running through the snow-covered trails with Mt. Hood views was absolutely magical. The fact that snowshoes are included makes it so accessible. Best winter race I've ever done!" ❄️</p>
             <div class="testimonial-author">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=100" alt="Sarah K.">
+                <img src="../../images/athletes/marie.jpg" alt="Sarah K.">
                 <div class="info">
                     <strong>Sarah K.</strong>
                     <span>2-time finisher - Lake Oswego, OR</span>
@@ -345,6 +355,22 @@
     <div class="faq-item">
         <div class="faq-question">What should I wear?</div>
         <div class="faq-answer">Dress in layers! Temperatures at the Sno-Park can vary. We recommend moisture-wicking base layers and a warm outer layer.</div>
+    </div>
+</section>
+
+<section class="video-section">
+    <h2>🎬 See The Experience</h2>
+    <p class="video-subtitle">Watch what makes White River Snowshoe an unforgettable race day</p>
+    <div class="video-container">
+        <iframe 
+            src="https://www.youtube.com/embed/O2kaANlOJes" 
+            title="White River Snowshoe - Why Racing Events"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    <div class="video-cta">
+        <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i> Watch More Videos</a>
     </div>
 </section>
 

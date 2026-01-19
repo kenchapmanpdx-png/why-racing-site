@@ -9,7 +9,7 @@
     <style>
         :root {
             --brand-red: #E31837;
-            --brand-blue: #00205B;
+            --brand-blue: #111111;
             --dark: #0a0a0a;
             --light: #ffffff;
             --grey: #f4f4f4;
@@ -125,7 +125,7 @@
         .hero-overlay {
             position: absolute;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(45deg, rgba(0, 32, 91, 0.9) 0%, rgba(227, 24, 55, 0.5) 100%);
+            background: linear-gradient(45deg, rgba(17, 17, 17, 0.9) 0%, rgba(227, 24, 55, 0.6) 100%);
             z-index: 1;
         }
         .hero-content {
@@ -852,7 +852,7 @@
             left: 0;
             width: 100%;
             height: 100vh;
-            background: rgba(0, 32, 91, 0.98);
+            background: rgba(17, 17, 17, 0.98);
             z-index: 999;
             flex-direction: column;
             justify-content: center;
@@ -920,7 +920,7 @@
 <!-- HERO -->
 <header>
     <div class="hero-bg">
-        <video autoplay muted loop playsinline poster="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=1200&q=80">
+        <video autoplay muted loop playsinline poster="images/homepage/family-finish.jpg">
             <source src="hero-video.mp4" type="video/mp4">
         </video>
     </div>
@@ -931,12 +931,6 @@
     </div>
     <div class="hero-overlay"></div>
     <div class="hero-content">
-        <!-- LIVE REGISTRATION COUNTER -->
-        <div class="live-counter">
-            <div class="pulse"></div>
-            <span><strong id="regCount">2,847</strong> runners registered for 2026</span>
-        </div>
-        
         <p class="hero-tagline">What's Your Why?</p>
         <h1>RUN. RIDE. <span>REMEMBER.</span></h1>
         <p>Whether you're running your first 5K or your 50th race, join the Pacific Northwest's most supportive running community.</p>
@@ -1005,7 +999,7 @@
             </div>
             <p>"I ran my first half marathon with Why Racing and crossed the finish line in tears. The volunteers, the crowd support, the medal—everything was perfect. I'm already signed up for three more races!"</p>
             <div class="testimonial-author">
-                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100" alt="Sarah M.">
+                <img src="images/athletes/jenni.jpg" alt="Sarah M.">
                 <div class="info">
                     <h4>Sarah M.</h4>
                     <span>First-time Half Marathoner • Portland, OR</span>
@@ -1022,7 +1016,7 @@
             </div>
             <p>"Best organized races in the Pacific Northwest. The courses are beautiful, the swag is top-notch, and knowing my registration supports local charities makes it even better."</p>
             <div class="testimonial-author">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Mike T.">
+                <img src="images/athletes/dan.jpg" alt="Mike T.">
                 <div class="info">
                     <h4>Mike T.</h4>
                     <span>12-time Why Racing Finisher • Seattle, WA</span>
@@ -1039,7 +1033,7 @@
             </div>
             <p>"Our whole family does the Scary Run every year. The kids costume contest, the spooky course, the after-party—it's become our favorite Halloween tradition!"</p>
             <div class="testimonial-author">
-                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100" alt="Jennifer & Family">
+                <img src="images/athletes/amy.jpg" alt="Jennifer & Family">
                 <div class="info">
                     <h4>Jennifer & Family</h4>
                     <span>4-Year Scary Run Tradition • Vancouver, WA</span>
@@ -1077,7 +1071,7 @@
     </div>
     <div class="event-grid">
         <a href="pages/events/white-river-snowshoe.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1491002052546-bf38f186af56?w=600')">
+            <div class="card-img" style="background-image: url('images/heroes/resolution-run.png')">
                 <span class="card-tag">Winter</span>
                 <span class="card-scarcity"><i class="fas fa-fire"></i> 58% Sold</span>
             </div>
@@ -1098,7 +1092,7 @@
         </a>
 
         <a href="pages/events/couve-clover-run.html" class="event-card">
-            <div class="card-img" style="background-image: url('https://images.unsplash.com/photo-1588943211346-0908a1fb0b01?w=600')">
+            <div class="card-img" style="background-image: url('images/heroes/santa-hustle.png')">
                 <span class="card-tag">St. Patrick's</span>
                 <span class="card-scarcity"><i class="fas fa-fire"></i> 45% Sold</span>
             </div>
@@ -1175,7 +1169,7 @@
 
         <div>
             <div class="photo-card">
-                <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600" alt="Course Map">
+                <img src="images/maps/pdx-tri/sprint-run.jpg" alt="Course Map">
                 <div class="photo-card-info">
                     <h4>Course Preview</h4>
                     <div class="meta">
@@ -1322,19 +1316,19 @@ function WhyRacingChatbot() {
         #why-send-btn:hover:not(:disabled) { transform: scale(1.05); }
         #why-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
       `}</style>
-      <button id="why-chat-toggle" onClick={() => setIsOpen(!isOpen)} style={{position:'fixed',bottom:'24px',right:'24px',width:'60px',height:'60px',background:'linear-gradient(135deg, #E31837 0%, #00205B 100%)',borderRadius:'50%',border:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 4px 20px rgba(227, 24, 55, 0.4)',zIndex:9999,transition:'transform 0.2s, box-shadow 0.2s'}} aria-label="Toggle chat">
+      <button id="why-chat-toggle" onClick={() => setIsOpen(!isOpen)} style={{position:'fixed',bottom:'24px',right:'24px',width:'60px',height:'60px',background:'linear-gradient(135deg, #E31837 0%, #111111 100%)',borderRadius:'50%',border:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center',boxShadow:'0 4px 20px rgba(227, 24, 55, 0.4)',zIndex:9999,transition:'transform 0.2s, box-shadow 0.2s'}} aria-label="Toggle chat">
         {isOpen ? <svg width="24" height="24" fill="none" stroke="#fff" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg> : <svg width="28" height="28" fill="none" stroke="#fff" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>}
       </button>
       {isOpen && (
         <div style={{position:'fixed',bottom:'100px',right:'24px',width:'400px',maxWidth:'calc(100vw - 48px)',height:'550px',maxHeight:'calc(100vh - 140px)',background:'#fff',borderRadius:'20px',boxShadow:'0 10px 40px rgba(0,0,0,0.15)',display:'flex',flexDirection:'column',overflow:'hidden',zIndex:9999,border:'1px solid rgba(0,0,0,0.08)'}}>
-          <div style={{background:'linear-gradient(135deg, #E31837 0%, #00205B 100%)',color:'#fff',padding:'20px',display:'flex',alignItems:'center',gap:'12px'}}>
+          <div style={{background:'linear-gradient(135deg, #E31837 0%, #111111 100%)',color:'#fff',padding:'20px',display:'flex',alignItems:'center',gap:'12px'}}>
             <div style={{width:'45px',height:'45px',background:'rgba(255,255,255,0.2)',borderRadius:'50%',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'24px'}}>🏃</div>
             <div><h3 style={{margin:0,fontSize:'18px',fontWeight:'bold'}}>Why Racing Events</h3><p style={{margin:0,fontSize:'12px',opacity:0.9}}>Ask about events, registration, and more!</p></div>
           </div>
           <div style={{flex:1,overflowY:'auto',padding:'20px',background:'#f8fafc',display:'flex',flexDirection:'column',gap:'16px'}}>
             {messages.map((msg, i) => (
               <div key={i} style={{display:'flex',justifyContent:msg.role === 'user' ? 'flex-end' : 'flex-start'}}>
-                <div style={{maxWidth:'85%',padding:'12px 16px',borderRadius:msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',background:msg.role === 'user' ? 'linear-gradient(135deg, #E31837 0%, #00205B 100%)' : '#fff',color:msg.role === 'user' ? '#fff' : '#1f2937',fontSize:'14px',lineHeight:'1.5',boxShadow:msg.role === 'user' ? 'none' : '0 2px 8px rgba(0,0,0,0.06)',border:msg.role === 'user' ? 'none' : '1px solid rgba(0,0,0,0.04)'}}>{msg.content}</div>
+                <div style={{maxWidth:'85%',padding:'12px 16px',borderRadius:msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',background:msg.role === 'user' ? 'linear-gradient(135deg, #E31837 0%, #111111 100%)' : '#fff',color:msg.role === 'user' ? '#fff' : '#1f2937',fontSize:'14px',lineHeight:'1.5',boxShadow:msg.role === 'user' ? 'none' : '0 2px 8px rgba(0,0,0,0.06)',border:msg.role === 'user' ? 'none' : '1px solid rgba(0,0,0,0.04)'}}>{msg.content}</div>
               </div>
             ))}
             {isLoading && <div style={{display:'flex',justifyContent:'flex-start'}}><div style={{padding:'12px 16px',borderRadius:'18px 18px 18px 4px',background:'#fff',boxShadow:'0 2px 8px rgba(0,0,0,0.06)'}}><div style={{display:'flex',gap:'6px'}}><span style={{width:'8px',height:'8px',background:'#cbd5e1',borderRadius:'50%',animation:'chatBounce 0.6s infinite 0ms'}}/><span style={{width:'8px',height:'8px',background:'#cbd5e1',borderRadius:'50%',animation:'chatBounce 0.6s infinite 150ms'}}/><span style={{width:'8px',height:'8px',background:'#cbd5e1',borderRadius:'50%',animation:'chatBounce 0.6s infinite 300ms'}}/></div></div></div>}
@@ -1342,7 +1336,7 @@ function WhyRacingChatbot() {
           </div>
           <div style={{padding:'16px 20px',background:'#fff',borderTop:'1px solid #e5e7eb',display:'flex',gap:'12px',alignItems:'center'}}>
             <input id="why-chat-input" type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={handleKeyPress} placeholder="Ask about events, registration..." style={{flex:1,padding:'12px 18px',borderRadius:'25px',border:'2px solid #e5e7eb',fontSize:'14px',outline:'none'}} disabled={isLoading} />
-            <button id="why-send-btn" onClick={sendMessage} disabled={isLoading || !input.trim()} style={{width:'44px',height:'44px',borderRadius:'50%',background:'linear-gradient(135deg, #E31837 0%, #00205B 100%)',border:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center'}}><svg width="20" height="20" fill="none" stroke="#fff" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+            <button id="why-send-btn" onClick={sendMessage} disabled={isLoading || !input.trim()} style={{width:'44px',height:'44px',borderRadius:'50%',background:'linear-gradient(135deg, #E31837 0%, #111111 100%)',border:'none',cursor:'pointer',display:'flex',alignItems:'center',justifyContent:'center'}}><svg width="20" height="20" fill="none" stroke="#fff" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
           </div>
         </div>
       )}

@@ -15,7 +15,7 @@
             --theme-accent: #d7ccc8;
             --theme-light-blue: #e3f2fd;
             --brand-red: #E31837; 
-            --brand-blue: #00205B; 
+            --brand-blue: #111111; 
             --dark: #0a0a0a; 
             --light: #ffffff; 
             --grey: #f4f4f4; 
@@ -36,7 +36,7 @@
         .event-hero { 
             height: 65vh; 
             min-height: 450px; 
-            background: linear-gradient(rgba(13, 60, 97, 0.7), rgba(46, 125, 50, 0.5)), url('https://images.unsplash.com/photo-1530549387789-4c1017266635?w=1200') center/cover; 
+            background: linear-gradient(rgba(13, 60, 97, 0.7), rgba(46, 125, 50, 0.5)), url('../../images/heroes/hagg-lake.jpg') center/cover; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -195,7 +195,17 @@
             .social-proof-bar { gap: 20px; }
             .countdown-banner { gap: 20px; }
         }
-    </style>
+    
+        .video-section { background: linear-gradient(135deg, #f8f9fa 0%, white 100%); padding: 60px 5%; text-align: center; }
+        .video-section h2 { font-size: 2rem; color: var(--brand-blue, #111111); font-style: italic; margin-bottom: 15px; }
+        .video-section .video-subtitle { color: #666; margin-bottom: 30px; font-size: 1.1rem; }
+        .video-container { max-width: 800px; margin: 0 auto; position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 40px rgba(17, 17, 17, 0.15); }
+        .video-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+        .video-cta { margin-top: 30px; }
+        .video-cta a { display: inline-block; background: var(--brand-red, #E31837); color: white; padding: 14px 32px; font-weight: 700; text-transform: uppercase; border-radius: 4px; font-size: 14px; transition: 0.3s; }
+        .video-cta a:hover { transform: translateY(-2px); box-shadow: 0 6px 25px rgba(227, 24, 55, 0.4); }
+
+</style>
 </head>
 <body>
 
@@ -264,7 +274,7 @@
             </div>
             <p>"The most beautiful triathlon course I've ever raced! Swimming in Hagg Lake at sunrise was magical, and the bike course through rolling farmland with Mount Hood views was incredible. The shaded run through the forest was the perfect finish. This is now my annual must-do event!"</p>
             <div class="testimonial-author">
-                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=100" alt="Triathlete">
+                <img src="../../images/athletes/dan.jpg" alt="Triathlete">
                 <div class="info">
                     <strong>David M.</strong>
                     <span>3-time Hagg Lake finisher - Beaverton, OR</span>
@@ -395,6 +405,22 @@
     <div class="faq-item">
         <div class="faq-question">Is this race beginner-friendly?</div>
         <div class="faq-answer">Absolutely! Hagg Lake Triathlon welcomes first-time triathletes. The Sprint distance is perfect for beginners. We offer a pre-race clinic the day before and have excellent on-course support for athletes of all levels.</div>
+    </div>
+</section>
+
+<section class="video-section">
+    <h2>🎬 See The Experience</h2>
+    <p class="video-subtitle">Watch what makes Hagg Lake Triathlon an unforgettable race day</p>
+    <div class="video-container">
+        <iframe 
+            src="https://www.youtube.com/embed/rnhCAbLTe6Y" 
+            title="Hagg Lake Triathlon - Why Racing Events"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+            allowfullscreen>
+        </iframe>
+    </div>
+    <div class="video-cta">
+        <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i> Watch More Videos</a>
     </div>
 </section>
 
