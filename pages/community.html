@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams, Coaching & Community | Why Racing Events</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-red: #E31837;
+            --brand-blue: #000000;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brand-blue);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo img {
+            height: 45px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--brand-blue);
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-red);
+        }
+
+        .btn {
+            padding: 12px 25px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            font-size: 13px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--brand-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b00e26;
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            padding: 160px 5% 100px;
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/action/community-hero.jpg') center/cover;
+            color: white;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 800px;
+            margin: 0 auto;
+            opacity: 0.9;
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 80px 5%;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 40px;
+        }
+
+        .card {
+            background: white;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            border-left: 5px solid var(--brand-red);
+        }
+
+        .card h3 {
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+
+        .community-highlights {
+            background: var(--grey);
+        }
+
+        .highlight-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .highlight-box:nth-child(even) {
+            direction: rtl;
+        }
+
+        .highlight-box:nth-child(even) .text {
+            direction: ltr;
+        }
+
+        .highlight-box img {
+            width: 100%;
+            border-radius: 12px;
+        }
+
+        footer {
+            background: var(--brand-blue);
+            color: white;
+            padding: 60px 5%;
+            text-align: center;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            filter: brightness(0) invert(1);
+            margin-bottom: 20px;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-red);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .highlight-box {
+                grid-template-columns: 1fr;
+                gap: 30px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="logo"><img src="../attached_assets/why-racing-logo_1767589311719.png"
+                alt="Why Racing Events"></a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="events.html">Races</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+            <a href="about.html">About</a>
+        </div>
+        <a href="events.html" class="btn btn-primary">Find a Race</a>
+    </nav>
+
+    <header class="hero">
+        <h1>Stronger <span style="color: var(--brand-red);">Together.</span></h1>
+        <p>Whether you're looking for a training partner, a corporate team challenge, or professional coaching, the Why
+            Racing community is here to lift you up.</p>
+    </header>
+
+    <section>
+        <div class="container">
+            <div class="grid">
+                <div class="card">
+                    <h3>Create a Team</h3>
+                    <p>Race with your coworkers, your running club, or your best friends. Teams of 10+ get exclusive
+                        discounts and a dedicated space in the athlete village.</p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 20px;">Register a Team</a>
+                </div>
+                <div class="card">
+                    <h3>Get Coached</h3>
+                    <p>Don't just train—train smart. We partner with the best coaches in the PNW to provide custom
+                        training plans for every distance from 5K to Ironman.</p>
+                    <a href="#" class="btn btn-primary" style="margin-top: 20px;">Find a Coach</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="community-highlights">
+        <div class="container">
+            <div class="highlight-box">
+                <img src="../images/action/training-group.jpg" alt="Training Group">
+                <div class="text">
+                    <h2>Training & Social Runs</h2>
+                    <p>We host regular social runs and training clinics throughout the year. It's a great way to meet
+                        fellow athletes, scope out course segments, and get expert tips from our leads.</p>
+                    <p style="margin-top: 20px;">Check our social media for the latest meet-up times and locations!</p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <img src="../images/action/corporate-team.jpg" alt="Corporate Team">
+                <div class="text">
+                    <h2>Corporate Wellness</h2>
+                    <p>Boost morale and promote health within your organization. Our Corporate Team program makes it
+                        easy for companies to sponsor employee entries and compete for the Corporate Cup.</p>
+                    <p style="margin-top: 20px;">Healthy employees are happy employees.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing">
+        </div>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="events.html">Races</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+            <a href="about.html">About</a>
+        </div>
+        <p>&copy; 2026 Why Racing Events. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>

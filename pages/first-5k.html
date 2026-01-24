@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your First 5K | Why Racing Events</title>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
@@ -21,14 +24,18 @@
             --green: #1B7340;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        
-        html { 
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
             scroll-behavior: smooth;
             -webkit-text-size-adjust: 100%;
         }
-        
-        body { 
+
+        body {
             font-family: 'Inter', sans-serif;
             background: var(--white);
             color: var(--charcoal);
@@ -37,14 +44,16 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3 { 
+        h1,
+        h2,
+        h3 {
             font-family: 'Fraunces', serif;
             font-weight: 500;
             line-height: 1.2;
         }
 
-        a { 
-            text-decoration: none; 
+        a {
+            text-decoration: none;
             color: inherit;
             -webkit-tap-highlight-color: transparent;
         }
@@ -65,17 +74,20 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            background: rgba(255,255,255,0.95);
+            background: rgba(255, 255, 255, 0.95);
             backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
 
-        .logo { 
+        .logo {
             text-decoration: none;
             padding: 5px 0;
         }
-        .logo img { height: 45px; }
+
+        .logo img {
+            height: 45px;
+        }
 
         /* SPONSOR TICKER */
         .sponsor-ticker {
@@ -88,6 +100,7 @@
             border-bottom: 1px solid #eee;
             position: relative;
         }
+
         .sponsor-ticker-label {
             text-align: center;
             font-size: 15px;
@@ -97,11 +110,13 @@
             margin-bottom: 25px;
             font-family: 'Inter', sans-serif;
         }
+
         .sponsor-track {
             display: inline-block;
             animation: sponsorScroll 30s linear infinite;
             will-change: transform;
         }
+
         .sponsor-track img {
             height: 62.5px !important;
             max-width: none !important;
@@ -110,14 +125,24 @@
             vertical-align: middle;
             display: inline-block !important;
         }
+
         @keyframes sponsorScroll {
-            0% { transform: translateX(-50%); }
-            100% { transform: translateX(0); }
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
         }
 
-        .logo span { color: var(--red); }
+        .logo span {
+            color: var(--red);
+        }
 
-        .nav-links { display: none; }
+        .nav-links {
+            display: none;
+        }
 
         .mobile-menu-btn {
             width: 44px;
@@ -176,7 +201,7 @@
             border-left: 3px solid var(--red);
             padding: 16px 20px;
             margin-bottom: 24px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
             border-radius: 0 8px 8px 0;
         }
 
@@ -251,7 +276,7 @@
             background: var(--white);
             padding: 16px 20px;
             border-radius: 10px;
-            box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
             margin: -32px 12px 0;
             position: relative;
             z-index: 1;
@@ -326,7 +351,7 @@
             color: var(--charcoal);
             margin-bottom: 10px;
             padding-bottom: 10px;
-            border-bottom: 1px solid rgba(0,0,0,0.08);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.08);
             line-height: 1.4;
         }
 
@@ -363,8 +388,8 @@
         }
 
         .permission-item {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
             padding: 16px 12px;
             border-radius: 10px;
             text-align: center;
@@ -387,7 +412,7 @@
         .permission-quote {
             text-align: center;
             padding-top: 24px;
-            border-top: 1px solid rgba(255,255,255,0.1);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .permission-quote p {
@@ -764,7 +789,9 @@
             margin-bottom: 6px;
         }
 
-        .footer-logo span { color: var(--red); }
+        .footer-logo span {
+            color: var(--red);
+        }
 
         .footer-tagline {
             font-family: 'Fraunces', serif;
@@ -800,45 +827,126 @@
 
         /* ==================== TABLET (768px+) ==================== */
         @media (min-width: 768px) {
-            nav { padding: 16px 40px; }
-            .nav-links { display: flex; gap: 28px; }
-            .nav-links a { font-size: 13px; font-weight: 600; color: var(--slate); }
-            .nav-links a:hover { color: var(--red); }
-            .mobile-menu-btn { display: none; }
+            nav {
+                padding: 16px 40px;
+            }
 
-            .hero { padding: 120px 40px 64px; }
-            .hero-title { font-size: 2.75rem; }
-            .hero-image img { height: 320px; }
-            .hero-cta { width: auto; display: inline-flex; }
+            .nav-links {
+                display: flex;
+                gap: 28px;
+            }
 
-            .section { padding: 80px 40px; }
-            .section-title { font-size: 2rem; }
-            .section-header { margin-bottom: 40px; }
+            .nav-links a {
+                font-size: 13px;
+                font-weight: 600;
+                color: var(--slate);
+            }
 
-            .fears-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-            .fear-card { padding: 24px; }
+            .nav-links a:hover {
+                color: var(--red);
+            }
 
-            .permission-grid { grid-template-columns: repeat(4, 1fr); gap: 12px; }
-            .permission-item { padding: 20px 16px; }
+            .mobile-menu-btn {
+                display: none;
+            }
 
-            .stories-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-            .story-image { height: 200px; }
+            .hero {
+                padding: 120px 40px 64px;
+            }
 
-            .accordion { gap: 10px; }
-            .accordion-header { padding: 18px 24px; }
+            .hero-title {
+                font-size: 2.75rem;
+            }
 
-            .expect-image img { height: 280px; }
+            .hero-image img {
+                height: 320px;
+            }
 
-            .final-btn { width: auto; display: inline-flex; padding: 18px 40px; }
-            .trust-row { flex-direction: row; justify-content: center; gap: 32px; }
+            .hero-cta {
+                width: auto;
+                display: inline-flex;
+            }
+
+            .section {
+                padding: 80px 40px;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .section-header {
+                margin-bottom: 40px;
+            }
+
+            .fears-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .fear-card {
+                padding: 24px;
+            }
+
+            .permission-grid {
+                grid-template-columns: repeat(4, 1fr);
+                gap: 12px;
+            }
+
+            .permission-item {
+                padding: 20px 16px;
+            }
+
+            .stories-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .story-image {
+                height: 200px;
+            }
+
+            .accordion {
+                gap: 10px;
+            }
+
+            .accordion-header {
+                padding: 18px 24px;
+            }
+
+            .expect-image img {
+                height: 280px;
+            }
+
+            .final-btn {
+                width: auto;
+                display: inline-flex;
+                padding: 18px 40px;
+            }
+
+            .trust-row {
+                flex-direction: row;
+                justify-content: center;
+                gap: 32px;
+            }
         }
 
         /* ==================== DESKTOP (1024px+) ==================== */
         @media (min-width: 1024px) {
-            nav { padding: 18px 48px; }
-            .nav-links { gap: 36px; }
+            nav {
+                padding: 18px 48px;
+            }
 
-            .hero { padding: 140px 48px 80px; }
+            .nav-links {
+                gap: 36px;
+            }
+
+            .hero {
+                padding: 140px 48px 80px;
+            }
+
             .hero-inner {
                 max-width: 1200px;
                 margin: 0 auto;
@@ -847,11 +955,28 @@
                 gap: 64px;
                 align-items: center;
             }
-            .hero-content { max-width: 500px; }
-            .hero-title { font-size: 3.25rem; }
-            .hero-desc { font-size: 1.05rem; }
-            .hero-image { margin-top: 0; }
-            .hero-image img { height: 440px; border-radius: 14px; }
+
+            .hero-content {
+                max-width: 500px;
+            }
+
+            .hero-title {
+                font-size: 3.25rem;
+            }
+
+            .hero-desc {
+                font-size: 1.05rem;
+            }
+
+            .hero-image {
+                margin-top: 0;
+            }
+
+            .hero-image img {
+                height: 440px;
+                border-radius: 14px;
+            }
+
             .hero-stat {
                 position: absolute;
                 bottom: -20px;
@@ -860,9 +985,17 @@
                 padding: 20px 28px;
             }
 
-            .section { padding: 100px 48px; }
-            .section-header { margin-bottom: 48px; }
-            .section-title { font-size: 2.25rem; }
+            .section {
+                padding: 100px 48px;
+            }
+
+            .section-header {
+                margin-bottom: 48px;
+            }
+
+            .section-title {
+                font-size: 2.25rem;
+            }
 
             .fears-grid {
                 max-width: 1000px;
@@ -870,16 +1003,34 @@
                 grid-template-columns: repeat(3, 1fr);
                 gap: 20px;
             }
-            .fear-card { padding: 28px; }
-            .fear-card:hover {
-                transform: translateY(-4px);
-                box-shadow: 0 12px 36px rgba(0,0,0,0.08);
+
+            .fear-card {
+                padding: 28px;
             }
 
-            .permission-grid { max-width: 800px; margin: 0 auto 40px; gap: 14px; }
-            .permission-item { padding: 24px 16px; }
-            .permission-item:hover { background: rgba(255,255,255,0.1); transform: translateY(-3px); }
-            .permission-quote p { font-size: 1.35rem; }
+            .fear-card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+            }
+
+            .permission-grid {
+                max-width: 800px;
+                margin: 0 auto 40px;
+                gap: 14px;
+            }
+
+            .permission-item {
+                padding: 24px 16px;
+            }
+
+            .permission-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+                transform: translateY(-3px);
+            }
+
+            .permission-quote p {
+                font-size: 1.35rem;
+            }
 
             .stories-grid {
                 max-width: 1000px;
@@ -887,9 +1038,19 @@
                 grid-template-columns: repeat(3, 1fr);
                 gap: 24px;
             }
-            .story-card:hover { transform: translateY(-6px); box-shadow: 0 20px 48px rgba(0,0,0,0.1); }
-            .story-image { height: 220px; }
-            .story-content { padding: 24px; }
+
+            .story-card:hover {
+                transform: translateY(-6px);
+                box-shadow: 0 20px 48px rgba(0, 0, 0, 0.1);
+            }
+
+            .story-image {
+                height: 220px;
+            }
+
+            .story-content {
+                padding: 24px;
+            }
 
             .c25k-section .section-header,
             .expect-section .section-header {
@@ -905,6 +1066,7 @@
                 grid-template-columns: 1fr 1fr;
                 gap: 12px;
             }
+
             .accordion-item:nth-child(5),
             .accordion-item:nth-child(6),
             .accordion-item:nth-child(7),
@@ -920,27 +1082,78 @@
                 gap: 64px;
                 align-items: center;
             }
-            .expect-image { order: 2; margin-bottom: 0; }
-            .expect-image img { height: 440px; border-radius: 14px; }
-            .expect-badge { bottom: 20px; left: -20px; padding: 14px 20px; }
-            .expect-item:hover { transform: translateX(6px); box-shadow: -6px 6px 20px rgba(0,0,0,0.04); }
 
-            .final-section { padding: 100px 48px; }
-            .final-content { max-width: 650px; margin: 0 auto; }
-            .final-title { font-size: 2.25rem; }
-            .final-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 36px rgba(200, 16, 46, 0.3); }
+            .expect-image {
+                order: 2;
+                margin-bottom: 0;
+            }
 
-            footer { padding: 48px 48px 32px; }
-            .footer-links { gap: 36px; }
-            .footer-links a:hover { opacity: 1; color: var(--red); }
+            .expect-image img {
+                height: 440px;
+                border-radius: 14px;
+            }
+
+            .expect-badge {
+                bottom: 20px;
+                left: -20px;
+                padding: 14px 20px;
+            }
+
+            .expect-item:hover {
+                transform: translateX(6px);
+                box-shadow: -6px 6px 20px rgba(0, 0, 0, 0.04);
+            }
+
+            .final-section {
+                padding: 100px 48px;
+            }
+
+            .final-content {
+                max-width: 650px;
+                margin: 0 auto;
+            }
+
+            .final-title {
+                font-size: 2.25rem;
+            }
+
+            .final-btn:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 12px 36px rgba(200, 16, 46, 0.3);
+            }
+
+            footer {
+                padding: 48px 48px 32px;
+            }
+
+            .footer-links {
+                gap: 36px;
+            }
+
+            .footer-links a:hover {
+                opacity: 1;
+                color: var(--red);
+            }
         }
 
         /* ==================== LARGE DESKTOP (1280px+) ==================== */
         @media (min-width: 1280px) {
-            .hero-inner { max-width: 1200px; gap: 80px; }
-            .hero-title { font-size: 3.5rem; }
-            .hero-image img { height: 480px; }
-            .section-title { font-size: 2.5rem; }
+            .hero-inner {
+                max-width: 1200px;
+                gap: 80px;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .hero-image img {
+                height: 480px;
+            }
+
+            .section-title {
+                font-size: 2.5rem;
+            }
         }
 
         /* ANIMATIONS */
@@ -956,587 +1169,637 @@
         }
 
         @media (prefers-reduced-motion: reduce) {
-            .fade-in { opacity: 1; transform: none; transition: none; }
-            .accordion-content { transition: none; }
+            .fade-in {
+                opacity: 1;
+                transform: none;
+                transition: none;
+            }
+
+            .accordion-content {
+                transition: none;
+            }
         }
     </style>
 </head>
+
 <body>
 
-<!-- NAV -->
-<nav>
-    <a href="../index.html" class="logo"><img src="../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Events"></a>
-    <div class="nav-links">
-        <a href="../index.html">Home</a>
-        <a href="events.html">2026 Calendar</a>
-        <a href="first-5k.html">Your 1st 5K</a>
-        <a href="about.html">About</a>
-    </div>
-    <button class="mobile-menu-btn" aria-label="Menu">
-        <i class="fas fa-bars"></i>
-    </button>
-</nav>
+    <!-- NAV -->
+    <nav>
+        <a href="../index.html" class="logo"><img src="../attached_assets/why-racing-logo_1767589311719.png"
+                alt="Why Racing Events"></a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="events.html">Races</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+        </div>
+        <button class="mobile-menu-btn" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+    </nav>
 
-<!-- HERO -->
-<section class="hero">
-    <div class="hero-inner">
-        <div class="hero-content">
-            <div class="hero-badge">
-                <i class="fas fa-heart"></i>
-                For First-Timers
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-content">
+                <div class="hero-badge">
+                    <i class="fas fa-heart"></i>
+                    For First-Timers
+                </div>
+
+                <h1 class="hero-title">What If You Actually <em>Could?</em></h1>
+
+                <p class="hero-desc">
+                    You don't need to be faster, fitter, or more ready. You just need to show up. We'll be there at the
+                    finish line—and so will the version of you that's been waiting to emerge.
+                </p>
+
+                <blockquote class="hero-quote">
+                    <p>"Every finisher at our races was once exactly where you are now—wondering if they could do this."
+                    </p>
+                    <cite>— Coach Sarah, Why Racing Events</cite>
+                </blockquote>
+
+                <a href="#final" class="hero-cta">
+                    Find My First Race
+                    <i class="fas fa-arrow-right"></i>
+                </a>
             </div>
 
-            <h1 class="hero-title">What If You Actually <em>Could?</em></h1>
+            <div class="hero-image">
+                <div class="hero-walking">
+                    <i class="fas fa-check"></i>
+                    Walking Welcome
+                </div>
+                <img src="../images/action/girlfriends-celebration.png&q=80" alt="Runners crossing finish line">
+                <div class="hero-stat">
+                    <div class="hero-stat-num">12,847</div>
+                    <div class="hero-stat-label">First-timers in 2024</div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <p class="hero-desc">
-                You don't need to be faster, fitter, or more ready. You just need to show up. We'll be there at the finish line—and so will the version of you that's been waiting to emerge.
-            </p>
+    <!-- FEARS -->
+    <section class="section fears-section">
+        <div class="section-header">
+            <div class="section-label">You're Not Alone</div>
+            <h2 class="section-title">That Voice In Your Head? Everyone Hears It.</h2>
+            <p class="section-desc">The worries we hear most—and the truth that might surprise you.</p>
+        </div>
 
-            <blockquote class="hero-quote">
-                <p>"Every finisher at our races was once exactly where you are now—wondering if they could do this."</p>
-                <cite>— Coach Sarah, Why Racing Events</cite>
-            </blockquote>
+        <div class="fears-grid">
+            <div class="fear-card fade-in">
+                <div class="fear-voice">"What if I'm the slowest one there?"</div>
+                <div class="fear-truth"><strong>Reality:</strong> Many people walk the entire thing. The only person
+                    tracking your time is you.</div>
+            </div>
 
-            <a href="#final" class="hero-cta">
-                Find My First Race
+            <div class="fear-card fade-in">
+                <div class="fear-voice">"What if I have to walk?"</div>
+                <div class="fear-truth"><strong>Reality:</strong> Walking isn't cheating—it's smart pacing. At our
+                    events, it's encouraged.</div>
+            </div>
+
+            <div class="fear-card fade-in">
+                <div class="fear-voice">"I'm not a 'real runner'"</div>
+                <div class="fear-truth"><strong>Reality:</strong> If you run, you're a runner. No minimum speed or body
+                    type required.</div>
+            </div>
+
+            <div class="fear-card fade-in">
+                <div class="fear-voice">"What if I can't finish?"</div>
+                <div class="fear-truth"><strong>Reality:</strong> If you can walk 45 minutes, you can finish. Our
+                    courses stay open.</div>
+            </div>
+
+            <div class="fear-card fade-in">
+                <div class="fear-voice">"I don't know what to do"</div>
+                <div class="fear-truth"><strong>Reality:</strong> We send everything you need to know—no surprises.
+                </div>
+            </div>
+
+            <div class="fear-card fade-in">
+                <div class="fear-voice">"People will judge me"</div>
+                <div class="fear-truth"><strong>Reality:</strong> Runners cheer loudest for the back of the pack. You'll
+                    feel welcomed.</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PERMISSION -->
+    <section class="section permission-section">
+        <div class="section-header">
+            <div class="section-label">A Reminder</div>
+            <h2 class="section-title">Permission Granted</h2>
+        </div>
+
+        <div class="permission-grid">
+            <div class="permission-item fade-in">
+                <i class="fas fa-shoe-prints"></i>
+                <span>To walk when needed</span>
+            </div>
+            <div class="permission-item fade-in">
+                <i class="fas fa-hourglass-half"></i>
+                <span>To be slow</span>
+            </div>
+            <div class="permission-item fade-in">
+                <i class="fas fa-heart"></i>
+                <span>To be nervous</span>
+            </div>
+            <div class="permission-item fade-in">
+                <i class="fas fa-expand-arrows-alt"></i>
+                <span>To take up space</span>
+            </div>
+            <div class="permission-item fade-in">
+                <i class="fas fa-seedling"></i>
+                <span>To start before ready</span>
+            </div>
+            <div class="permission-item fade-in">
+                <i class="fas fa-running"></i>
+                <span>To call yourself a runner</span>
+            </div>
+            <div class="permission-item fade-in">
+                <i class="fas fa-tint"></i>
+                <span>To cry at the finish</span>
+            </div>
+            <div class="permission-item fade-in">
+                <i class="fas fa-star"></i>
+                <span>To be proud</span>
+            </div>
+        </div>
+
+        <div class="permission-quote fade-in">
+            <p>"The only person you need to beat is the voice telling you not to try."</p>
+        </div>
+    </section>
+
+    <!-- STORIES -->
+    <section class="section stories-section">
+        <div class="section-header">
+            <div class="section-label">Real Stories</div>
+            <h2 class="section-title">They Were Exactly Where You Are</h2>
+        </div>
+
+        <div class="stories-grid">
+            <div class="story-card fade-in">
+                <div class="story-image">
+                    <img src="../images/action/girlfriends-celebration.png&q=80" alt="Runner" loading="lazy">
+                </div>
+                <div class="story-content">
+                    <div class="story-before">"I hadn't run since high school—20 years ago."</div>
+                    <div class="story-quote">"When I crossed that finish line, I cried. I did something I never thought
+                        I could."</div>
+                    <div class="story-author">
+                        <img src="../images/athletes/amy.jpg&q=80" alt="Jennifer" loading="lazy">
+                        <div>
+                            <div class="story-name">Jennifer M.</div>
+                            <div class="story-detail">First 5K at 42</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card fade-in">
+                <div class="story-image">
+                    <img src="../images/action/girlfriends-celebration.png&q=80" alt="Runner" loading="lazy">
+                </div>
+                <div class="story-content">
+                    <div class="story-before">"I almost backed out the morning of."</div>
+                    <div class="story-quote">"I saw every body type, every age. I wasn't alone. The cheers made me tear
+                        up."</div>
+                    <div class="story-author">
+                        <img src="../images/athletes/dan.jpg&q=80" alt="Marcus" loading="lazy">
+                        <div>
+                            <div class="story-name">Marcus T.</div>
+                            <div class="story-detail">First 5K at 38</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="story-card fade-in">
+                <div class="story-image">
+                    <img src="../images/action/girlfriends-celebration.png&q=80" alt="Runner" loading="lazy">
+                </div>
+                <div class="story-content">
+                    <div class="story-before">"I told myself I'd never be a runner."</div>
+                    <div class="story-quote">"I walked most of it. Nobody cared. That medal means everything."</div>
+                    <div class="story-author">
+                        <img src="../images/action/girlfriends-celebration.png&q=80" alt="Rachel" loading="lazy">
+                        <div>
+                            <div class="story-name">Rachel K.</div>
+                            <div class="story-detail">First 5K at 51</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- COUCH TO 5K -->
+    <section class="section c25k-section">
+        <div class="section-header">
+            <div class="section-label">Your Training Plan</div>
+            <h2 class="section-title">8-Week Couch to 5K</h2>
+            <p class="section-desc">Three days a week. That's all it takes.</p>
+        </div>
+
+        <p class="c25k-intro">This plan uses run/walk intervals that gradually build your endurance. By Week 8, you'll
+            be ready to run 30 minutes—enough to finish any 5K.</p>
+
+        <div class="accordion">
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div><span class="week">Week 1</span> Walk More, Run a Little</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <div class="week-schedule">
+                            <div class="day-row">
+                                <span class="day-label">Day 1</span>
+                                <span class="day-workout">Alternate <span class="run">60s jog</span> / <span
+                                        class="walk">90s walk</span> × 8</span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 2</span>
+                                <span class="day-workout">Alternate <span class="run">60s jog</span> / <span
+                                        class="walk">90s walk</span> × 8</span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 3</span>
+                                <span class="day-workout">Alternate <span class="run">60s jog</span> / <span
+                                        class="walk">90s walk</span> × 8</span>
+                            </div>
+                        </div>
+                        <div class="week-tip"><strong>Tip:</strong> Go slower than you think you should. If you can't
+                            talk, slow down.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div><span class="week">Week 2</span> Building the Habit</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <div class="week-schedule">
+                            <div class="day-row">
+                                <span class="day-label">Day 1</span>
+                                <span class="day-workout">Alternate <span class="run">90s jog</span> / <span
+                                        class="walk">2min walk</span> × 6</span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 2</span>
+                                <span class="day-workout">Alternate <span class="run">90s jog</span> / <span
+                                        class="walk">2min walk</span> × 6</span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 3</span>
+                                <span class="day-workout">Alternate <span class="run">90s jog</span> / <span
+                                        class="walk">2min walk</span> × 6</span>
+                            </div>
+                        </div>
+                        <div class="week-tip"><strong>Tip:</strong> Rest days matter. Your body builds strength while
+                            recovering.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div><span class="week">Week 3</span> First 3-Minute Run</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <div class="week-schedule">
+                            <div class="day-row">
+                                <span class="day-label">Day 1</span>
+                                <span class="day-workout"><span class="run">90s jog</span>, <span class="walk">90s
+                                        walk</span>, <span class="run">3min jog</span>, <span class="walk">3min
+                                        walk</span> × 2</span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 2</span>
+                                <span class="day-workout">Repeat Day 1</span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 3</span>
+                                <span class="day-workout">Repeat Day 1</span>
+                            </div>
+                        </div>
+                        <div class="week-tip"><strong>Tip:</strong> 3 minutes will feel long. That's normal. You can do
+                            this.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div><span class="week">Week 4</span> Extending the Runs</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <div class="week-schedule">
+                            <div class="day-row">
+                                <span class="day-label">Day 1</span>
+                                <span class="day-workout"><span class="run">3min jog</span>, <span class="walk">90s
+                                        walk</span>, <span class="run">5min jog</span>, <span class="walk">2.5min
+                                        walk</span>, <span class="run">3min</span>, <span class="walk">90s</span>, <span
+                                        class="run">5min</span></span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 2</span>
+                                <span class="day-workout">Repeat Day 1</span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 3</span>
+                                <span class="day-workout">Repeat Day 1</span>
+                            </div>
+                        </div>
+                        <div class="week-tip"><strong>Tip:</strong> Halfway there! You've built real endurance.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div><span class="week">Week 5</span> The 20-Minute Breakthrough</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <div class="week-schedule">
+                            <div class="day-row">
+                                <span class="day-label">Day 1</span>
+                                <span class="day-workout"><span class="run">5min jog</span>, <span class="walk">3min
+                                        walk</span>, <span class="run">5min jog</span>, <span class="walk">3min
+                                        walk</span>, <span class="run">5min jog</span></span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 2</span>
+                                <span class="day-workout"><span class="run">8min jog</span>, <span class="walk">5min
+                                        walk</span>, <span class="run">8min jog</span></span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 3</span>
+                                <span class="day-workout"><span class="run">20min jog</span> — no walking!</span>
+                            </div>
+                        </div>
+                        <div class="week-tip"><strong>Tip:</strong> Day 3 is a milestone. Go slow. You're ready for
+                            this.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div><span class="week">Week 6</span> Building Consistency</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <div class="week-schedule">
+                            <div class="day-row">
+                                <span class="day-label">Day 1</span>
+                                <span class="day-workout"><span class="run">5min jog</span>, <span class="walk">3min
+                                        walk</span>, <span class="run">8min jog</span>, <span class="walk">3min
+                                        walk</span>, <span class="run">5min jog</span></span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 2</span>
+                                <span class="day-workout"><span class="run">10min jog</span>, <span class="walk">3min
+                                        walk</span>, <span class="run">10min jog</span></span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 3</span>
+                                <span class="day-workout"><span class="run">22min jog</span></span>
+                            </div>
+                        </div>
+                        <div class="week-tip"><strong>Tip:</strong> You're a runner now. Let that sink in.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div><span class="week">Week 7</span> Nearly There</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <div class="week-schedule">
+                            <div class="day-row">
+                                <span class="day-label">Day 1</span>
+                                <span class="day-workout"><span class="run">25min jog</span></span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 2</span>
+                                <span class="day-workout"><span class="run">25min jog</span></span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 3</span>
+                                <span class="day-workout"><span class="run">25min jog</span></span>
+                            </div>
+                        </div>
+                        <div class="week-tip"><strong>Tip:</strong> Find your pace. You should be able to hold a
+                            conversation.</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="accordion-item">
+                <button class="accordion-header">
+                    <div><span class="week">Week 8</span> Race Ready!</div>
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="accordion-content">
+                    <div class="accordion-body">
+                        <div class="week-schedule">
+                            <div class="day-row">
+                                <span class="day-label">Day 1</span>
+                                <span class="day-workout"><span class="run">28min jog</span></span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 2</span>
+                                <span class="day-workout"><span class="run">28min jog</span></span>
+                            </div>
+                            <div class="day-row">
+                                <span class="day-label">Day 3</span>
+                                <span class="day-workout"><span class="run">30min jog</span> — You did it!</span>
+                            </div>
+                        </div>
+                        <div class="week-tip"><strong>Tip:</strong> You're ready for race day. Trust your training!
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- EXPECT -->
+    <section class="section expect-section">
+        <div class="expect-grid">
+            <div class="expect-image fade-in">
+                <img src="../images/action/girlfriends-celebration.png&q=80" alt="Finish line" loading="lazy">
+                <div class="expect-badge">
+                    <i class="fas fa-check-circle"></i>
+                    Walking Welcome
+                </div>
+            </div>
+
+            <div class="expect-content">
+                <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+                    <div class="section-label">Race Day</div>
+                    <h2 class="section-title">What To Expect</h2>
+                </div>
+                <p class="expect-intro">No surprises. We'll guide you every step of the way.</p>
+
+                <div class="expect-list">
+                    <div class="expect-item fade-in">
+                        <div class="expect-num">1</div>
+                        <div class="expect-text">
+                            <h4>Week Before</h4>
+                            <p>Email with parking, timing, and what to bring.</p>
+                        </div>
+                    </div>
+
+                    <div class="expect-item fade-in">
+                        <div class="expect-num">2</div>
+                        <div class="expect-text">
+                            <h4>Race Morning</h4>
+                            <p>Arrive 45 min early. Get bib. Use restroom.</p>
+                        </div>
+                    </div>
+
+                    <div class="expect-item fade-in">
+                        <div class="expect-num">3</div>
+                        <div class="expect-text">
+                            <h4>The Start</h4>
+                            <p>Line up in back. Start slower than you think.</p>
+                        </div>
+                    </div>
+
+                    <div class="expect-item fade-in">
+                        <div class="expect-num">4</div>
+                        <div class="expect-text">
+                            <h4>The Finish</h4>
+                            <p>Cross the line. Grab your medal. You did it.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FINAL CTA -->
+    <section class="final-section" id="final">
+        <div class="final-content">
+            <div class="section-label">The Moment Is Now</div>
+            <h2 class="final-title">The Finish Line Is Waiting.<br><em>So Is Who You'll Become.</em></h2>
+            <p class="final-desc">You've thought about it long enough. Today's the day.</p>
+
+            <a href="events.html" class="final-btn">
+                I'm In — Find My First Race
                 <i class="fas fa-arrow-right"></i>
             </a>
-        </div>
 
-        <div class="hero-image">
-            <div class="hero-walking">
-                <i class="fas fa-check"></i>
-                Walking Welcome
+            <div class="trust-row">
+                <div class="trust-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    Free transfers
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-medal"></i>
+                    Finisher medal
+                </div>
+                <div class="trust-item">
+                    <i class="fas fa-infinity"></i>
+                    No time cutoffs
+                </div>
             </div>
-            <img src="../images/action/girlfriends-celebration.png&q=80" alt="Runners crossing finish line">
-            <div class="hero-stat">
-                <div class="hero-stat-num">12,847</div>
-                <div class="hero-stat-label">First-timers in 2024</div>
-            </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<!-- FEARS -->
-<section class="section fears-section">
-    <div class="section-header">
-        <div class="section-label">You're Not Alone</div>
-        <h2 class="section-title">That Voice In Your Head? Everyone Hears It.</h2>
-        <p class="section-desc">The worries we hear most—and the truth that might surprise you.</p>
-    </div>
-
-    <div class="fears-grid">
-        <div class="fear-card fade-in">
-            <div class="fear-voice">"What if I'm the slowest one there?"</div>
-            <div class="fear-truth"><strong>Reality:</strong> Many people walk the entire thing. The only person tracking your time is you.</div>
-        </div>
-
-        <div class="fear-card fade-in">
-            <div class="fear-voice">"What if I have to walk?"</div>
-            <div class="fear-truth"><strong>Reality:</strong> Walking isn't cheating—it's smart pacing. At our events, it's encouraged.</div>
-        </div>
-
-        <div class="fear-card fade-in">
-            <div class="fear-voice">"I'm not a 'real runner'"</div>
-            <div class="fear-truth"><strong>Reality:</strong> If you run, you're a runner. No minimum speed or body type required.</div>
-        </div>
-
-        <div class="fear-card fade-in">
-            <div class="fear-voice">"What if I can't finish?"</div>
-            <div class="fear-truth"><strong>Reality:</strong> If you can walk 45 minutes, you can finish. Our courses stay open.</div>
-        </div>
-
-        <div class="fear-card fade-in">
-            <div class="fear-voice">"I don't know what to do"</div>
-            <div class="fear-truth"><strong>Reality:</strong> We send everything you need to know—no surprises.</div>
-        </div>
-
-        <div class="fear-card fade-in">
-            <div class="fear-voice">"People will judge me"</div>
-            <div class="fear-truth"><strong>Reality:</strong> Runners cheer loudest for the back of the pack. You'll feel welcomed.</div>
-        </div>
-    </div>
-</section>
-
-<!-- PERMISSION -->
-<section class="section permission-section">
-    <div class="section-header">
-        <div class="section-label">A Reminder</div>
-        <h2 class="section-title">Permission Granted</h2>
-    </div>
-
-    <div class="permission-grid">
-        <div class="permission-item fade-in">
-            <i class="fas fa-shoe-prints"></i>
-            <span>To walk when needed</span>
-        </div>
-        <div class="permission-item fade-in">
-            <i class="fas fa-hourglass-half"></i>
-            <span>To be slow</span>
-        </div>
-        <div class="permission-item fade-in">
-            <i class="fas fa-heart"></i>
-            <span>To be nervous</span>
-        </div>
-        <div class="permission-item fade-in">
-            <i class="fas fa-expand-arrows-alt"></i>
-            <span>To take up space</span>
-        </div>
-        <div class="permission-item fade-in">
-            <i class="fas fa-seedling"></i>
-            <span>To start before ready</span>
-        </div>
-        <div class="permission-item fade-in">
-            <i class="fas fa-running"></i>
-            <span>To call yourself a runner</span>
-        </div>
-        <div class="permission-item fade-in">
-            <i class="fas fa-tint"></i>
-            <span>To cry at the finish</span>
-        </div>
-        <div class="permission-item fade-in">
-            <i class="fas fa-star"></i>
-            <span>To be proud</span>
+    <!-- SPONSOR TICKER -->
+    <div class="sponsor-ticker">
+        <div class="sponsor-ticker-label">Proud Partners</div>
+        <div class="sponsor-track">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
         </div>
     </div>
 
-    <div class="permission-quote fade-in">
-        <p>"The only person you need to beat is the voice telling you not to try."</p>
-    </div>
-</section>
-
-<!-- STORIES -->
-<section class="section stories-section">
-    <div class="section-header">
-        <div class="section-label">Real Stories</div>
-        <h2 class="section-title">They Were Exactly Where You Are</h2>
-    </div>
-
-    <div class="stories-grid">
-        <div class="story-card fade-in">
-            <div class="story-image">
-                <img src="../images/action/girlfriends-celebration.png&q=80" alt="Runner" loading="lazy">
-            </div>
-            <div class="story-content">
-                <div class="story-before">"I hadn't run since high school—20 years ago."</div>
-                <div class="story-quote">"When I crossed that finish line, I cried. I did something I never thought I could."</div>
-                <div class="story-author">
-                    <img src="../images/athletes/amy.jpg&q=80" alt="Jennifer" loading="lazy">
-                    <div>
-                        <div class="story-name">Jennifer M.</div>
-                        <div class="story-detail">First 5K at 42</div>
-                    </div>
-                </div>
-            </div>
+    <!-- FOOTER -->
+    <footer>
+        <div class="footer-logo">WHY <span>RACING</span></div>
+        <div class="footer-tagline">What's Your Why?</div>
+        <div class="footer-links">
+            <a href="events.html">Races</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="beneficiary.html">Fundraising</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+            <a href="../index.html">Home</a>
         </div>
+        <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA</div>
+    </footer>
 
-        <div class="story-card fade-in">
-            <div class="story-image">
-                <img src="../images/action/girlfriends-celebration.png&q=80" alt="Runner" loading="lazy">
-            </div>
-            <div class="story-content">
-                <div class="story-before">"I almost backed out the morning of."</div>
-                <div class="story-quote">"I saw every body type, every age. I wasn't alone. The cheers made me tear up."</div>
-                <div class="story-author">
-                    <img src="../images/athletes/dan.jpg&q=80" alt="Marcus" loading="lazy">
-                    <div>
-                        <div class="story-name">Marcus T.</div>
-                        <div class="story-detail">First 5K at 38</div>
-                    </div>
-                </div>
-            </div>
-        </div>
+    <script>
+        // Accordion
+        document.querySelectorAll('.accordion-header').forEach(btn => {
+            btn.addEventListener('click', () => {
+                const item = btn.parentElement;
+                const isActive = item.classList.contains('active');
 
-        <div class="story-card fade-in">
-            <div class="story-image">
-                <img src="../images/action/girlfriends-celebration.png&q=80" alt="Runner" loading="lazy">
-            </div>
-            <div class="story-content">
-                <div class="story-before">"I told myself I'd never be a runner."</div>
-                <div class="story-quote">"I walked most of it. Nobody cared. That medal means everything."</div>
-                <div class="story-author">
-                    <img src="../images/action/girlfriends-celebration.png&q=80" alt="Rachel" loading="lazy">
-                    <div>
-                        <div class="story-name">Rachel K.</div>
-                        <div class="story-detail">First 5K at 51</div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+                // Close all
+                document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
 
-<!-- COUCH TO 5K -->
-<section class="section c25k-section">
-    <div class="section-header">
-        <div class="section-label">Your Training Plan</div>
-        <h2 class="section-title">8-Week Couch to 5K</h2>
-        <p class="section-desc">Three days a week. That's all it takes.</p>
-    </div>
+                // Open clicked if it wasn't active
+                if (!isActive) {
+                    item.classList.add('active');
+                }
+            });
+        });
 
-    <p class="c25k-intro">This plan uses run/walk intervals that gradually build your endurance. By Week 8, you'll be ready to run 30 minutes—enough to finish any 5K.</p>
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', e => {
+                e.preventDefault();
+                document.querySelector(anchor.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
+            });
+        });
 
-    <div class="accordion">
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <div><span class="week">Week 1</span> Walk More, Run a Little</div>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="accordion-content">
-                <div class="accordion-body">
-                    <div class="week-schedule">
-                        <div class="day-row">
-                            <span class="day-label">Day 1</span>
-                            <span class="day-workout">Alternate <span class="run">60s jog</span> / <span class="walk">90s walk</span> × 8</span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 2</span>
-                            <span class="day-workout">Alternate <span class="run">60s jog</span> / <span class="walk">90s walk</span> × 8</span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 3</span>
-                            <span class="day-workout">Alternate <span class="run">60s jog</span> / <span class="walk">90s walk</span> × 8</span>
-                        </div>
-                    </div>
-                    <div class="week-tip"><strong>Tip:</strong> Go slower than you think you should. If you can't talk, slow down.</div>
-                </div>
-            </div>
-        </div>
+        // Fade in on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) entry.target.classList.add('visible');
+            });
+        }, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
 
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <div><span class="week">Week 2</span> Building the Habit</div>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="accordion-content">
-                <div class="accordion-body">
-                    <div class="week-schedule">
-                        <div class="day-row">
-                            <span class="day-label">Day 1</span>
-                            <span class="day-workout">Alternate <span class="run">90s jog</span> / <span class="walk">2min walk</span> × 6</span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 2</span>
-                            <span class="day-workout">Alternate <span class="run">90s jog</span> / <span class="walk">2min walk</span> × 6</span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 3</span>
-                            <span class="day-workout">Alternate <span class="run">90s jog</span> / <span class="walk">2min walk</span> × 6</span>
-                        </div>
-                    </div>
-                    <div class="week-tip"><strong>Tip:</strong> Rest days matter. Your body builds strength while recovering.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <div><span class="week">Week 3</span> First 3-Minute Run</div>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="accordion-content">
-                <div class="accordion-body">
-                    <div class="week-schedule">
-                        <div class="day-row">
-                            <span class="day-label">Day 1</span>
-                            <span class="day-workout"><span class="run">90s jog</span>, <span class="walk">90s walk</span>, <span class="run">3min jog</span>, <span class="walk">3min walk</span> × 2</span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 2</span>
-                            <span class="day-workout">Repeat Day 1</span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 3</span>
-                            <span class="day-workout">Repeat Day 1</span>
-                        </div>
-                    </div>
-                    <div class="week-tip"><strong>Tip:</strong> 3 minutes will feel long. That's normal. You can do this.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <div><span class="week">Week 4</span> Extending the Runs</div>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="accordion-content">
-                <div class="accordion-body">
-                    <div class="week-schedule">
-                        <div class="day-row">
-                            <span class="day-label">Day 1</span>
-                            <span class="day-workout"><span class="run">3min jog</span>, <span class="walk">90s walk</span>, <span class="run">5min jog</span>, <span class="walk">2.5min walk</span>, <span class="run">3min</span>, <span class="walk">90s</span>, <span class="run">5min</span></span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 2</span>
-                            <span class="day-workout">Repeat Day 1</span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 3</span>
-                            <span class="day-workout">Repeat Day 1</span>
-                        </div>
-                    </div>
-                    <div class="week-tip"><strong>Tip:</strong> Halfway there! You've built real endurance.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <div><span class="week">Week 5</span> The 20-Minute Breakthrough</div>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="accordion-content">
-                <div class="accordion-body">
-                    <div class="week-schedule">
-                        <div class="day-row">
-                            <span class="day-label">Day 1</span>
-                            <span class="day-workout"><span class="run">5min jog</span>, <span class="walk">3min walk</span>, <span class="run">5min jog</span>, <span class="walk">3min walk</span>, <span class="run">5min jog</span></span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 2</span>
-                            <span class="day-workout"><span class="run">8min jog</span>, <span class="walk">5min walk</span>, <span class="run">8min jog</span></span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 3</span>
-                            <span class="day-workout"><span class="run">20min jog</span> — no walking!</span>
-                        </div>
-                    </div>
-                    <div class="week-tip"><strong>Tip:</strong> Day 3 is a milestone. Go slow. You're ready for this.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <div><span class="week">Week 6</span> Building Consistency</div>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="accordion-content">
-                <div class="accordion-body">
-                    <div class="week-schedule">
-                        <div class="day-row">
-                            <span class="day-label">Day 1</span>
-                            <span class="day-workout"><span class="run">5min jog</span>, <span class="walk">3min walk</span>, <span class="run">8min jog</span>, <span class="walk">3min walk</span>, <span class="run">5min jog</span></span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 2</span>
-                            <span class="day-workout"><span class="run">10min jog</span>, <span class="walk">3min walk</span>, <span class="run">10min jog</span></span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 3</span>
-                            <span class="day-workout"><span class="run">22min jog</span></span>
-                        </div>
-                    </div>
-                    <div class="week-tip"><strong>Tip:</strong> You're a runner now. Let that sink in.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <div><span class="week">Week 7</span> Nearly There</div>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="accordion-content">
-                <div class="accordion-body">
-                    <div class="week-schedule">
-                        <div class="day-row">
-                            <span class="day-label">Day 1</span>
-                            <span class="day-workout"><span class="run">25min jog</span></span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 2</span>
-                            <span class="day-workout"><span class="run">25min jog</span></span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 3</span>
-                            <span class="day-workout"><span class="run">25min jog</span></span>
-                        </div>
-                    </div>
-                    <div class="week-tip"><strong>Tip:</strong> Find your pace. You should be able to hold a conversation.</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="accordion-item">
-            <button class="accordion-header">
-                <div><span class="week">Week 8</span> Race Ready!</div>
-                <i class="fas fa-chevron-down"></i>
-            </button>
-            <div class="accordion-content">
-                <div class="accordion-body">
-                    <div class="week-schedule">
-                        <div class="day-row">
-                            <span class="day-label">Day 1</span>
-                            <span class="day-workout"><span class="run">28min jog</span></span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 2</span>
-                            <span class="day-workout"><span class="run">28min jog</span></span>
-                        </div>
-                        <div class="day-row">
-                            <span class="day-label">Day 3</span>
-                            <span class="day-workout"><span class="run">30min jog</span> — You did it!</span>
-                        </div>
-                    </div>
-                    <div class="week-tip"><strong>Tip:</strong> You're ready for race day. Trust your training!</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- EXPECT -->
-<section class="section expect-section">
-    <div class="expect-grid">
-        <div class="expect-image fade-in">
-            <img src="../images/action/girlfriends-celebration.png&q=80" alt="Finish line" loading="lazy">
-            <div class="expect-badge">
-                <i class="fas fa-check-circle"></i>
-                Walking Welcome
-            </div>
-        </div>
-
-        <div class="expect-content">
-            <div class="section-header" style="text-align: left; margin-bottom: 20px;">
-                <div class="section-label">Race Day</div>
-                <h2 class="section-title">What To Expect</h2>
-            </div>
-            <p class="expect-intro">No surprises. We'll guide you every step of the way.</p>
-
-            <div class="expect-list">
-                <div class="expect-item fade-in">
-                    <div class="expect-num">1</div>
-                    <div class="expect-text">
-                        <h4>Week Before</h4>
-                        <p>Email with parking, timing, and what to bring.</p>
-                    </div>
-                </div>
-
-                <div class="expect-item fade-in">
-                    <div class="expect-num">2</div>
-                    <div class="expect-text">
-                        <h4>Race Morning</h4>
-                        <p>Arrive 45 min early. Get bib. Use restroom.</p>
-                    </div>
-                </div>
-
-                <div class="expect-item fade-in">
-                    <div class="expect-num">3</div>
-                    <div class="expect-text">
-                        <h4>The Start</h4>
-                        <p>Line up in back. Start slower than you think.</p>
-                    </div>
-                </div>
-
-                <div class="expect-item fade-in">
-                    <div class="expect-num">4</div>
-                    <div class="expect-text">
-                        <h4>The Finish</h4>
-                        <p>Cross the line. Grab your medal. You did it.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- FINAL CTA -->
-<section class="final-section" id="final">
-    <div class="final-content">
-        <div class="section-label">The Moment Is Now</div>
-        <h2 class="final-title">The Finish Line Is Waiting.<br><em>So Is Who You'll Become.</em></h2>
-        <p class="final-desc">You've thought about it long enough. Today's the day.</p>
-        
-        <a href="events.html" class="final-btn">
-            I'm In — Find My First Race
-            <i class="fas fa-arrow-right"></i>
-        </a>
-
-        <div class="trust-row">
-            <div class="trust-item">
-                <i class="fas fa-exchange-alt"></i>
-                Free transfers
-            </div>
-            <div class="trust-item">
-                <i class="fas fa-medal"></i>
-                Finisher medal
-            </div>
-            <div class="trust-item">
-                <i class="fas fa-infinity"></i>
-                No time cutoffs
-            </div>
-        </div>
-    </div>
-</section>
-
-<!-- SPONSOR TICKER -->
-<div class="sponsor-ticker">
-    <div class="sponsor-ticker-label">Proud Partners</div>
-    <div class="sponsor-track">
-        <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
-        <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
-        <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
-        <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
-        <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
-        <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
-        <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
-        <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
-        <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
-        <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
-        <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
-        <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
-    </div>
-</div>
-
-<!-- FOOTER -->
-<footer>
-    <div class="footer-logo">WHY <span>RACING</span></div>
-    <div class="footer-tagline">What's Your Why?</div>
-    <div class="footer-links">
-        <a href="events.html">Events</a>
-        <a href="first-5k.html">Your 1st 5K</a>
-        <a href="about.html">About</a>
-        <a href="../index.html">Home</a>
-    </div>
-    <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA</div>
-</footer>
-
-<script>
-// Accordion
-document.querySelectorAll('.accordion-header').forEach(btn => {
-    btn.addEventListener('click', () => {
-        const item = btn.parentElement;
-        const isActive = item.classList.contains('active');
-        
-        // Close all
-        document.querySelectorAll('.accordion-item').forEach(i => i.classList.remove('active'));
-        
-        // Open clicked if it wasn't active
-        if (!isActive) {
-            item.classList.add('active');
-        }
-    });
-});
-
-// Smooth scroll
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', e => {
-        e.preventDefault();
-        document.querySelector(anchor.getAttribute('href'))?.scrollIntoView({ behavior: 'smooth' });
-    });
-});
-
-// Fade in on scroll
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) entry.target.classList.add('visible');
-    });
-}, { threshold: 0.1, rootMargin: '0px 0px -30px 0px' });
-
-document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
-</script>
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+    </script>
 
 </body>
+
 </html>

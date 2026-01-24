@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Locations | Why Racing Events</title>
+    <meta name="description"
+        content="Plan your race weekend. Explore the best hotels, restaurants, and attractions in our race locations across the Pacific Northwest.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        :root {
+            --brand-red: #E31837;
+            --brand-blue: #000000;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brand-blue);
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
+        }
+
+        /* --- NAVIGATION --- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .logo img {
+            height: 45px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--brand-blue);
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-red);
+        }
+
+        .btn {
+            padding: 10px 20px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            display: inline-block;
+            transition: 0.3s;
+            border: none;
+            font-size: 12px;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--brand-red);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #b00e26;
+            transform: translateY(-2px);
+        }
+
+        /* --- HERO --- */
+        .hero {
+            padding: 160px 4% 100px;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/action/location-hero.jpg') center/cover;
+            color: white;
+            text-align: center;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: 4rem;
+            margin-bottom: 20px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 1;
+            font-weight: 400;
+        }
+
+        /* --- LOCATION GRID --- */
+        .location-section {
+            padding: 80px 4%;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .location-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 40px;
+        }
+
+        .location-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: 0.4s;
+            border: 1px solid #eee;
+        }
+
+        .location-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .loc-img {
+            height: 250px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .loc-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 50%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+        }
+
+        .loc-name {
+            position: absolute;
+            bottom: 20px;
+            left: 20px;
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            z-index: 1;
+        }
+
+        .loc-content {
+            padding: 30px;
+        }
+
+        .loc-content h4 {
+            color: var(--brand-red);
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            letter-spacing: 2px;
+        }
+
+        .guide-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        .guide-box h5 {
+            margin-bottom: 8px;
+            color: var(--brand-blue);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .guide-box i {
+            color: var(--brand-red);
+        }
+
+        .guide-box ul {
+            list-style: none;
+            color: #666;
+            font-size: 0.85rem;
+        }
+
+        .guide-box ul li {
+            margin-bottom: 5px;
+        }
+
+        footer {
+            background: var(--brand-blue);
+            color: white;
+            padding: 60px 4%;
+            text-align: center;
+        }
+
+        .footer-logo img {
+            height: 40px;
+            filter: brightness(0) invert(1);
+            margin-bottom: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+
+            .location-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .nav-links {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="logo"><img src="../attached_assets/why-racing-logo_1767589311719.png"
+                alt="Why Racing Events"></a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="events.html">Races</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+            <a href="about.html">About</a>
+        </div>
+        <a href="events.html" class="btn btn-primary">Find a Race</a>
+    </nav>
+
+    <header class="hero">
+        <h1>Race, Stay, <span style="color: var(--brand-red);">Explore.</span></h1>
+        <p>Turn your race into a getaway. We've scouted the best of the Pacific Northwest so you can focus on the finish
+            line and enjoy the journey.</p>
+    </header>
+
+    <section class="location-section">
+        <div class="container">
+            <div class="location-grid">
+
+                <!-- VANCOUVER, WA -->
+                <div class="location-card">
+                    <div class="loc-img" style="background-image: url('../images/locations/vancouver-waterfront.jpg');">
+                        <div class="loc-name">Vancouver, WA</div>
+                    </div>
+                    <div class="loc-content">
+                        <h4>The Waterfront Hub</h4>
+                        <p>Our home base and the center of the PNW racing world. Flat courses and stunning river views.
+                        </p>
+                        <div class="guide-grid">
+                            <div class="guide-box">
+                                <h5><i class="fas fa-hotel"></i> Stay</h5>
+                                <ul>
+                                    <li>Hotel Indigo (Partner)</li>
+                                    <li>Hilton Vancouver</li>
+                                    <li>AC Hotel by Marriott</li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-utensils"></i> Eat</h5>
+                                <ul>
+                                    <li>WildFin American Grill</li>
+                                    <li>The Cove Restaurant</li>
+                                    <li>Barlows Public House</li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-camera"></i> Explore</h5>
+                                <ul>
+                                    <li>Waterfront Park</li>
+                                    <li>Fort Vancouver</li>
+                                    <li>Officers Row</li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-running"></i> Events</h5>
+                                <ul>
+                                    <li>Appletree Marathon</li>
+                                    <li>Girlfriends Run</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- MT HOOD, OR -->
+                <div class="location-card">
+                    <div class="loc-img" style="background-image: url('../images/locations/mt-hood.jpg');">
+                        <div class="loc-name">Mt. Hood, OR</div>
+                    </div>
+                    <div class="loc-content">
+                        <h4>Mountain Majesty</h4>
+                        <p>High-altitude challenges and winter wonderlands. The ultimate Pacific Northwest playground.
+                        </p>
+                        <div class="guide-grid">
+                            <div class="guide-box">
+                                <h5><i class="fas fa-hotel"></i> Stay</h5>
+                                <ul>
+                                    <li>Timberline Lodge</li>
+                                    <li>The Lodges at Govt Camp</li>
+                                    <li>Collins Lake Resort</li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-utensils"></i> Eat</h5>
+                                <ul>
+                                    <li>Charlie's Mountain View</li>
+                                    <li>Huckleberry Inn</li>
+                                    <li>Mt. Hood Brewing Co.</li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-camera"></i> Explore</h5>
+                                <ul>
+                                    <li>Trillium Lake</li>
+                                    <li>Mirror Lake Trail</li>
+                                    <li>Govt Camp Village</li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-running"></i> Events</h5>
+                                <ul>
+                                    <li>White River Snowshoe</li>
+                                    <li>Mt. Hood 50 (Partner)</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LONG BEACH, WA -->
+                <div class="location-card">
+                    <div class="loc-img" style="background-image: url('../images/locations/long-beach.jpg');">
+                        <div class="loc-name">Long Beach, WA</div>
+                    </div>
+                    <div class="loc-content">
+                        <h4>Coastline Classics</h4>
+                        <p>Miles of drivable beach, historic lighthouses, and the best fish and chips on the coast.</p>
+                        <div class="guide-grid">
+                            <div class="guide-box">
+                                <h5><i class="fas fa-hotel"></i> Stay</h5>
+                                <ul>
+                                    <li>Adrift Hotel</li>
+                                    <li>The Breakers</li>
+                                    <li>Chautauqua Resort</li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-utensils"></i> Eat</h5>
+                                <ul>
+                                    <li>Pickled Fish</li>
+                                    <li>The Depot</li>
+                                    <li>Lost Roo</li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-camera"></i> Explore</h5>
+                                <ul>
+                                    <li>Cape Disappointment</li>
+                                    <li>Discovery Trail</li>
+                                    <li>Oyster Markets</li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-running"></i> Events</h5>
+                                <ul>
+                                    <li>Pacific Coast Tri</li>
+                                    <li>Sand & Surf Run</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-logo">
+            <img src="../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing">
+        </div>
+        <div class="footer-links" style="display: flex; justify-content: center; gap: 30px; margin-bottom: 30px;">
+            <a href="../index.html">Home</a>
+            <a href="events.html">Races</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+            <a href="about.html">About</a>
+        </div>
+        <p>&copy; 2026 Why Racing Events. All Rights Reserved.</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,11 +1,81 @@
+require('dotenv').config({ path: '.env.local' });
+require('dotenv').config(); // Also load standard .env if present
 const express = require('express');
 const path = require('path');
+const { createClient } = require('@supabase/supabase-js');
+const { formidable } = require('formidable');
+const fs = require('fs');
+const fetch = require('node-fetch');
+
+// Debug: Log environment variables at startup
+console.log('=== Environment Check ===');
+console.log('SUPABASE_URL:', process.env.NEXT_PUBLIC_SUPABASE_URL ? '✓ Loaded' : '✗ MISSING');
+console.log('SUPABASE_SERVICE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY ? '✓ Loaded' : '✗ MISSING');
+console.log('ADMIN_SECRET:', process.env.ADMIN_SECRET ? '✓ Loaded' : '✗ MISSING');
+console.log('GEMINI_API_KEY:', process.env.GEMINI_API_KEY ? '✓ Loaded' : '✗ MISSING');
+console.log('=========================');
+
+// Initialize Supabase
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+);
 
 const app = express();
 const PORT = 5000;
 
 app.use(express.json());
 app.use(express.static('.'));
+
+// === Auto-Archive Past Races ===
+// Automatically move races to "draft" status after their date passes
+// This runs on server startup and allows races to be reused for next year
+async function archivePastRaces() {
+  try {
+    // Get today's date in YYYY-MM-DD format
+    const today = new Date().toISOString().split('T')[0];
+
+    // Find all active races where the race_date has passed
+    const { data: pastRaces, error: fetchError } = await supabase
+      .from('races')
+      .select('id, name, race_date')
+      .eq('status', 'active')
+      .lt('race_date', today);
+
+    if (fetchError) {
+      console.error('Error fetching past races:', fetchError);
+      return;
+    }
+
+    if (!pastRaces || pastRaces.length === 0) {
+      console.log('✓ No past races to archive');
+      return;
+    }
+
+    // Update each past race to draft status
+    const { error: updateError } = await supabase
+      .from('races')
+      .update({ status: 'draft' })
+      .eq('status', 'active')
+      .lt('race_date', today);
+
+    if (updateError) {
+      console.error('Error archiving past races:', updateError);
+      return;
+    }
+
+    console.log(`✓ Archived ${pastRaces.length} past race(s) to draft:`);
+    pastRaces.forEach(race => {
+      console.log(`  - ${race.name} (${race.race_date})`);
+    });
+  } catch (error) {
+    console.error('Error in archivePastRaces:', error);
+  }
+}
+
+// Run archive check on startup
+archivePastRaces();
+
 
 const FULL_EVENT_DATA = `
 # Why Racing Events - Complete Event Information
@@ -451,7 +521,7 @@ Guidelines:
 
 app.post('/api/chat', async (req, res) => {
   const { messages } = req.body;
-  
+
   if (!messages || !Array.isArray(messages) || messages.length === 0) {
     return res.status(400).json({ error: 'Messages array is required and must not be empty' });
   }
@@ -499,6 +569,376 @@ app.post('/api/chat', async (req, res) => {
     console.error('Anthropic API Error:', error);
     res.status(500).json({ error: 'Failed to connect to chat service. Please try again later.' });
   }
+});
+
+// ==========================================
+// ADMIN API ROUTES
+// ==========================================
+
+// Auth middleware for admin routes
+const adminAuth = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  const expectedAuth = `Bearer ${process.env.ADMIN_SECRET}`;
+  console.log('=== Auth Check ===');
+  console.log('Received:', authHeader);
+  console.log('Expected:', expectedAuth);
+  console.log('Match:', authHeader === expectedAuth);
+  if (authHeader !== expectedAuth) {
+    console.log('AUTH FAILED - returning 401');
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  console.log('AUTH PASSED');
+  next();
+};
+
+// 1. AI Theme Generation
+app.post('/api/generate-theme', async (req, res) => {
+  const { prompt } = req.body;
+
+  if (!prompt || prompt.trim().length < 10) {
+    return res.status(400).json({ error: 'Please provide a theme description' });
+  }
+
+  try {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      console.error('ERROR: GEMINI_API_KEY is missing from environment variables');
+      throw new Error('API key configuration error');
+    }
+
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+
+    console.log('Generating theme for prompt:', prompt.substring(0, 50) + '...');
+
+    const response = await fetch(apiUrl, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        contents: [{
+          parts: [{
+            text: `You are a web designer creating a theme for a race event page. Based on this description, generate a cohesive color scheme and style.
+
+Description: "${prompt}"
+
+Respond with ONLY valid JSON (no markdown, no backticks, no explanation) in this exact format:
+{
+  "primaryColor": "#hexcode",
+  "secondaryColor": "#hexcode",
+  "accentColor": "#hexcode",
+  "backgroundColor": "#hexcode",
+  "fontStyle": "modern|playful|bold|elegant|rugged|gothic",
+  "mood": "comma, separated, keywords",
+  "tagline": "A catchy tagline for this race (under 60 characters)"
+}
+
+Guidelines:
+- Colors should be vibrant and work well together
+- backgroundColor should be dark (for the admin theme) but could be light for actual race pages
+- fontStyle should match the vibe (gothic for spooky, playful for family events, rugged for trail races, etc.)
+- mood keywords help with imagery selection
+- tagline should be motivating and match the theme`
+          }]
+        }],
+        generationConfig: {
+          temperature: 0.7,
+          maxOutputTokens: 256
+        }
+      })
+    }
+    );
+
+    if (!response.ok) {
+      const errorBody = await response.text();
+      console.error('Gemini API error:', response.status, errorBody);
+      throw new Error(`Gemini API error: ${response.status}`);
+    }
+
+    const data = await response.json();
+
+    if (!data.candidates || !data.candidates[0]) {
+      console.error('Gemini returned no candidates:', JSON.stringify(data));
+      throw new Error('No response from AI');
+    }
+
+    const text = data.candidates[0].content.parts[0].text;
+
+    // Clean up response (remove any markdown backticks if present)
+    const cleanText = text.replace(/```json\n?|\n?```/g, '').trim();
+
+    // Parse the JSON response
+    const theme = JSON.parse(cleanText);
+
+    return res.status(200).json(theme);
+  } catch (error) {
+    console.error('Theme generation error:', error.message);
+    // Return the fallback as a successful response so the user still gets a theme
+    return res.status(200).json({
+      primaryColor: '#E31837',
+      secondaryColor: '#0ea5e9',
+      accentColor: '#22c55e',
+      backgroundColor: '#0a0a0a',
+      fontStyle: 'bold',
+      mood: 'energetic, motivating, fun',
+      tagline: 'Your next adventure starts here!',
+      _fallback: true
+    });
+  }
+});
+
+// 2. Races CRUD
+// Get all races
+app.get('/api/races', async (req, res) => {
+  const { data, error } = await supabase
+    .from('races')
+    .select(`
+      *,
+      race_distances (*),
+      pricing_tiers (*)
+    `)
+    .order('race_date', { ascending: true });
+
+  if (error) {
+    console.error('Supabase Error (GET /api/races):', error);
+    return res.status(500).json({ error: error.message });
+  }
+  return res.status(200).json(data);
+});
+
+// Get single race
+app.get('/api/races/:id', async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await supabase
+    .from('races')
+    .select(`
+      *,
+      race_distances (*),
+      pricing_tiers (*)
+    `)
+    .eq('id', id)
+    .single();
+
+  if (error) {
+    console.error(`Supabase Error (GET /api/races/${id}):`, error);
+    return res.status(500).json({ error: error.message });
+  }
+  return res.status(200).json(data);
+});
+
+// Create new race
+app.post('/api/races', adminAuth, async (req, res) => {
+  console.log('=== POST /api/races called ===');
+  const { distances, pricing_tiers, ...raceData } = req.body;
+  console.log('Race data received:', JSON.stringify(raceData, null, 2));
+
+  // Sanitize data: convert empty strings to null for database fields
+  // But preserve arrays (like includes, shirt_sizes) even if empty
+  const sanitizeData = (data) => {
+    const sanitized = { ...data };
+    for (const key in sanitized) {
+      // Skip arrays - they should be saved as-is
+      if (Array.isArray(sanitized[key])) continue;
+      // Convert empty strings and undefined to null
+      if (sanitized[key] === '' || sanitized[key] === undefined) {
+        sanitized[key] = null;
+      }
+    }
+    return sanitized;
+  };
+
+  const cleanRaceData = sanitizeData(raceData);
+  console.log('Sanitized data:', JSON.stringify(cleanRaceData, null, 2));
+
+  try {
+    const { data: race, error: raceError } = await supabase
+      .from('races')
+      .insert(cleanRaceData)
+      .select()
+      .single();
+
+    if (raceError) {
+      console.error('Supabase Error (POST /api/races - race insert):', raceError);
+      return res.status(500).json({ error: raceError.message });
+    }
+
+    // Insert distances
+    if (distances && distances.length > 0) {
+      const distancesWithRaceId = distances.map((d, i) => ({
+        ...d,
+        race_id: race.id,
+        sort_order: i
+      }));
+      const { error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId);
+      if (dError) console.error('Supabase Error (POST /api/races - distances insert):', dError);
+    }
+
+    // Insert pricing tiers
+    if (pricing_tiers && pricing_tiers.length > 0) {
+      const tiersWithRaceId = pricing_tiers.map(t => ({
+        ...t,
+        race_id: race.id
+      }));
+      const { error: pError } = await supabase.from('pricing_tiers').insert(tiersWithRaceId);
+      if (pError) console.error('Supabase Error (POST /api/races - pricing insert):', pError);
+    }
+
+    return res.status(201).json(race);
+  } catch (err) {
+    console.error('Server Internal Error (POST /api/races):', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update race
+app.put('/api/races/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const { distances, pricing_tiers, created_at, updated_at, ...raceData } = req.body;
+
+  // Sanitize data: convert empty strings to null
+  // But preserve arrays (like includes, shirt_sizes) even if empty
+  const sanitizeData = (data) => {
+    const sanitized = { ...data };
+    for (const key in sanitized) {
+      // Skip arrays - they should be saved as-is
+      if (Array.isArray(sanitized[key])) continue;
+      // Convert empty strings and undefined to null
+      if (sanitized[key] === '' || sanitized[key] === undefined) {
+        sanitized[key] = null;
+      }
+    }
+    return sanitized;
+  };
+
+  const cleanRaceData = sanitizeData(raceData);
+
+  try {
+    // 1. Update race basic info
+    const { error: raceError } = await supabase
+      .from('races')
+      .update(cleanRaceData)
+      .eq('id', id);
+
+    if (raceError) {
+      console.error(`Supabase Error (PUT /api/races/${id}):`, raceError);
+      return res.status(500).json({ error: raceError.message });
+    }
+
+    // 2. Handle distances (Delete old and replace with new for simplicity in admin)
+    if (distances) {
+      await supabase.from('race_distances').delete().eq('race_id', id);
+      if (distances.length > 0) {
+        const distancesWithRaceId = distances.map((d, i) => ({
+          ...d,
+          race_id: id,
+          sort_order: i
+        }));
+        await supabase.from('race_distances').insert(distancesWithRaceId);
+      }
+    }
+
+    // 3. Handle pricing tiers
+    if (pricing_tiers) {
+      await supabase.from('pricing_tiers').delete().eq('race_id', id);
+      if (pricing_tiers.length > 0) {
+        const tiersWithRaceId = pricing_tiers.map(t => ({
+          ...t,
+          race_id: id
+        }));
+        await supabase.from('pricing_tiers').insert(tiersWithRaceId);
+      }
+    }
+
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    console.error(`Server Internal Error (PUT /api/races/${id}):`, err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// 2.5 Delete Race
+app.delete('/api/races/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  console.log(`DELETE request for race ID: ${id}`);
+
+  try {
+    const { error } = await supabase
+      .from('races')
+      .delete()
+      .eq('id', id);
+
+    if (error) {
+      console.error(`Supabase Error (DELETE /api/races/${id}):`, error);
+      return res.status(500).json({ error: error.message });
+    }
+
+    console.log(`Race ${id} deleted successfully`);
+    return res.status(200).json({ success: true });
+  } catch (err) {
+    console.error(`Server Internal Error (DELETE /api/races/${id}):`, err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// 3. Image Upload
+app.post('/api/races/upload', adminAuth, (req, res) => {
+  const form = formidable({
+    multiples: false,
+    maxFileSize: 10 * 1024 * 1024, // 10MB limit
+    allowEmptyFiles: false
+  });
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error('Form parse error:', err);
+      return res.status(500).json({ error: 'Failed to parse form' });
+    }
+
+    console.log('Upload received - fields:', fields, 'files:', Object.keys(files));
+
+    // Formidable v3 returns arrays for fields and files
+    const file = Array.isArray(files.file) ? files.file[0] : files.file;
+    const type = Array.isArray(fields.type) ? fields.type[0] : fields.type;
+    const raceId = Array.isArray(fields.raceId) ? fields.raceId[0] : fields.raceId;
+
+    if (!file) {
+      console.error('No file in upload');
+      return res.status(400).json({ error: 'No file provided' });
+    }
+
+    console.log('Uploading file:', file.originalFilename, 'type:', type, 'raceId:', raceId);
+
+    try {
+      const fileBuffer = fs.readFileSync(file.filepath);
+      // Add random suffix to prevent any filename collisions
+      const randomSuffix = Math.random().toString(36).substring(2, 8);
+      const safeFilename = file.originalFilename.replace(/[^a-zA-Z0-9.-]/g, '_');
+      const fileName = `${raceId}/${type}-${Date.now()}-${randomSuffix}-${safeFilename}`;
+
+      console.log('Uploading to Supabase Storage:', fileName, 'Size:', fileBuffer.length, 'bytes');
+
+      const { data, error } = await supabase.storage
+        .from('race-images')
+        .upload(fileName, fileBuffer, {
+          contentType: file.mimetype,
+          upsert: true
+        });
+
+      if (error) {
+        console.error('Supabase storage error:', JSON.stringify(error, null, 2));
+        return res.status(500).json({ error: 'Storage error: ' + (error.message || error.statusCode || 'Unknown error') });
+      }
+
+      const { data: urlData } = supabase.storage
+        .from('race-images')
+        .getPublicUrl(fileName);
+
+      console.log('Upload successful, public URL:', urlData.publicUrl);
+
+      return res.status(200).json({ url: urlData.publicUrl });
+    } catch (error) {
+      console.error('Upload error:', error.message, error.stack);
+      return res.status(500).json({ error: 'Upload failed: ' + error.message });
+    }
+  });
 });
 
 app.listen(PORT, '0.0.0.0', () => {

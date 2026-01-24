@@ -1,0 +1,2444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Race Admin | Why Racing Events</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --brand-red: #E31837;
+            --brand-dark: #000000;
+            --brand-grey: #f4f4f4;
+            --card-bg: #ffffff;
+            --input-bg: #ffffff;
+            --text-main: #1a1a1a;
+            --text-dim: #666666;
+            --border-color: #dddddd;
+            --page-bg: #f8f8f8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--page-bg);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        /* Password Gate */
+        .password-gate {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .password-box {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 12px;
+            text-align: center;
+            max-width: 400px;
+            width: 100%;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .logo-placeholder {
+            max-width: 180px;
+            margin-bottom: 24px;
+        }
+
+        .password-box h1 {
+            margin-bottom: 8px;
+            color: var(--brand-dark);
+            font-size: 20px;
+        }
+
+        .password-box p {
+            color: #94a3b8;
+            margin-bottom: 24px;
+        }
+
+        .password-box input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--input-bg);
+            color: var(--text-main);
+            font-size: 16px;
+            margin-bottom: 16px;
+        }
+
+        .password-box input:focus {
+            outline: none;
+            border-color: var(--brand-red);
+        }
+
+        .password-box button {
+            width: 100%;
+            padding: 12px 24px;
+            background: var(--brand-red);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .password-box button:hover {
+            background: #b00e26;
+            transform: translateY(-1px);
+        }
+
+        .password-error {
+            color: #ef4444;
+            margin-top: 12px;
+            display: none;
+        }
+
+        /* Admin Dashboard */
+        .admin-dashboard {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid var(--brand-red);
+        }
+
+        .admin-header h1 {
+            color: var(--brand-red);
+            font-size: 24px;
+        }
+
+        .logout-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid #475569;
+            color: #94a3b8;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .logout-btn:hover {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+
+        /* Tabs */
+        .tabs {
+            display: flex;
+            gap: 8px;
+            margin-bottom: 32px;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 16px;
+        }
+
+        .tab-btn {
+            padding: 10px 20px;
+            background: transparent;
+            border: none;
+            color: #94a3b8;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.2s;
+        }
+
+        .tab-btn:hover {
+            background: var(--border-color);
+            color: var(--text-main);
+        }
+
+        .tab-btn.active {
+            background: var(--brand-red);
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        /* Race List */
+        .race-list {
+            display: grid;
+            gap: 16px;
+        }
+
+        .race-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
+        }
+
+        .race-card:hover {
+            border-color: var(--brand-red);
+        }
+
+        .race-card-info h3 {
+            margin-bottom: 4px;
+        }
+
+        .race-card-info p {
+            color: #94a3b8;
+            font-size: 14px;
+        }
+
+        .race-card-status {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .status-badge {
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status-active {
+            background: #166534;
+            color: #bbf7d0;
+        }
+
+        .status-draft {
+            background: #854d0e;
+            color: #fef08a;
+        }
+
+        .status-closed {
+            background: #991b1b;
+            color: #fecaca;
+        }
+
+        .edit-btn {
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid var(--brand-red);
+            color: var(--brand-red);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 600;
+        }
+
+        .edit-btn:hover {
+            background: var(--brand-red);
+            color: white;
+        }
+
+        /* Form Styles */
+        .form-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .form-section h2 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid var(--border-color);
+            color: var(--brand-red);
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+
+        .form-group label {
+            font-size: 14px;
+            font-weight: 500;
+            color: #94a3b8;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 12px 16px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            background: var(--input-bg);
+            color: var(--text-main);
+            font-size: 14px;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--brand-red);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-group input[type="file"] {
+            padding: 10px;
+        }
+
+        /* Checkboxes */
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 20px;
+            height: 20px;
+            accent-color: var(--brand-red);
+            cursor: pointer;
+        }
+
+        .checkbox-item span {
+            font-size: 14px;
+        }
+
+        /* Distance Repeater */
+        .distance-list {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .distance-item {
+            background: var(--input-bg);
+            border-radius: 8px;
+            padding: 16px;
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+            gap: 12px;
+            align-items: end;
+            border: 1px solid var(--border-color);
+        }
+
+        .distance-item input {
+            padding: 10px 12px;
+            border: 1px solid #334155;
+            border-radius: 6px;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        .distance-item label {
+            font-size: 12px;
+            color: #64748b;
+            margin-bottom: 4px;
+            display: block;
+        }
+
+        .remove-distance {
+            padding: 10px;
+            background: #7f1d1d;
+            border: none;
+            color: #fecaca;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 18px;
+            line-height: 1;
+        }
+
+        .add-distance {
+            padding: 12px 20px;
+            background: transparent;
+            border: 2px dashed #334155;
+            color: #94a3b8;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: all 0.2s;
+            margin-top: 8px;
+        }
+
+        .add-distance:hover {
+            border-color: #f97316;
+            color: #f97316;
+        }
+
+        /* Pricing Tiers */
+        .pricing-tier {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 12px;
+        }
+
+        .pricing-tier h4 {
+            font-size: 14px;
+            margin-bottom: 12px;
+            color: #e2e8f0;
+        }
+
+        .pricing-tier .form-grid {
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        /* AI Theme Section */
+        .ai-theme-section {
+            background: linear-gradient(135deg, var(--card-bg) 0%, var(--brand-dark) 100%);
+            border: 1px solid var(--brand-red);
+        }
+
+        .ai-prompt-area {
+            position: relative;
+        }
+
+        .ai-prompt-area textarea {
+            min-height: 100px;
+        }
+
+        .generate-theme-btn {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, var(--brand-red) 0%, #b00e26 100%);
+            border: none;
+            color: white;
+            border-radius: 6px;
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            transition: transform 0.2s;
+        }
+
+        .generate-theme-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .generate-theme-btn.loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .theme-preview {
+            margin-top: 20px;
+            padding: 20px;
+            background: var(--input-bg);
+            border-radius: 8px;
+            display: none;
+            border: 1px solid var(--border-color);
+        }
+
+        .theme-preview.visible {
+            display: block;
+        }
+
+        .theme-preview h4 {
+            margin-bottom: 16px;
+            font-size: 14px;
+            color: #94a3b8;
+        }
+
+        .color-swatches {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 16px;
+        }
+
+        .color-swatch {
+            text-align: center;
+        }
+
+        .color-swatch .swatch {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            border: 2px solid #334155;
+        }
+
+        .color-swatch input {
+            width: 80px;
+            padding: 6px;
+            border: 1px solid #334155;
+            border-radius: 4px;
+            background: #1e293b;
+            color: #e2e8f0;
+            font-size: 12px;
+            text-align: center;
+        }
+
+        .color-swatch label {
+            font-size: 11px;
+            color: #64748b;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .generated-tagline {
+            background: #334155;
+            padding: 12px 16px;
+            border-radius: 6px;
+            font-style: italic;
+            margin-top: 12px;
+        }
+
+        /* Included Items */
+        .included-items {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 12px;
+        }
+
+        /* Form Actions */
+        .form-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: flex-end;
+            padding-top: 24px;
+            border-top: 1px solid #334155;
+            margin-top: 24px;
+        }
+
+        .btn {
+            padding: 14px 28px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            border: 2px solid #475569;
+            color: #94a3b8;
+        }
+
+        .btn-secondary:hover {
+            border-color: #64748b;
+            color: #e2e8f0;
+        }
+
+        .btn-primary {
+            background: var(--brand-red);
+            border: none;
+            color: white;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .btn-primary:hover {
+            background: #ea580c;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .distance-item {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .pricing-tier .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .race-card {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 16px;
+            }
+
+            .form-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+
+        /* Media Upload Styles */
+        .media-block {
+            margin-bottom: 28px;
+            padding-bottom: 28px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .media-block:last-child {
+            margin-bottom: 0;
+            padding-bottom: 0;
+            border-bottom: none;
+        }
+
+        .media-block h4 {
+            font-size: 16px;
+            margin-bottom: 4px;
+            color: #e2e8f0;
+        }
+
+        .media-hint {
+            font-size: 13px;
+            color: #64748b;
+            margin-bottom: 16px;
+        }
+
+        .input-with-button {
+            display: flex;
+            gap: 8px;
+        }
+
+        .input-with-button input {
+            flex: 1;
+            padding: 12px 16px;
+            border: 2px solid #334155;
+            border-radius: 8px;
+            background: #0f172a;
+            color: #e2e8f0;
+            font-size: 14px;
+        }
+
+        .input-with-button input:focus {
+            outline: none;
+            border-color: var(--brand-red);
+        }
+
+        .preview-btn {
+            padding: 12px 20px;
+            background: #334155;
+            border: none;
+            color: #e2e8f0;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 500;
+            transition: background 0.2s;
+        }
+
+        .preview-btn:hover {
+            background: var(--brand-red);
+            color: white;
+        }
+
+        .youtube-preview {
+            margin-top: 16px;
+            border-radius: 12px;
+            overflow: hidden;
+            background: #0f172a;
+        }
+
+        .youtube-placeholder {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 60px 20px;
+            color: #64748b;
+        }
+
+        .youtube-placeholder span {
+            font-size: 48px;
+            margin-bottom: 12px;
+        }
+
+        .youtube-preview iframe {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border: none;
+        }
+
+        .image-upload-area {
+            border: 2px dashed #334155;
+            border-radius: 12px;
+            padding: 40px 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            background: #0f172a;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .image-upload-area:hover {
+            border-color: var(--brand-red);
+            background: var(--brand-grey);
+        }
+
+        .image-upload-area.has-image {
+            padding: 0;
+            border-style: solid;
+        }
+
+        .thumbnail-upload {
+            max-width: 250px;
+            aspect-ratio: 1;
+            min-height: auto;
+        }
+
+        .upload-placeholder {
+            color: #64748b;
+        }
+
+        .upload-placeholder span {
+            font-size: 48px;
+            display: block;
+            margin-bottom: 12px;
+        }
+
+        .upload-placeholder p {
+            margin-bottom: 4px;
+        }
+
+        .upload-placeholder small {
+            font-size: 12px;
+            color: #475569;
+        }
+
+        .image-preview {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .clear-image-btn {
+            margin-top: 8px;
+            padding: 8px 16px;
+            background: transparent;
+            border: 1px solid #7f1d1d;
+            color: #fca5a5;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+        }
+
+        .clear-image-btn:hover {
+            background: #7f1d1d;
+            color: #fecaca;
+        }
+
+        /* Drag and drop states */
+        .image-upload-area.dragover {
+            border-color: var(--brand-red);
+            background: var(--brand-grey);
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Password Gate -->
+    <div class="password-gate" id="passwordGate">
+        <div class="password-box">
+            <img src="../../attached_assets/why-racing-logo.png" alt="Why Racing Logo" class="logo-placeholder">
+            <h1>Race Admin Panel</h1>
+            <p>Enter password to access the dashboard</p>
+            <input type="password" id="passwordInput" placeholder="Password"
+                onkeypress="if(event.key==='Enter')checkPassword()">
+            <button onclick="checkPassword()">Enter Dashboard</button>
+            <p class="password-error" id="passwordError">Incorrect password. Try again.</p>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard -->
+    <div class="admin-dashboard" id="adminDashboard">
+        <header class="admin-header">
+            <div style="display: flex; align-items: center; gap: 15px;">
+                <img src="../../attached_assets/why-racing-logo.png" alt="Why Racing Logo" style="height: 50px;">
+                <h1>Events Admin</h1>
+            </div>
+            <button class="logout-btn" onclick="logout()">Logout</button>
+        </header>
+
+        <!-- Tabs -->
+        <div class="tabs">
+            <button class="tab-btn active" onclick="switchTab('races')">All Races</button>
+            <button class="tab-btn" onclick="switchTab('add')">+ Add New Race</button>
+        </div>
+
+        <!-- Tab: Race List -->
+        <div class="tab-content active" id="tab-races">
+            <div class="race-list" id="raceList">
+                <!-- Populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Tab: Add/Edit Race -->
+        <div class="tab-content" id="tab-add">
+            <form id="raceForm">
+
+                <!-- Visibility & Status -->
+                <div class="form-section">
+                    <h2>📋 Visibility & Status</h2>
+                    <div class="checkbox-group">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="isActive" checked>
+                            <span>Race visible on site</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="registrationOpen">
+                            <span>Registration open</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="isFeatured">
+                            <span>Featured on homepage</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="waitlistEnabled">
+                            <span>Waitlist enabled when full</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- Basic Info -->
+                <div class="form-section">
+                    <h2>📝 Basic Information</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="raceName">Race Name *</label>
+                            <input type="text" id="raceName" name="raceName" placeholder="e.g., Haunted Half Marathon"
+                                required>
+                        </div>
+                        <div class="form-group">
+                            <label for="raceDate">Race Date *</label>
+                            <input type="date" id="raceDate" name="raceDate" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="raceTime">Start Time</label>
+                            <input type="time" id="raceTime" name="raceTime">
+                        </div>
+                        <div class="form-group">
+                            <label for="raceType">Race Type</label>
+                            <select id="raceType" name="raceType">
+                                <option value="running">Running</option>
+                                <option value="trail">Trail Running</option>
+                                <option value="triathlon">Triathlon</option>
+                                <option value="duathlon">Duathlon</option>
+                                <option value="kids">Kids Race</option>
+                                <option value="virtual">Virtual</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="venue">Venue Name</label>
+                            <input type="text" id="venue" name="venue" placeholder="e.g., Lacamas Lake Regional Park">
+                        </div>
+                        <div class="form-group">
+                            <label for="address">Address</label>
+                            <input type="text" id="address" name="address" placeholder="Street address">
+                        </div>
+                        <div class="form-group">
+                            <label for="city">City</label>
+                            <input type="text" id="city" name="city" placeholder="e.g., Camas">
+                        </div>
+                        <div class="form-group">
+                            <label for="state">State</label>
+                            <select id="state" name="state">
+                                <option value="WA">Washington</option>
+                                <option value="OR">Oregon</option>
+                                <option value="ID">Idaho</option>
+                            </select>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="tagline">Short Tagline</label>
+                            <input type="text" id="tagline" name="tagline"
+                                placeholder="e.g., The spookiest run in the Pacific Northwest!" maxlength="100">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="description">Full Description</label>
+                            <textarea id="description" name="description"
+                                placeholder="Describe the race experience, what makes it special, the course, atmosphere, etc."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="registrationUrl">Registration URL (RunSignUp, etc.)</label>
+                            <input type="url" id="registrationUrl" name="registrationUrl"
+                                placeholder="https://runsignup.com/Race/WA/Vancouver/YourRaceName">
+                            <small style="color: #888; display: block; margin-top: 4px;">Paste the full URL where
+                                participants can register</small>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Distances & Pricing -->
+                <div class="form-section">
+                    <h2>🏅 Distances & Pricing</h2>
+                    <div class="distance-list" id="distanceList">
+                        <div class="distance-item">
+                            <div>
+                                <label>Distance Type</label>
+                                <select name="distanceName[]" onchange="autoFillDistance(this)"
+                                    style="width: 100%; padding: 10px; border: 1px solid #444; border-radius: 6px; background: #333; color: white;">
+                                    <option value="">-- Select Distance --</option>
+                                    <option value="5K">5K</option>
+                                    <option value="10K">10K</option>
+                                    <option value="15K">15K</option>
+                                    <option value="Half Marathon">Half Marathon</option>
+                                    <option value="Marathon">Marathon</option>
+                                    <option value="50K Ultra">50K Ultra</option>
+                                    <option value="100K Ultra">100K Ultra</option>
+                                    <option value="100 Mile">100 Mile</option>
+                                    <option value="Kids Run">Kids Run</option>
+                                    <option value="1 Mile">1 Mile</option>
+                                    <option value="Sprint Triathlon">Sprint Triathlon</option>
+                                    <option value="Olympic Triathlon">Olympic Triathlon</option>
+                                    <option value="Half Ironman">Half Ironman</option>
+                                    <option value="Trail Run">Trail Run</option>
+                                    <option value="Virtual">Virtual</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label>Distance Value</label>
+                                <input type="text" name="distanceValue[]" placeholder="e.g., 3.1 miles">
+                            </div>
+                            <div>
+                                <label>Capacity</label>
+                                <input type="number" name="distanceCapacity[]" placeholder="500">
+                            </div>
+                            <div>
+                                <label>Base Price</label>
+                                <input type="number" name="distancePrice[]" placeholder="75" step="0.01">
+                            </div>
+                            <button type="button" class="remove-distance" onclick="removeDistance(this)">×</button>
+                        </div>
+                    </div>
+                    <button type="button" class="add-distance" onclick="addDistance()">+ Add Another Distance</button>
+                </div>
+
+                <!-- Pricing Tiers -->
+                <div class="form-section">
+                    <h2>💰 Pricing Tiers</h2>
+                    <div class="pricing-tier">
+                        <h4>🐦 Early Bird</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Discount Amount ($)</label>
+                                <input type="number" name="earlyBirdDiscount" placeholder="15" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="date" name="earlyBirdStart">
+                            </div>
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="date" name="earlyBirdEnd">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="pricing-tier">
+                        <h4>⏰ Late Registration</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label>Surcharge Amount ($)</label>
+                                <input type="number" name="lateSurcharge" placeholder="10" step="0.01">
+                            </div>
+                            <div class="form-group">
+                                <label>Start Date</label>
+                                <input type="date" name="lateStart">
+                            </div>
+                            <div class="form-group">
+                                <label>End Date</label>
+                                <input type="date" name="lateEnd">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Registration Settings -->
+                <div class="form-section">
+                    <h2>📅 Registration Settings</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="regOpen">Registration Opens</label>
+                            <input type="datetime-local" id="regOpen" name="regOpen">
+                        </div>
+                        <div class="form-group">
+                            <label for="regClose">Registration Closes</label>
+                            <input type="datetime-local" id="regClose" name="regClose">
+                        </div>
+                        <div class="form-group">
+                            <label for="maxParticipants">Total Max Participants</label>
+                            <input type="number" id="maxParticipants" name="maxParticipants" placeholder="1000">
+                        </div>
+                        <div class="form-group">
+                            <label for="minAge">Minimum Age</label>
+                            <input type="number" id="minAge" name="minAge" placeholder="0">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="refundPolicy">Transfer/Refund Policy</label>
+                            <textarea id="refundPolicy" name="refundPolicy"
+                                placeholder="Describe your transfer and refund policies..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Course & Logistics -->
+                <div class="form-section">
+                    <h2>🗺️ Course & Logistics</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="surfaceType">Surface Type</label>
+                            <select id="surfaceType" name="surfaceType">
+                                <option value="road">Road</option>
+                                <option value="trail">Trail</option>
+                                <option value="mixed">Mixed</option>
+                                <option value="track">Track</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="elevation">Elevation Gain</label>
+                            <input type="text" id="elevation" name="elevation" placeholder="e.g., 500 ft">
+                        </div>
+                        <div class="form-group">
+                            <label for="courseMap">Course Map (upload)</label>
+                            <input type="file" id="courseMap" name="courseMap" accept="image/*,.pdf">
+                        </div>
+                        <div class="form-group">
+                            <label for="elevationProfile">Elevation Profile (upload)</label>
+                            <input type="file" id="elevationProfile" name="elevationProfile" accept="image/*">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="aidStations">Aid Station Information</label>
+                            <textarea id="aidStations" name="aidStations"
+                                placeholder="Describe aid station locations and what's available..."></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="parking">Parking Details</label>
+                            <textarea id="parking" name="parking"
+                                placeholder="Where can participants park? Cost? Shuttle info?"></textarea>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="packetPickup">Packet Pickup Info</label>
+                            <textarea id="packetPickup" name="packetPickup"
+                                placeholder="When and where is packet pickup? Race morning option?"></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- What's Included -->
+                <div class="form-section">
+                    <h2>🎁 What's Included</h2>
+                    <div class="included-items">
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="shirt">
+                            <span>Race Shirt</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="medal">
+                            <span>Finisher Medal</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="bib">
+                            <span>Race Bib</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="timing">
+                            <span>Chip Timing</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="food">
+                            <span>Post-Race Food</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="beer">
+                            <span>Post-Race Beer</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="photos">
+                            <span>Free Race Photos</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="bag">
+                            <span>Swag Bag</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="shuttle">
+                            <span>Shuttle Service</span>
+                        </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="includes[]" value="cert">
+                            <span>Finisher Certificate</span>
+                        </label>
+                    </div>
+                    <div class="form-grid" style="margin-top: 20px;">
+                        <div class="form-group full-width">
+                            <label for="shirtSizes">T-Shirt Sizes Available</label>
+                            <div class="checkbox-group">
+                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
+                                        value="XS"><span>XS</span></label>
+                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
+                                        value="S"><span>S</span></label>
+                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="M"
+                                        checked><span>M</span></label>
+                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="L"
+                                        checked><span>L</span></label>
+                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="XL"
+                                        checked><span>XL</span></label>
+                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
+                                        value="2XL"><span>2XL</span></label>
+                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
+                                        value="3XL"><span>3XL</span></label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charity -->
+                <div class="form-section">
+                    <h2>❤️ Charity & Cause</h2>
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="charityName">Benefiting Charity</label>
+                            <input type="text" id="charityName" name="charityName"
+                                placeholder="e.g., Clark County Food Bank">
+                        </div>
+                        <div class="form-group">
+                            <label for="charityAmount">Donation per Registration ($)</label>
+                            <input type="number" id="charityAmount" name="charityAmount" placeholder="5" step="0.01">
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="charityDescription">Charity Description</label>
+                            <textarea id="charityDescription" name="charityDescription"
+                                placeholder="Tell participants about the cause..."></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Media -->
+                <div class="form-section">
+                    <h2>📸 Media</h2>
+
+                    <!-- YouTube Video -->
+                    <div class="media-block">
+                        <h4>🎬 Race Video</h4>
+                        <p class="media-hint">Paste a YouTube link to feature on the race page</p>
+                        <div class="form-group">
+                            <label for="youtubeUrl">YouTube URL</label>
+                            <div class="input-with-button">
+                                <input type="url" id="youtubeUrl" name="youtubeUrl"
+                                    placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/...">
+                                <button type="button" class="preview-btn" onclick="previewYouTube()">Preview</button>
+                            </div>
+                        </div>
+                        <div class="youtube-preview" id="youtubePreview">
+                            <div class="youtube-placeholder">
+                                <span>🎬</span>
+                                <p>YouTube preview will appear here</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hero/Background Image -->
+                    <div class="media-block">
+                        <h4>🖼️ Hero Background Image</h4>
+                        <p class="media-hint">Main banner image for the race page (recommended: 1920x1080)</p>
+                        <div class="form-group">
+                            <div class="image-upload-area" id="heroUploadArea"
+                                onclick="document.getElementById('heroImage').click()">
+                                <input type="file" id="heroImage" name="heroImage" accept="image/*"
+                                    onchange="previewImage(this, 'heroPreview')" hidden>
+                                <div class="upload-placeholder" id="heroPlaceholder">
+                                    <span>📁</span>
+                                    <p>Click to upload or drag & drop</p>
+                                    <small>PNG, JPG, WebP up to 10MB</small>
+                                </div>
+                                <img id="heroPreview" class="image-preview" style="display: none;">
+                            </div>
+                            <button type="button" class="clear-image-btn" onclick="clearImage('hero')"
+                                style="display: none;" id="heroClearBtn">✕ Remove Image</button>
+                        </div>
+                    </div>
+
+                    <!-- Thumbnail Image -->
+                    <div class="media-block">
+                        <h4>🏷️ Race Thumbnail</h4>
+                        <p class="media-hint">Square image for race cards and listings (recommended: 800x800)</p>
+                        <div class="form-group">
+                            <div class="image-upload-area thumbnail-upload" id="thumbnailUploadArea"
+                                onclick="document.getElementById('thumbnailImage').click()">
+                                <input type="file" id="thumbnailImage" name="thumbnailImage" accept="image/*"
+                                    onchange="previewImage(this, 'thumbnailPreview')" hidden>
+                                <div class="upload-placeholder" id="thumbnailPlaceholder">
+                                    <span>📁</span>
+                                    <p>Click to upload</p>
+                                    <small>Square image</small>
+                                </div>
+                                <img id="thumbnailPreview" class="image-preview" style="display: none;">
+                            </div>
+                            <button type="button" class="clear-image-btn" onclick="clearImage('thumbnail')"
+                                style="display: none;" id="thumbnailClearBtn">✕ Remove</button>
+                        </div>
+                    </div>
+
+                    <!-- Additional Media -->
+                    <div class="media-block">
+                        <h4>📷 Race Logo & Gallery</h4>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="logoImage">Race Logo</label>
+                                <div class="image-upload-area" id="logoUploadArea"
+                                    style="min-height: 120px; max-width: 250px;"
+                                    onclick="document.getElementById('logoImage').click()">
+                                    <input type="file" id="logoImage" name="logoImage" accept="image/*"
+                                        onchange="previewImage(this, 'logoPreview')" hidden>
+                                    <div class="upload-placeholder" id="logoPlaceholder">
+                                        <span>🎨</span>
+                                        <p>Click to upload logo</p>
+                                    </div>
+                                    <img id="logoPreview" class="image-preview"
+                                        style="display: none; object-fit: contain; padding: 10px;">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="instructionsPdf">Race Instructions (PDF)</label>
+                                <div class="image-upload-area" id="pdfUploadArea"
+                                    style="min-height: 120px; max-width: 250px;"
+                                    onclick="document.getElementById('instructionsPdf').click()">
+                                    <input type="file" id="instructionsPdf" name="instructionsPdf" accept=".pdf"
+                                        onchange="previewPDF(this)" hidden>
+                                    <div class="upload-placeholder" id="pdfPlaceholder">
+                                        <span>📄</span>
+                                        <p>Click to upload PDF instructions</p>
+                                    </div>
+                                    <div id="pdfPreview" style="display: none; padding: 10px; text-align: center;">
+                                        <span style="font-size: 40px;">PDF</span>
+                                        <p id="pdfFilename"
+                                            style="font-size: 12px; margin-top: 5px; word-break: break-all;"></p>
+                                    </div>
+                                </div>
+                                <button type="button" class="clear-image-btn" id="pdfClearBtn" onclick="clearPDF()"
+                                    style="display: none;">✕ Remove PDF</button>
+                            </div>
+                            <div class="form-group full-width">
+                                <label>Race Gallery</label>
+                                <p class="media-hint" style="margin-bottom: 15px;">Add photos to showcase your race.
+                                    Each slot can pick from a different folder.</p>
+                                <div id="gallerySlots">
+                                    <!-- Gallery slots will be added here -->
+                                </div>
+                                <button type="button" class="btn btn-secondary" onclick="addGallerySlot()"
+                                    style="margin-top: 10px;">
+                                    <span>➕</span> Add Another Image
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- AI Theme Generator -->
+                <div class="form-section ai-theme-section">
+                    <h2>✨ AI Theme Generator</h2>
+                    <p style="color: #94a3b8; margin-bottom: 16px;">Describe how you want this race page to look and
+                        feel. Our AI will generate a custom theme.</p>
+                    <div class="form-group full-width ai-prompt-area">
+                        <label for="themePrompt">Theme Description</label>
+                        <textarea id="themePrompt" name="themePrompt"
+                            placeholder="Example: Spooky Halloween theme with fog effects, orange and purple colors, gothic fonts, perfect for our October night race..."></textarea>
+                        <button type="button" class="generate-theme-btn" onclick="generateTheme()">
+                            <span>✨</span> Generate Theme
+                        </button>
+                    </div>
+
+                    <div class="theme-preview" id="themePreview">
+                        <h4>Generated Theme Preview</h4>
+                        <div class="color-swatches">
+                            <div class="color-swatch">
+                                <div class="swatch" id="primarySwatch" style="background: var(--brand-red);"></div>
+                                <label>Primary</label>
+                                <input type="text" id="primaryColor" name="primaryColor" value="#E31837"
+                                    onchange="updateSwatch('primary', this.value)">
+                            </div>
+                            <div class="color-swatch">
+                                <div class="swatch" id="secondarySwatch" style="background: #0ea5e9;"></div>
+                                <label>Secondary</label>
+                                <input type="text" id="secondaryColor" name="secondaryColor" value="#0ea5e9"
+                                    onchange="updateSwatch('secondary', this.value)">
+                            </div>
+                            <div class="color-swatch">
+                                <div class="swatch" id="accentSwatch" style="background: #22c55e;"></div>
+                                <label>Accent</label>
+                                <input type="text" id="accentColor" name="accentColor" value="#22c55e"
+                                    onchange="updateSwatch('accent', this.value)">
+                            </div>
+                            <div class="color-swatch">
+                                <div class="swatch" id="backgroundSwatch" style="background: var(--brand-dark);"></div>
+                                <label>Background</label>
+                                <input type="text" id="backgroundColor" name="backgroundColor" value="#0a0a0a"
+                                    onchange="updateSwatch('background', this.value)">
+                            </div>
+                        </div>
+                        <div class="form-grid">
+                            <div class="form-group">
+                                <label for="fontStyle">Font Style</label>
+                                <select id="fontStyle" name="fontStyle">
+                                    <option value="modern">Modern</option>
+                                    <option value="playful">Playful</option>
+                                    <option value="bold">Bold</option>
+                                    <option value="elegant">Elegant</option>
+                                    <option value="rugged">Rugged</option>
+                                    <option value="gothic">Gothic</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="mood">Mood Keywords</label>
+                                <input type="text" id="mood" name="mood" placeholder="energetic, fun, challenging">
+                            </div>
+                        </div>
+                        <div class="generated-tagline" id="generatedTagline">
+                            "Your AI-generated tagline will appear here..."
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Form Actions -->
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear Form</button>
+                    <button type="button" class="btn btn-secondary" id="viewLiveBtn" style="display: none;"
+                        onclick="window.open('../events/race-detail.html?id=' + document.getElementById('raceForm').dataset.editingId, '_blank')">View
+                        Live</button>
+                    <button type="button" class="btn btn-secondary" onclick="saveDraft()">Save as Draft</button>
+                    <button type="submit" class="btn btn-primary">Save & Publish Race</button>
+                </div>
+
+                <!-- Delete Section (only visible when editing) -->
+                <div id="deleteSection"
+                    style="display: none; margin-top: 40px; padding-top: 30px; border-top: 2px solid #ef4444;">
+                    <h4 style="color: #ef4444; margin-bottom: 15px;">⚠️ Danger Zone</h4>
+                    <p style="color: #94a3b8; margin-bottom: 15px;">Permanently delete this race and all associated
+                        data. This action cannot be undone.</p>
+
+                    <!-- Step 1: Initial Button -->
+                    <div id="deleteStep1">
+                        <button type="button" class="btn"
+                            style="background: transparent; color: #ef4444; border: 1px solid #ef4444;"
+                            onclick="showDeleteConfirm()">
+                            🗑️ Delete This Race
+                        </button>
+                    </div>
+
+                    <!-- Step 2: Confirmation Buttons -->
+                    <div id="deleteStep2"
+                        style="display: none; background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 8px; border: 1px solid #ef4444;">
+                        <p style="color: #ef4444; font-weight: 700; margin-bottom: 15px;">Are you absolutely sure? This
+                            cannot be undone.</p>
+                        <div style="display: flex; gap: 15px; align-items: center;">
+                            <button type="button" class="btn"
+                                style="background: #ef4444; color: white; border: none; font-weight: 800;"
+                                onclick="finalDeleteRace()">
+                                YES, DELETE PERMANENTLY
+                            </button>
+                            <button type="button" class="btn btn-secondary"
+                                onclick="hideDeleteConfirm()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+
+    </div>
+
+    <script>
+        // === Configuration ===
+        const ADMIN_PASSWORD = 'why26';
+        const ADMIN_SECRET = 'why2026';
+
+        // API endpoint for AI theme generation
+        const AI_ENDPOINT = '/api/generate-theme';
+        const RACES_ENDPOINT = '/api/races';
+
+        // === Password Protection ===
+        function checkPassword() {
+            const input = document.getElementById('passwordInput').value;
+            if (input === ADMIN_PASSWORD) {
+                sessionStorage.setItem('raceAdminAuth', 'true');
+                sessionStorage.setItem('ADMIN_SECRET', ADMIN_SECRET);
+                document.getElementById('passwordGate').style.display = 'none';
+                document.getElementById('adminDashboard').style.display = 'block';
+                loadRaces();
+            } else {
+                document.getElementById('passwordError').style.display = 'block';
+                document.getElementById('passwordInput').value = '';
+            }
+        }
+
+        function logout() {
+            sessionStorage.removeItem('raceAdminAuth');
+            sessionStorage.removeItem('ADMIN_SECRET');
+            document.getElementById('passwordGate').style.display = 'flex';
+            document.getElementById('adminDashboard').style.display = 'none';
+            document.getElementById('passwordInput').value = '';
+            document.getElementById('passwordError').style.display = 'none';
+        }
+
+        // Check if already authenticated
+        if (sessionStorage.getItem('raceAdminAuth') === 'true') {
+            document.getElementById('passwordGate').style.display = 'none';
+            document.getElementById('adminDashboard').style.display = 'block';
+            loadRaces();
+        }
+
+        // === Tab Navigation ===
+        function switchTab(tabName) {
+            document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+            // Handle the case where switchTab is called via onclick="(event) => switchTab(...)"
+            if (typeof event !== 'undefined' && event.target && event.target.classList.contains('tab-btn')) {
+                event.target.classList.add('active');
+            } else {
+                // Find corresponding button
+                const btns = document.querySelectorAll('.tab-btn');
+                if (tabName === 'races') btns[0].classList.add('active');
+                else if (tabName === 'add') btns[1].classList.add('active');
+            }
+
+            document.getElementById(`tab-${tabName}`).classList.add('active');
+        }
+
+        // === Race List ===
+        let races = [];
+
+        async function loadRaces() {
+            try {
+                const response = await fetch(RACES_ENDPOINT, {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
+                    }
+                });
+                if (response.ok) {
+                    races = await response.json();
+                    renderRaceList();
+                }
+            } catch (error) {
+                console.error('Failed to load races:', error);
+            }
+        }
+
+        function renderRaceList() {
+            const list = document.getElementById('raceList');
+            if (races.length === 0) {
+                list.innerHTML = '<p style="text-align: center; color: #94a3b8; padding: 40px;">No races found. Add your first race!</p>';
+                return;
+            }
+
+            const today = new Date().toISOString().split('T')[0];
+
+            list.innerHTML = races.map(race => {
+                const isPastDraft = race.status === 'draft' && race.race_date && race.race_date < today;
+                const readyBadge = isPastDraft ? '<span style="background: #f59e0b; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">📅 Ready to Update</span>' : '';
+
+                return `
+        <div class="race-card" style="${isPastDraft ? 'border-left: 3px solid #f59e0b;' : ''}">
+          <div class="race-card-info">
+            <h3>${race.name}${readyBadge}</h3>
+            <p>${formatDate(race.race_date)} • ${race.city || ''}, ${race.state || 'WA'}</p>
+          </div>
+          <div class="race-card-status">
+            <span class="status-badge status-${race.status}">${race.status}</span>
+            <a href="../events/race-detail.html?id=${race.id}" target="_blank" class="edit-btn" style="text-decoration: none; border-color: #475569; color: #94a3b8;">View Live</a>
+            <button class="edit-btn" onclick="editRace('${race.id}')">Edit</button>
+          </div>
+        </div>
+      `;
+            }).join('');
+        }
+
+        function formatDate(dateStr) {
+            if (!dateStr) return 'TBA';
+            return new Date(dateStr).toLocaleDateString('en-US', {
+                weekday: 'short',
+                month: 'short',
+                day: 'numeric',
+                year: 'numeric'
+            });
+        }
+
+        function editRace(id) {
+            const race = races.find(r => r.id === id);
+            if (!race) return;
+
+            switchTab('add');
+
+            const form = document.getElementById('raceForm');
+            form.dataset.editingId = id;
+
+            // Fill basic info
+            form.raceName.value = race.name || '';
+            form.raceDate.value = race.race_date || '';
+            form.raceTime.value = race.race_time || '';
+            form.raceType.value = race.race_type || 'running';
+            form.venue.value = race.venue || '';
+            form.address.value = race.address || '';
+            form.city.value = race.city || '';
+            form.state.value = race.state || 'WA';
+            form.tagline.value = race.tagline || '';
+            form.description.value = race.description || '';
+            form.registrationUrl.value = race.registration_url || '';
+
+            // YouTube URL
+            if (form.youtubeUrl) form.youtubeUrl.value = race.youtube_url || '';
+
+            // Course Details
+            if (form.terrain) form.terrain.value = race.terrain || '';
+            if (form.elevation) form.elevation.value = race.elevation || '';
+            if (form.aidStations) form.aidStations.value = race.aid_stations || '';
+            if (form.parking) form.parking.value = race.parking || '';
+            if (form.packetPickup) form.packetPickup.value = race.packet_pickup || '';
+
+            // Charity
+            if (form.charityName) form.charityName.value = race.charity_name || '';
+            if (form.charityDescription) form.charityDescription.value = race.charity_description || '';
+            if (form.charityAmount) form.charityAmount.value = race.charity_percent || '';
+
+            form.isActive.checked = race.is_visible;
+            form.registrationOpen.checked = race.registration_open;
+            form.isFeatured.checked = race.is_featured;
+            form.waitlistEnabled.checked = race.waitlist_enabled;
+
+            // Show View Live button and Delete section
+            document.getElementById('viewLiveBtn').style.display = 'inline-block';
+            document.getElementById('deleteSection').style.display = 'block';
+
+            // What's Included checkboxes
+            const includes = race.includes || [];
+            document.querySelectorAll('input[name="includes[]"]').forEach(cb => {
+                cb.checked = includes.includes(cb.value);
+            });
+
+            // Shirt Sizes checkboxes
+            const shirtSizes = race.shirt_sizes || [];
+            document.querySelectorAll('input[name="shirtSizes[]"]').forEach(cb => {
+                cb.checked = shirtSizes.includes(cb.value);
+            });
+
+            // Handle distances
+            const distanceList = document.getElementById('distanceList');
+            distanceList.innerHTML = '';
+            if (race.race_distances && race.race_distances.length > 0) {
+                race.race_distances.forEach(d => {
+                    addDistanceWithValue(d.name, d.distance_value, d.capacity, d.base_price, d.start_time);
+                });
+            } else {
+                addDistance();
+            }
+
+            // Handle PDF
+            if (race.instructions_pdf_url) {
+                const pdfPreview = document.getElementById('pdfPreview');
+                const pdfPlaceholder = document.getElementById('pdfPlaceholder');
+                const pdfFilename = document.getElementById('pdfFilename');
+                const pdfUploadArea = document.getElementById('pdfUploadArea');
+                const pdfClearBtn = document.getElementById('pdfClearBtn');
+
+                pdfPreview.style.display = 'block';
+                pdfPlaceholder.style.display = 'none';
+                pdfFilename.textContent = 'Existing PDF Instructions';
+                pdfUploadArea.classList.add('has-image');
+                pdfClearBtn.style.display = 'inline-block';
+            }
+
+            // Handle Images
+            if (race.hero_image_url) {
+                const preview = document.getElementById('heroPreview');
+                preview.src = race.hero_image_url;
+                preview.style.display = 'block';
+                document.getElementById('heroPlaceholder').style.display = 'none';
+                document.getElementById('heroUploadArea').classList.add('has-image');
+                document.getElementById('heroClearBtn').style.display = 'inline-block';
+            }
+            if (race.thumbnail_url) {
+                const preview = document.getElementById('thumbnailPreview');
+                preview.src = race.thumbnail_url;
+                preview.style.display = 'block';
+                document.getElementById('thumbnailPlaceholder').style.display = 'none';
+                document.getElementById('thumbnailUploadArea').classList.add('has-image');
+                document.getElementById('thumbnailClearBtn').style.display = 'inline-block';
+            }
+
+            // Handle Logo & Gallery hints
+            if (race.logo_url) {
+                const preview = document.getElementById('logoPreview');
+                preview.src = race.logo_url;
+                preview.style.display = 'block';
+                document.getElementById('logoPlaceholder').style.display = 'none';
+                document.getElementById('logoUploadArea').classList.add('has-image');
+                document.getElementById('logoClearBtn').style.display = 'inline-block';
+            }
+            if (race.gallery_images && race.gallery_images.length > 0) {
+                const slotsContainer = document.getElementById('gallerySlots');
+                slotsContainer.innerHTML = '';
+                race.gallery_images.forEach((url, index) => {
+                    addGallerySlotWithImage(url, index);
+                });
+            } else {
+                // Add one empty slot by default
+                document.getElementById('gallerySlots').innerHTML = '';
+                addGallerySlot();
+            }
+
+            // Handle Theme
+            if (race.theme_config) {
+                updateThemeFields(race.theme_config);
+            }
+        }
+
+        function addDistanceWithValue(name = '', distance = '', capacity = '', price = '', startTime = '') {
+            // Convert null/undefined to empty strings for form inputs
+            name = name ?? '';
+            distance = distance ?? '';
+            capacity = (capacity === null || capacity === undefined) ? '' : capacity;
+            price = (price === null || price === undefined) ? '' : price;
+            startTime = startTime ?? '';
+
+            const list = document.getElementById('distanceList');
+            const item = document.createElement('div');
+            item.className = 'distance-item';
+
+            const distanceOptions = [
+                { value: '', label: '-- Select Distance --' },
+                { value: '5K', label: '5K' },
+                { value: '10K', label: '10K' },
+                { value: '15K', label: '15K' },
+                { value: 'Half Marathon', label: 'Half Marathon' },
+                { value: 'Marathon', label: 'Marathon' },
+                { value: '50K Ultra', label: '50K Ultra' },
+                { value: '100K Ultra', label: '100K Ultra' },
+                { value: '100 Mile', label: '100 Mile' },
+                { value: 'Kids Run', label: 'Kids Run' },
+                { value: '1 Mile', label: '1 Mile' },
+                { value: 'Sprint Triathlon', label: 'Sprint Triathlon' },
+                { value: 'Olympic Triathlon', label: 'Olympic Triathlon' },
+                { value: 'Half Ironman', label: 'Half Ironman' },
+                { value: 'Trail Run', label: 'Trail Run' },
+                { value: 'Virtual', label: 'Virtual' }
+            ];
+
+            const optionsHtml = distanceOptions.map(opt =>
+                `<option value="${opt.value}" ${opt.value === name ? 'selected' : ''}>${opt.label}</option>`
+            ).join('');
+
+            item.innerHTML = `
+        <div>
+          <label>Distance Type</label>
+          <select name="distanceName[]" onchange="autoFillDistance(this)" style="width: 100%; padding: 10px; border: 1px solid #444; border-radius: 6px; background: #333; color: white;">
+            ${optionsHtml}
+          </select>
+        </div>
+        <div>
+          <label>Distance Value</label>
+          <input type="text" name="distanceValue[]" value="${distance}" placeholder="e.g., 3.1 miles">
+        </div>
+        <div>
+          <label>Capacity</label>
+          <input type="number" name="distanceCapacity[]" value="${capacity}" placeholder="500">
+        </div>
+        <div>
+          <label>Base Price</label>
+          <input type="number" name="distancePrice[]" value="${price}" placeholder="75" step="0.01">
+        </div>
+        <div>
+          <label>Start Time</label>
+          <input type="time" name="distanceStartTime[]" value="${startTime}">
+        </div>
+        <button type="button" class="remove-distance" onclick="removeDistance(this)">×</button>
+      `;
+            list.appendChild(item);
+        }
+
+        // === Distance Repeater ===
+        function addDistance() {
+            addDistanceWithValue();
+        }
+
+        function removeDistance(btn) {
+            const items = document.querySelectorAll('.distance-item');
+            if (items.length > 1) {
+                btn.parentElement.remove();
+            }
+        }
+
+        // Standard distance values - auto-fills when distance type is selected
+        const distanceValues = {
+            '5K': '3.1 miles',
+            '10K': '6.2 miles',
+            '15K': '9.3 miles',
+            'Half Marathon': '13.1 miles',
+            'Marathon': '26.2 miles',
+            '50K Ultra': '31.1 miles',
+            '100K Ultra': '62.1 miles',
+            '100 Mile': '100 miles',
+            '1 Mile': '1 mile',
+            'Kids Run': '', // Variable - user enters
+            'Sprint Triathlon': '', // Variable
+            'Olympic Triathlon': '', // Variable
+            'Half Ironman': '70.3 miles total',
+            'Trail Run': '', // Variable
+            'Virtual': '' // Variable
+        };
+
+        // Auto-fill distance value when distance type is selected
+        function autoFillDistance(selectElement) {
+            const distanceItem = selectElement.closest('.distance-item');
+            const valueInput = distanceItem.querySelector('input[name="distanceValue[]"]');
+            const selectedDistance = selectElement.value;
+
+            if (distanceValues[selectedDistance]) {
+                valueInput.value = distanceValues[selectedDistance];
+            } else if (selectedDistance === '') {
+                valueInput.value = '';
+            }
+            // If no preset value, leave the field as-is (user can enter custom)
+        }
+
+
+        // === AI Theme Generator ===
+        async function generateTheme() {
+            const prompt = document.getElementById('themePrompt').value;
+            if (!prompt.trim()) {
+                alert('Please describe how you want the race themed.');
+                return;
+            }
+
+            const btn = document.querySelector('.generate-theme-btn');
+            btn.classList.add('loading');
+            btn.innerHTML = '<span>⏳</span> Generating...';
+
+            try {
+                const response = await fetch(AI_ENDPOINT, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt })
+                });
+
+                if (response.ok) {
+                    const theme = await response.json();
+                    updateThemeFields(theme);
+                } else {
+                    throw new Error('Theme generation failed');
+                }
+            } catch (error) {
+                console.error('Theme generation failed:', error);
+                alert('Failed to generate theme. Fallback applied.');
+            }
+
+            btn.classList.remove('loading');
+            btn.innerHTML = '<span>✨</span> Generate Theme';
+        }
+
+        function updateThemeFields(theme) {
+            document.getElementById('primaryColor').value = theme.primaryColor;
+            document.getElementById('secondaryColor').value = theme.secondaryColor;
+            document.getElementById('accentColor').value = theme.accentColor;
+            document.getElementById('backgroundColor').value = theme.backgroundColor;
+            document.getElementById('fontStyle').value = theme.fontStyle;
+            document.getElementById('mood').value = theme.mood;
+            document.getElementById('generatedTagline').textContent = `"${theme.tagline || ''}"`;
+
+            updateSwatch('primary', theme.primaryColor);
+            updateSwatch('secondary', theme.secondaryColor);
+            updateSwatch('accent', theme.accentColor);
+            updateSwatch('background', theme.backgroundColor);
+
+            document.getElementById('themePreview').classList.add('visible');
+        }
+
+        function updateSwatch(name, color) {
+            const swatch = document.getElementById(`${name}Swatch`);
+            if (swatch) swatch.style.backgroundColor = color;
+        }
+
+        // === Form Actions ===
+        function clearForm() {
+            if (confirm('Clear all form data?')) {
+                const form = document.getElementById('raceForm');
+                form.reset();
+                delete form.dataset.editingId;
+                document.getElementById('viewLiveBtn').style.display = 'none';
+                document.getElementById('deleteSection').style.display = 'none';
+                document.getElementById('themePreview').classList.remove('visible');
+                clearImage('hero');
+                clearImage('thumbnail');
+            }
+        }
+
+        // === Delete Functions ===
+        function showDeleteConfirm() {
+            document.getElementById('deleteStep1').style.display = 'none';
+            document.getElementById('deleteStep2').style.display = 'block';
+        }
+
+        function hideDeleteConfirm() {
+            document.getElementById('deleteStep1').style.display = 'block';
+            document.getElementById('deleteStep2').style.display = 'none';
+        }
+
+        async function finalDeleteRace() {
+            const form = document.getElementById('raceForm');
+            const editingId = form.dataset.editingId;
+
+            if (!editingId) return;
+
+            try {
+                const response = await fetch(`/api/races/${editingId}`, {
+                    method: 'DELETE',
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
+                    }
+                });
+
+                if (response.ok) {
+                    alert('Race deleted permanently.');
+                    // Manually clear form elements and hide sections
+                    form.reset();
+                    delete form.dataset.editingId;
+                    document.getElementById('viewLiveBtn').style.display = 'none';
+                    document.getElementById('deleteSection').style.display = 'none';
+                    hideDeleteConfirm(); // Reset the buttons for next time
+                    switchTab('races');
+                    loadRaces();
+                } else {
+                    const data = await response.json();
+                    alert('Failed to delete race: ' + (data.error || 'Unknown error'));
+                }
+            } catch (error) {
+                console.error('Delete error:', error);
+                alert('Failed to delete race: ' + error.message);
+            }
+        }
+
+        async function saveRace(status = 'active') {
+            const form = document.getElementById('raceForm');
+            const formData = new FormData(form);
+            const editingId = form.dataset.editingId;
+
+            // Generate a temporary ID if this is a new race
+            const raceId = editingId || 'temp-' + Date.now();
+
+            // Upload images first
+            let heroImageUrl = null;
+            let thumbnailImageUrl = null;
+
+            const heroFile = document.getElementById('heroImage').files[0];
+            const thumbnailFile = document.getElementById('thumbnailImage').files[0];
+            const pdfFile = document.getElementById('instructionsPdf')?.files[0];
+
+            if (heroFile) {
+                try {
+                    const uploadFormData = new FormData();
+                    uploadFormData.append('file', heroFile);
+                    uploadFormData.append('type', 'hero');
+                    uploadFormData.append('raceId', raceId);
+
+                    const uploadRes = await fetch('/api/races/upload', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
+                        },
+                        body: uploadFormData
+                    });
+
+                    if (uploadRes.ok) {
+                        const uploadData = await uploadRes.json();
+                        heroImageUrl = uploadData.url;
+                        console.log('Hero image uploaded:', heroImageUrl);
+                    } else {
+                        console.error('Hero upload failed:', await uploadRes.text());
+                    }
+                } catch (err) {
+                    console.error('Hero upload error:', err);
+                }
+            }
+
+            if (thumbnailFile) {
+                try {
+                    const uploadFormData = new FormData();
+                    uploadFormData.append('file', thumbnailFile);
+                    uploadFormData.append('type', 'thumbnail');
+                    uploadFormData.append('raceId', raceId);
+
+                    const uploadRes = await fetch('/api/races/upload', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
+                        },
+                        body: uploadFormData
+                    });
+
+                    if (uploadRes.ok) {
+                        const uploadData = await uploadRes.json();
+                        thumbnailImageUrl = uploadData.url;
+                        console.log('Thumbnail image uploaded:', thumbnailImageUrl);
+                    } else {
+                        console.error('Thumbnail upload failed:', await uploadRes.text());
+                    }
+                } catch (err) {
+                    console.error('Thumbnail upload error:', err);
+                }
+            }
+
+            // Upload Logo
+            let logoUrl = null;
+            const logoFile = document.getElementById('logoImage').files[0];
+            if (logoFile) {
+                try {
+                    const uploadFormData = new FormData();
+                    uploadFormData.append('file', logoFile);
+                    uploadFormData.append('type', 'logo');
+                    uploadFormData.append('raceId', raceId);
+
+                    const uploadRes = await fetch('/api/races/upload', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
+                        },
+                        body: uploadFormData
+                    });
+
+                    if (uploadRes.ok) {
+                        const uploadData = await uploadRes.json();
+                        logoUrl = uploadData.url;
+                        console.log('Logo uploaded:', logoUrl);
+                    }
+                } catch (err) {
+                    console.error('Logo upload error:', err);
+                }
+            }
+
+            // Upload Gallery Images from individual slots
+            let galleryUrls = [];
+
+            // First, collect existing gallery URLs that should be preserved
+            const existingGalleryUrls = [];
+            document.querySelectorAll('.gallery-slot').forEach(slot => {
+                const existingUrl = slot.dataset.existingUrl;
+                if (existingUrl) {
+                    existingGalleryUrls.push(existingUrl);
+                }
+            });
+
+            // Now upload any new files from slots
+            const gallerySlots = document.querySelectorAll('.gallery-slot input[type="file"]');
+            for (let i = 0; i < gallerySlots.length; i++) {
+                const input = gallerySlots[i];
+                const slot = input.closest('.gallery-slot');
+
+                // If slot has existing URL and no new file, keep the existing URL
+                if (slot.dataset.existingUrl && !input.files[0]) {
+                    galleryUrls.push(slot.dataset.existingUrl);
+                    continue;
+                }
+
+                // If there's a new file, upload it
+                if (input.files[0]) {
+                    try {
+                        console.log(`Uploading gallery image ${i}: ${input.files[0].name}`);
+
+                        const uploadFormData = new FormData();
+                        uploadFormData.append('file', input.files[0]);
+                        uploadFormData.append('type', `gallery-${i}`);
+                        uploadFormData.append('raceId', raceId);
+
+                        const uploadRes = await fetch('/api/races/upload', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
+                            },
+                            body: uploadFormData
+                        });
+
+                        if (uploadRes.ok) {
+                            const uploadData = await uploadRes.json();
+                            galleryUrls.push(uploadData.url);
+                            console.log(`Gallery image ${i} uploaded successfully:`, uploadData.url);
+                        } else {
+                            const errorText = await uploadRes.text();
+                            console.error(`Gallery image ${i} upload failed (${uploadRes.status}):`, errorText);
+                            alert(`Failed to upload gallery image ${i + 1}: ${errorText}`);
+                        }
+
+                        // Small delay between uploads to prevent rate limiting
+                        await new Promise(resolve => setTimeout(resolve, 300));
+
+                    } catch (err) {
+                        console.error(`Gallery image ${i} upload error:`, err);
+                        alert(`Error uploading gallery image ${i + 1}: ${err.message}`);
+                    }
+                }
+            }
+
+            // Upload PDF if present
+            let instructionsPdfUrl = null;
+            if (pdfFile) {
+                try {
+                    const uploadFormData = new FormData();
+                    uploadFormData.append('file', pdfFile);
+                    uploadFormData.append('type', 'instructions');
+                    uploadFormData.append('raceId', raceId);
+
+                    const uploadRes = await fetch('/api/races/upload', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
+                        },
+                        body: uploadFormData
+                    });
+
+                    if (uploadRes.ok) {
+                        const uploadData = await uploadRes.json();
+                        instructionsPdfUrl = uploadData.url;
+                        console.log('PDF uploaded:', instructionsPdfUrl);
+                    }
+                } catch (err) {
+                    console.error('PDF upload error:', err);
+                }
+            }
+
+            // Extract distances
+            const dNames = formData.getAll('distanceName[]');
+            const dValues = formData.getAll('distanceValue[]');
+            const dCapacities = formData.getAll('distanceCapacity[]');
+            const dPrices = formData.getAll('distancePrice[]');
+            const dStartTimes = formData.getAll('distanceStartTime[]');
+
+            const distances = dNames.map((name, i) => ({
+                name,
+                distance_value: dValues[i],
+                capacity: parseInt(dCapacities[i]) || null,
+                base_price: parseFloat(dPrices[i]) || 0,
+                start_time: dStartTimes[i] || null
+            })).filter(d => d.name);
+
+            const payload = {
+                name: formData.get('raceName'),
+                race_date: formData.get('raceDate'),
+                race_time: formData.get('raceTime'),
+                race_type: formData.get('raceType'),
+                venue: formData.get('venue'),
+                city: formData.get('city'),
+                state: formData.get('state'),
+                tagline: formData.get('tagline'),
+                description: formData.get('description'),
+                registration_url: formData.get('registrationUrl'),
+                youtube_url: formData.get('youtubeUrl'),
+                status: status,
+                is_visible: formData.get('isActive') === 'on',
+                registration_open: formData.get('registrationOpen') === 'on',
+                is_featured: formData.get('isFeatured') === 'on',
+                waitlist_enabled: formData.get('waitlistEnabled') === 'on',
+                // Image & PDF URLs
+                hero_image_url: heroImageUrl || (editingId ? races.find(r => r.id === editingId)?.hero_image_url : null),
+                thumbnail_url: thumbnailImageUrl || (editingId ? races.find(r => r.id === editingId)?.thumbnail_url : null),
+                logo_url: logoUrl || (editingId ? races.find(r => r.id === editingId)?.logo_url : null),
+                instructions_pdf_url: instructionsPdfUrl || (editingId ? races.find(r => r.id === editingId)?.instructions_pdf_url : null),
+                gallery_images: galleryUrls,
+                // Course Details
+                terrain: formData.get('terrain'),
+                elevation: formData.get('elevation'),
+                aid_stations: formData.get('aidStations'),
+                parking: formData.get('parking'),
+                packet_pickup: formData.get('packetPickup'),
+                // What's Included (as JSON array)
+                includes: formData.getAll('includes[]'),
+                shirt_sizes: formData.getAll('shirtSizes[]'),
+                // Charity
+                charity_name: formData.get('charityName'),
+                charity_description: formData.get('charityDescription'),
+                charity_percent: parseFloat(formData.get('charityAmount')) || null,
+                // Distances
+                distances: distances,
+                theme_config: {
+                    primaryColor: formData.get('primaryColor'),
+                    secondaryColor: formData.get('secondaryColor'),
+                    accentColor: formData.get('accentColor'),
+                    backgroundColor: formData.get('backgroundColor'),
+                    fontStyle: formData.get('fontStyle'),
+                    mood: formData.get('mood'),
+                    tagline: document.getElementById('generatedTagline').textContent.replace(/"/g, '')
+                }
+            };
+
+            try {
+                const url = editingId ? `${RACES_ENDPOINT}/${editingId}` : RACES_ENDPOINT;
+                const method = editingId ? 'PUT' : 'POST';
+                const authSecret = sessionStorage.getItem('ADMIN_SECRET') || ADMIN_SECRET;
+
+                console.log('Saving race:', { url, method, authSecret: authSecret ? 'present' : 'missing' });
+                console.log('Payload:', payload);
+
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': 'Bearer ' + authSecret
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+                console.log('Server response:', result);
+
+                if (response.ok) {
+                    alert('Race saved successfully!');
+                    if (confirm('Race saved! Would you like to view the live page?')) {
+                        window.open(`../events/race-detail.html?id=${result.id || editingId}`, '_blank');
+                    }
+                    clearForm();
+                    switchTab('races');
+                    loadRaces();
+                } else {
+                    alert('Failed to save race: ' + (result.error || 'Unknown error'));
+                }
+            } catch (e) {
+                console.error('Save error:', e);
+                alert('Error saving race: ' + e.message);
+            }
+        }
+
+        function saveDraft() {
+            saveRace('draft');
+        }
+
+        document.getElementById('raceForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+            saveRace('active');
+        });
+
+        // === YouTube Preview ===
+        function previewYouTube() {
+            const url = document.getElementById('youtubeUrl').value.trim();
+            const previewDiv = document.getElementById('youtubePreview');
+
+            if (!url) {
+                alert('Please enter a YouTube URL');
+                return;
+            }
+
+            const videoId = extractYouTubeId(url);
+
+            if (videoId) {
+                previewDiv.innerHTML = `
+          <iframe 
+            src="https://www.youtube.com/embed/${videoId}" 
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+            allowfullscreen>
+          </iframe>
+        `;
+            } else {
+                previewDiv.innerHTML = `
+          <div class="youtube-placeholder" style="color: #ef4444;">
+            <span>⚠️</span>
+            <p>Invalid YouTube URL</p>
+          </div>
+        `;
+            }
+        }
+
+        function extractYouTubeId(url) {
+            const patterns = [
+                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
+                /youtube\.com\/shorts\/([^&\n?#]+)/
+            ];
+
+            for (const pattern of patterns) {
+                const match = url.match(pattern);
+                if (match) return match[1];
+            }
+            return null;
+        }
+
+        // === Image Upload & Preview ===
+        function validateImage(file) {
+            const maxSize = 5 * 1024 * 1024; // 5MB
+            const allowedTypes = ['image/jpeg', 'image/png', 'image/webp'];
+
+            if (!allowedTypes.includes(file.type)) {
+                alert('Please use JPG, PNG, or WebP images only');
+                return false;
+            }
+
+            if (file.size > maxSize) {
+                alert('Image must be under 5MB');
+                return false;
+            }
+
+            return true;
+        }
+
+        function clearPDF() {
+            const input = document.getElementById('instructionsPdf');
+            const preview = document.getElementById('pdfPreview');
+            const placeholder = document.getElementById('pdfPlaceholder');
+            const uploadArea = document.getElementById('pdfUploadArea');
+            const clearBtn = document.getElementById('pdfClearBtn');
+
+            if (input) input.value = '';
+            if (preview) preview.style.display = 'none';
+            if (placeholder) placeholder.style.display = 'block';
+            if (uploadArea) uploadArea.classList.remove('has-image');
+            if (clearBtn) clearBtn.style.display = 'none';
+        }
+
+        function previewPDF(input) {
+            const preview = document.getElementById('pdfPreview');
+            const placeholder = document.getElementById('pdfPlaceholder');
+            const uploadArea = document.getElementById('pdfUploadArea');
+            const clearBtn = document.getElementById('pdfClearBtn');
+            const filenameLabel = document.getElementById('pdfFilename');
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (file.type !== 'application/pdf') {
+                    alert('Please select a PDF file');
+                    input.value = '';
+                    return;
+                }
+
+                filenameLabel.textContent = file.name;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+                uploadArea.classList.add('has-image');
+                clearBtn.style.display = 'inline-block';
+            }
+        }
+
+        function previewImage(input, previewId) {
+            const preview = document.getElementById(previewId);
+            const placeholder = document.getElementById(previewId.replace('Preview', 'Placeholder'));
+            const uploadArea = document.getElementById(previewId.replace('Preview', 'UploadArea'));
+            const clearBtn = document.getElementById(previewId.replace('Preview', 'ClearBtn'));
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (!validateImage(file)) {
+                    input.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    uploadArea.classList.add('has-image');
+                    clearBtn.style.display = 'inline-block';
+                };
+
+                reader.readAsDataURL(file);
+            }
+        }
+
+        function clearImage(type) {
+            const input = document.getElementById(type + 'Image');
+            const preview = document.getElementById(type + 'Preview');
+            const placeholder = document.getElementById(type + 'Placeholder');
+            const uploadArea = document.getElementById(type + 'UploadArea');
+            const clearBtn = document.getElementById(type + 'ClearBtn');
+
+            if (input) input.value = '';
+            if (preview) {
+                preview.src = '';
+                preview.style.display = 'none';
+            }
+            if (placeholder) placeholder.style.display = 'block';
+            if (uploadArea) uploadArea.classList.remove('has-image');
+            if (clearBtn) clearBtn.style.display = 'none';
+        }
+
+        // === Gallery Slot Management ===
+        let gallerySlotCounter = 0;
+
+        function addGallerySlot() {
+            const container = document.getElementById('gallerySlots');
+            const slotId = gallerySlotCounter++;
+
+            const slot = document.createElement('div');
+            slot.className = 'gallery-slot';
+            slot.id = `gallerySlot-${slotId}`;
+            slot.style.cssText = 'display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding: 15px; background: #333; border-radius: 8px; border: 1px solid #444;';
+
+            slot.innerHTML = `
+                <div class="gallery-slot-preview" style="width: 80px; height: 80px; background: #222; border-radius: 6px; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #666;">
+                    <span id="galleryPreview-${slotId}-placeholder">📷</span>
+                    <img id="galleryPreview-${slotId}" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                </div>
+                <div style="flex: 1;">
+                    <input type="file" id="galleryFile-${slotId}" accept="image/*" onchange="previewGalleryImage(this, ${slotId})" style="width: 100%;">
+                </div>
+                <button type="button" onclick="removeGallerySlot(${slotId})" style="background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px;">✕</button>
+            `;
+
+            container.appendChild(slot);
+        }
+
+        function addGallerySlotWithImage(existingUrl, index) {
+            const container = document.getElementById('gallerySlots');
+            const slotId = gallerySlotCounter++;
+
+            const slot = document.createElement('div');
+            slot.className = 'gallery-slot';
+            slot.id = `gallerySlot-${slotId}`;
+            slot.dataset.existingUrl = existingUrl;
+            slot.style.cssText = 'display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding: 15px; background: #333; border-radius: 8px; border: 1px solid #444;';
+
+            slot.innerHTML = `
+                <div class="gallery-slot-preview" style="width: 80px; height: 80px; background: #222; border-radius: 6px; overflow: hidden; flex-shrink: 0;">
+                    <img id="galleryPreview-${slotId}" src="${existingUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <div style="flex: 1;">
+                    <input type="file" id="galleryFile-${slotId}" accept="image/*" onchange="previewGalleryImage(this, ${slotId})" style="width: 100%;">
+                    <small style="color: #888; display: block; margin-top: 5px;">Current image saved. Select new file to replace.</small>
+                </div>
+                <button type="button" onclick="removeGallerySlot(${slotId})" style="background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px;">✕</button>
+            `;
+
+            container.appendChild(slot);
+        }
+
+        function removeGallerySlot(slotId) {
+            const slot = document.getElementById(`gallerySlot-${slotId}`);
+            if (slot) {
+                slot.remove();
+            }
+            // Add empty slot if none left
+            if (document.querySelectorAll('.gallery-slot').length === 0) {
+                addGallerySlot();
+            }
+        }
+
+        function previewGalleryImage(input, slotId) {
+            const preview = document.getElementById(`galleryPreview-${slotId}`);
+            const placeholder = document.getElementById(`galleryPreview-${slotId}-placeholder`);
+            const slot = document.getElementById(`gallerySlot-${slotId}`);
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (!validateImage(file)) {
+                    input.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    if (placeholder) placeholder.style.display = 'none';
+                    // Clear existing URL since we're replacing
+                    delete slot.dataset.existingUrl;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Initialize with one empty slot on page load
+        document.addEventListener('DOMContentLoaded', function () {
+            if (document.getElementById('gallerySlots') && document.querySelectorAll('.gallery-slot').length === 0) {
+                addGallerySlot();
+            }
+        });
+
+        // === Drag and Drop ===
+        ['hero', 'thumbnail', 'logo', 'gallery'].forEach(type => {
+            const uploadArea = document.getElementById(type + 'UploadArea');
+
+            if (uploadArea) {
+                uploadArea.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.add('dragover');
+                });
+
+                uploadArea.addEventListener('dragleave', () => {
+                    uploadArea.classList.remove('dragover');
+                });
+
+                uploadArea.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    uploadArea.classList.remove('dragover');
+
+                    const files = e.dataTransfer.files;
+                    if (files.length > 0 && files[0].type.startsWith('image/')) {
+                        const input = document.getElementById(type + 'Image' + (type === 'gallery' ? 's' : ''));
+                        input.files = files;
+
+                        if (type === 'gallery') {
+                            previewMultipleImages(input, 'galleryPreviewGrid');
+                        } else {
+                            previewImage(input, type + 'Preview');
+                        }
+                    }
+                });
+            }
+        });
+    </script>
+
+</body>
+
+</html>

@@ -1,0 +1,1137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2026 Race Calendar | Why Racing Events</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --brand-red: #E31837;
+            --brand-blue: #000000;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f4f4f4;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--light);
+            color: #333;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(227, 24, 55, 0.95) 100%);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo {
+            overflow: visible;
+            padding: 10px 0;
+            text-decoration: none;
+        }
+
+        .logo img {
+            height: 45px;
+            filter: brightness(0) invert(1);
+        }
+
+        /* SPONSOR TICKER */
+        .sponsor-ticker {
+            background: white;
+            padding: 40px 0;
+            overflow: hidden;
+            white-space: nowrap;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .sponsor-ticker-label {
+            text-align: center;
+            font-size: 15px;
+            color: #888;
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            margin-bottom: 25px;
+        }
+
+        .sponsor-track {
+            display: inline-block;
+            animation: sponsorScroll 30s linear infinite;
+        }
+
+        .sponsor-track img {
+            height: 62.5px;
+            margin: 0 30px;
+            opacity: 1;
+            vertical-align: middle;
+        }
+
+        @keyframes sponsorScroll {
+            0% {
+                transform: translateX(-50%);
+            }
+
+            100% {
+                transform: translateX(0);
+            }
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            font-size: 13px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: white;
+            letter-spacing: 1px;
+        }
+
+        .nav-links a:hover {
+            color: var(--brand-red);
+        }
+
+        .nav-btn {
+            background: white;
+            color: var(--brand-red);
+            padding: 10px 20px;
+            border-radius: 4px;
+            font-weight: 700;
+            font-size: 12px;
+        }
+
+        .page-header {
+            background: var(--brand-blue);
+            color: white;
+            padding: 120px 5% 60px;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 3rem;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .page-header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section {
+            padding: 60px 5%;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-header h2 {
+            font-size: 2rem;
+            color: var(--brand-blue);
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .section-header p {
+            color: #666;
+            font-size: 1rem;
+        }
+
+        .event-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .event-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: 0.4s;
+            border-bottom: 4px solid transparent;
+        }
+
+        .event-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            border-bottom: 4px solid var(--brand-red);
+        }
+
+        .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card-img::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.5));
+        }
+
+        .card-tag {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--brand-red);
+            color: white;
+            padding: 6px 14px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: 4px;
+            z-index: 2;
+        }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-date {
+            color: #888;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            line-height: 1.1;
+            margin-bottom: 12px;
+            color: var(--brand-blue);
+            font-style: italic;
+        }
+
+        .card-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            padding-top: 12px;
+            border-top: 1px solid #eee;
+            flex-wrap: wrap;
+        }
+
+        .card-meta span {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: #555;
+            font-weight: 600;
+        }
+
+        .card-meta i {
+            color: var(--brand-red);
+        }
+
+        .card-cta {
+            width: 100%;
+            background: var(--brand-blue);
+            color: white;
+            border: none;
+            padding: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 12px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .card-cta:hover {
+            background: var(--brand-red);
+        }
+
+        footer {
+            background: #111;
+            color: #888;
+            padding: 50px 5%;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .footer-brand span {
+            color: var(--brand-red);
+        }
+
+        .footer-tagline {
+            margin-bottom: 25px;
+            font-style: italic;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            transition: 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: var(--brand-red);
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .footer-social a {
+            width: 40px;
+            height: 40px;
+            border: 1px solid #444;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            transition: 0.3s;
+        }
+
+        .footer-social a:hover {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+
+        .footer-copy {
+            font-size: 13px;
+            opacity: 0.5;
+        }
+
+        .filter-bar {
+            background: white;
+            padding: 20px 5%;
+            border-bottom: 1px solid #eee;
+            position: sticky;
+            top: 60px;
+            z-index: 100;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+        }
+
+        .filter-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .filter-label {
+            font-family: 'Oswald', sans-serif;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--brand-blue);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .filter-label i {
+            color: var(--brand-red);
+        }
+
+        .filter-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .filter-btn {
+            padding: 10px 18px;
+            border: 2px solid #ddd;
+            background: white;
+            border-radius: 25px;
+            font-size: 13px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: #555;
+        }
+
+        .filter-btn:hover {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+
+        .filter-btn.active {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+            color: white;
+        }
+
+        .filter-btn.all-btn {
+            background: var(--brand-blue);
+            border-color: var(--brand-blue);
+            color: white;
+        }
+
+        .filter-btn.all-btn:hover {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+            display: none;
+        }
+
+        .no-results i {
+            font-size: 3rem;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+
+        .no-results h3 {
+            color: var(--brand-blue);
+            margin-bottom: 10px;
+        }
+
+        .event-card.hidden {
+            display: none;
+        }
+
+        /* MOBILE MENU */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--brand-red);
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 2rem;
+            }
+
+            .nav-links {
+                display: none;
+            }
+
+            .hamburger {
+                display: flex;
+            }
+
+            .nav-btn {
+                display: none;
+            }
+
+            .filter-bar {
+                top: 55px;
+                padding: 15px 5%;
+            }
+
+            .filter-buttons {
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 8px 14px;
+                font-size: 12px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="../index.html" class="logo"><img src="../attached_assets/why-racing-logo_1767589311719.png"
+                alt="Why Racing Events"></a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="events.html">Races</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+        </div>
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="events.html" class="nav-btn">Find A Race</a>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">Home</a>
+        <a href="events.html">Races</a>
+        <a href="volunteers.html">Volunteer</a>
+        <a href="beneficiary.html">Give Back</a>
+        <a href="community.html">Community</a>
+        <a href="locations.html">Travel Guide</a>
+        <a href="partners.html">Sponsors</a>
+    </div>
+
+    <div class="page-header">
+        <h1>2026 Race Calendar</h1>
+        <p>21 events across the Pacific Northwest. Choose your challenge.</p>
+    </div>
+
+    <div class="sponsor-ticker">
+        <div class="sponsor-ticker-label">Proud Partners</div>
+        <div class="sponsor-track">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+        </div>
+    </div>
+
+    <div class="filter-bar">
+        <div class="filter-container">
+            <div class="filter-label"><i class="fas fa-filter"></i> Filter by Distance</div>
+            <div class="filter-buttons">
+                <button class="filter-btn all-btn active" data-filter="all">All Events</button>
+                <button class="filter-btn" data-filter="5k">5K</button>
+                <button class="filter-btn" data-filter="10k">10K</button>
+                <button class="filter-btn" data-filter="half">Half Marathon</button>
+                <button class="filter-btn" data-filter="marathon">Marathon</button>
+                <button class="filter-btn" data-filter="ultra">Ultra (25K+)</button>
+                <button class="filter-btn" data-filter="trail">Trail Run</button>
+                <button class="filter-btn" data-filter="triathlon">Triathlon</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="no-results" id="noResults">
+        <i class="fas fa-search"></i>
+        <h3>No Events Found</h3>
+        <p>Try selecting different distance filters above.</p>
+    </div>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>January - March</h2>
+            <p>Start the year strong with winter adventures</p>
+        </div>
+        <div class="event-grid">
+            <a href="events/white-river-snowshoe.html" class="event-card" data-distance="5k 10k trail">
+                <div class="card-img" style="background-image: url('../images/action/hagg-lake-run.jpg')">
+                    <span class="card-tag">Winter</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">February 7, 2026</span>
+                    <h3 class="card-title">White River Snowshoe</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-snowflake"></i> 5K / 10K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Mt. Hood, OR</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/silver-falls-trail.html" class="event-card" data-distance="10k half ultra trail">
+                <div class="card-img" style="background-image: url('../images/action/spring-classic-1.jpg')">
+                    <span class="card-tag">Trail</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">March 14, 2026</span>
+                    <h3 class="card-title">Silver Falls Trail Challenge</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-mountain"></i> 10K / Half / 25K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Silverton, OR</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/couve-clover-run.html" class="event-card" data-distance="5k 10k">
+                <div class="card-img" style="background-image: url('../images/heroes/couve-clover.jpg')">
+                    <span class="card-tag">St. Patrick's</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">March 14, 2026</span>
+                    <h3 class="card-title">Couve Clover Run</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> 5K / 10K / 15K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--grey);">
+        <div class="section-header">
+            <h2>April - June</h2>
+            <p>Spring into action with trail runs and triathlons</p>
+        </div>
+        <div class="event-grid">
+            <a href="events/crown-stub-100.html" class="event-card" data-distance="ultra trail">
+                <div class="card-img" style="background-image: url('../images/action/pro-action-3.jpg')">
+                    <span class="card-tag">Ultra</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">April 4-5, 2026</span>
+                    <h3 class="card-title">Crown Stub 100</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-mountain"></i> 50K / 100K / 100M</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Stub Stewart, OR</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/stub-stewart-trail.html" class="event-card" data-distance="10k half ultra trail">
+                <div class="card-img" style="background-image: url('../images/action/spring-classic-2.jpg')">
+                    <span class="card-tag">Trail</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">April 18, 2026</span>
+                    <h3 class="card-title">Stub Stewart Trail Challenge</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-mountain"></i> 10K / Half / 30K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Stub Stewart, OR</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/spring-classic.html" class="event-card" data-distance="5k 10k half">
+                <div class="card-img" style="background-image: url('../images/heroes/spring-classic.png')">
+                    <span class="card-tag">Road Race</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">April 25, 2026</span>
+                    <h3 class="card-title">Spring Classic</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> 5K / 10K / Half</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/reflection-run.html" class="event-card" data-distance="5k 10k">
+                <div class="card-img" style="background-image: url('../images/heroes/reflection-run.png')">
+                    <span class="card-tag">Memorial Day</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">May 23, 2026</span>
+                    <h3 class="card-title">Reflection Run</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> 5K / 10K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/pdx-triathlon-festival.html" class="event-card" data-distance="triathlon">
+                <div class="card-img" style="background-image: url('../images/heroes/pdx-triathlon.jpg')">
+                    <span class="card-tag">Triathlon</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">June 6-7, 2026</span>
+                    <h3 class="card-title">PDX Triathlon Festival</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-swimmer"></i> Sprint / Olympic / Kids</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Portland, OR</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/hagg-lake-triathlon.html" class="event-card" data-distance="triathlon">
+                <div class="card-img" style="background-image: url('../images/heroes/hagg-lake.jpg')">
+                    <span class="card-tag">Triathlon</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">June 20, 2026</span>
+                    <h3 class="card-title">Hagg Lake Triathlon</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-swimmer"></i> Sprint / Olympic</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Gaston, OR</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>July - September</h2>
+            <p>Summer racing at its finest</p>
+        </div>
+        <div class="event-grid">
+            <a href="events/bigfoot-5k-10k.html" class="event-card" data-distance="5k 10k trail">
+                <div class="card-img" style="background-image: url('../images/heroes/bigfoot.png')">
+                    <span class="card-tag">Fun Run</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">July 11, 2026</span>
+                    <h3 class="card-title">Bigfoot 5K/10K</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> 5K / 10K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Skamania, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/hellz-bellz-ultra.html" class="event-card" data-distance="ultra trail">
+                <div class="card-img" style="background-image: url('../images/action/pro-action-4.jpg')">
+                    <span class="card-tag">Ultra</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">July 25, 2026</span>
+                    <h3 class="card-title">Hellz Bellz Ultra</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-mountain"></i> 50K / 50M</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Washougal, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/columbia-river-tri.html" class="event-card" data-distance="triathlon half">
+                <div class="card-img" style="background-image: url('../images/heroes/columbia-river-tri.jpg')">
+                    <span class="card-tag">Triathlon</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">August 7-8, 2026</span>
+                    <h3 class="card-title">Columbia River Tri Festival</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-swimmer"></i> Sprint / Olympic / Half</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/girlfriends-triathlon.html" class="event-card" data-distance="triathlon">
+                <div class="card-img" style="background-image: url('../images/heroes/girlfriends-half.jpg')">
+                    <span class="card-tag">Women's</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">August 15, 2026</span>
+                    <h3 class="card-title">Girlfriends Triathlon</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-swimmer"></i> Super Sprint / Sprint</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/appletree-marathon.html" class="event-card" data-distance="5k 10k half marathon">
+                <div class="card-img" style="background-image: url('../images/action/pro-action-1.jpg')">
+                    <span class="card-tag">BQ Course</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">August 29-30, 2026</span>
+                    <h3 class="card-title">PeaceHealth Appletree Marathon</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-road"></i> 5K / 10K / Half / Full</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/pacific-coast-running.html" class="event-card" data-distance="5k 10k half">
+                <div class="card-img" style="background-image: url('../images/heroes/pacific-coast.jpg')">
+                    <span class="card-tag">Beach</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">September 12, 2026</span>
+                    <h3 class="card-title">Pacific Coast Running Festival</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> 5K / 10K / Half</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Long Beach, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/girlfriends-half.html" class="event-card" data-distance="5k 10k half">
+                <div class="card-img" style="background-image: url('../images/heroes/girlfriends-tri.png')">
+                    <span class="card-tag">Women's</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">September 26, 2026</span>
+                    <h3 class="card-title">Girlfriends Half Marathon</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> 5K / 10K / Half</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section" style="background: var(--grey);">
+        <div class="section-header">
+            <h2>October - December</h2>
+            <p>Finish the year with fall favorites and holiday races</p>
+        </div>
+        <div class="event-grid">
+            <a href="events/scary-run.html" class="event-card" data-distance="5k 10k">
+                <div class="card-img" style="background-image: url('../images/heroes/scary-run.jpg')">
+                    <span class="card-tag">Halloween</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">October 24, 2026</span>
+                    <h3 class="card-title">Scary Run</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> 5K / 10K / 15K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Washougal, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/battle-to-pacific.html" class="event-card" data-distance="ultra">
+                <div class="card-img" style="background-image: url('../images/action/pro-action-2.jpg')">
+                    <span class="card-tag">Relay</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">November 7, 2026</span>
+                    <h3 class="card-title">Battle to the Pacific</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-users"></i> 120-Mile Team Relay</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Portland to Coast</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/santas-holiday-hustle.html" class="event-card" data-distance="5k 10k">
+                <div class="card-img" style="background-image: url('../images/heroes/santa-hustle.png')">
+                    <span class="card-tag">Holiday</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">December 5, 2026</span>
+                    <h3 class="card-title">Santa's Holiday Hustle</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> 5K / 10K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+
+            <a href="events/pacific-crest-endurance.html" class="event-card" data-distance="ultra trail">
+                <div class="card-img" style="background-image: url('../images/heroes/pacific-crest.jpg')">
+                    <span class="card-tag">Ultra</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">December 12, 2026</span>
+                    <h3 class="card-title">Pacific Crest Endurance Festival</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-mountain"></i> 50K / 50M / 100K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Cascade Locks, OR</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="section-header">
+            <h2>Looking Ahead: 2027</h2>
+            <p>Get a head start on next year's resolutions</p>
+        </div>
+        <div class="event-grid">
+            <a href="events/resolution-run.html" class="event-card" data-distance="5k 10k">
+                <div class="card-img" style="background-image: url('../images/heroes/resolution-run.png')">
+                    <span class="card-tag">New Year</span>
+                </div>
+                <div class="card-body">
+                    <span class="card-date">January 1, 2027</span>
+                    <h3 class="card-title">Resolution Run</h3>
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> 5K / 10K</span>
+                        <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA</span>
+                    </div>
+                    <button class="card-cta">Secure My Spot</button>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-brand">WHY<span>RACING</span></div>
+        <div class="footer-tagline">What's Your WHY?</div>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="events.html">Races</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="beneficiary.html">Fundraising</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+        </div>
+        <div class="footer-social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="footer-copy">&copy; 2025 Why Racing Events Inc. | La Center, WA | (360) 314-4682</div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
+        document.addEventListener('DOMContentLoaded', function () {
+            var filterBtns = document.querySelectorAll('.filter-btn');
+            var eventCards = document.querySelectorAll('.event-card');
+            var noResults = document.getElementById('noResults');
+            var sections = document.querySelectorAll('.section');
+
+            filterBtns.forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    var filter = this.dataset.filter;
+
+                    filterBtns.forEach(function (b) { b.classList.remove('active'); });
+                    this.classList.add('active');
+
+                    var visibleCount = 0;
+
+                    eventCards.forEach(function (card) {
+                        var distances = card.dataset.distance || '';
+
+                        if (filter === 'all' || distances.indexOf(filter) !== -1) {
+                            card.classList.remove('hidden');
+                            visibleCount++;
+                        } else {
+                            card.classList.add('hidden');
+                        }
+                    });
+
+                    sections.forEach(function (section) {
+                        var grid = section.querySelector('.event-grid');
+                        if (grid) {
+                            var visibleCards = grid.querySelectorAll('.event-card:not(.hidden)');
+                            section.style.display = visibleCards.length === 0 ? 'none' : '';
+                        }
+                    });
+
+                    noResults.style.display = visibleCount === 0 ? 'block' : 'none';
+                });
+            });
+        });
+    </script>
+
+    <!-- Chatbot Widget -->
+    <div id="chatbot-root"></div>
+    <script src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script type="text/babel">
+        function WhyRacingChatbot() {
+            const [isOpen, setIsOpen] = React.useState(false);
+            const [messages, setMessages] = React.useState([
+                { role: 'assistant', content: "Hi! 👋 I'm your Why Racing Events assistant. Ask me about our 2026 events, registration, course records, packet pickup times, or anything else!" }
+            ]);
+            const [input, setInput] = React.useState('');
+            const [isLoading, setIsLoading] = React.useState(false);
+            const messagesEndRef = React.useRef(null);
+
+            React.useEffect(() => {
+                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+            }, [messages]);
+
+            const sendMessage = async () => {
+                if (!input.trim() || isLoading) return;
+                const userMessage = input.trim();
+                setInput('');
+                setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
+                setIsLoading(true);
+                try {
+                    const response = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ messages: [...messages.slice(1), { role: 'user', content: userMessage }] })
+                    });
+                    const data = await response.json();
+                    const assistantMessage = data.content?.[0]?.text || "Sorry, I couldn't process that. Please try again!";
+                    setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
+                } catch (error) {
+                    setMessages(prev => [...prev, { role: 'assistant', content: "Oops! Something went wrong. Please contact us at info@whyracingevents.com or call (360) 314-4682" }]);
+                } finally {
+                    setIsLoading(false);
+                }
+            };
+
+            const handleKeyPress = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } };
+
+            return (
+                <>
+                    <style>{`
+        @keyframes chatBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        #why-chat-toggle:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(227, 24, 55, 0.5); }
+        #why-chat-input:focus { border-color: #E31837; }
+        #why-send-btn:hover:not(:disabled) { transform: scale(1.05); }
+        #why-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+      `}</style>
+                    <button id="why-chat-toggle" onClick={() => setIsOpen(!isOpen)} style={{ position: 'fixed', bottom: '24px', right: '24px', width: '60px', height: '60px', background: 'linear-gradient(135deg, #E31837 0%, #000000 100%)', borderRadius: '50%', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(227, 24, 55, 0.4)', zIndex: 9999, transition: 'transform 0.2s, box-shadow 0.2s' }} aria-label="Toggle chat">
+                        {isOpen ? <svg width="24" height="24" fill="none" stroke="#fff" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg> : <svg width="28" height="28" fill="none" stroke="#fff" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>}
+                    </button>
+                    {isOpen && (
+                        <div style={{ position: 'fixed', bottom: '100px', right: '24px', width: '400px', maxWidth: 'calc(100vw - 48px)', height: '550px', maxHeight: 'calc(100vh - 140px)', background: '#fff', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', overflow: 'hidden', zIndex: 9999, border: '1px solid rgba(0,0,0,0.08)' }}>
+                            <div style={{ background: 'linear-gradient(135deg, #E31837 0%, #000000 100%)', color: '#fff', padding: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
+                                <div style={{ width: '45px', height: '45px', background: 'rgba(255,255,255,0.2)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>🏃</div>
+                                <div><h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold' }}>Why Racing Events</h3><p style={{ margin: 0, fontSize: '12px', opacity: 0.9 }}>Ask about events, registration, and more!</p></div>
+                            </div>
+                            <div style={{ flex: 1, overflowY: 'auto', padding: '20px', background: '#f8fafc', display: 'flex', flexDirection: 'column', gap: '16px' }}>
+                                {messages.map((msg, i) => (
+                                    <div key={i} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
+                                        <div style={{ maxWidth: '85%', padding: '12px 16px', borderRadius: msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px', background: msg.role === 'user' ? 'linear-gradient(135deg, #E31837 0%, #000000 100%)' : '#fff', color: msg.role === 'user' ? '#fff' : '#1f2937', fontSize: '14px', lineHeight: '1.5', boxShadow: msg.role === 'user' ? 'none' : '0 2px 8px rgba(0,0,0,0.06)', border: msg.role === 'user' ? 'none' : '1px solid rgba(0,0,0,0.04)' }}>{msg.content}</div>
+                                    </div>
+                                ))}
+                                {isLoading && <div style={{ display: 'flex', justifyContent: 'flex-start' }}><div style={{ padding: '12px 16px', borderRadius: '18px 18px 18px 4px', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}><div style={{ display: 'flex', gap: '6px' }}><span style={{ width: '8px', height: '8px', background: '#cbd5e1', borderRadius: '50%', animation: 'chatBounce 0.6s infinite 0ms' }} /><span style={{ width: '8px', height: '8px', background: '#cbd5e1', borderRadius: '50%', animation: 'chatBounce 0.6s infinite 150ms' }} /><span style={{ width: '8px', height: '8px', background: '#cbd5e1', borderRadius: '50%', animation: 'chatBounce 0.6s infinite 300ms' }} /></div></div></div>}
+                                <div ref={messagesEndRef} />
+                            </div>
+                            <div style={{ padding: '16px 20px', background: '#fff', borderTop: '1px solid #e5e7eb', display: 'flex', gap: '12px', alignItems: 'center' }}>
+                                <input id="why-chat-input" type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={handleKeyPress} placeholder="Ask about events, registration..." style={{ flex: 1, padding: '12px 18px', borderRadius: '25px', border: '2px solid #e5e7eb', fontSize: '14px', outline: 'none' }} disabled={isLoading} />
+                                <button id="why-send-btn" onClick={sendMessage} disabled={isLoading || !input.trim()} style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'linear-gradient(135deg, #E31837 0%, #000000 100%)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="20" height="20" fill="none" stroke="#fff" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg></button>
+                            </div>
+                        </div>
+                    )}
+                </>
+            );
+        }
+        ReactDOM.createRoot(document.getElementById('chatbot-root')).render(<WhyRacingChatbot />);
+    </script>
+
+</body>
+
+</html>
