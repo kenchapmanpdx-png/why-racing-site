@@ -941,6 +941,12 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
   });
 });
 
-app.listen(PORT, '0.0.0.0', () => {
-  console.log(`Why Racing Events server running on port ${PORT}`);
-});
+// For local development
+if (require.main === module) {
+  app.listen(PORT, '0.0.0.0', () => {
+    console.log(`Why Racing Events server running on port ${PORT}`);
+  });
+}
+
+// Export for Vercel
+module.exports = app;
