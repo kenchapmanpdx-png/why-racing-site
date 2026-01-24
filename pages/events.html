@@ -637,7 +637,7 @@
         <p>Try selecting different distance filters above.</p>
     </div>
 
-    <section class="section">
+    <section class="section calendar-quarter" id="q1-section">
         <div class="section-header">
             <h2>January - March</h2>
             <p>Start the year strong with winter adventures</p>
@@ -647,7 +647,7 @@
         </div>
     </section>
 
-    <section class="section" style="background: var(--grey);">
+    <section class="section calendar-quarter" id="q2-section" style="background: var(--grey);">
         <div class="section-header">
             <h2>April - June</h2>
             <p>Spring into action with trail runs and triathlons</p>
@@ -657,7 +657,7 @@
         </div>
     </section>
 
-    <section class="section">
+    <section class="section calendar-quarter" id="q3-section">
         <div class="section-header">
             <h2>July - September</h2>
             <p>Summer racing at its finest</p>
@@ -667,7 +667,7 @@
         </div>
     </section>
 
-    <section class="section" style="background: var(--grey);">
+    <section class="section calendar-quarter" id="q4-section" style="background: var(--grey);">
         <div class="section-header">
             <h2>October - December</h2>
             <p>Finish the year with fall favorites and holiday races</p>
@@ -803,31 +803,38 @@
         // Load races from database
         async function loadDynamicRaces() {
             try {
+                console.log('Fetching races...');
                 const response = await fetch('/api/races');
-                if (!response.ok) throw new Error('Failed to load');
+                if (!response.ok) throw new Error('Failed to load: ' + response.status);
 
                 const races = await response.json();
+                console.log('Races fetched:', races.length);
+
+                // Filter for active and visible
                 const visibleRaces = races.filter(r => r.is_visible && r.status === 'active');
+                console.log('Visible active races:', visibleRaces.length);
 
                 if (visibleRaces.length > 0) {
-                    // Get all section headers to map quarters
-                    const sections = document.querySelectorAll('.section');
-                    const grids = {};
-
-                    sections.forEach(s => {
-                        const h2 = s.querySelector('h2');
-                        if (h2) {
-                            const quarter = h2.innerText.trim();
-                            const grid = s.querySelector('.event-grid');
-                            if (grid) grids[quarter] = grid;
-                        }
-                    });
+                    // Map quarters to specific section IDs
+                    const grids = {
+                        'Q1': document.querySelector('#q1-section .event-grid'),
+                        'Q2': document.querySelector('#q2-section .event-grid'),
+                        'Q3': document.querySelector('#q3-section .event-grid'),
+                        'Q4': document.querySelector('#q4-section .event-grid')
+                    };
 
                     visibleRaces.forEach(race => {
                         if (!race.race_date) return;
+
                         const date = new Date(race.race_date + 'T00:00:00');
                         const month = date.getMonth() + 1;
-                        const quarter = getQuarterForMonth(month);
+
+                        // Simple quarter logic
+                        let quarter = 'Q4';
+                        if (month <= 3) quarter = 'Q1';
+                        else if (month <= 6) quarter = 'Q2';
+                        else if (month <= 9) quarter = 'Q3';
+
                         const grid = grids[quarter];
 
                         if (grid) {
@@ -838,11 +845,14 @@
                             // Add date for sorting
                             card.dataset.dateSort = race.race_date;
                             grid.appendChild(card);
+                        } else {
+                            console.warn('No grid found for quarter:', quarter);
                         }
                     });
 
                     // Sort each grid
                     Object.values(grids).forEach(grid => {
+                        if (!grid) return;
                         const cards = Array.from(grid.querySelectorAll('.event-card'));
                         cards.sort((a, b) => {
                             const dateA = a.dataset.dateSort || '9999-12-31';
@@ -852,10 +862,13 @@
                         cards.forEach(card => grid.appendChild(card));
                     });
 
-                    console.log('Loaded and sorted', visibleRaces.length, 'races from database');
+                    console.log('Loaded and sorted races successfully');
+                } else {
+                    console.log('No visible active races found in database');
                 }
             } catch (error) {
-                console.log('No dynamic races loaded:', error.message);
+                console.error('No dynamic races loaded:', error);
+                // alert('Error loading races: ' + error.message);
             }
         }
 

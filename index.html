@@ -1519,7 +1519,7 @@
         </div>
 
         <!-- JAN - MAR -->
-        <div class="calendar-quarter-section section"
+        <div class="calendar-quarter-section section" id="q1-section"
             style="background: var(--grey); padding-top: 40px; padding-bottom: 40px;">
             <div class="section-header">
                 <h2>January - March</h2>
@@ -1531,7 +1531,7 @@
         </div>
 
         <!-- APR - JUN -->
-        <div class="calendar-quarter-section section"
+        <div class="calendar-quarter-section section" id="q2-section"
             style="background: white; padding-top: 40px; padding-bottom: 40px;">
             <div class="section-header">
                 <h2>April - June</h2>
@@ -1543,7 +1543,7 @@
         </div>
 
         <!-- JUL - SEP -->
-        <div class="calendar-quarter-section section"
+        <div class="calendar-quarter-section section" id="q3-section"
             style="background: var(--grey); padding-top: 40px; padding-bottom: 40px;">
             <div class="section-header">
                 <h2>July - September</h2>
@@ -1555,7 +1555,7 @@
         </div>
 
         <!-- OCT - DEC -->
-        <div class="calendar-quarter-section section"
+        <div class="calendar-quarter-section section" id="q4-section"
             style="background: white; padding-top: 40px; padding-bottom: 40px;">
             <div class="section-header">
                 <h2>October - December</h2>
@@ -1871,13 +1871,12 @@
 
                 if (visibleRaces.length === 0) return;
 
-                // Get all event grids by quarter
-                const quarterSections = document.querySelectorAll('.calendar-quarter-section');
+                // Get all event grids by quarter ID
                 const grids = {
-                    'Q1': quarterSections[0]?.querySelector('.event-grid'),
-                    'Q2': quarterSections[1]?.querySelector('.event-grid'),
-                    'Q3': quarterSections[2]?.querySelector('.event-grid'),
-                    'Q4': quarterSections[3]?.querySelector('.event-grid')
+                    'Q1': document.querySelector('#q1-section .event-grid'),
+                    'Q2': document.querySelector('#q2-section .event-grid'),
+                    'Q3': document.querySelector('#q3-section .event-grid'),
+                    'Q4': document.querySelector('#q4-section .event-grid')
                 };
 
                 // Insert each race into the appropriate quarter
@@ -1886,7 +1885,12 @@
 
                     const date = new Date(race.race_date + 'T00:00:00');
                     const month = date.getMonth() + 1;
-                    const quarter = getQuarterForMonth(month);
+
+                    let quarter = 'Q4';
+                    if (month <= 3) quarter = 'Q1';
+                    else if (month <= 6) quarter = 'Q2';
+                    else if (month <= 9) quarter = 'Q3';
+
                     const grid = grids[quarter];
 
                     if (grid) {
