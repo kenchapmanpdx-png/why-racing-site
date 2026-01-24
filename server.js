@@ -27,6 +27,20 @@ const PORT = 5000;
 app.use(express.json());
 app.use(express.static('.'));
 
+// Health check endpoint
+app.get('/api/health', async (req, res) => {
+  const { data, error } = await supabase.from('races').select('count', { count: 'exact', head: true });
+  res.json({
+    status: 'ok',
+    database: error ? 'error' : 'connected',
+    count: data ? data.count : 0,
+    env: {
+      has_url: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
+      has_key: !!process.env.SUPABASE_SERVICE_ROLE_KEY
+    }
+  });
+});
+
 // === Auto-Archive Past Races ===
 // Automatically move races to "draft" status after their date passes
 // This runs on server startup and allows races to be reused for next year
