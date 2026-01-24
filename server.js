@@ -29,11 +29,12 @@ app.use(express.static('.'));
 
 // Health check endpoint
 app.get('/api/health', async (req, res) => {
-  const { data, error } = await supabase.from('races').select('count', { count: 'exact', head: true });
+  const { count, error } = await supabase.from('races').select('*', { count: 'exact', head: true });
   res.json({
     status: 'ok',
     database: error ? 'error' : 'connected',
-    count: data ? data.count : 0,
+    count: count || 0,
+    error: error ? error.message : null,
     env: {
       has_url: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
       has_key: !!process.env.SUPABASE_SERVICE_ROLE_KEY
@@ -906,15 +907,21 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
       return res.status(500).json({ error: 'Failed to parse form' });
     }
 
-    console.log('Upload received - fields:', fields, 'files:', Object.keys(files));
+    console.log('Upload received - fields:', JSON.stringify(fields), 'files:', Object.keys(files));
 
     // Formidable v3 returns arrays for fields and files
-    const file = Array.isArray(files.file) ? files.file[0] : files.file;
-    const type = Array.isArray(fields.type) ? fields.type[0] : fields.type;
-    const raceId = Array.isArray(fields.raceId) ? fields.raceId[0] : fields.raceId;
+    const getSingleValue = (obj, key) => {
+      const val = obj[key];
+      if (Array.isArray(val)) return val[0];
+      return val;
+    };
+
+    const file = getSingleValue(files, 'file');
+    const type = getSingleValue(fields, 'type');
+    const raceId = getSingleValue(fields, 'raceId');
 
     if (!file) {
-      console.error('No file in upload');
+      console.error('No file in upload. Files keys:', Object.keys(files));
       return res.status(400).json({ error: 'No file provided' });
     }
 
@@ -924,21 +931,33 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
       const fileBuffer = fs.readFileSync(file.filepath);
       // Add random suffix to prevent any filename collisions
       const randomSuffix = Math.random().toString(36).substring(2, 8);
-      const safeFilename = file.originalFilename.replace(/[^a-zA-Z0-9.-]/g, '_');
+      const safeFilename = (file.originalFilename || 'image').replace(/[^a-zA-Z0-9.-]/g, '_');
       const fileName = `${raceId}/${type}-${Date.now()}-${randomSuffix}-${safeFilename}`;
 
-      console.log('Uploading to Supabase Storage:', fileName, 'Size:', fileBuffer.length, 'bytes');
+      // Determine content type - fallback if missing
+      const contentType = file.mimetype || 'image/png';
+
+      console.log('Uploading to Supabase Storage:', fileName, 'Size:', fileBuffer.length, 'bytes', 'Type:', contentType);
 
       const { data, error } = await supabase.storage
         .from('race-images')
         .upload(fileName, fileBuffer, {
-          contentType: file.mimetype,
+          contentType: contentType,
           upsert: true
         });
 
       if (error) {
-        console.error('Supabase storage error:', JSON.stringify(error, null, 2));
-        return res.status(500).json({ error: 'Storage error: ' + (error.message || error.statusCode || 'Unknown error') });
+        console.error('Supabase storage error details:', {
+          message: error.message,
+          statusCode: error.statusCode,
+          error: error.error,
+          fileName,
+          type: file.mimetype
+        });
+        return res.status(500).json({
+          error: 'Storage error: ' + (error.message || error.statusCode || 'Unknown error'),
+          details: error
+        });
       }
 
       const { data: urlData } = supabase.storage

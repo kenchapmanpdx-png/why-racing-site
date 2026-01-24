@@ -1917,10 +1917,13 @@
                         heroImageUrl = uploadData.url;
                         console.log('Hero image uploaded:', heroImageUrl);
                     } else {
-                        console.error('Hero upload failed:', await uploadRes.text());
+                        const errorText = await uploadRes.text();
+                        console.error('Hero upload failed:', errorText);
+                        alert('Hero image upload failed: ' + errorText);
                     }
                 } catch (err) {
                     console.error('Hero upload error:', err);
+                    alert('Hero image upload error: ' + err.message);
                 }
             }
 
@@ -1944,10 +1947,13 @@
                         thumbnailImageUrl = uploadData.url;
                         console.log('Thumbnail image uploaded:', thumbnailImageUrl);
                     } else {
-                        console.error('Thumbnail upload failed:', await uploadRes.text());
+                        const errorText = await uploadRes.text();
+                        console.error('Thumbnail upload failed:', errorText);
+                        alert('Thumbnail image upload failed: ' + errorText);
                     }
                 } catch (err) {
                     console.error('Thumbnail upload error:', err);
+                    alert('Thumbnail image upload error: ' + err.message);
                 }
             }
 
