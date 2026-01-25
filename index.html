@@ -1851,7 +1851,13 @@
                 // 1. Find all tiers active TODAY
                 const activeTiers = race.pricing_tiers.filter(t => {
                     const start = t.start_date ? new Date(t.start_date) : new Date('2000-01-01');
-                    const end = t.end_date ? new Date(t.end_date) : new Date('2099-12-31');
+                    let end = t.end_date ? new Date(t.end_date) : new Date('2099-12-31');
+
+                    // Important: Set end time to end of day (23:59:59) so it includes the full end date
+                    // Fix timezone offset issues by treating the string as local date for calculation if needed, 
+                    // but simple setHours works if input is YYYY-MM-DD
+                    end.setUTCHours(23, 59, 59, 999);
+
                     return today >= start && today <= end;
                 });
 

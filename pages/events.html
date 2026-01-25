@@ -772,7 +772,8 @@
                 const today = new Date();
                 const activeTiers = race.pricing_tiers.filter(t => {
                     const start = t.start_date ? new Date(t.start_date) : new Date('2000-01-01');
-                    const end = t.end_date ? new Date(t.end_date) : new Date('2099-12-31');
+                    let end = t.end_date ? new Date(t.end_date) : new Date('2099-12-31');
+                    end.setUTCHours(23, 59, 59, 999); // Include full end day
                     return today >= start && today <= end;
                 });
 
