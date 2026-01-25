@@ -1522,8 +1522,10 @@
             style="padding: 60px 20px; text-align: center; display: none; background: #fff0f0; margin: 40px 5%; border-radius: 8px; border: 1px solid #ffcdd2;">
             <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: #e53e3e; margin-bottom: 15px;"></i>
             <h3 style="font-size: 1.4rem; color: #c53030; margin-bottom: 10px;">Connection Error</h3>
-            <p style="color: #666; max-width: 600px; margin: 0 auto 20px;">We couldn't load the upcoming races. This
-                might be due to a network setting.</p>
+            <p style="color: #666; max-width: 600px; margin: 0 auto 20px;">We couldn't load the upcoming races.
+                <br><span id="errorDetails"
+                    style="font-family: monospace; background: rgba(255,0,0,0.1); padding: 2px 5px; border-radius: 4px; font-size: 0.8em; margin-top: 10px; display: inline-block;"></span>
+            </p>
             <p style="font-size: 0.9rem; color: #888;">If you are the administrator, please check your Vercel
                 Environment Variables.</p>
         </div>
@@ -1925,6 +1927,7 @@
             } catch (error) {
                 console.error('Could not load database races:', error);
                 document.getElementById('apiError').style.display = 'block';
+                document.getElementById('errorDetails').innerText = error.message;
                 // Hide empty quarters if error
                 document.querySelectorAll('.calendar-quarter-section').forEach(s => s.style.display = 'none');
             }
