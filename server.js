@@ -719,7 +719,7 @@ app.get('/api/races', async (req, res) => {
   return res.status(200).json(data);
 });
 
-// Get single race
+// Get single race (basic)
 app.get('/api/races/:id', async (req, res) => {
   const { id } = req.params;
   const { data, error } = await supabase
@@ -737,6 +737,92 @@ app.get('/api/races/:id', async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
   return res.status(200).json(data);
+});
+
+// Get FULL race details (for race detail page)
+app.get('/api/races/:id/full', async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Fetch race with all related content in parallel
+    const [
+      raceResult,
+      contentResult,
+      distancesResult,
+      pricingResult,
+      faqsResult,
+      policiesResult,
+      sponsorsResult,
+      beneficiariesResult,
+      packetPickupResult,
+      awardCategoriesResult,
+      courseRecordsResult,
+      spectatorLocationsResult,
+      accommodationsResult,
+      restaurantsResult,
+      multisportResult,
+      themedContentResult,
+      whatToBringResult,
+      amenitiesResult,
+      photosResult,
+      startTimesResult
+    ] = await Promise.all([
+      supabase.from('races').select('*').eq('id', id).single(),
+      supabase.from('race_content').select('*').eq('race_id', id).maybeSingle(),
+      supabase.from('race_distances').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('pricing_tiers').select('*').eq('race_id', id),
+      supabase.from('race_faqs').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('race_policies').select('*').eq('race_id', id),
+      supabase.from('race_sponsors').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('race_beneficiaries').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('packet_pickup_locations').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('award_categories').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('course_records').select('*').eq('race_id', id),
+      supabase.from('spectator_locations').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('race_accommodations').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('race_restaurants').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('multisport_details').select('*').eq('race_id', id).maybeSingle(),
+      supabase.from('themed_event_content').select('*').eq('race_id', id).maybeSingle(),
+      supabase.from('what_to_bring_items').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('course_amenities').select('*').eq('race_id', id),
+      supabase.from('race_photos').select('*').eq('race_id', id).order('sort_order'),
+      supabase.from('event_start_times').select('*').eq('race_id', id).order('sort_order')
+    ]);
+
+    if (raceResult.error) {
+      console.error(`Supabase Error (GET /api/races/${id}/full):`, raceResult.error);
+      return res.status(404).json({ error: 'Race not found' });
+    }
+
+    // Structure the response
+    const fullRaceData = {
+      ...raceResult.data,
+      content: contentResult.data || null,
+      race_distances: distancesResult.data || [],
+      pricing_tiers: pricingResult.data || [],
+      faqs: faqsResult.data || [],
+      policies: policiesResult.data || [],
+      sponsors: sponsorsResult.data || [],
+      beneficiaries: beneficiariesResult.data || [],
+      packet_pickup: packetPickupResult.data || [],
+      award_categories: awardCategoriesResult.data || [],
+      course_records: courseRecordsResult.data || [],
+      spectator_locations: spectatorLocationsResult.data || [],
+      accommodations: accommodationsResult.data || [],
+      restaurants: restaurantsResult.data || [],
+      multisport_details: multisportResult.data || null,
+      themed_content: themedContentResult.data || null,
+      what_to_bring: whatToBringResult.data || [],
+      course_amenities: amenitiesResult.data || [],
+      photos: photosResult.data || [],
+      start_times: startTimesResult.data || []
+    };
+
+    return res.status(200).json(fullRaceData);
+  } catch (err) {
+    console.error(`Server Error (GET /api/races/${id}/full):`, err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
 });
 
 // Create new race
@@ -893,6 +979,209 @@ app.delete('/api/races/:id', adminAuth, async (req, res) => {
   } catch (err) {
     console.error(`Server Internal Error (DELETE /api/races/${id}):`, err);
     return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// =============================================
+// RACE CONTENT MANAGEMENT ENDPOINTS
+// =============================================
+
+// Race Content (Core details like about, venue, travel)
+app.put('/api/races/:id/content', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const contentData = { ...req.body, race_id: id };
+
+  try {
+    const { data, error } = await supabase
+      .from('race_content')
+      .upsert(contentData, { onConflict: 'race_id' })
+      .select()
+      .single();
+
+    if (error) throw error;
+    return res.status(200).json(data);
+  } catch (err) {
+    console.error('Error saving race content:', err);
+    return res.status(500).json({ error: err.message });
+  }
+});
+
+// FAQs CRUD
+app.post('/api/races/:id/faqs', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const faqData = { ...req.body, race_id: id };
+
+  const { data, error } = await supabase.from('race_faqs').insert(faqData).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json(data);
+});
+
+app.put('/api/faqs/:faqId', adminAuth, async (req, res) => {
+  const { faqId } = req.params;
+  const { data, error } = await supabase.from('race_faqs').update(req.body).eq('id', faqId).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.delete('/api/faqs/:faqId', adminAuth, async (req, res) => {
+  const { faqId } = req.params;
+  const { error } = await supabase.from('race_faqs').delete().eq('id', faqId);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+});
+
+// Policies CRUD
+app.post('/api/races/:id/policies', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const policyData = { ...req.body, race_id: id };
+
+  const { data, error } = await supabase
+    .from('race_policies')
+    .upsert(policyData, { onConflict: 'race_id,policy_type' })
+    .select()
+    .single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.delete('/api/policies/:policyId', adminAuth, async (req, res) => {
+  const { policyId } = req.params;
+  const { error } = await supabase.from('race_policies').delete().eq('id', policyId);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+});
+
+// Sponsors CRUD
+app.post('/api/races/:id/sponsors', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const sponsorData = { ...req.body, race_id: id };
+
+  const { data, error } = await supabase.from('race_sponsors').insert(sponsorData).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json(data);
+});
+
+app.put('/api/sponsors/:sponsorId', adminAuth, async (req, res) => {
+  const { sponsorId } = req.params;
+  const { data, error } = await supabase.from('race_sponsors').update(req.body).eq('id', sponsorId).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.delete('/api/sponsors/:sponsorId', adminAuth, async (req, res) => {
+  const { sponsorId } = req.params;
+  const { error } = await supabase.from('race_sponsors').delete().eq('id', sponsorId);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+});
+
+// Beneficiaries CRUD
+app.post('/api/races/:id/beneficiaries', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const beneficiaryData = { ...req.body, race_id: id };
+
+  const { data, error } = await supabase.from('race_beneficiaries').insert(beneficiaryData).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json(data);
+});
+
+app.delete('/api/beneficiaries/:beneficiaryId', adminAuth, async (req, res) => {
+  const { beneficiaryId } = req.params;
+  const { error } = await supabase.from('race_beneficiaries').delete().eq('id', beneficiaryId);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+});
+
+// Packet Pickup CRUD
+app.post('/api/races/:id/packet-pickup', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const pickupData = { ...req.body, race_id: id };
+
+  const { data, error } = await supabase.from('packet_pickup_locations').insert(pickupData).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json(data);
+});
+
+app.delete('/api/packet-pickup/:pickupId', adminAuth, async (req, res) => {
+  const { pickupId } = req.params;
+  const { error } = await supabase.from('packet_pickup_locations').delete().eq('id', pickupId);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+});
+
+// Multi-Sport Details (upsert)
+app.put('/api/races/:id/multisport', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const multisportData = { ...req.body, race_id: id };
+
+  const { data, error } = await supabase
+    .from('multisport_details')
+    .upsert(multisportData, { onConflict: 'race_id' })
+    .select()
+    .single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+// Themed Event Content (upsert)
+app.put('/api/races/:id/themed-content', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const themedData = { ...req.body, race_id: id };
+
+  const { data, error } = await supabase
+    .from('themed_event_content')
+    .upsert(themedData, { onConflict: 'race_id' })
+    .select()
+    .single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+// Seed standard content for a race (FAQs, policies, age groups)
+app.post('/api/races/:id/seed-standard-content', adminAuth, async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    // Standard FAQs
+    const standardFaqs = [
+      { question: 'Can I register on Race Day?', answer: 'Race day registration may be available if the event is not sold out.', category: 'registration', sort_order: 1 },
+      { question: 'Can my friend pick up my packet?', answer: 'Yes, but they must bring a signed Authorization Form and a copy of your photo ID.', category: 'registration', sort_order: 2 },
+      { question: 'Are headphones/earbuds allowed?', answer: 'We prefer athletes NOT use music devices for safety. Keep only ONE earbud in.', category: 'rules', sort_order: 3 },
+      { question: 'Are dogs allowed on course?', answer: 'Only Service Dogs are allowed on course.', category: 'rules', sort_order: 4 },
+      { question: 'Are strollers allowed?', answer: 'Yes, but strollers must start at the end of the race.', category: 'rules', sort_order: 5 },
+      { question: 'Will you offer bag check?', answer: 'Yes! Label your bag with your name and bib number.', category: 'logistics', sort_order: 6 }
+    ].map(faq => ({ ...faq, race_id: id }));
+
+    await supabase.from('race_faqs').insert(standardFaqs);
+
+    // Standard Policies
+    const standardPolicies = [
+      { policy_type: 'headphone_policy', policy_text: 'We prefer athletes NOT use music devices. One earbud only. Two earbuds = DQ.' },
+      { policy_type: 'dog_policy', policy_text: 'Only Service Dogs allowed on course.' },
+      { policy_type: 'stroller_policy', policy_text: 'Strollers must start at the end of the race.' },
+      { policy_type: 'bag_check', policy_text: 'Free bag check available. Label with name and bib.' }
+    ].map(p => ({ ...p, race_id: id }));
+
+    await supabase.from('race_policies').upsert(standardPolicies, { onConflict: 'race_id,policy_type' });
+
+    // Standard Age Groups
+    const ageGroups = [
+      '9 and under', '10-14', '15-19', '20-24', '25-29', '30-34', '35-39',
+      '40-44', '45-49', '50-54', '55-59', '60-64', '65-69', '70-74', '75-79', '80+'
+    ].map((name, i) => ({
+      race_id: id,
+      category_type: 'age_group',
+      category_name: name,
+      awards_depth: 3,
+      sort_order: i + 1
+    }));
+
+    await supabase.from('award_categories').insert(ageGroups);
+
+    return res.status(200).json({ success: true, message: 'Standard content seeded' });
+  } catch (err) {
+    console.error('Error seeding standard content:', err);
+    return res.status(500).json({ error: err.message });
   }
 });
 
