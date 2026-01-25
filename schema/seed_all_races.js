@@ -756,9 +756,10 @@ async function seedAllRaces() {
 
             // Insert distances
             if (raceData.distances?.length) {
-                const distances = raceData.distances.map(d => ({ ...d, race_id: raceId }));
-                await supabase.from('race_distances').insert(distances);
-                console.log(`  ✅ ${distances.length} distances added`);
+                const distances = raceData.distances.map(d => ({ ...d, race_id: raceId, base_price: d.base_price || 0 }));
+                const { error: distError } = await supabase.from('race_distances').insert(distances);
+                if (distError) console.log(`  ❌ Distances error: ${distError.message}`);
+                else console.log(`  ✅ ${distances.length} distances added`);
             }
 
             // Insert beneficiaries
