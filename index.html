@@ -1927,7 +1927,13 @@
                         <span><i class="fas fa-route"></i> ${distanceText}</span>
                         <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
                     </div>
-                    <button class="card-cta">${race.registration_open ? 'Register Now →' : 'View Details →'}</button>
+                    <div class="card-actions" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto;">
+                        <a href="pages/events/race-detail.html?id=${race.id}" class="card-cta" style="background: transparent; color: var(--brand-blue); border: 2px solid var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px;">View Details</a>
+                        ${race.registration_url && race.registration_open
+                    ? `<a href="${race.registration_url}" target="_blank" class="card-cta" style="background: var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px;">Register Now</a>`
+                    : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; color: #666;">Closed</span>`
+                }
+                    </div>
                 </div>
             `;
             return card;
