@@ -764,6 +764,51 @@
                 buttonText = 'View Details';
             }
 
+            // Pricing Logic
+            let pricingHtml = '';
+            let timerHtml = '';
+
+            if (race.pricing_tiers && race.pricing_tiers.length > 0) {
+                const today = new Date();
+                const activeTiers = race.pricing_tiers.filter(t => {
+                    const start = t.start_date ? new Date(t.start_date) : new Date('2000-01-01');
+                    const end = t.end_date ? new Date(t.end_date) : new Date('2099-12-31');
+                    return today >= start && today <= end;
+                });
+
+                if (activeTiers.length > 0) {
+                    activeTiers.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+                    const bestTier = activeTiers[0];
+                    const currentPrice = parseFloat(bestTier.price);
+
+                    const distanceTiers = race.pricing_tiers.filter(t => t.distance_id === bestTier.distance_id);
+                    const maxPrice = Math.max(...distanceTiers.map(t => parseFloat(t.price)));
+                    const savings = maxPrice - currentPrice;
+
+                    if (savings > 0) {
+                        pricingHtml = `
+                            <div class="card-pricing">
+                                <div>
+                                    <span class="price-now">$${currentPrice}</span>
+                                    <span class="price-was">$${maxPrice}</span>
+                                </div>
+                                <span class="save">SAVE $${savings.toFixed(0)}</span>
+                            </div>`;
+                    } else {
+                        pricingHtml = `<div class="card-pricing"><span class="price-now">$${currentPrice}</span></div>`;
+                    }
+
+                    if (bestTier.end_date) {
+                        const deadline = new Date(bestTier.end_date);
+                        const diffTime = deadline - today;
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        if (diffDays > 0 && diffDays <= 30) {
+                            timerHtml = `<div style="font-size: 11px; color: #E31837; font-weight: bold; margin-bottom: 5px;"><i class="fas fa-clock"></i> Price increases in ${diffDays} days!</div>`;
+                        }
+                    }
+                }
+            }
+
             return `
                 <div class="event-card dynamic-card" data-distance="${filterKeywords}" data-race-id="${race.id}" onclick="${clickAction}">
                     <div class="card-img" style="background-image: url('${cardImage}')">
@@ -773,6 +818,10 @@
                     <div class="card-body">
                         <span class="card-date">${formatDate(race.race_date)}</span>
                         <h3 class="card-title">${race.name || 'New Race'}</h3>
+                        
+                        ${timerHtml}
+                        ${pricingHtml}
+                        
                         <div class="card-meta">
                             <span><i class="fas fa-route"></i> ${distanceText}</span>
                             <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>

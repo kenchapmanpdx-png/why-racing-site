@@ -1841,11 +1841,70 @@
             const date = new Date(race.race_date + 'T00:00:00');
             const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
+            // Pricing Logic
+            let pricingHtml = '';
+            let timerHtml = '';
+
+            if (race.pricing_tiers && race.pricing_tiers.length > 0) {
+                const today = new Date();
+
+                // 1. Find all tiers active TODAY
+                const activeTiers = race.pricing_tiers.filter(t => {
+                    const start = t.start_date ? new Date(t.start_date) : new Date('2000-01-01');
+                    const end = t.end_date ? new Date(t.end_date) : new Date('2099-12-31');
+                    return today >= start && today <= end;
+                });
+
+                if (activeTiers.length > 0) {
+                    // 2. Find the cheapest current price (e.g. 5K price)
+                    activeTiers.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
+                    const bestTier = activeTiers[0];
+                    const currentPrice = parseFloat(bestTier.price);
+
+                    // 3. Find the standard (max) price for THIS distance
+                    const distanceTiers = race.pricing_tiers.filter(t => t.distance_id === bestTier.distance_id);
+                    const maxPrice = Math.max(...distanceTiers.map(t => parseFloat(t.price)));
+
+                    const savings = maxPrice - currentPrice;
+
+                    // 4. Generate Pricing HTML
+                    if (savings > 0) {
+                        pricingHtml = `
+                            <div class="card-pricing">
+                                <div>
+                                    <span class="price-now">$${currentPrice}</span>
+                                    <span class="price-was">$${maxPrice}</span>
+                                </div>
+                                <span class="save">SAVE $${savings.toFixed(0)}</span>
+                            </div>
+                        `;
+                    } else {
+                        pricingHtml = `
+                            <div class="card-pricing">
+                                <span class="price-now">$${currentPrice}</span>
+                            </div>
+                        `;
+                    }
+
+                    // 5. Generate Timer HTML (if deadline is approaching)
+                    if (bestTier.end_date) {
+                        const deadline = new Date(bestTier.end_date);
+                        const diffTime = deadline - today;
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                        if (diffDays > 0 && diffDays <= 30) {
+                            timerHtml = `<div style="font-size: 11px; color: #E31837; font-weight: bold; margin-bottom: 5px;"><i class="fas fa-clock"></i> Price increases in ${diffDays} days!</div>`;
+                        }
+                    }
+                }
+            }
+
             const card = document.createElement('a');
             card.href = `pages/events/race-detail.html?id=${race.id}`;
             card.className = 'event-card dynamic-db-card';
             card.dataset.distance = filterKeywords;
             card.dataset.dateSort = race.race_date;
+            // Insert Pricing and Timer before the title/meta
             card.innerHTML = `
                 <div class="card-img" style="background-image: url('${heroImage}')">
                     <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
@@ -1854,6 +1913,10 @@
                 <div class="card-body">
                     <span class="card-date">${dateStr}</span>
                     <h3 class="card-title">${race.name || 'New Race'}</h3>
+                    
+                    ${timerHtml}
+                    ${pricingHtml}
+
                     <div class="card-meta">
                         <span><i class="fas fa-route"></i> ${distanceText}</span>
                         <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
@@ -1862,6 +1925,7 @@
                 </div>
             `;
             return card;
+
         }
 
         // Get quarter section based on month
