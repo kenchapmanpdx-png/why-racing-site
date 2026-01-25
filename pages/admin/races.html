@@ -1597,6 +1597,26 @@
                 addDistance();
             }
 
+            // Handle Pricing Tiers Display (Early Bird)
+            // Try to find an "Early Bird" tier in the data to populate the fields
+            if (race.pricing_tiers && race.pricing_tiers.length > 0) {
+                const ebTier = race.pricing_tiers.find(t => t.tier_name === 'Early Bird');
+                if (ebTier && race.race_distances && race.race_distances.length > 0) {
+                    // Calculate discount: Base Price - Early Bird Price
+                    // We need to find the base price for this specific distance to calculate the discount
+                    const dist = race.race_distances.find(d => d.id === ebTier.distance_id);
+                    if (dist) {
+                        const basePrice = parseFloat(dist.base_price) || 0;
+                        const ebPrice = parseFloat(ebTier.price) || 0;
+                        const discount = basePrice - ebPrice;
+
+                        if (form.earlyBirdDiscount) form.earlyBirdDiscount.value = discount > 0 ? discount : '';
+                        if (form.earlyBirdStart) form.earlyBirdStart.value = ebTier.start_date || '';
+                        if (form.earlyBirdEnd) form.earlyBirdEnd.value = ebTier.end_date || '';
+                    }
+                }
+            }
+
             // Handle PDF
             if (race.instructions_pdf_url) {
                 const pdfPreview = document.getElementById('pdfPreview');
