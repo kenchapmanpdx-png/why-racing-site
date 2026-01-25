@@ -2127,6 +2127,12 @@
                 charity_percent: parseFloat(formData.get('charityAmount')) || null,
                 // Distances
                 distances: distances,
+                // Pricing Config (to auto-generate tiers)
+                pricing_config: {
+                    earlyBirdDiscount: formData.get('earlyBirdDiscount'),
+                    earlyBirdStart: formData.get('earlyBirdStart'),
+                    earlyBirdEnd: formData.get('earlyBirdEnd')
+                },
                 theme_config: {
                     primaryColor: formData.get('primaryColor'),
                     secondaryColor: formData.get('secondaryColor'),
