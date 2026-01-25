@@ -775,25 +775,25 @@ app.post('/api/races', adminAuth, async (req, res) => {
       return res.status(500).json({ error: raceError.message });
     }
 
-    // Insert distances
+    // Insert distances and then apply pricing
     if (distances && distances.length > 0) {
       const distancesWithRaceId = distances.map((d, i) => ({
         ...d,
         race_id: race.id,
         sort_order: i
       }));
-      const { error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId);
-      if (dError) console.error('Supabase Error (POST /api/races - distances insert):', dError);
-    }
+      // We need to insert and RETURN the IDs to map pricing
+      const { data: newDists, error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId).select();
 
-    // Insert pricing tiers
-    if (pricing_tiers && pricing_tiers.length > 0) {
-      const tiersWithRaceId = pricing_tiers.map(t => ({
-        ...t,
-        race_id: race.id
-      }));
-      const { error: pError } = await supabase.from('pricing_tiers').insert(tiersWithRaceId);
-      if (pError) console.error('Supabase Error (POST /api/races - pricing insert):', pError);
+      if (dError) {
+        console.error('Supabase Error (POST /api/races - distances insert):', dError);
+      } else if (req.body.pricing_config && newDists) {
+        // Verify table exists first
+        const { error: checkErr } = await supabase.from('pricing_tiers').select('id').limit(1);
+        if (!checkErr) { // Only proceed if table exists
+          await applyGlobalPricing(race.id, newDists, req.body.pricing_config, supabase);
+        }
+      }
     }
 
     return res.status(201).json(race);
@@ -806,16 +806,13 @@ app.post('/api/races', adminAuth, async (req, res) => {
 // Update race
 app.put('/api/races/:id', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const { distances, pricing_tiers, created_at, updated_at, ...raceData } = req.body;
+  const { distances, pricing_tiers, pricing_config, created_at, updated_at, ...raceData } = req.body;
 
   // Sanitize data: convert empty strings to null
-  // But preserve arrays (like includes, shirt_sizes) even if empty
   const sanitizeData = (data) => {
     const sanitized = { ...data };
     for (const key in sanitized) {
-      // Skip arrays - they should be saved as-is
       if (Array.isArray(sanitized[key])) continue;
-      // Convert empty strings and undefined to null
       if (sanitized[key] === '' || sanitized[key] === undefined) {
         sanitized[key] = null;
       }
@@ -837,31 +834,37 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
       return res.status(500).json({ error: raceError.message });
     }
 
-    // 2. Handle distances (Delete old and replace with new for simplicity in admin)
+    // 2. Handle distances (Delete old and replace with new)
     if (distances) {
+      // First, delete existing (cascade will kill pricing_tiers usually, but we should be careful)
       await supabase.from('race_distances').delete().eq('race_id', id);
+
       if (distances.length > 0) {
         const distancesWithRaceId = distances.map((d, i) => ({
           ...d,
           race_id: id,
           sort_order: i
         }));
-        await supabase.from('race_distances').insert(distancesWithRaceId);
+        const { data: newDists, error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId).select();
+
+        if (dError) console.error('Dist Error:', dError);
+
+        // 3. Handle Pricing Config
+        if (!dError && pricing_config && newDists) {
+          const { error: checkErr } = await supabase.from('pricing_tiers').select('id').limit(1);
+          if (!checkErr) {
+            await applyGlobalPricing(id, newDists, pricing_config, supabase);
+          }
+        }
       }
     }
 
-    // 3. Handle pricing tiers
-    if (pricing_tiers) {
+    // Legacy support for direct pricing_tiers array (if sent)
+    if (!pricing_config && pricing_tiers) {
       await supabase.from('pricing_tiers').delete().eq('race_id', id);
-      if (pricing_tiers.length > 0) {
-        const tiersWithRaceId = pricing_tiers.map(t => ({
-          ...t,
-          race_id: id
-        }));
-        await supabase.from('pricing_tiers').insert(tiersWithRaceId);
-      }
+      const tiersWithRaceId = pricing_tiers.map(t => ({ ...t, race_id: id }));
+      await supabase.from('pricing_tiers').insert(tiersWithRaceId);
     }
-
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error(`Server Internal Error (PUT /api/races/${id}):`, err);
@@ -979,6 +982,50 @@ if (require.main === module) {
   app.listen(PORT, '0.0.0.0', () => {
     console.log(`Why Racing Events server running on port ${PORT}`);
   });
+}
+
+// Helper to apply global pricing config to all distances
+async function applyGlobalPricing(raceId, dists, pricingConfig, supabase) {
+  if (!pricingConfig || !dists || dists.length === 0) return;
+
+  const tiers = [];
+
+  dists.forEach(dist => {
+    const basePrice = Number(dist.base_price) || 0;
+
+    // Early Bird
+    if (pricingConfig.earlyBirdDiscount && pricingConfig.earlyBirdStart) {
+      const discount = Number(pricingConfig.earlyBirdDiscount) || 0;
+      tiers.push({
+        race_id: raceId,
+        distance_id: dist.id,
+        tier_name: 'Early Bird',
+        price: Math.max(0, basePrice - discount),
+        start_date: pricingConfig.earlyBirdStart,
+        end_date: pricingConfig.earlyBirdEnd || pricingConfig.earlyBirdStart
+      });
+
+      // Standard (implied)
+      if (pricingConfig.earlyBirdEnd) {
+        const stdStart = new Date(pricingConfig.earlyBirdEnd);
+        stdStart.setDate(stdStart.getDate() + 1);
+
+        tiers.push({
+          race_id: raceId,
+          distance_id: dist.id,
+          tier_name: 'Standard',
+          price: basePrice,
+          start_date: stdStart.toISOString().split('T')[0],
+          end_date: '2099-12-31'
+        });
+      }
+    }
+  });
+
+  if (tiers.length > 0) {
+    await supabase.from('pricing_tiers').delete().eq('race_id', raceId);
+    await supabase.from('pricing_tiers').insert(tiers);
+  }
 }
 
 // Export for Vercel
