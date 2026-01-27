@@ -1833,7 +1833,7 @@
                 return '';
             }).filter(k => k).join(' ');
 
-            const heroImage = race.hero_image_url || race.thumbnail_image_url || 'images/action/hagg-lake-run.jpg';
+            const cardImage = race.thumbnail_url || race.hero_image_url || 'images/action/hagg-lake-run.jpg';
             const raceType = race.race_type || 'run';
             const typeLabels = { run: 'Road Race', running: 'Road Race', trail: 'Trail Run', triathlon: 'Triathlon', ultra: 'Ultra', fun_run: 'Fun Run', kids: 'Kids Race' };
 
@@ -1911,7 +1911,7 @@
             card.dataset.dateSort = race.race_date;
             // Insert Pricing and Timer before the title/meta
             card.innerHTML = `
-                <div class="card-img" style="background-image: url('${heroImage}')">
+                <div class="card-img" style="background-image: url('${cardImage}')">
                     <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
                     ${race.is_featured ? '<span class="card-scarcity" style="background: gold; color: #333;"><i class="fas fa-star"></i> Featured</span>' : '<span class="card-scarcity"><i class="fas fa-bolt"></i> New!</span>'}
                 </div>
