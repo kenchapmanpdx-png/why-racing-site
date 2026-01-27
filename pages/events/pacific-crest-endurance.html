@@ -26,7 +26,7 @@
         h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
         a { text-decoration: none; color: inherit; }
 
-        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(38,50,56,0.98) 0%, rgba(69,90,100,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(38,50,56,0.98) 0%, rgba(69,90,100, 0.35) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.4); }
         .logo { text-decoration: none; padding: 5px 0; }
         .logo img { height: 40px; filter: brightness(0) invert(1); }
         .nav-links { display: flex; gap: 25px; align-items: center; }
@@ -37,7 +37,7 @@
         .event-hero { 
             height: 65vh; 
             min-height: 450px; 
-            background: linear-gradient(rgba(38, 50, 56, 0.75), rgba(69, 90, 100, 0.6)), url('../../images/heroes/pacific-crest.jpg') center/cover; 
+            background: linear-gradient(rgba(38, 50, 56, 0.35), rgba(69, 90, 100, 0.35)), url('../../images/heroes/pacific-crest.jpg') center/cover; 
             display: flex; 
             align-items: center; 
             justify-content: center; 
@@ -169,7 +169,7 @@
         .course-feature { background: rgba(255,255,255,0.08); padding: 30px; border-radius: 12px; text-align: center; border-left: 4px solid var(--theme-ice); backdrop-filter: blur(5px); }
         .course-feature i { font-size: 2.5rem; color: var(--theme-ice); margin-bottom: 15px; }
         .course-feature h4 { color: white; margin-bottom: 10px; }
-        .course-feature p { color: rgba(255,255,255,0.8); font-size: 14px; }
+        .course-feature p { color: rgba(255,255,255, 0.35); font-size: 14px; }
 
         .faq-section { padding: 60px 5%; max-width: 800px; margin: 0 auto; }
         .faq-section h2 { text-align: center; font-size: 2rem; color: var(--theme-primary); margin-bottom: 40px; }
@@ -456,3 +456,4 @@ setInterval(updateCountdown, 1000); updateCountdown();
 
 </body>
 </html>
+

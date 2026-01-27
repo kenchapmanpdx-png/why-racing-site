@@ -30,7 +30,7 @@
         h1, h2, h3, h4 { font-family: 'Oswald', sans-serif; text-transform: uppercase; letter-spacing: 1px; }
         a { text-decoration: none; color: inherit; }
 
-        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(27,94,32,0.97) 0%, rgba(46,125,50,0.97) 50%, rgba(2,136,209,0.95) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
+        nav { position: fixed; top: 0; width: 100%; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; z-index: 1000; background: linear-gradient(90deg, rgba(27,94,32,0.97) 0%, rgba(46,125,50,0.97) 50%, rgba(2,136,209, 0.35) 100%); box-shadow: 0 4px 20px rgba(0,0,0,0.3); }
         .logo { text-decoration: none; padding: 5px 0; }
         .logo img { height: 40px; filter: brightness(0) invert(1); }
         .nav-links { display: flex; gap: 25px; align-items: center; }
@@ -39,7 +39,7 @@
         .nav-btn { background: white; color: var(--forest-green); padding: 10px 20px; border-radius: 4px; font-weight: 700; font-size: 12px; }
         .nav-btn:hover { background: var(--mist-blue); }
 
-        .event-hero { height: 60vh; min-height: 450px; background: linear-gradient(135deg, rgba(27,94,32,0.85) 0%, rgba(46,125,50,0.7) 40%, rgba(2,136,209,0.6) 100%), url('../../images/action/spring-classic-1.jpg') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; position: relative; overflow: hidden; }
+        .event-hero { height: 60vh; min-height: 450px; background: linear-gradient(135deg, rgba(27,94,32, 0.35) 0%, rgba(46,125,50, 0.35) 40%, rgba(2,136,209, 0.35) 100%), url('../../images/action/spring-classic-1.jpg') center/cover; display: flex; align-items: center; justify-content: center; text-align: center; color: white; padding: 100px 20px 60px; position: relative; overflow: hidden; }
         .floating-icons { position: absolute; width: 100%; height: 100%; top: 0; left: 0; pointer-events: none; overflow: hidden; }
         .floating-icon { position: absolute; font-size: 2rem; opacity: 0.4; animation: float 8s ease-in-out infinite; }
         .floating-icon:nth-child(1) { left: 5%; top: 20%; animation-delay: 0s; }
@@ -123,7 +123,7 @@
         .course-section h2::before { content: '🌲 '; }
         .course-section h2::after { content: ' 💧'; }
         .course-features { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; }
-        .course-feature { background: rgba(255,255,255,0.95); padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border-bottom: 4px solid var(--waterfall-blue); transition: transform 0.3s; }
+        .course-feature { background: rgba(255,255,255, 0.35); padding: 30px; border-radius: 12px; text-align: center; box-shadow: 0 8px 25px rgba(0,0,0,0.15); border-bottom: 4px solid var(--waterfall-blue); transition: transform 0.3s; }
         .course-feature:hover { transform: translateY(-5px); }
         .course-feature i { font-size: 2.5rem; color: var(--waterfall-blue); margin-bottom: 15px; }
         .course-feature h4 { color: var(--forest-green-dark); margin-bottom: 10px; }
@@ -136,13 +136,13 @@
         .faq-question { font-weight: 700; color: var(--forest-green-dark); cursor: pointer; display: flex; justify-content: space-between; }
         .faq-answer { padding-top: 15px; color: #555; line-height: 1.7; }
 
-        footer { background: linear-gradient(135deg, var(--earth-brown) 0%, var(--forest-green-dark) 100%); color: rgba(255,255,255,0.8); padding: 50px 5%; text-align: center; }
+        footer { background: linear-gradient(135deg, var(--earth-brown) 0%, var(--forest-green-dark) 100%); color: rgba(255,255,255, 0.35); padding: 50px 5%; text-align: center; }
         .footer-brand { font-family: 'Oswald', sans-serif; font-size: 1.5rem; color: white; margin-bottom: 10px; }
         .footer-brand span { color: var(--waterfall-blue-light); }
-        .footer-tagline { margin-bottom: 25px; font-style: italic; color: rgba(255,255,255,0.7); }
+        .footer-tagline { margin-bottom: 25px; font-style: italic; color: rgba(255,255,255, 0.35); }
         .footer-tagline::before { content: '🏞️ '; }
         .footer-links { display: flex; justify-content: center; gap: 25px; margin-bottom: 25px; flex-wrap: wrap; }
-        .footer-links a { transition: 0.3s; color: rgba(255,255,255,0.8); }
+        .footer-links a { transition: 0.3s; color: rgba(255,255,255, 0.35); }
         .footer-links a:hover { color: var(--waterfall-blue-light); }
         .footer-copy { font-size: 13px; opacity: 0.5; }
 
@@ -376,3 +376,4 @@ setInterval(updateCountdown, 1000); updateCountdown();
 </script>
 </body>
 </html>
+
