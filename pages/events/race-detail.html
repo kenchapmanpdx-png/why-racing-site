@@ -817,6 +817,19 @@
                     <p id="charityDesc" style="color: #92400e; margin-top: 8px;"></p>
                 </div>
 
+                <!-- Video Highlights Section -->
+                <div id="videoSection" style="display: none; margin-top: 40px;">
+                    <h3 style="margin-bottom: 20px; color: var(--brand-blue); font-style: italic;">🎬 Race Highlights
+                    </h3>
+                    <div
+                        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
+                        <iframe id="videoFrame"
+                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
+                            allowfullscreen
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                    </div>
+                </div>
+
                 <!-- Gallery Section -->
                 <div id="gallerySection" style="display: none; margin-top: 40px;">
                     <h3 style="margin-bottom: 20px; color: var(--brand-blue); font-style: italic;">📸 Race Gallery</h3>
@@ -1151,27 +1164,39 @@
                 if (includes.length > 0) {
                     const includeIcons = {
                         'shirt': 'fas fa-tshirt',
+                        'technical_shirt': 'fas fa-tshirt',
+                        'event_tank': 'fas fa-tshirt',
                         'medal': 'fas fa-medal',
                         'bib': 'fas fa-id-badge',
                         'timing': 'fas fa-stopwatch',
                         'food': 'fas fa-utensils',
+                        'post_race_party': 'fas fa-champagne-glasses',
+                        'mimosas': 'fas fa-glass-cheers',
                         'beer': 'fas fa-beer-mug-empty',
                         'photos': 'fas fa-camera',
                         'bag': 'fas fa-shopping-bag',
                         'shuttle': 'fas fa-bus',
-                        'cert': 'fas fa-certificate'
+                        'cert': 'fas fa-certificate',
+                        'parking': 'fas fa-parking',
+                        'body_marking': 'fas fa-marker'
                     };
                     const includeLabels = {
                         'shirt': 'Race Shirt',
+                        'technical_shirt': 'Technical Shirt',
+                        'event_tank': 'Event Tank',
                         'medal': 'Finisher Medal',
                         'bib': 'Race Bib',
                         'timing': 'Chip Timing',
                         'food': 'Post-Race Food',
+                        'post_race_party': 'Post-Race Party',
+                        'mimosas': 'Mimosas & Treats',
                         'beer': 'Post-Race Beer',
                         'photos': 'Free Race Photos',
                         'bag': 'Swag Bag',
                         'shuttle': 'Shuttle Service',
-                        'cert': 'Finisher Certificate'
+                        'cert': 'Finisher Certificate',
+                        'parking': 'Included Parking',
+                        'body_marking': 'Body Marking'
                     };
 
                     document.getElementById('includedList').innerHTML = includes.map(item =>
@@ -1393,6 +1418,22 @@
                     if (msHtml) {
                         document.getElementById('multisportContent').innerHTML = msHtml;
                         document.getElementById('multisportAccordion').style.display = 'block';
+                    }
+                }
+
+                // Video Highlights
+                if (race.youtube_video_url) {
+                    const url = race.youtube_video_url;
+                    let videoId = '';
+                    if (url.includes('v=')) {
+                        videoId = url.split('v=')[1].split('&')[0];
+                    } else if (url.includes('youtu.be/')) {
+                        videoId = url.split('youtu.be/')[1].split('?')[0];
+                    }
+
+                    if (videoId) {
+                        document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoId}`;
+                        document.getElementById('videoSection').style.display = 'block';
                     }
                 }
 

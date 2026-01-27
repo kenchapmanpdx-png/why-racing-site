@@ -1,0 +1,26 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env.local -- tip: Γ£à audit secrets and track compliance: https://dotenvx.com/ops
+Silver Falls Trail Challenge: /images/action/spring-classic-1.jpg
+Scary Run: /images/Scrapedimages/20171029scary_tmj067-1540237495.jpg
+Couve Clover Run: /images/Scrapedimages/clover-run-400x284.jpg
+Crown Stub 100: /images/Scrapedimages/thumbnail_12143_Crown-Stub-WHY-Racing-2024-Marketing-Proof-01.png
+Battle to the Pacific: /images/Scrapedimages/47681440_1958662244229696_6071657857466499072_o.jpg
+Girlfriends Half Marathon: /images/Scrapedimages/Girlfriends-Half-Marathon-opt-400x284.jpg
+Bigfoot 5K/10K: images/heroes/bigfoot.png
+Bigfoot Fun Run: /images/Scrapedimages/Scott-Goodrich-Why-Racing-1-400x250.jpg
+Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K: /images/Scrapedimages/santa-cover-1200-x-500-px.png
+Girlfriends Triathlon: /images/Scrapedimages/Girlfriends-Sprint-Swim.jpg
+Girlfriends All-Women's Triathlon & Fitness Festival: /images/Scrapedimages/0D2109BD-DDEC-450E-8468-8AF7C56221BB-400x250.jpg
+Spring Classic Duathlon, Half Marathon, 10K & 5K: /images/action/pro-action-1.jpg
+PeaceHealth AppleTree Marathon, Half Marathon & 5K: /images/Scrapedimages/AppleTree-Finish-full-size.jpg
+White River Snowshoe Race: /images/Scrapedimages/snowshoe-run-guy.jpg
+Pacific Coast Running Festival: /images/action/pro-action-2.jpg
+PDX Triathlon Festival: /images/Scrapedimages/pdx-triathlon-1-why-racing-events-400x284.jpg
+Girlfriends Run: /images/Scrapedimages/Girlfriends-Half-Marathon-opt-400x284.jpg
+Pacific Crest Endurance Sports Festival: /images/Scrapedimages/20130610_aerial_bluelake_c.bruceforster-1539874864.jpg
+Stub Stewart Trail Challenge: /images/action/spring-classic-2.jpg
+Resolution Run: /images/Scrapedimages/Resolution-Run-Website-Home-Page-Tile-Photo.png
+Hellz Bellz Ultra: /images/Scrapedimages/Screenshot-2022-04-14-173337.png
+Appletree Marathon: /images/action/pro-action-3.jpg
+Reflection Run: /images/Scrapedimages/thumbnail_26331_-_WRE_Reflection-Y191-2.3-1.jpg
+Hagg Lake Triathlon & Trail Festival: /images/Scrapedimages/20170708_hagglaketri_bmc_044-1540218820-copy.jpg
+Columbia River Triathlon & Endurance Sports Festival: /images/Scrapedimages/Columbian-Triathlon-Biking.jpg
