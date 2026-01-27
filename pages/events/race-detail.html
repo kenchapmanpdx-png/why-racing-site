@@ -1235,11 +1235,18 @@
                     document.getElementById('parkingSection').style.display = 'block';
                     hasLogistics = true;
                 }
-                if (race.packet_pickup) {
-                    document.getElementById('packetInfo').textContent = race.packet_pickup;
+                if (race.packet_pickup && race.packet_pickup.length > 0) {
+                    // packet_pickup is an array of location objects from the API
+                    const pickupSummary = race.packet_pickup.map(loc => {
+                        const date = new Date(loc.pickup_date + 'T00:00:00');
+                        const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                        return `${loc.location_name} (${dateStr})`;
+                    }).join(' • ');
+                    document.getElementById('packetInfo').textContent = pickupSummary;
                     document.getElementById('packetSection').style.display = 'block';
                     hasLogistics = true;
                 }
+
                 if (hasLogistics) {
                     document.getElementById('logisticsSection').style.display = 'block';
                 }
