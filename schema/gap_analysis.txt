@@ -15,11 +15,11 @@ Venue Name: ✓ All races have this
 ⚠️ IMPORTANT MISSING DATA (Enhances race pages):
 ----------------------------------------
 
-Race Logo: 25/25 races missing
+Race Logo: 21/25 races missing
   - Resolution Run
   - White River Snowshoe Race
   - Silver Falls Trail Challenge
-  ... and 22 more
+  ... and 18 more
 
 Card/Thumbnail Image: 25/25 races missing
   - Resolution Run
@@ -27,11 +27,11 @@ Card/Thumbnail Image: 25/25 races missing
   - Silver Falls Trail Challenge
   ... and 22 more
 
-Promo Video: 24/25 races missing
-  - Resolution Run
+Promo Video: 13/25 races missing
   - White River Snowshoe Race
   - Silver Falls Trail Challenge
-  ... and 21 more
+  - Crown Stub 100
+  ... and 10 more
 
 Terrain Type (road, trail, mixed): 2/25 races missing
   - Hagg Lake Triathlon & Trail Festival
@@ -104,10 +104,10 @@ Girlfriends Triathlon:
 Appletree Marathon:
   ⚠ No packet pickup info
 
-Girlfriends Half Marathon:
+Pacific Coast Running Festival:
   ⚠ No packet pickup info
 
-Pacific Coast Running Festival:
+Girlfriends Half Marathon:
   ⚠ No packet pickup info
 
 Girlfriends Run:
@@ -129,7 +129,7 @@ Pacific Crest Endurance Sports Festival:
 💡 RECOMMENDATIONS:
 ----------------------------------------
 
-2. Add race logos (25 missing) - improves branding
+2. Add race logos (21 missing) - improves branding
 3. Add thumbnail/card images (25 missing) - for event listings
 4. Add "What's Included" lists (3 missing) - tells runners what they get
 5. Add promo videos where available - increases engagement
