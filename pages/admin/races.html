@@ -601,6 +601,16 @@
                 grid-template-columns: 1fr 1fr;
             }
 
+            .pickup-item,
+            .beneficiary-item,
+            .sponsor-item {
+                grid-template-columns: 1fr;
+            }
+
+            .pickup-item .form-group[style*="grid-column: span"] {
+                grid-column: 1 / -1 !important;
+            }
+
             .pricing-tier .form-grid {
                 grid-template-columns: 1fr;
             }
@@ -619,6 +629,87 @@
                 width: 100%;
                 text-align: center;
             }
+
+            .admin-header {
+                flex-direction: column;
+                gap: 15px;
+                align-items: flex-start;
+            }
+        }
+
+        /* Repeater Styles */
+        .repeater-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+
+        .repeater-item {
+            background: #1e293b;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            padding: 16px;
+            position: relative;
+            display: grid;
+            gap: 12px;
+        }
+
+        .repeater-item-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid #334155;
+        }
+
+        .repeater-item-header h5 {
+            color: #94a3b8;
+            font-size: 12px;
+            text-transform: uppercase;
+        }
+
+        .remove-btn {
+            background: #ef444422;
+            color: #ef4444;
+            border: 1px solid #ef444444;
+            padding: 4px 8px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.2s;
+        }
+
+        .remove-btn:hover {
+            background: #ef4444;
+            color: white;
+        }
+
+        .add-btn {
+            padding: 10px 16px;
+            background: transparent;
+            border: 2px dashed #334155;
+            color: #94a3b8;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 13px;
+            transition: all 0.2s;
+            width: fit-content;
+        }
+
+        .add-btn:hover {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+
+        .pickup-item {
+            grid-template-columns: 2fr 1fr 1fr 1fr auto;
+        }
+
+        .beneficiary-item,
+        .sponsor-item {
+            grid-template-columns: 1fr 1fr auto;
         }
 
         /* Media Upload Styles */
@@ -973,6 +1064,10 @@
                                 <label>Base Price</label>
                                 <input type="number" name="distancePrice[]" placeholder="75" step="0.01">
                             </div>
+                            <div>
+                                <label>Start Time</label>
+                                <input type="time" name="distanceStartTime[]">
+                            </div>
                             <button type="button" class="remove-distance" onclick="removeDistance(this)">×</button>
                         </div>
                     </div>
@@ -1051,13 +1146,8 @@
                     <h2>🗺️ Course & Logistics</h2>
                     <div class="form-grid">
                         <div class="form-group">
-                            <label for="surfaceType">Surface Type</label>
-                            <select id="surfaceType" name="surfaceType">
-                                <option value="road">Road</option>
-                                <option value="trail">Trail</option>
-                                <option value="mixed">Mixed</option>
-                                <option value="track">Track</option>
-                            </select>
+                            <label for="terrain">Surface Type / Terrain</label>
+                            <input type="text" id="terrain" name="terrain" placeholder="e.g., Road, Trail, Mixed">
                         </div>
                         <div class="form-group">
                             <label for="elevation">Elevation Gain</label>
@@ -1082,333 +1172,404 @@
                                 placeholder="Where can participants park? Cost? Shuttle info?"></textarea>
                         </div>
                         <div class="form-group full-width">
-                            <label for="packetPickup">Packet Pickup Info</label>
+                            <label for="packetPickup">Packet Pickup Summary (displays at top of section)</label>
                             <textarea id="packetPickup" name="packetPickup"
                                 placeholder="When and where is packet pickup? Race morning option?"></textarea>
                         </div>
-                    </div>
-                </div>
-
-                <!-- What's Included -->
-                <div class="form-section">
-                    <h2>🎁 What's Included</h2>
-                    <div class="included-items">
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="shirt">
-                            <span>Race Shirt</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="medal">
-                            <span>Finisher Medal</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="bib">
-                            <span>Race Bib</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="timing">
-                            <span>Chip Timing</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="food">
-                            <span>Post-Race Food</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="beer">
-                            <span>Post-Race Beer</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="photos">
-                            <span>Free Race Photos</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="bag">
-                            <span>Swag Bag</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="shuttle">
-                            <span>Shuttle Service</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="cert">
-                            <span>Finisher Certificate</span>
-                        </label>
-                    </div>
-                    <div class="form-grid" style="margin-top: 20px;">
                         <div class="form-group full-width">
-                            <label for="shirtSizes">T-Shirt Sizes Available</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
-                                        value="XS"><span>XS</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
-                                        value="S"><span>S</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="M"
-                                        checked><span>M</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="L"
-                                        checked><span>L</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="XL"
-                                        checked><span>XL</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
-                                        value="2XL"><span>2XL</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
-                                        value="3XL"><span>3XL</span></label>
+                            <label>Detailed Pickup Locations</label>
+                            <div id="pickupList" class="repeater-list">
+                                <!-- Populated by JS -->
                             </div>
+                            <button type="button" class="add-btn" onclick="addPickupLocation()">+ Add Pickup
+                                Location</button>
                         </div>
                     </div>
                 </div>
 
-                <!-- Charity -->
+                <!-- Beneficiaries & Sponsors -->
                 <div class="form-section">
-                    <h2>❤️ Charity & Cause</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="charityName">Benefiting Charity</label>
-                            <input type="text" id="charityName" name="charityName"
-                                placeholder="e.g., Clark County Food Bank">
+                    <h2>🤝 Partners & Causes</h2>
+
+                    <div class="repeater-container">
+                        <h3>❤️ Beneficiaries</h3>
+                        <div id="beneficiaryList" class="repeater-list">
+                            <!-- Populated by JS -->
                         </div>
-                        <div class="form-group">
-                            <label for="charityAmount">Donation per Registration ($)</label>
-                            <input type="number" id="charityAmount" name="charityAmount" placeholder="5" step="0.01">
+                        <button type="button" class="add-btn" onclick="addBeneficiary()">+ Add Beneficiary</button>
+                    </div>
+
+                    <div class="repeater-container" style="margin-top: 30px;">
+                        <h3>🤝 Sponsors</h3>
+                        <div id="sponsorList" class="repeater-list">
+                            <!-- Populated by JS -->
                         </div>
-                        <div class="form-group full-width">
-                            <label for="charityDescription">Charity Description</label>
-                            <textarea id="charityDescription" name="charityDescription"
-                                placeholder="Tell participants about the cause..."></textarea>
-                        </div>
+                        <button type="button" class="add-btn" onclick="addSponsor()">+ Add Sponsor</button>
                     </div>
                 </div>
-
-                <!-- Media -->
-                <div class="form-section">
-                    <h2>📸 Media</h2>
-
-                    <!-- YouTube Video -->
-                    <div class="media-block">
-                        <h4>🎬 Race Video</h4>
-                        <p class="media-hint">Paste a YouTube link to feature on the race page</p>
-                        <div class="form-group">
-                            <label for="youtubeUrl">YouTube URL</label>
-                            <div class="input-with-button">
-                                <input type="url" id="youtubeUrl" name="youtubeUrl"
-                                    placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/...">
-                                <button type="button" class="preview-btn" onclick="previewYouTube()">Preview</button>
-                            </div>
-                        </div>
-                        <div class="youtube-preview" id="youtubePreview">
-                            <div class="youtube-placeholder">
-                                <span>🎬</span>
-                                <p>YouTube preview will appear here</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Hero/Background Image -->
-                    <div class="media-block">
-                        <h4>🖼️ Hero Background Image</h4>
-                        <p class="media-hint">Main banner image for the race page (recommended: 1920x1080)</p>
-                        <div class="form-group">
-                            <div class="image-upload-area" id="heroUploadArea"
-                                onclick="document.getElementById('heroImage').click()">
-                                <input type="file" id="heroImage" name="heroImage" accept="image/*"
-                                    onchange="previewImage(this, 'heroPreview')" hidden>
-                                <div class="upload-placeholder" id="heroPlaceholder">
-                                    <span>📁</span>
-                                    <p>Click to upload or drag & drop</p>
-                                    <small>PNG, JPG, WebP up to 10MB</small>
-                                </div>
-                                <img id="heroPreview" class="image-preview" style="display: none;">
-                            </div>
-                            <button type="button" class="clear-image-btn" onclick="clearImage('hero')"
-                                style="display: none;" id="heroClearBtn">✕ Remove Image</button>
-                        </div>
-                    </div>
-
-                    <!-- Thumbnail Image -->
-                    <div class="media-block">
-                        <h4>🏷️ Race Thumbnail</h4>
-                        <p class="media-hint">Square image for race cards and listings (recommended: 800x800)</p>
-                        <div class="form-group">
-                            <div class="image-upload-area thumbnail-upload" id="thumbnailUploadArea"
-                                onclick="document.getElementById('thumbnailImage').click()">
-                                <input type="file" id="thumbnailImage" name="thumbnailImage" accept="image/*"
-                                    onchange="previewImage(this, 'thumbnailPreview')" hidden>
-                                <div class="upload-placeholder" id="thumbnailPlaceholder">
-                                    <span>📁</span>
-                                    <p>Click to upload</p>
-                                    <small>Square image</small>
-                                </div>
-                                <img id="thumbnailPreview" class="image-preview" style="display: none;">
-                            </div>
-                            <button type="button" class="clear-image-btn" onclick="clearImage('thumbnail')"
-                                style="display: none;" id="thumbnailClearBtn">✕ Remove</button>
-                        </div>
-                    </div>
-
-                    <!-- Additional Media -->
-                    <div class="media-block">
-                        <h4>📷 Race Logo & Gallery</h4>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="logoImage">Race Logo</label>
-                                <div class="image-upload-area" id="logoUploadArea"
-                                    style="min-height: 120px; max-width: 250px;"
-                                    onclick="document.getElementById('logoImage').click()">
-                                    <input type="file" id="logoImage" name="logoImage" accept="image/*"
-                                        onchange="previewImage(this, 'logoPreview')" hidden>
-                                    <div class="upload-placeholder" id="logoPlaceholder">
-                                        <span>🎨</span>
-                                        <p>Click to upload logo</p>
-                                    </div>
-                                    <img id="logoPreview" class="image-preview"
-                                        style="display: none; object-fit: contain; padding: 10px;">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="instructionsPdf">Race Instructions (PDF)</label>
-                                <div class="image-upload-area" id="pdfUploadArea"
-                                    style="min-height: 120px; max-width: 250px;"
-                                    onclick="document.getElementById('instructionsPdf').click()">
-                                    <input type="file" id="instructionsPdf" name="instructionsPdf" accept=".pdf"
-                                        onchange="previewPDF(this)" hidden>
-                                    <div class="upload-placeholder" id="pdfPlaceholder">
-                                        <span>📄</span>
-                                        <p>Click to upload PDF instructions</p>
-                                    </div>
-                                    <div id="pdfPreview" style="display: none; padding: 10px; text-align: center;">
-                                        <span style="font-size: 40px;">PDF</span>
-                                        <p id="pdfFilename"
-                                            style="font-size: 12px; margin-top: 5px; word-break: break-all;"></p>
-                                    </div>
-                                </div>
-                                <button type="button" class="clear-image-btn" id="pdfClearBtn" onclick="clearPDF()"
-                                    style="display: none;">✕ Remove PDF</button>
-                            </div>
-                            <div class="form-group full-width">
-                                <label>Race Gallery</label>
-                                <p class="media-hint" style="margin-bottom: 15px;">Add photos to showcase your race.
-                                    Each slot can pick from a different folder.</p>
-                                <div id="gallerySlots">
-                                    <!-- Gallery slots will be added here -->
-                                </div>
-                                <button type="button" class="btn btn-secondary" onclick="addGallerySlot()"
-                                    style="margin-top: 10px;">
-                                    <span>➕</span> Add Another Image
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- AI Theme Generator -->
-                <div class="form-section ai-theme-section">
-                    <h2>✨ AI Theme Generator</h2>
-                    <p style="color: #94a3b8; margin-bottom: 16px;">Describe how you want this race page to look and
-                        feel. Our AI will generate a custom theme.</p>
-                    <div class="form-group full-width ai-prompt-area">
-                        <label for="themePrompt">Theme Description</label>
-                        <textarea id="themePrompt" name="themePrompt"
-                            placeholder="Example: Spooky Halloween theme with fog effects, orange and purple colors, gothic fonts, perfect for our October night race..."></textarea>
-                        <button type="button" class="generate-theme-btn" onclick="generateTheme()">
-                            <span>✨</span> Generate Theme
-                        </button>
-                    </div>
-
-                    <div class="theme-preview" id="themePreview">
-                        <h4>Generated Theme Preview</h4>
-                        <div class="color-swatches">
-                            <div class="color-swatch">
-                                <div class="swatch" id="primarySwatch" style="background: var(--brand-red);"></div>
-                                <label>Primary</label>
-                                <input type="text" id="primaryColor" name="primaryColor" value="#E31837"
-                                    onchange="updateSwatch('primary', this.value)">
-                            </div>
-                            <div class="color-swatch">
-                                <div class="swatch" id="secondarySwatch" style="background: #0ea5e9;"></div>
-                                <label>Secondary</label>
-                                <input type="text" id="secondaryColor" name="secondaryColor" value="#0ea5e9"
-                                    onchange="updateSwatch('secondary', this.value)">
-                            </div>
-                            <div class="color-swatch">
-                                <div class="swatch" id="accentSwatch" style="background: #22c55e;"></div>
-                                <label>Accent</label>
-                                <input type="text" id="accentColor" name="accentColor" value="#22c55e"
-                                    onchange="updateSwatch('accent', this.value)">
-                            </div>
-                            <div class="color-swatch">
-                                <div class="swatch" id="backgroundSwatch" style="background: var(--brand-dark);"></div>
-                                <label>Background</label>
-                                <input type="text" id="backgroundColor" name="backgroundColor" value="#0a0a0a"
-                                    onchange="updateSwatch('background', this.value)">
-                            </div>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="fontStyle">Font Style</label>
-                                <select id="fontStyle" name="fontStyle">
-                                    <option value="modern">Modern</option>
-                                    <option value="playful">Playful</option>
-                                    <option value="bold">Bold</option>
-                                    <option value="elegant">Elegant</option>
-                                    <option value="rugged">Rugged</option>
-                                    <option value="gothic">Gothic</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="mood">Mood Keywords</label>
-                                <input type="text" id="mood" name="mood" placeholder="energetic, fun, challenging">
-                            </div>
-                        </div>
-                        <div class="generated-tagline" id="generatedTagline">
-                            "Your AI-generated tagline will appear here..."
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Form Actions -->
-                <div class="form-actions">
-                    <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear Form</button>
-                    <button type="button" class="btn btn-secondary" id="viewLiveBtn" style="display: none;"
-                        onclick="window.open('../events/race-detail.html?id=' + document.getElementById('raceForm').dataset.editingId, '_blank')">View
-                        Live</button>
-                    <button type="button" class="btn btn-secondary" onclick="saveDraft()">Save as Draft</button>
-                    <button type="submit" class="btn btn-primary">Save & Publish Race</button>
-                </div>
-
-                <!-- Delete Section (only visible when editing) -->
-                <div id="deleteSection"
-                    style="display: none; margin-top: 40px; padding-top: 30px; border-top: 2px solid #ef4444;">
-                    <h4 style="color: #ef4444; margin-bottom: 15px;">⚠️ Danger Zone</h4>
-                    <p style="color: #94a3b8; margin-bottom: 15px;">Permanently delete this race and all associated
-                        data. This action cannot be undone.</p>
-
-                    <!-- Step 1: Initial Button -->
-                    <div id="deleteStep1">
-                        <button type="button" class="btn"
-                            style="background: transparent; color: #ef4444; border: 1px solid #ef4444;"
-                            onclick="showDeleteConfirm()">
-                            🗑️ Delete This Race
-                        </button>
-                    </div>
-
-                    <!-- Step 2: Confirmation Buttons -->
-                    <div id="deleteStep2"
-                        style="display: none; background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 8px; border: 1px solid #ef4444;">
-                        <p style="color: #ef4444; font-weight: 700; margin-bottom: 15px;">Are you absolutely sure? This
-                            cannot be undone.</p>
-                        <div style="display: flex; gap: 15px; align-items: center;">
-                            <button type="button" class="btn"
-                                style="background: #ef4444; color: white; border: none; font-weight: 800;"
-                                onclick="finalDeleteRace()">
-                                YES, DELETE PERMANENTLY
-                            </button>
-                            <button type="button" class="btn btn-secondary"
-                                onclick="hideDeleteConfirm()">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-
-            </form>
         </div>
+    </div>
+
+    <!-- What's Included -->
+    <div class="form-section">
+        <h2>🎁 What's Included</h2>
+        <div class="included-items">
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="shirt">
+                <span>Race Shirt</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="medal">
+                <span>Finisher Medal</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="bib">
+                <span>Race Bib</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="timing">
+                <span>Chip Timing</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="food">
+                <span>Post-Race Food</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="beer">
+                <span>Post-Race Beer</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="photos">
+                <span>Free Race Photos</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="bag">
+                <span>Swag Bag</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="shuttle">
+                <span>Shuttle Service</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="cert">
+                <span>Finisher Certificate</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="tech_shirt">
+                <span>Technical Shirt</span>
+            </label>
+            <label class="checkbox-item">
+                <input type="checkbox" name="includes[]" value="transition_area">
+                <span>Transition Area</span>
+            </label>
+        </div>
+        <div class="form-grid" style="margin-top: 20px;">
+            <div class="form-group full-width">
+                <label for="shirtSizes">T-Shirt Sizes Available</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
+                            value="XS"><span>XS</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
+                            value="S"><span>S</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="M"
+                            checked><span>M</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="L"
+                            checked><span>L</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="XL"
+                            checked><span>XL</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
+                            value="2XL"><span>2XL</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
+                            value="3XL"><span>3XL</span></label>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Multi-Sport Details (Triathlon/Duathlon) -->
+    <div class="form-section" id="multisportSection">
+        <h2>🏊 Multi-Sport Details</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="waterTemp">Typical Water Temp</label>
+                <input type="text" id="waterTemp" name="waterTemp" placeholder="e.g., 68-72°F">
+            </div>
+            <div class="form-group">
+                <label for="wetsuitPolicy">Wetsuit Policy</label>
+                <input type="text" id="wetsuitPolicy" name="wetsuitPolicy" placeholder="e.g., Wetsuit legal">
+            </div>
+            <div class="form-group">
+                <label for="bikeRequirements">Bike Requirements</label>
+                <input type="text" id="bikeRequirements" name="bikeRequirements"
+                    placeholder="e.g., Helmets mandatory, all bike types welcome">
+            </div>
+            <div class="form-group">
+                <label for="usatRules">USAT Rules URL</label>
+                <input type="url" id="usatRules" name="usatRules" placeholder="https://...">
+            </div>
+            <div class="form-group full-width">
+                <label for="transitionNotes">Transition Area Notes</label>
+                <textarea id="transitionNotes" name="transitionNotes"
+                    placeholder="Describe transition area flow, security, timing mats..."></textarea>
+            </div>
+            <div class="form-group full-width">
+                <label for="relayRules">Relay Rules</label>
+                <textarea id="relayRules" name="relayRules"
+                    placeholder="Describe how relay teams swap chips, etc..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Charity -->
+    <div class="form-section">
+        <h2>❤️ Charity & Cause</h2>
+        <div class="form-grid">
+            <div class="form-group">
+                <label for="charityName">Benefiting Charity</label>
+                <input type="text" id="charityName" name="charityName" placeholder="e.g., Clark County Food Bank">
+            </div>
+            <div class="form-group">
+                <label for="charityAmount">Donation per Registration ($)</label>
+                <input type="number" id="charityAmount" name="charityAmount" placeholder="5" step="0.01">
+            </div>
+            <div class="form-group">
+                <label for="charityPercent">Donation Percentage (%)</label>
+                <input type="number" id="charityPercent" name="charityPercent" placeholder="10">
+            </div>
+            <div class="form-group full-width">
+                <label for="charityDescription">Charity Description</label>
+                <textarea id="charityDescription" name="charityDescription"
+                    placeholder="Tell participants about the cause..."></textarea>
+            </div>
+        </div>
+    </div>
+
+    <!-- Media -->
+    <div class="form-section">
+        <h2>📸 Media</h2>
+
+        <!-- YouTube Video -->
+        <div class="media-block">
+            <h4>🎬 Race Video</h4>
+            <p class="media-hint">Paste a YouTube link to feature on the race page</p>
+            <div class="form-group">
+                <label for="youtubeUrl">YouTube URL</label>
+                <div class="input-with-button">
+                    <input type="url" id="youtubeUrl" name="youtubeUrl"
+                        placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/...">
+                    <button type="button" class="preview-btn" onclick="previewYouTube()">Preview</button>
+                </div>
+            </div>
+            <div class="youtube-preview" id="youtubePreview">
+                <div class="youtube-placeholder">
+                    <span>🎬</span>
+                    <p>YouTube preview will appear here</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Hero/Background Image -->
+        <div class="media-block">
+            <h4>🖼️ Hero Background Image</h4>
+            <p class="media-hint">Main banner image for the race page (recommended: 1920x1080)</p>
+            <div class="form-group">
+                <div class="image-upload-area" id="heroUploadArea"
+                    onclick="document.getElementById('heroImage').click()">
+                    <input type="file" id="heroImage" name="heroImage" accept="image/*"
+                        onchange="previewImage(this, 'heroPreview')" hidden>
+                    <div class="upload-placeholder" id="heroPlaceholder">
+                        <span>📁</span>
+                        <p>Click to upload or drag & drop</p>
+                        <small>PNG, JPG, WebP up to 10MB</small>
+                    </div>
+                    <img id="heroPreview" class="image-preview" style="display: none;">
+                </div>
+                <button type="button" class="clear-image-btn" onclick="clearImage('hero')" style="display: none;"
+                    id="heroClearBtn">✕ Remove Image</button>
+            </div>
+        </div>
+
+        <!-- Thumbnail Image -->
+        <div class="media-block">
+            <h4>🏷️ Race Thumbnail</h4>
+            <p class="media-hint">Square image for race cards and listings (recommended: 800x800)</p>
+            <div class="form-group">
+                <div class="image-upload-area thumbnail-upload" id="thumbnailUploadArea"
+                    onclick="document.getElementById('thumbnailImage').click()">
+                    <input type="file" id="thumbnailImage" name="thumbnailImage" accept="image/*"
+                        onchange="previewImage(this, 'thumbnailPreview')" hidden>
+                    <div class="upload-placeholder" id="thumbnailPlaceholder">
+                        <span>📁</span>
+                        <p>Click to upload</p>
+                        <small>Square image</small>
+                    </div>
+                    <img id="thumbnailPreview" class="image-preview" style="display: none;">
+                </div>
+                <button type="button" class="clear-image-btn" onclick="clearImage('thumbnail')" style="display: none;"
+                    id="thumbnailClearBtn">✕ Remove</button>
+            </div>
+        </div>
+
+        <!-- Additional Media -->
+        <div class="media-block">
+            <h4>📷 Race Logo & Gallery</h4>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="logoImage">Race Logo</label>
+                    <div class="image-upload-area" id="logoUploadArea" style="min-height: 120px; max-width: 250px;"
+                        onclick="document.getElementById('logoImage').click()">
+                        <input type="file" id="logoImage" name="logoImage" accept="image/*"
+                            onchange="previewImage(this, 'logoPreview')" hidden>
+                        <div class="upload-placeholder" id="logoPlaceholder">
+                            <span>🎨</span>
+                            <p>Click to upload logo</p>
+                        </div>
+                        <img id="logoPreview" class="image-preview"
+                            style="display: none; object-fit: contain; padding: 10px;">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="instructionsPdf">Race Instructions (PDF)</label>
+                    <div class="image-upload-area" id="pdfUploadArea" style="min-height: 120px; max-width: 250px;"
+                        onclick="document.getElementById('instructionsPdf').click()">
+                        <input type="file" id="instructionsPdf" name="instructionsPdf" accept=".pdf"
+                            onchange="previewPDF(this)" hidden>
+                        <div class="upload-placeholder" id="pdfPlaceholder">
+                            <span>📄</span>
+                            <p>Click to upload PDF instructions</p>
+                        </div>
+                        <div id="pdfPreview" style="display: none; padding: 10px; text-align: center;">
+                            <span style="font-size: 40px;">PDF</span>
+                            <p id="pdfFilename" style="font-size: 12px; margin-top: 5px; word-break: break-all;"></p>
+                        </div>
+                    </div>
+                    <button type="button" class="clear-image-btn" id="pdfClearBtn" onclick="clearPDF()"
+                        style="display: none;">✕ Remove PDF</button>
+                </div>
+                <div class="form-group full-width">
+                    <label>Race Gallery</label>
+                    <p class="media-hint" style="margin-bottom: 15px;">Add photos to showcase your race.
+                        Each slot can pick from a different folder.</p>
+                    <div id="gallerySlots">
+                        <!-- Gallery slots will be added here -->
+                    </div>
+                    <button type="button" class="btn btn-secondary" onclick="addGallerySlot()"
+                        style="margin-top: 10px;">
+                        <span>➕</span> Add Another Image
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- AI Theme Generator -->
+    <div class="form-section ai-theme-section">
+        <h2>✨ AI Theme Generator</h2>
+        <p style="color: #94a3b8; margin-bottom: 16px;">Describe how you want this race page to look and
+            feel. Our AI will generate a custom theme.</p>
+        <div class="form-group full-width ai-prompt-area">
+            <label for="themePrompt">Theme Description</label>
+            <textarea id="themePrompt" name="themePrompt"
+                placeholder="Example: Spooky Halloween theme with fog effects, orange and purple colors, gothic fonts, perfect for our October night race..."></textarea>
+            <button type="button" class="generate-theme-btn" onclick="generateTheme()">
+                <span>✨</span> Generate Theme
+            </button>
+        </div>
+
+        <div class="theme-preview" id="themePreview">
+            <h4>Generated Theme Preview</h4>
+            <div class="color-swatches">
+                <div class="color-swatch">
+                    <div class="swatch" id="primarySwatch" style="background: var(--brand-red);"></div>
+                    <label>Primary</label>
+                    <input type="text" id="primaryColor" name="primaryColor" value="#E31837"
+                        onchange="updateSwatch('primary', this.value)">
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch" id="secondarySwatch" style="background: #0ea5e9;"></div>
+                    <label>Secondary</label>
+                    <input type="text" id="secondaryColor" name="secondaryColor" value="#0ea5e9"
+                        onchange="updateSwatch('secondary', this.value)">
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch" id="accentSwatch" style="background: #22c55e;"></div>
+                    <label>Accent</label>
+                    <input type="text" id="accentColor" name="accentColor" value="#22c55e"
+                        onchange="updateSwatch('accent', this.value)">
+                </div>
+                <div class="color-swatch">
+                    <div class="swatch" id="backgroundSwatch" style="background: var(--brand-dark);"></div>
+                    <label>Background</label>
+                    <input type="text" id="backgroundColor" name="backgroundColor" value="#0a0a0a"
+                        onchange="updateSwatch('background', this.value)">
+                </div>
+            </div>
+            <div class="form-grid">
+                <div class="form-group">
+                    <label for="fontStyle">Font Style</label>
+                    <select id="fontStyle" name="fontStyle">
+                        <option value="modern">Modern</option>
+                        <option value="playful">Playful</option>
+                        <option value="bold">Bold</option>
+                        <option value="elegant">Elegant</option>
+                        <option value="rugged">Rugged</option>
+                        <option value="gothic">Gothic</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="mood">Mood Keywords</label>
+                    <input type="text" id="mood" name="mood" placeholder="energetic, fun, challenging">
+                </div>
+            </div>
+            <div class="generated-tagline" id="generatedTagline">
+                "Your AI-generated tagline will appear here..."
+            </div>
+        </div>
+    </div>
+
+    <!-- Form Actions -->
+    <div class="form-actions">
+        <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear Form</button>
+        <button type="button" class="btn btn-secondary" id="viewLiveBtn" style="display: none;"
+            onclick="window.open('../events/race-detail.html?id=' + document.getElementById('raceForm').dataset.editingId, '_blank')">View
+            Live</button>
+        <button type="button" class="btn btn-secondary" onclick="saveDraft()">Save as Draft</button>
+        <button type="submit" class="btn btn-primary">Save & Publish Race</button>
+    </div>
+
+    <!-- Delete Section (only visible when editing) -->
+    <div id="deleteSection" style="display: none; margin-top: 40px; padding-top: 30px; border-top: 2px solid #ef4444;">
+        <h4 style="color: #ef4444; margin-bottom: 15px;">⚠️ Danger Zone</h4>
+        <p style="color: #94a3b8; margin-bottom: 15px;">Permanently delete this race and all associated
+            data. This action cannot be undone.</p>
+
+        <!-- Step 1: Initial Button -->
+        <div id="deleteStep1">
+            <button type="button" class="btn"
+                style="background: transparent; color: #ef4444; border: 1px solid #ef4444;"
+                onclick="showDeleteConfirm()">
+                🗑️ Delete This Race
+            </button>
+        </div>
+
+        <!-- Step 2: Confirmation Buttons -->
+        <div id="deleteStep2"
+            style="display: none; background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 8px; border: 1px solid #ef4444;">
+            <p style="color: #ef4444; font-weight: 700; margin-bottom: 15px;">Are you absolutely sure? This
+                cannot be undone.</p>
+            <div style="display: flex; gap: 15px; align-items: center;">
+                <button type="button" class="btn"
+                    style="background: #ef4444; color: white; border: none; font-weight: 800;"
+                    onclick="finalDeleteRace()">
+                    YES, DELETE PERMANENTLY
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="hideDeleteConfirm()">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    </form>
+    </div>
 
     </div>
 
@@ -1563,7 +1724,7 @@
             // Charity
             if (form.charityName) form.charityName.value = race.charity_name || '';
             if (form.charityDescription) form.charityDescription.value = race.charity_description || '';
-            if (form.charityAmount) form.charityAmount.value = race.charity_percent || '';
+            if (form.charityPercent) form.charityPercent.value = race.charity_percent || '';
 
             form.isActive.checked = race.is_visible;
             form.registrationOpen.checked = race.registration_open;
@@ -1675,6 +1836,41 @@
             if (race.theme_config) {
                 updateThemeFields(race.theme_config);
             }
+
+            // Handle Packet Pickup Locations
+            document.getElementById('pickupList').innerHTML = '';
+            if (race.packet_pickup && Array.isArray(race.packet_pickup)) {
+                race.packet_pickup.forEach(loc => {
+                    addPickupWithValue(loc.location_name, loc.pickup_date, loc.pickup_time, loc.address, loc.notes);
+                });
+            }
+
+            // Handle Beneficiaries
+            document.getElementById('beneficiaryList').innerHTML = '';
+            if (race.beneficiaries && Array.isArray(race.beneficiaries)) {
+                race.beneficiaries.forEach(b => {
+                    addBeneficiaryWithValue(b.name, b.role_description);
+                });
+            }
+
+            // Handle Sponsors
+            document.getElementById('sponsorList').innerHTML = '';
+            if (race.sponsors && Array.isArray(race.sponsors)) {
+                race.sponsors.forEach(s => {
+                    addSponsorWithValue(s.name, s.sponsor_level);
+                });
+            }
+
+            // Handle Multisport Details
+            if (race.multisport_details) {
+                const md = race.multisport_details;
+                if (form.waterTemp) form.waterTemp.value = md.water_temp_avg || '';
+                if (form.wetsuitPolicy) form.wetsuitPolicy.value = md.wetsuit_policy || '';
+                if (form.bikeRequirements) form.bikeRequirements.value = md.bike_requirements || '';
+                if (form.usatRules) form.usatRules.value = md.usat_rules_url || '';
+                if (form.transitionNotes) form.transitionNotes.value = md.transition_area_notes || '';
+                if (form.relayRules) form.relayRules.value = md.relay_rules || '';
+            }
         }
 
         function addDistanceWithValue(name = '', distance = '', capacity = '', price = '', startTime = '') {
@@ -1750,6 +1946,90 @@
             if (items.length > 1) {
                 btn.parentElement.remove();
             }
+        }
+
+        // === Packet Pickup Repeater ===
+        function addPickupLocation() {
+            addPickupWithValue();
+        }
+
+        function addPickupWithValue(name = '', date = '', time = '', address = '', notes = '') {
+            const list = document.getElementById('pickupList');
+            const item = document.createElement('div');
+            item.className = 'repeater-item pickup-item';
+
+            item.innerHTML = `
+                <div class="form-group">
+                    <label>Location Name</label>
+                    <input type="text" name="pickupName[]" value="${name}" placeholder="e.g., Fleet Feet Vancouver">
+                </div>
+                <div class="form-group">
+                    <label>Date</label>
+                    <input type="text" name="pickupDate[]" value="${date}" placeholder="e.g., Friday Oct 25">
+                </div>
+                <div class="form-group">
+                    <label>Time</label>
+                    <input type="text" name="pickupTime[]" value="${time}" placeholder="e.g., 10am - 6pm">
+                </div>
+                <div class="form-group">
+                    <label>Address</label>
+                    <input type="text" name="pickupAddress[]" value="${address}" placeholder="Street address">
+                </div>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+                <div class="form-group full-width" style="grid-column: span 4;">
+                    <label>Pickup Notes</label>
+                    <input type="text" name="pickupNotes[]" value="${notes}" placeholder="Additional info for this location">
+                </div>
+            `;
+            list.appendChild(item);
+        }
+
+        // === Beneficiary Repeater ===
+        function addBeneficiary() {
+            addBeneficiaryWithValue();
+        }
+
+        function addBeneficiaryWithValue(name = '', role = '', url = '', logo = '') {
+            const list = document.getElementById('beneficiaryList');
+            const item = document.createElement('div');
+            item.className = 'repeater-item beneficiary-item';
+
+            item.innerHTML = `
+                <div class="form-group">
+                    <label>Name</label>
+                    <input type="text" name="beneficiaryName[]" value="${name}" placeholder="e.g., Girlfriends Run for a Cure">
+                </div>
+                <div class="form-group">
+                    <label>Role/Support</label>
+                    <input type="text" name="beneficiaryRole[]" value="${role}" placeholder="e.g., Primary Beneficiary">
+                </div>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+            `;
+            list.appendChild(item);
+        }
+
+        // === Sponsor Repeater ===
+        function addSponsor() {
+            addSponsorWithValue();
+        }
+
+        function addSponsorWithValue(name = '', level = '', url = '', logo = '') {
+            const list = document.getElementById('sponsorList');
+            const item = document.createElement('div');
+            item.className = 'repeater-item sponsor-item';
+
+            item.innerHTML = `
+                <div class="form-group">
+                    <label>Sponsor Name</label>
+                    <input type="text" name="sponsorName[]" value="${name}" placeholder="e.g., Deschutes Brewery">
+                </div>
+                <div class="form-group">
+                    <label>Sponsor Level</label>
+                    <input type="text" name="sponsorLevel[]" value="${level}" placeholder="e.g., Gold Sponsor">
+                </div>
+                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
+            `;
+            list.appendChild(item);
         }
 
         // Standard distance values - auto-fills when distance type is selected
@@ -1853,6 +2133,17 @@
                 document.getElementById('themePreview').classList.remove('visible');
                 clearImage('hero');
                 clearImage('thumbnail');
+
+                // Clear repeaters
+                document.getElementById('distanceList').innerHTML = '';
+                addDistance(); // Add one default distance
+                document.getElementById('pickupList').innerHTML = '';
+                document.getElementById('beneficiaryList').innerHTML = '';
+                document.getElementById('sponsorList').innerHTML = '';
+
+                // Clear gallery
+                document.getElementById('gallerySlots').innerHTML = '';
+                addGallerySlot();
             }
         }
 
@@ -2144,7 +2435,7 @@
                 // Charity
                 charity_name: formData.get('charityName'),
                 charity_description: formData.get('charityDescription'),
-                charity_percent: parseFloat(formData.get('charityAmount')) || null,
+                charity_percent: parseFloat(formData.get('charityPercent')) || null,
                 // Distances
                 distances: distances,
                 // Pricing Config (to auto-generate tiers)
@@ -2161,7 +2452,32 @@
                     fontStyle: formData.get('fontStyle'),
                     mood: formData.get('mood'),
                     tagline: document.getElementById('generatedTagline').textContent.replace(/"/g, '')
-                }
+                },
+                // Multisport Details
+                multisport_details: {
+                    water_temp_avg: formData.get('waterTemp'),
+                    wetsuit_policy: formData.get('wetsuitPolicy'),
+                    bike_requirements: formData.get('bikeRequirements'),
+                    usat_rules_url: formData.get('usatRules'),
+                    transition_area_notes: formData.get('transitionNotes'),
+                    relay_rules: formData.get('relayRules')
+                },
+                // Nested Repeaters
+                packet_pickup_locations: formData.getAll('pickupName[]').map((name, i) => ({
+                    location_name: name,
+                    pickup_date: formData.getAll('pickupDate[]')[i],
+                    pickup_time: formData.getAll('pickupTime[]')[i],
+                    address: formData.getAll('pickupAddress[]')[i],
+                    notes: formData.getAll('pickupNotes[]')[i]
+                })).filter(loc => loc.location_name),
+                beneficiaries: formData.getAll('beneficiaryName[]').map((name, i) => ({
+                    name: name,
+                    role_description: formData.getAll('beneficiaryRole[]')[i]
+                })).filter(b => b.name),
+                sponsors: formData.getAll('sponsorName[]').map((name, i) => ({
+                    name: name,
+                    sponsor_level: formData.getAll('sponsorLevel[]')[i]
+                })).filter(s => s.name)
             };
 
             try {

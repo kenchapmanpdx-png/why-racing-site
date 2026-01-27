@@ -1,0 +1,23 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env.local -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+================================================================================
+≡ƒö┤ HIGH PRIORITY CHECK #3: Image URLs (Hero & Gallery)
+================================================================================
+
+≡ƒô╕ HERO IMAGES:
+   Γ£à 24/24 races have hero images
+
+≡ƒö▓ THUMBNAILS:
+   Γ£à 24/24 races have thumbnails
+
+≡ƒô╖ GALLERY IMAGES:
+   ≡ƒôè 11 races have 4+ gallery images
+   ΓÜá∩╕Å 13 races have 1-3 gallery images
+   Γ¥î 0 races have no gallery images
+
+================================================================================
+
+≡ƒöù URL VALIDATION:
+   Γ¥î 2 broken URL patterns found:
+      - Bigfoot 5K/10K (hero): images/heroes/bigfoot.png...
+      - Girlfriends Half Marathon (hero): images/heroes/girlfriends-tri.png...
+================================================================================

@@ -1,0 +1,159 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env.local -- tip: ΓÜÖ∩╕Å  specify custom .env file path with { path: '/custom/path/.env' }
+================================================================================
+≡ƒö┤ HIGH PRIORITY CHECK #1: Distance Start Times
+================================================================================
+
+ΓÜá∩╕Å White River Snowshoe Race
+   Race starts at: 10:00:00
+   Missing start times for:
+   - 4K Snowshoe
+   - 8K Snowshoe
+
+ΓÜá∩╕Å Couve Clover Run
+   Race starts at: 09:00:00
+   Missing start times for:
+   - Lucky Leap 1 Mile
+
+ΓÜá∩╕Å Crown Stub 100
+   Race starts at: 14:00:00
+   Missing start times for:
+   - Royal Ultra Relay
+   - Crown Stub 100
+
+ΓÜá∩╕Å Stub Stewart Trail Challenge
+   Race starts at: 09:00:00
+   Missing start times for:
+   - 1/4 Marathon
+   - 1/2 Marathon
+   - 3/4 Marathon
+   - Marathon
+
+ΓÜá∩╕Å PDX Triathlon Festival
+   Race starts at: 08:30:00
+   Missing start times for:
+   - 5K
+   - Super Sprint Triathlon
+   - Sprint Triathlon
+   - Olympic Triathlon
+   - Sprint Duathlon
+   - Olympic Duathlon
+   - Paddle Triathlon
+
+ΓÜá∩╕Å Hagg Lake Triathlon & Trail Festival
+   Race starts at: 08:00:00
+   Missing start times for:
+   - Sprint Triathlon
+   - Olympic Triathlon
+   - Off-Road Triathlon
+   - Sprint Duathlon
+   - Olympic Duathlon
+   - Sprint Aquabike
+   - Olympic Aquabike
+   - Trail Half Marathon
+   - Trail 5K
+   - Paddle Triathlon
+
+ΓÜá∩╕Å Bigfoot Fun Run
+   Race starts at: 09:00:00
+   Missing start times for:
+   - 5K Run/Walk
+   - 10K Run/Walk
+
+ΓÜá∩╕Å Hellz Bellz Ultra
+   Race starts at: 06:00:00
+   Missing start times for:
+   - Hellz Bellz Ultra - 50 Miles
+   - Purgatory Trail Marathon
+
+ΓÜá∩╕Å Columbia River Triathlon & Endurance Sports Festival
+   Race starts at: 08:00:00
+   Missing start times for:
+   - Sunset 5K
+   - Sunset 10K
+   - Sprint Triathlon
+   - Olympic Triathlon
+   - Kids Triathlon
+   - Girlfriends Sprint Tri
+
+ΓÜá∩╕Å Girlfriends All-Women's Triathlon & Fitness Festival
+   Race starts at: 09:00:00
+   Missing start times for:
+   - Sprint Aquabike
+   - 5K Run
+   - Sprint Duathlon
+   - Sprint Triathlon
+   - Relay Teams
+
+ΓÜá∩╕Å Girlfriends Triathlon
+   Race starts at: 09:00:00
+   Missing start times for:
+   - Relay Teams
+
+ΓÜá∩╕Å Pacific Coast Running Festival
+   Race starts at: 07:00:00
+   Missing start times for:
+   - Tour de Pacific Bike
+
+ΓÜá∩╕Å Girlfriends Half Marathon
+   Race starts at: 09:00:00
+   Missing start times for:
+   - 5K
+   - Half Marathon
+   - 10K
+
+ΓÜá∩╕Å Girlfriends Run
+   Race starts at: 09:00:00
+   Missing start times for:
+   - Half Marathon
+   - 10K
+   - 6K
+
+ΓÜá∩╕Å Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K
+   Race starts at: 09:00:00
+   Missing start times for:
+   - 5K Run/Walk
+   - Virtual 5K
+   - Dirty Santa 10K Trail Run
+
+ΓÜá∩╕Å Pacific Crest Endurance Sports Festival
+   Race starts at: 07:00:00
+   Missing start times for:
+   - Beastman Triathlon
+   - Olympic Triathlon
+   - Sprint Triathlon
+   - Marathon
+   - Half Marathon
+   - 10K
+   - Kids Splash Pedal n' Dash
+   - 5K
+
+--------------------------------------------------------------------------------
+
+≡ƒôè START TIME SUMMARY:
+Γ¥î White River Snowshoe Race: 0/2 distances have start times
+Γ£à Silver Falls Trail Challenge: 3/3 distances have start times
+ΓÜá∩╕Å Couve Clover Run: 3/4 distances have start times
+Γ¥î Crown Stub 100: 0/2 distances have start times
+Γ¥î Stub Stewart Trail Challenge: 0/4 distances have start times
+Γ£à Spring Classic Duathlon, Half Marathon, 10K & 5K: 4/4 distances have start times
+Γ£à Reflection Run: 4/4 distances have start times
+Γ¥î PDX Triathlon Festival: 0/7 distances have start times
+Γ¥î Hagg Lake Triathlon & Trail Festival: 0/10 distances have start times
+Γ¥î Bigfoot Fun Run: 0/2 distances have start times
+Γ¥î Hellz Bellz Ultra: 0/2 distances have start times
+Γ£à Bigfoot 5K/10K: 2/2 distances have start times
+Γ¥î Columbia River Triathlon & Endurance Sports Festival: 0/6 distances have start times
+Γ¥î Girlfriends All-Women's Triathlon & Fitness Festival: 0/5 distances have start times
+ΓÜá∩╕Å Girlfriends Triathlon: 2/3 distances have start times
+Γ£à Appletree Marathon: 4/4 distances have start times
+Γ£à PeaceHealth AppleTree Marathon, Half Marathon & 5K: 4/4 distances have start times
+ΓÜá∩╕Å Pacific Coast Running Festival: 7/8 distances have start times
+Γ¥î Girlfriends Half Marathon: 0/3 distances have start times
+Γ¥î Girlfriends Run: 0/3 distances have start times
+Γ£à Scary Run: 3/3 distances have start times
+Γ£à Battle to the Pacific: 4/4 distances have start times
+Γ¥î Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K: 0/3 distances have start times
+Γ¥î Pacific Crest Endurance Sports Festival: 0/8 distances have start times
+
+================================================================================
+ΓÜá∩╕Å 16 races may need distance-specific start times

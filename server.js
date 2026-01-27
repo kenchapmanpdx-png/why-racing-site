@@ -828,17 +828,23 @@ app.get('/api/races/:id/full', async (req, res) => {
 // Create new race
 app.post('/api/races', adminAuth, async (req, res) => {
   console.log('=== POST /api/races called ===');
-  const { distances, pricing_tiers, ...raceData } = req.body;
-  console.log('Race data received:', JSON.stringify(raceData, null, 2));
+  const {
+    distances,
+    pricing_tiers,
+    pricing_config,
+    multisport_details,
+    packet_pickup_locations,
+    beneficiaries,
+    sponsors,
+    ...raceData
+  } = req.body;
 
   // Sanitize data: convert empty strings to null for database fields
-  // But preserve arrays (like includes, shirt_sizes) even if empty
   const sanitizeData = (data) => {
     const sanitized = { ...data };
     for (const key in sanitized) {
-      // Skip arrays - they should be saved as-is
       if (Array.isArray(sanitized[key])) continue;
-      // Convert empty strings and undefined to null
+      if (typeof sanitized[key] === 'object' && sanitized[key] !== null) continue;
       if (sanitized[key] === '' || sanitized[key] === undefined) {
         sanitized[key] = null;
       }
@@ -847,7 +853,6 @@ app.post('/api/races', adminAuth, async (req, res) => {
   };
 
   const cleanRaceData = sanitizeData(raceData);
-  console.log('Sanitized data:', JSON.stringify(cleanRaceData, null, 2));
 
   try {
     const { data: race, error: raceError } = await supabase
@@ -861,25 +866,46 @@ app.post('/api/races', adminAuth, async (req, res) => {
       return res.status(500).json({ error: raceError.message });
     }
 
-    // Insert distances and then apply pricing
+    const raceId = race.id;
+
+    // 1. Insert Distances & Pricing
     if (distances && distances.length > 0) {
       const distancesWithRaceId = distances.map((d, i) => ({
         ...d,
-        race_id: race.id,
+        race_id: raceId,
         sort_order: i
       }));
-      // We need to insert and RETURN the IDs to map pricing
       const { data: newDists, error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId).select();
 
-      if (dError) {
-        console.error('Supabase Error (POST /api/races - distances insert):', dError);
-      } else if (req.body.pricing_config && newDists) {
-        // Verify table exists first
-        const { error: checkErr } = await supabase.from('pricing_tiers').select('id').limit(1);
-        if (!checkErr) { // Only proceed if table exists
-          await applyGlobalPricing(race.id, newDists, req.body.pricing_config, supabase);
-        }
+      if (!dError && pricing_config && newDists) {
+        await applyGlobalPricing(raceId, newDists, pricing_config, supabase);
       }
+    }
+
+    // 2. Insert Multi-sport Details
+    if (multisport_details) {
+      await supabase.from('multisport_details').insert({ ...multisport_details, race_id: raceId });
+    }
+
+    // 3. Insert Packet Pickup Locations
+    if (packet_pickup_locations && packet_pickup_locations.length > 0) {
+      await supabase.from('packet_pickup_locations').insert(
+        packet_pickup_locations.map((loc, i) => ({ ...loc, race_id: raceId, sort_order: i }))
+      );
+    }
+
+    // 4. Insert Beneficiaries
+    if (beneficiaries && beneficiaries.length > 0) {
+      await supabase.from('race_beneficiaries').insert(
+        beneficiaries.map((b, i) => ({ ...b, race_id: raceId, sort_order: i }))
+      );
+    }
+
+    // 5. Insert Sponsors
+    if (sponsors && sponsors.length > 0) {
+      await supabase.from('race_sponsors').insert(
+        sponsors.map((s, i) => ({ ...s, race_id: raceId, sort_order: i }))
+      );
     }
 
     return res.status(201).json(race);
@@ -892,13 +918,25 @@ app.post('/api/races', adminAuth, async (req, res) => {
 // Update race
 app.put('/api/races/:id', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const { distances, pricing_tiers, pricing_config, created_at, updated_at, ...raceData } = req.body;
+  const {
+    distances,
+    pricing_tiers,
+    pricing_config,
+    multisport_details,
+    packet_pickup_locations,
+    beneficiaries,
+    sponsors,
+    created_at,
+    updated_at,
+    ...raceData
+  } = req.body;
 
   // Sanitize data: convert empty strings to null
   const sanitizeData = (data) => {
     const sanitized = { ...data };
     for (const key in sanitized) {
       if (Array.isArray(sanitized[key])) continue;
+      if (typeof sanitized[key] === 'object' && sanitized[key] !== null) continue;
       if (sanitized[key] === '' || sanitized[key] === undefined) {
         sanitized[key] = null;
       }
@@ -920,11 +958,9 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
       return res.status(500).json({ error: raceError.message });
     }
 
-    // 2. Handle distances (Delete old and replace with new)
+    // 2. Handle distances
     if (distances) {
-      // First, delete existing (cascade will kill pricing_tiers usually, but we should be careful)
       await supabase.from('race_distances').delete().eq('race_id', id);
-
       if (distances.length > 0) {
         const distancesWithRaceId = distances.map((d, i) => ({
           ...d,
@@ -933,19 +969,51 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
         }));
         const { data: newDists, error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId).select();
 
-        if (dError) console.error('Dist Error:', dError);
-
-        // 3. Handle Pricing Config
         if (!dError && pricing_config && newDists) {
-          const { error: checkErr } = await supabase.from('pricing_tiers').select('id').limit(1);
-          if (!checkErr) {
-            await applyGlobalPricing(id, newDists, pricing_config, supabase);
-          }
+          await applyGlobalPricing(id, newDists, pricing_config, supabase);
         }
       }
     }
 
-    // Legacy support for direct pricing_tiers array (if sent)
+    // 3. Handle Multisport Details
+    if (multisport_details) {
+      await supabase.from('multisport_details').delete().eq('race_id', id);
+      if (Object.values(multisport_details).some(v => v !== null && v !== '')) {
+        await supabase.from('multisport_details').insert({ ...multisport_details, race_id: id });
+      }
+    }
+
+    // 4. Handle Packet Pickup Locations
+    if (packet_pickup_locations) {
+      await supabase.from('packet_pickup_locations').delete().eq('race_id', id);
+      if (packet_pickup_locations.length > 0) {
+        await supabase.from('packet_pickup_locations').insert(
+          packet_pickup_locations.map((loc, i) => ({ ...loc, race_id: id, sort_order: i }))
+        );
+      }
+    }
+
+    // 5. Handle Beneficiaries
+    if (beneficiaries) {
+      await supabase.from('race_beneficiaries').delete().eq('race_id', id);
+      if (beneficiaries.length > 0) {
+        await supabase.from('race_beneficiaries').insert(
+          beneficiaries.map((b, i) => ({ ...b, race_id: id, sort_order: i }))
+        );
+      }
+    }
+
+    // 6. Handle Sponsors
+    if (sponsors) {
+      await supabase.from('race_sponsors').delete().eq('race_id', id);
+      if (sponsors.length > 0) {
+        await supabase.from('race_sponsors').insert(
+          sponsors.map((s, i) => ({ ...s, race_id: id, sort_order: i }))
+        );
+      }
+    }
+
+    // Legacy support for direct pricing_tiers
     if (!pricing_config && pricing_tiers) {
       await supabase.from('pricing_tiers').delete().eq('race_id', id);
       const tiersWithRaceId = pricing_tiers.map(t => ({ ...t, race_id: id }));

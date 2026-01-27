@@ -130,7 +130,7 @@
         .event-hero {
             height: 60vh;
             min-height: 400px;
-            background: linear-gradient(135deg, rgba(227, 24, 55, 0.4) 0%, rgba(0, 0, 0, 0.3) 100%), url('../../images/action/hagg-lake-run.jpg') center/cover;
+            background: linear-gradient(135deg, rgba(227, 24, 55, 0.4) 0%, rgba(0, 0, 0, 0.3) 100%), url('../../images/action/hagg-lake-run.jpg') center top/cover;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -148,7 +148,7 @@
             right: 0;
             bottom: 0;
             background-size: cover;
-            background-position: center;
+            background-position: center top;
             z-index: 0;
         }
 
@@ -687,6 +687,118 @@
             font-size: 0.85rem;
             font-weight: 500;
         }
+
+        /* Mobile Menu */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 6px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(5px, -6px);
+        }
+
+        .mobile-menu {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(227, 24, 55, 0.95));
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            z-index: 999;
+            transform: translateY(-100%);
+            transition: 0.4s;
+        }
+
+        .mobile-menu.active {
+            transform: translateY(0);
+        }
+
+        .mobile-menu a {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: white;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .nav-btn.register-btn {
+                display: none;
+            }
+
+            /* Hide large register button in nav if needed */
+            .hamburger {
+                display: flex;
+            }
+
+            .event-hero {
+                height: auto;
+                min-height: 50vh;
+                padding-top: 120px;
+            }
+
+            .event-hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .event-details {
+                grid-template-columns: 1fr;
+                gap: 40px;
+                padding: 40px 5%;
+            }
+
+            .info-banner {
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        /* Footer Styles */
+        footer {
+            background: #111;
+            color: #888;
+            padding: 50px 5%;
+            text-align: center;
+        }
+
+        .footer-brand {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: white;
+            margin-bottom: 10px;
+        }
+
+        .footer-brand span {
+            color: var(--brand-red);
+        }
     </style>
 </head>
 
@@ -701,8 +813,22 @@
             <a href="../community.html">Community</a>
             <a href="../partners.html">Sponsors</a>
         </div>
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
         <a href="#register" class="nav-btn" id="navRegisterBtn">Register Now</a>
     </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../../index.html">Home</a>
+        <a href="../events.html">Races</a>
+        <a href="../volunteers.html">Volunteer</a>
+        <a href="../community.html">Community</a>
+        <a href="../partners.html">Sponsors</a>
+        <a href="#register" onclick="toggleMobileMenu()">Register Now</a>
+    </div>
 
     <!-- Loading State -->
     <div class="loading-container" id="loadingState">
@@ -984,6 +1110,15 @@
     </footer>
 
     <script>
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
+
         let currentRace = null;
 
         // Get race ID from URL
@@ -1213,7 +1348,7 @@
                 if (race.youtube_url) {
                     const videoId = extractYouTubeId(race.youtube_url);
                     if (videoId) {
-                        document.getElementById('youtubeEmbed').src = `https://www.youtube.com/embed/${videoId}`;
+                        document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoId}`;
                         document.getElementById('videoSection').style.display = 'block';
                     }
                 }

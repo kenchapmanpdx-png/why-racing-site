@@ -681,7 +681,7 @@
         .card-img {
             height: 250px;
             background-size: cover;
-            background-position: center;
+            background-position: center top;
             position: relative;
             overflow: hidden;
         }
@@ -1291,16 +1291,22 @@
                 white-space: normal;
             }
 
-            .hero-tagline {
+            .hero-content .hero-tagline {
                 font-size: 1.8rem;
                 letter-spacing: 2px;
-                line-height: 1;
+                line-height: 1.1;
+                margin-top: 15px;
+                margin-bottom: 15px;
+            }
+
+            .hero-proof {
+                gap: 15px;
             }
 
             header {
                 clip-path: none;
                 min-height: auto;
-                padding: 120px 20px 100px;
+                padding: 100px 20px 80px;
             }
 
             .stats-ticker {
@@ -1901,6 +1907,15 @@
                             timerHtml = `<div style="font-size: 11px; color: #E31837; font-weight: bold; margin-bottom: 5px;"><i class="fas fa-clock"></i> Price increases in ${diffDays} days!</div>`;
                         }
                     }
+                }
+            }
+
+            // Fallback to base_price if no tiers found
+            if (!pricingHtml && distances.length > 0) {
+                const validPrices = distances.map(d => parseFloat(d.base_price)).filter(p => p > 0);
+                if (validPrices.length > 0) {
+                    const minPrice = Math.min(...validPrices);
+                    pricingHtml = `<div class="card-pricing"><span class="price-now">From $${minPrice}</span></div>`;
                 }
             }
 
