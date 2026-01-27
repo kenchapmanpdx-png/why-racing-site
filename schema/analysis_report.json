@@ -1,0 +1,701 @@
+{
+  "analysis": {},
+  "toRemove": [
+    {
+      "name": "Columbia River Tri",
+      "id": "b0e11248-1cc5-452a-b631-b448b8939289",
+      "reason": "Duplicate of Columbia River Triathlon & Endurance Sports Festival"
+    },
+    {
+      "name": "Hagg Lake Triathlon",
+      "id": "29a8a355-ccdb-47f5-8121-2c9c2da5b19e",
+      "reason": "Duplicate of Hagg Lake Triathlon & Trail Festival"
+    },
+    {
+      "name": "Pacific Coast Festival",
+      "id": "c1c6a53e-fbd4-4ef6-b760-357f3d1ff4ad",
+      "reason": "Duplicate of Pacific Coast Running Festival"
+    },
+    {
+      "name": "Pacific Crest Endurance",
+      "id": "58ab5fa0-1073-4c37-ac82-35ef2f6fe0e9",
+      "reason": "Duplicate of Pacific Crest Endurance Sports Festival"
+    },
+    {
+      "name": "Resolution Run 2027",
+      "id": "14e8091a-9143-45c7-95c6-6fb79b000b2e",
+      "reason": "Duplicate of Resolution Run"
+    },
+    {
+      "name": "Santa's Holiday Hustle",
+      "id": "b49eed3c-e90b-4adb-ab20-916da715c431",
+      "reason": "Duplicate of Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K"
+    },
+    {
+      "name": "Spring Classic",
+      "id": "a3aa08d2-eafe-4c5d-97be-d0fddba7e39c",
+      "reason": "Duplicate of Spring Classic Duathlon, Half Marathon, 10K & 5K"
+    },
+    {
+      "name": "Stub Stewart Challenge",
+      "id": "99173692-4b89-460c-8682-d9cde43b8e08",
+      "reason": "Duplicate of Stub Stewart Trail Challenge"
+    },
+    {
+      "name": "White River Snowshoe",
+      "id": "17de5017-bd2d-4504-8e69-0e6c9f578ed9",
+      "reason": "Duplicate of White River Snowshoe Race"
+    },
+    {
+      "name": "Test Race 2026",
+      "id": "6df24388-d667-4a2e-b697-0e2f6d3b06a0",
+      "reason": "Test race"
+    }
+  ],
+  "issues": [],
+  "totalRaces": 35,
+  "racesWithContent": [
+    {
+      "name": "Battle to the Pacific",
+      "id": "bf98e648-d3ab-4220-82c5-837f1430e9aa",
+      "status": "active",
+      "race_date": "2026-11-15",
+      "city": "Hammond",
+      "distanceCount": 4,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Bigfoot Fun Run",
+      "id": "2809cdaf-c136-4f94-ba86-8e3165eed541",
+      "status": "draft",
+      "race_date": "2026-07-04",
+      "city": "Yacolt",
+      "distanceCount": 2,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Columbia River Triathlon & Endurance Sports Festival",
+      "id": "48bf79e1-ddca-46dc-bad0-e8717d6eeb2b",
+      "status": "draft",
+      "race_date": "2026-08-07",
+      "city": "Vancouver",
+      "distanceCount": 6,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Couve Clover Run",
+      "id": "e0558e0f-bbfb-422e-a8c9-74207a9f54c3",
+      "status": "active",
+      "race_date": "2026-03-22",
+      "city": "Vancouver",
+      "distanceCount": 4,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Crown Stub 100",
+      "id": "ecdc4bcf-f7a1-435b-b204-c57fcc4d90ae",
+      "status": "active",
+      "race_date": "2026-04-04",
+      "city": "Buxton",
+      "distanceCount": 2,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Girlfriends All-Women's Triathlon & Fitness Festival",
+      "id": "495cc242-dd40-4f1a-949a-bb6d9a741031",
+      "status": "draft",
+      "race_date": "2026-08-09",
+      "city": "Vancouver",
+      "distanceCount": 5,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Girlfriends Run",
+      "id": "04fe2e1e-2541-441d-b1e4-b36001db3149",
+      "status": "draft",
+      "race_date": "2026-10-18",
+      "city": "Vancouver",
+      "distanceCount": 3,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Hagg Lake Triathlon & Trail Festival",
+      "id": "78374509-9962-480b-b483-fae0a36c1258",
+      "status": "draft",
+      "race_date": "2026-06-20",
+      "city": "Gaston",
+      "distanceCount": 10,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Hellz Bellz Ultra",
+      "id": "5fc93199-4102-45ec-b813-2bce475424b0",
+      "status": "active",
+      "race_date": "2026-07-05",
+      "city": "Yacolt",
+      "distanceCount": 2,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Pacific Coast Running Festival",
+      "id": "67609924-8391-47a9-88d2-14a277a4e782",
+      "status": "draft",
+      "race_date": "2026-09-26",
+      "city": "Long Beach",
+      "distanceCount": 8,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Pacific Crest Endurance Sports Festival",
+      "id": "0349a679-67a5-49b8-b4b9-c45c5dc75c0b",
+      "status": "draft",
+      "race_date": "2027-06-15",
+      "city": "Bend",
+      "distanceCount": 8,
+      "hasHeroImage": false
+    },
+    {
+      "name": "PDX Triathlon Festival",
+      "id": "f8694da0-6cb6-45c0-9a12-0792d58c1586",
+      "status": "active",
+      "race_date": "2026-05-31",
+      "city": "Fairview",
+      "distanceCount": 7,
+      "hasHeroImage": true
+    },
+    {
+      "name": "PeaceHealth AppleTree Marathon, Half Marathon & 5K",
+      "id": "fc980021-13d8-4ac2-b4be-cce4a679010c",
+      "status": "draft",
+      "race_date": "2026-08-30",
+      "city": "Vancouver",
+      "distanceCount": 4,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Reflection Run",
+      "id": "6f70d5bc-de4b-43b0-8d2c-b29cb47bfe04",
+      "status": "active",
+      "race_date": "2026-05-17",
+      "city": "Washougal",
+      "distanceCount": 4,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Resolution Run",
+      "id": "5bc6592a-8f9f-42ab-ac3c-133b29d1883e",
+      "status": "draft",
+      "race_date": "2026-01-03",
+      "city": "La Center",
+      "distanceCount": 3,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K",
+      "id": "d74d60f1-40ac-47b6-964b-1ff132ac2fab",
+      "status": "draft",
+      "race_date": "2026-12-12",
+      "city": "Camas",
+      "distanceCount": 3,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Scary Run",
+      "id": "aa9f9d6c-c230-49d9-a09b-446d9400cb3e",
+      "status": "active",
+      "race_date": "2026-10-25",
+      "city": "Washougal",
+      "distanceCount": 3,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Silver Falls Trail Challenge",
+      "id": "0fc95b7a-1a59-45bd-ad3e-cb66ee4350a3",
+      "status": "active",
+      "race_date": "2026-02-28",
+      "city": "Sublimity",
+      "distanceCount": 3,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Spring Classic Duathlon, Half Marathon, 10K & 5K",
+      "id": "4121f0da-7d0d-40b0-aa72-8bfe84bde8f3",
+      "status": "draft",
+      "race_date": "2026-04-26",
+      "city": "Vancouver",
+      "distanceCount": 4,
+      "hasHeroImage": false
+    },
+    {
+      "name": "Stub Stewart Trail Challenge",
+      "id": "adf83ae4-311a-4026-a47d-6cdec218ba6b",
+      "status": "draft",
+      "race_date": "2026-04-05",
+      "city": "Buxton",
+      "distanceCount": 4,
+      "hasHeroImage": false
+    },
+    {
+      "name": "White River Snowshoe Race",
+      "id": "59228c98-a4c9-43d4-99f1-74a725fc62d4",
+      "status": "draft",
+      "race_date": "2026-02-07",
+      "city": "Government Camp",
+      "distanceCount": 2,
+      "hasHeroImage": false
+    }
+  ],
+  "racesWithoutContent": [
+    {
+      "name": "Appletree Marathon",
+      "id": "3cdf3334-fb89-4018-a1dd-91ab1e5ce01f",
+      "status": "active",
+      "race_date": "2026-08-29",
+      "city": "Vancouver",
+      "distanceCount": 4,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Bigfoot 5K/10K",
+      "id": "91bfa9fc-918e-4702-b43e-348eb2ec7fba",
+      "status": "active",
+      "race_date": "2026-07-11",
+      "city": "Skamania",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Columbia River Tri",
+      "id": "b0e11248-1cc5-452a-b631-b448b8939289",
+      "status": "active",
+      "race_date": "2026-08-07",
+      "city": "Vancouver",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Girlfriends Half Marathon",
+      "id": "02a98ee5-b813-4ac1-90c5-8d617d8cb724",
+      "status": "active",
+      "race_date": "2026-09-26",
+      "city": "Vancouver",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Girlfriends Triathlon",
+      "id": "3d6778f2-2b8f-4636-b407-c32a320a8ef8",
+      "status": "active",
+      "race_date": "2026-08-15",
+      "city": "Vancouver",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Hagg Lake Triathlon",
+      "id": "29a8a355-ccdb-47f5-8121-2c9c2da5b19e",
+      "status": "active",
+      "race_date": "2026-06-20",
+      "city": "Gaston",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Pacific Coast Festival",
+      "id": "c1c6a53e-fbd4-4ef6-b760-357f3d1ff4ad",
+      "status": "active",
+      "race_date": "2026-09-12",
+      "city": "Long Beach",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Pacific Crest Endurance",
+      "id": "58ab5fa0-1073-4c37-ac82-35ef2f6fe0e9",
+      "status": "active",
+      "race_date": "2026-12-12",
+      "city": "Cascade Locks",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Resolution Run 2027",
+      "id": "14e8091a-9143-45c7-95c6-6fb79b000b2e",
+      "status": "active",
+      "race_date": "2027-01-01",
+      "city": "Vancouver",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Santa's Holiday Hustle",
+      "id": "b49eed3c-e90b-4adb-ab20-916da715c431",
+      "status": "active",
+      "race_date": "2026-12-05",
+      "city": "Vancouver",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Spring Classic",
+      "id": "a3aa08d2-eafe-4c5d-97be-d0fddba7e39c",
+      "status": "active",
+      "race_date": "2026-04-25",
+      "city": "Vancouver",
+      "distanceCount": 3,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Stub Stewart Challenge",
+      "id": "99173692-4b89-460c-8682-d9cde43b8e08",
+      "status": "active",
+      "race_date": "2026-04-18",
+      "city": "Stub Stewart",
+      "distanceCount": 0,
+      "hasHeroImage": true
+    },
+    {
+      "name": "Test Race 2026",
+      "id": "6df24388-d667-4a2e-b697-0e2f6d3b06a0",
+      "status": "active",
+      "race_date": "2026-06-15",
+      "city": "Vancouver",
+      "distanceCount": 0,
+      "hasHeroImage": false
+    },
+    {
+      "name": "White River Snowshoe",
+      "id": "17de5017-bd2d-4504-8e69-0e6c9f578ed9",
+      "status": "active",
+      "race_date": "2026-02-07",
+      "city": "Mt. Hood",
+      "distanceCount": 2,
+      "hasHeroImage": true
+    }
+  ],
+  "duplicateGroups": [
+    {
+      "basePattern": "columbia river",
+      "races": [
+        {
+          "name": "Columbia River Tri",
+          "id": "b0e11248-1cc5-452a-b631-b448b8939289",
+          "hasContent": false,
+          "status": "active"
+        },
+        {
+          "name": "Columbia River Triathlon & Endurance Sports Festival",
+          "id": "48bf79e1-ddca-46dc-bad0-e8717d6eeb2b",
+          "hasContent": true,
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "basePattern": "hagg lake",
+      "races": [
+        {
+          "name": "Hagg Lake Triathlon",
+          "id": "29a8a355-ccdb-47f5-8121-2c9c2da5b19e",
+          "hasContent": false,
+          "status": "active"
+        },
+        {
+          "name": "Hagg Lake Triathlon & Trail Festival",
+          "id": "78374509-9962-480b-b483-fae0a36c1258",
+          "hasContent": true,
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "basePattern": "pacific coast",
+      "races": [
+        {
+          "name": "Pacific Coast Festival",
+          "id": "c1c6a53e-fbd4-4ef6-b760-357f3d1ff4ad",
+          "hasContent": false,
+          "status": "active"
+        },
+        {
+          "name": "Pacific Coast Running Festival",
+          "id": "67609924-8391-47a9-88d2-14a277a4e782",
+          "hasContent": true,
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "basePattern": "pacific crest",
+      "races": [
+        {
+          "name": "Pacific Crest Endurance",
+          "id": "58ab5fa0-1073-4c37-ac82-35ef2f6fe0e9",
+          "hasContent": false,
+          "status": "active"
+        },
+        {
+          "name": "Pacific Crest Endurance Sports Festival",
+          "id": "0349a679-67a5-49b8-b4b9-c45c5dc75c0b",
+          "hasContent": true,
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "basePattern": "resolution run",
+      "races": [
+        {
+          "name": "Resolution Run",
+          "id": "5bc6592a-8f9f-42ab-ac3c-133b29d1883e",
+          "hasContent": true,
+          "status": "draft"
+        },
+        {
+          "name": "Resolution Run 2027",
+          "id": "14e8091a-9143-45c7-95c6-6fb79b000b2e",
+          "hasContent": false,
+          "status": "active"
+        }
+      ]
+    },
+    {
+      "basePattern": "santas holiday",
+      "races": [
+        {
+          "name": "Santa's Holiday Hustle",
+          "id": "b49eed3c-e90b-4adb-ab20-916da715c431",
+          "hasContent": false,
+          "status": "active"
+        },
+        {
+          "name": "Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K",
+          "id": "d74d60f1-40ac-47b6-964b-1ff132ac2fab",
+          "hasContent": true,
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "basePattern": "spring classic",
+      "races": [
+        {
+          "name": "Spring Classic",
+          "id": "a3aa08d2-eafe-4c5d-97be-d0fddba7e39c",
+          "hasContent": false,
+          "status": "active"
+        },
+        {
+          "name": "Spring Classic Duathlon, Half Marathon, 10K & 5K",
+          "id": "4121f0da-7d0d-40b0-aa72-8bfe84bde8f3",
+          "hasContent": true,
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "basePattern": "stub stewart",
+      "races": [
+        {
+          "name": "Stub Stewart Challenge",
+          "id": "99173692-4b89-460c-8682-d9cde43b8e08",
+          "hasContent": false,
+          "status": "active"
+        },
+        {
+          "name": "Stub Stewart Trail Challenge",
+          "id": "adf83ae4-311a-4026-a47d-6cdec218ba6b",
+          "hasContent": true,
+          "status": "draft"
+        }
+      ]
+    },
+    {
+      "basePattern": "white river",
+      "races": [
+        {
+          "name": "White River Snowshoe",
+          "id": "17de5017-bd2d-4504-8e69-0e6c9f578ed9",
+          "hasContent": false,
+          "status": "active"
+        },
+        {
+          "name": "White River Snowshoe Race",
+          "id": "59228c98-a4c9-43d4-99f1-74a725fc62d4",
+          "hasContent": true,
+          "status": "draft"
+        }
+      ]
+    }
+  ],
+  "missingFields": [
+    {
+      "name": "Bigfoot 5K/10K",
+      "id": "91bfa9fc-918e-4702-b43e-348eb2ec7fba",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Bigfoot Fun Run",
+      "id": "2809cdaf-c136-4f94-ba86-8e3165eed541",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Columbia River Tri",
+      "id": "b0e11248-1cc5-452a-b631-b448b8939289",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Columbia River Triathlon & Endurance Sports Festival",
+      "id": "48bf79e1-ddca-46dc-bad0-e8717d6eeb2b",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Girlfriends All-Women's Triathlon & Fitness Festival",
+      "id": "495cc242-dd40-4f1a-949a-bb6d9a741031",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Girlfriends Half Marathon",
+      "id": "02a98ee5-b813-4ac1-90c5-8d617d8cb724",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Girlfriends Run",
+      "id": "04fe2e1e-2541-441d-b1e4-b36001db3149",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Girlfriends Triathlon",
+      "id": "3d6778f2-2b8f-4636-b407-c32a320a8ef8",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Hagg Lake Triathlon",
+      "id": "29a8a355-ccdb-47f5-8121-2c9c2da5b19e",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Hagg Lake Triathlon & Trail Festival",
+      "id": "78374509-9962-480b-b483-fae0a36c1258",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Pacific Coast Festival",
+      "id": "c1c6a53e-fbd4-4ef6-b760-357f3d1ff4ad",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Pacific Coast Running Festival",
+      "id": "67609924-8391-47a9-88d2-14a277a4e782",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Pacific Crest Endurance",
+      "id": "58ab5fa0-1073-4c37-ac82-35ef2f6fe0e9",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Pacific Crest Endurance Sports Festival",
+      "id": "0349a679-67a5-49b8-b4b9-c45c5dc75c0b",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "PeaceHealth AppleTree Marathon, Half Marathon & 5K",
+      "id": "fc980021-13d8-4ac2-b4be-cce4a679010c",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Resolution Run",
+      "id": "5bc6592a-8f9f-42ab-ac3c-133b29d1883e",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Resolution Run 2027",
+      "id": "14e8091a-9143-45c7-95c6-6fb79b000b2e",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Santa's Holiday Hustle",
+      "id": "b49eed3c-e90b-4adb-ab20-916da715c431",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K",
+      "id": "d74d60f1-40ac-47b6-964b-1ff132ac2fab",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Spring Classic Duathlon, Half Marathon, 10K & 5K",
+      "id": "4121f0da-7d0d-40b0-aa72-8bfe84bde8f3",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Stub Stewart Challenge",
+      "id": "99173692-4b89-460c-8682-d9cde43b8e08",
+      "missing": [
+        "venue"
+      ]
+    },
+    {
+      "name": "Stub Stewart Trail Challenge",
+      "id": "adf83ae4-311a-4026-a47d-6cdec218ba6b",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "Test Race 2026",
+      "id": "6df24388-d667-4a2e-b697-0e2f6d3b06a0",
+      "missing": [
+        "hero_image_url"
+      ]
+    },
+    {
+      "name": "White River Snowshoe Race",
+      "id": "59228c98-a4c9-43d4-99f1-74a725fc62d4",
+      "missing": [
+        "hero_image_url"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,604 @@
+
+========================================
+RACE DATA VERIFICATION REPORT
+========================================
+
+Total Races in Database: 25
+
+RACES TABLE COLUMNS: id, created_at, updated_at, status, is_visible, registration_open, is_featured, waitlist_enabled, name, slug, tagline, description, race_type, race_date, race_time, venue, address, city, state, hero_image_url, thumbnail_url, logo_url, youtube_url, theme_config, registration_url, includes, terrain, elevation, aid_stations, parking, packet_pickup, charity_name, charity_description, charity_percent, shirt_sizes, gallery_images, instructions_pdf_url
+
+
+--- RELATED TABLE COUNTS ---
+race_content: 25 records
+race_distances: 103 records
+race_beneficiaries: 12 records
+race_policies: 147 records
+course_records: 24 records
+packet_pickup_locations: 8 records
+themed_event_content: 7 records
+multisport_details: 3 records
+special_participant_categories: 9 records
+award_categories: 365 records
+course_amenities: 5 records
+
+
+--- INDIVIDUAL RACE VERIFICATION ---
+
+
+----------------------------------------
+RACE: Appletree Marathon
+  ID: 3cdf3334-fb89-4018-a1dd-91ab1e5ce01f
+  Slug: appletree-marathon
+  Race Date: 2026-08-29
+  Location: Vancouver, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 4
+    - 5K: 3.1 miles (price: $45)
+    - 10K: 6.2 miles (price: $55)
+    - Half Marathon: 13.1 miles (price: $85)
+    - Marathon: 26.2 miles (price: $115)
+  Beneficiaries: 1
+  Policies: 7
+  Course Records: 0
+
+----------------------------------------
+RACE: Battle to the Pacific
+  ID: bf98e648-d3ab-4220-82c5-837f1430e9aa
+  Slug: battle-to-the-pacific
+  Race Date: 2026-11-15
+  Location: Hammond, OR
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: SET
+  Distances: 4
+    - 1/2 Marathon: 13.1 (price: $0)
+    - 1/4 Marathon: 6.55 (price: $0)
+    - 5K: 5 (price: $0)
+    - 12 Mile Ruck Challenge: 12 (price: $0)
+  Beneficiaries: 0
+  Policies: 0
+  Course Records: 0
+
+----------------------------------------
+RACE: Bigfoot 5K/10K
+  ID: 91bfa9fc-918e-4702-b43e-348eb2ec7fba
+  Slug: bigfoot-5k-10k
+  Race Date: 2026-07-11
+  Location: Skamania, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 2
+    - 5K: 5 (price: $0)
+    - 10K: 10 (price: $0)
+  Beneficiaries: 0
+  Policies: 7
+  Course Records: 0
+
+----------------------------------------
+RACE: Bigfoot Fun Run
+  ID: 2809cdaf-c136-4f94-ba86-8e3165eed541
+  Slug: bigfoot-fun-run
+  Race Date: 2026-07-04
+  Location: Yacolt, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 2
+    - 5K Run/Walk: 5 (price: $0)
+    - 10K Run/Walk: 10 (price: $0)
+  Beneficiaries: 0
+  Policies: 7
+  Course Records: 0
+
+----------------------------------------
+RACE: Columbia River Triathlon & Endurance Sports Festival
+  ID: 48bf79e1-ddca-46dc-bad0-e8717d6eeb2b
+  Slug: columbia-river-triathlon-endurance-sports-festival
+  Race Date: 2026-08-07
+  Location: Vancouver, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 6
+    - Kids Triathlon: 1 (price: $0)
+    - Sunset 5K: 5 (price: $0)
+    - Sunset 10K: 10 (price: $0)
+    - Sprint Triathlon: 20 (price: $0)
+    - Olympic Triathlon: 51.5 (price: $0)
+    - Girlfriends Sprint Tri: 20 (price: $0)
+  Beneficiaries: 0
+  Policies: 9
+  Course Records: 3
+
+----------------------------------------
+RACE: Couve Clover Run
+  ID: e0558e0f-bbfb-422e-a8c9-74207a9f54c3
+  Slug: couve-clover-run
+  Race Date: 2026-03-22
+  Location: Vancouver, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 4
+    - Lucky Leap 1 Mile: 1 (price: $0)
+    - 3 Mile: 3 (price: $0)
+    - Lucky 7 Mile: 7 (price: $0)
+    - 10 Mile: 10 (price: $0)
+  Beneficiaries: 3
+  Policies: 7
+  Course Records: 6
+
+----------------------------------------
+RACE: Crown Stub 100
+  ID: ecdc4bcf-f7a1-435b-b204-c57fcc4d90ae
+  Slug: crown-stub-100
+  Race Date: 2026-04-04
+  Location: Buxton, OR
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 2
+    - Crown Stub 100: 100 (price: $0)
+    - Royal Ultra Relay: 100 (price: $0)
+  Beneficiaries: 0
+  Policies: 1
+  Course Records: 0
+
+----------------------------------------
+RACE: Girlfriends All-Women's Triathlon & Fitness Festival
+  ID: 495cc242-dd40-4f1a-949a-bb6d9a741031
+  Slug: girlfriends-all-women-s-triathlon-fitness-festival
+  Race Date: 2026-08-09
+  Location: Vancouver, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 5
+    - Sprint Triathlon: 20 (price: $0)
+    - Sprint Duathlon: 20 (price: $0)
+    - Sprint Aquabike: 15 (price: $0)
+    - 5K Run: 5 (price: $0)
+    - Relay Teams: 20 (price: $0)
+  Beneficiaries: 0
+  Policies: 7
+  Course Records: 0
+
+----------------------------------------
+RACE: Girlfriends Half Marathon
+  ID: 02a98ee5-b813-4ac1-90c5-8d617d8cb724
+  Slug: girlfriends-half-marathon
+  Race Date: 2026-09-26
+  Location: Vancouver, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 3
+    - Half Marathon: 13.1 (price: $0)
+    - 10K: 10 (price: $0)
+    - 5K: 5 (price: $0)
+  Beneficiaries: 0
+  Policies: 7
+  Course Records: 0
+
+----------------------------------------
+RACE: Girlfriends Run
+  ID: 04fe2e1e-2541-441d-b1e4-b36001db3149
+  Slug: girlfriends-run
+  Race Date: 2026-10-18
+  Location: Vancouver, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 3
+    - Half Marathon: 13.1 (price: $0)
+    - 10K: 10 (price: $0)
+    - 6K: 6 (price: $0)
+  Beneficiaries: 1
+  Policies: 7
+  Course Records: 0
+
+----------------------------------------
+RACE: Girlfriends Triathlon
+  ID: 3d6778f2-2b8f-4636-b407-c32a320a8ef8
+  Slug: girlfriends-triathlon
+  Race Date: 2026-08-15
+  Location: Vancouver, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 3
+    - Sprint Triathlon: 20 (price: $0)
+    - Super Sprint Triathlon: 10 (price: $0)
+    - Relay Teams: 20 (price: $0)
+  Beneficiaries: 0
+  Policies: 7
+  Course Records: 0
+
+----------------------------------------
+RACE: Hagg Lake Triathlon & Trail Festival
+  ID: 78374509-9962-480b-b483-fae0a36c1258
+  Slug: hagg-lake-triathlon-trail-festival
+  Race Date: 2026-06-20
+  Location: Gaston, OR
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 10
+    - Sprint Triathlon: 27.75 (price: $0)
+    - Olympic Triathlon: 51.5 (price: $0)
+    - Off-Road Triathlon: 22.5 (price: $0)
+    - Sprint Duathlon: 27.75 (price: $0)
+    - Olympic Duathlon: 51.5 (price: $0)
+    - Sprint Aquabike: 27.75 (price: $0)
+    - Olympic Aquabike: 51.5 (price: $0)
+    - Paddle Triathlon: 22.5 (price: $0)
+    - Trail Half Marathon: 13.1 (price: $0)
+    - Trail 5K: 5 (price: $0)
+  Beneficiaries: 0
+  Policies: 9
+  Course Records: 0
+
+----------------------------------------
+RACE: Hellz Bellz Ultra
+  ID: 5fc93199-4102-45ec-b813-2bce475424b0
+  Slug: hellz-bellz-ultra
+  Race Date: 2026-07-05
+  Location: Yacolt, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 2
+    - Hellz Bellz Ultra - 50 Miles: 50 (price: $0)
+    - Purgatory Trail Marathon: 26.2 (price: $0)
+  Beneficiaries: 1
+  Policies: 5
+  Course Records: 0
+
+----------------------------------------
+RACE: Pacific Coast Running Festival
+  ID: 67609924-8391-47a9-88d2-14a277a4e782
+  Slug: pacific-coast-running-festival
+  Race Date: 2026-09-26
+  Location: Long Beach, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 8
+    - Sand Marathon: 26.2 (price: $0)
+    - Sunset Sand 5K: 5 (price: $0)
+    - Half Marathon: 13.1 (price: $0)
+    - 10K: 10 (price: $0)
+    - 5K: 5 (price: $0)
+    - Tour de Pacific Bike: 12.6 (price: $0)
+    - Kids 1 Mile Dash: 1 (price: $0)
+    - Kids 1/2 Mile Dash: 0.5 (price: $0)
+  Beneficiaries: 1
+  Policies: 8
+  Course Records: 3
+
+----------------------------------------
+RACE: Pacific Crest Endurance Sports Festival
+  ID: 0349a679-67a5-49b8-b4b9-c45c5dc75c0b
+  Slug: pacific-crest-endurance-sports-festival
+  Race Date: 2027-06-15
+  Location: Bend, OR
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 8
+    - Beastman Triathlon: 113 (price: $0)
+    - Olympic Triathlon: 51.5 (price: $0)
+    - Sprint Triathlon: 25 (price: $0)
+    - Marathon: 26.2 (price: $0)
+    - Half Marathon: 13.1 (price: $0)
+    - 10K: 10 (price: $0)
+    - 5K: 5 (price: $0)
+    - Kids Splash Pedal n' Dash: 1 (price: $0)
+  Beneficiaries: 0
+  Policies: 2
+  Course Records: 0
+
+----------------------------------------
+RACE: PDX Triathlon Festival
+  ID: f8694da0-6cb6-45c0-9a12-0792d58c1586
+  Slug: pdx-triathlon-festival
+  Race Date: 2026-05-31
+  Location: Fairview, OR
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 7
+    - 5K: 5 (price: $0)
+    - Super Sprint Triathlon: 10 (price: $0)
+    - Sprint Triathlon: 20 (price: $0)
+    - Olympic Triathlon: 51.5 (price: $0)
+    - Sprint Duathlon: 20 (price: $0)
+    - Olympic Duathlon: 51.5 (price: $0)
+    - Paddle Triathlon: 20 (price: $0)
+  Beneficiaries: 0
+  Policies: 7
+  Course Records: 0
+
+----------------------------------------
+RACE: PeaceHealth AppleTree Marathon, Half Marathon & 5K
+  ID: fc980021-13d8-4ac2-b4be-cce4a679010c
+  Slug: peacehealth-appletree-marathon-half-marathon-5k
+  Race Date: 2026-08-30
+  Location: Vancouver, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: SET
+  Distances: 4
+    - Boston-Qualifying Marathon: 26.2 (price: $0)
+    - First Responder's Relay Marathon: 26.2 (price: $0)
+    - Half Marathon: 13.1 (price: $0)
+    - Sunset 5K: 5 (price: $0)
+  Beneficiaries: 1
+  Policies: 8
+  Course Records: 0
+
+----------------------------------------
+RACE: Reflection Run
+  ID: 6f70d5bc-de4b-43b0-8d2c-b29cb47bfe04
+  Slug: reflection-run
+  Race Date: 2026-05-17
+  Location: Washougal, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 4
+    - 5K: 5 (price: $0)
+    - 10K: 10 (price: $0)
+    - Half Marathon: 13.1 (price: $0)
+    - 12 Mile Ruck Challenge: 12 (price: $0)
+  Beneficiaries: 1
+  Policies: 7
+  Course Records: 4
+
+----------------------------------------
+RACE: Resolution Run
+  ID: 5bc6592a-8f9f-42ab-ac3c-133b29d1883e
+  Slug: resolution-run
+  Race Date: 2026-01-03
+  Location: La Center, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: SET
+  Distances: 3
+    - 5K Run/Walk: 5 (price: $0)
+    - 10K Run/Walk: 10 (price: $0)
+    - Virtual 5K Run/Walk: 5 (price: $0)
+  Beneficiaries: 2
+  Policies: 8
+  Course Records: 0
+
+----------------------------------------
+RACE: Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K
+  ID: d74d60f1-40ac-47b6-964b-1ff132ac2fab
+  Slug: santa-s-holiday-hustle-5k-dirty-santa-trail-run-10k
+  Race Date: 2026-12-12
+  Location: Camas, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 3
+    - 5K Run/Walk: 5 (price: $0)
+    - Virtual 5K: 5 (price: $0)
+    - Dirty Santa 10K Trail Run: 10 (price: $0)
+  Beneficiaries: 0
+  Policies: 9
+  Course Records: 0
+
+----------------------------------------
+RACE: Scary Run
+  ID: aa9f9d6c-c230-49d9-a09b-446d9400cb3e
+  Slug: scary-run
+  Race Date: 2026-10-25
+  Location: Washougal, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: SET
+  Distances: 3
+    - 5K: 5 (price: $0)
+    - 10K: 10 (price: $0)
+    - 15K: 15 (price: $0)
+  Beneficiaries: 0
+  Policies: 7
+  Course Records: 2
+
+----------------------------------------
+RACE: Silver Falls Trail Challenge
+  ID: 0fc95b7a-1a59-45bd-ad3e-cb66ee4350a3
+  Slug: silver-falls-trail-challenge
+  Race Date: 2026-02-28
+  Location: Sublimity, OR
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 3
+    - 1/4 Marathon: 6.55 (price: $0)
+    - 1/2 Marathon: 13.1 (price: $0)
+    - 12 Mile Ruck Challenge: 12 (price: $0)
+  Beneficiaries: 0
+  Policies: 2
+  Course Records: 0
+
+----------------------------------------
+RACE: Spring Classic Duathlon, Half Marathon, 10K & 5K
+  ID: 4121f0da-7d0d-40b0-aa72-8bfe84bde8f3
+  Slug: spring-classic-duathlon-half-marathon-10k-5k
+  Race Date: 2026-04-26
+  Location: Vancouver, WA
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 4
+    - 5K: 5 (price: $0)
+    - 10K: 10 (price: $0)
+    - Half Marathon: 13.1 (price: $0)
+    - Sprint Duathlon: 23 (price: $0)
+  Beneficiaries: 1
+  Policies: 7
+  Course Records: 6
+
+----------------------------------------
+RACE: Stub Stewart Trail Challenge
+  ID: adf83ae4-311a-4026-a47d-6cdec218ba6b
+  Slug: stub-stewart-trail-challenge
+  Race Date: 2026-04-05
+  Location: Buxton, OR
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: MISSING
+  Distances: 4
+    - 1/4 Marathon: 6.55 (price: $0)
+    - 1/2 Marathon: 13.1 (price: $0)
+    - 3/4 Marathon: 19.65 (price: $0)
+    - Marathon: 26.2 (price: $0)
+  Beneficiaries: 0
+  Policies: 0
+  Course Records: 0
+
+----------------------------------------
+RACE: White River Snowshoe Race
+  ID: 59228c98-a4c9-43d4-99f1-74a725fc62d4
+  Slug: white-river-snowshoe-race
+  Race Date: 2026-02-07
+  Location: Government Camp, OR
+  Status: active
+  Hero Image: SET
+  Card Image: MISSING
+  Logo: MISSING
+  Content: YES
+    - Tagline: SET
+    - Overview: SET
+    - Course Description: SET
+  Distances: 2
+    - 4K Snowshoe: 4 (price: $0)
+    - 8K Snowshoe: 8 (price: $0)
+  Beneficiaries: 0
+  Policies: 2
+  Course Records: 0
