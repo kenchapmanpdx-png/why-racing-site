@@ -1,0 +1,47 @@
+﻿================================================================================
+CODE DISPLAY VERIFICATION
+Checking that race-detail.html has display code for each database field
+================================================================================
+
+Γ£à Race Date (race_date)
+   Found: "race_date"
+Γ£à Race Time (race_time)
+   Found: "race_time"
+Γ£à City (city)
+   Found: "race.city"
+Γ£à State (state)
+   Found: "race.state"
+Γ£à Venue (venue)
+   Found: "race.venue"
+Γ£à Hero Image (hero_image_url)
+   Found: "hero_image_url"
+Γ£à Description (description)
+   Found: "race.description"
+Γ£à Terrain (terrain)
+   Found: "race.terrain"
+Γ£à Elevation (elevation)
+   Found: "race.elevation"
+Γ£à Parking (parking)
+   Found: "race.parking"
+Γ£à Aid Stations (aid_stations)
+   Found: "race.aid_stations"
+Γ£à Includes/Swag (includes)
+   Found: "race.includes"
+Γ£à Registration URL (registration_url)
+   Found: "registration_url"
+Γ£à Distances (race_distances)
+   Found: "race_distances"
+Γ£à YouTube Video (youtube_url)
+   Found: "youtube_url"
+Γ£à Logo (logo_url)
+   Found: "logo_url"
+Γ£à Gallery (gallery_images)
+   Found: "gallery_images"
+Γ£à Charity (charity_name)
+   Found: "charity_name"
+Γ£à Packet Pickup (packet_pickup)
+   Found: "packet_pickup"
+
+================================================================================
+Γ£à All fields have corresponding display code in race-detail.html
+================================================================================

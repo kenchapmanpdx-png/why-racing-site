@@ -1164,6 +1164,7 @@
                 if (includes.length > 0) {
                     const includeIcons = {
                         'shirt': 'fas fa-tshirt',
+                        'tech_shirt': 'fas fa-tshirt',
                         'technical_shirt': 'fas fa-tshirt',
                         'event_tank': 'fas fa-tshirt',
                         'medal': 'fas fa-medal',
@@ -1178,10 +1179,12 @@
                         'shuttle': 'fas fa-bus',
                         'cert': 'fas fa-certificate',
                         'parking': 'fas fa-parking',
-                        'body_marking': 'fas fa-marker'
+                        'body_marking': 'fas fa-marker',
+                        'transition_area': 'fas fa-arrows-alt'
                     };
                     const includeLabels = {
                         'shirt': 'Race Shirt',
+                        'tech_shirt': 'Technical Shirt',
                         'technical_shirt': 'Technical Shirt',
                         'event_tank': 'Event Tank',
                         'medal': 'Finisher Medal',
@@ -1196,7 +1199,8 @@
                         'shuttle': 'Shuttle Service',
                         'cert': 'Finisher Certificate',
                         'parking': 'Included Parking',
-                        'body_marking': 'Body Marking'
+                        'body_marking': 'Body Marking',
+                        'transition_area': 'Transition Area'
                     };
 
                     document.getElementById('includedList').innerHTML = includes.map(item =>

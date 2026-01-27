@@ -1,0 +1,40 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env.local -- tip: ≡ƒöæ add access controls to secrets: https://dotenvx.com/ops
+================================================================================
+FIELD-BY-FIELD RACE DATA CHECK
+================================================================================
+Checking 24 active races
+
+≡ƒôà Race Date: Γ£à All 24 races have this
+
+ΓÅ░ Race Time: Γ£à All 24 races have this
+
+≡ƒÅÖ∩╕Å City: Γ£à All 24 races have this
+
+≡ƒù║∩╕Å State: Γ£à All 24 races have this
+
+≡ƒôì Venue: Γ£à All 24 races have this
+
+≡ƒû╝∩╕Å Hero Image: Γ£à All 24 races have this
+
+≡ƒö▓ Thumbnail: Γ£à All 24 races have this
+
+≡ƒô¥ Description: Γ£à All 24 races have this
+
+≡ƒ¢ñ∩╕Å Terrain: Γ£à All 24 races have this
+
+≡ƒôê Elevation: Γ£à All 24 races have this
+
+≡ƒà┐∩╕Å Parking: Γ£à All 24 races have this
+
+≡ƒÑñ Aid Stations: Γ£à All 24 races have this
+
+≡ƒÄü Includes/Swag: Γ£à All 24 races have this
+
+≡ƒöù Registration URL: Γ£à All 24 races have this
+
+≡ƒÅâ Distances: Γ£à All 24 races have this
+
+≡ƒÆ░ Distance Pricing Check:
+   Γ£à All distances have valid pricing
+
+================================================================================
