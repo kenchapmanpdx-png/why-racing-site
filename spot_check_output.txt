@@ -1,0 +1,83 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env.local -- tip: ≡ƒ¢á∩╕Å  run anywhere with `dotenvx run -- yourcommand`
+≡ƒÄ▓ RANDOM SPOT CHECK - 4 Race Pages
+======================================================================
+
+≡ƒôî Hellz Bellz Ultra
+   ≡ƒôà 2026-07-05 @ 06:00:00
+   ≡ƒôì Yacolt Recreation Park, WA
+
+   Hero Image: Γ£à
+   Description: Γ£à (510 chars)
+   Terrain: Technical Mountain Trails
+   Elevation: High (Bells Mountain)
+   Parking: Γ£à
+   Aid Stations: Γ£à
+   Includes: medal, timing, food
+   Registration URL: Γ£à
+
+   Distances (2):
+      ΓÇó Hellz Bellz Ultra - 50 Miles: $127 
+      ΓÇó Purgatory Trail Marathon: $97 
+
+≡ƒôî Girlfriends Half Marathon
+   ≡ƒôà 2026-09-26 @ 09:00:00
+   ≡ƒôì Vancouver Waterfront Park, WA
+
+   Hero Image: Γ£à
+   Description: Γ£à (224 chars)
+   Terrain: Fast & Flat Road / Waterfront Trail
+   Elevation: Mostly flat with a couple of short hills
+   Parking: Γ£à
+   Aid Stations: Γ£à
+   Includes: technical_shirt, medal, timing, food, mimosas
+   Registration URL: Γ£à
+
+   Distances (3):
+      ΓÇó 5K: $52 
+      ΓÇó Half Marathon: $83 
+      ΓÇó 10K: $72 
+
+≡ƒôî Battle to the Pacific
+   ≡ƒôà 2026-11-15 @ 09:00:00
+   ≡ƒôì Fort Stevens State Park - N. Coffenbury Lake Day-Use Area, OR
+
+   Hero Image: Γ£à
+   Description: Γ£à (200 chars)
+   Terrain: trail (paved hiking/biking trails)
+   Elevation: Flat
+   Parking: Γ£à
+   Aid Stations: Γ£à
+   Includes: medal, timing, food, beer
+   Registration URL: Γ£à
+
+   Distances (4):
+      ΓÇó 1/2 Marathon: $89 @ 09:15:00
+      ΓÇó 1/4 Marathon: $69 @ 09:15:00
+      ΓÇó 5K: $49 @ 09:30:00
+      ΓÇó 12 Mile Ruck Challenge: $69 @ 09:00:00
+
+≡ƒôî Pacific Crest Endurance Sports Festival
+   ≡ƒôà 2027-06-15 @ 07:00:00
+   ≡ƒôì Riverbend Park, OR
+
+   Hero Image: Γ£à
+   Description: Γ£à (219 chars)
+   Terrain: Mountain roads and paved trails in Central Oregon
+   Elevation: Variable - Rolling hills on long courses.
+   Parking: Γ£à
+   Aid Stations: Γ£à
+   Includes: technical_shirt, medal, timing, food, beer
+   Registration URL: Γ£à
+
+   Distances (8):
+      ΓÇó Beastman Triathlon: $272 
+      ΓÇó Olympic Triathlon: $137 
+      ΓÇó Sprint Triathlon: $127 
+      ΓÇó Marathon: $113 
+      ΓÇó Half Marathon: $83 
+      ΓÇó 10K: $69 
+      ΓÇó Kids Splash Pedal n' Dash: $25 
+      ΓÇó 5K: $57 
+
+======================================================================
+Spot check complete.
