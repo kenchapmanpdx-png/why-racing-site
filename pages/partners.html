@@ -269,6 +269,46 @@
             transform: scale(1.05);
         }
 
+        /* Form Buttons Grid */
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 900px;
+            margin: 60px auto 0;
+            text-align: left;
+        }
+
+        .form-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            padding: 20px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            color: var(--brand-dark);
+            font-weight: 700;
+            transition: all 0.3s ease;
+            border: 1px solid #eee;
+        }
+
+        .form-btn span {
+            font-size: 0.95rem;
+        }
+
+        .form-btn i {
+            color: var(--brand-red);
+            font-size: 1.2rem;
+        }
+
+        .form-btn:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-red);
+            box-shadow: 0 10px 25px rgba(227, 24, 55, 0.15);
+        }
+
         /* RESPONSIVE */
         @media (max-width: 900px) {
             .split-layout {
@@ -589,6 +629,34 @@
             We don't send generic PDFs. We build custom packages based on your goals.
         </p>
         <a href="mailto:jess@whyracingevents.com" class="big-btn">Email Jess @ WhyRacing</a>
+
+        <!-- Direct Application Forms -->
+        <h3 style="margin-top: 80px; color: var(--brand-dark); font-size: 1.5rem; text-transform: uppercase;">Direct
+            Application Forms</h3>
+        <p style="color: #888; margin-bottom: 30px;">Ready to move forward? Select an application below.</p>
+
+        <div class="form-grid">
+            <a href="https://docs.google.com/forms/d/1F7JstuNB1VxfeRCqRCoYerrTDWk_9n3WLVSBoptge9E/edit?usp=sharing"
+                target="_blank" class="form-btn">
+                <span>Sponsor & Partnership Inquiry</span>
+                <i class="fas fa-handshake"></i>
+            </a>
+            <a href="https://docs.google.com/forms/d/1DmsTqpZO0rUcVzXBsH9u5eEVp60vTFLFYZlaIhl64Aw/edit?usp=sharing"
+                target="_blank" class="form-btn">
+                <span>Event Vendor Application</span>
+                <i class="fas fa-store"></i>
+            </a>
+            <a href="https://docs.google.com/forms/d/1GKysh5q1QnxXmi-AwPnAlSwOuMUSI38tLfaQ8sGJGqs/edit?usp=sharing"
+                target="_blank" class="form-btn">
+                <span>In-Kind Sponsorship</span>
+                <i class="fas fa-gift"></i>
+            </a>
+            <a href="https://docs.google.com/forms/d/1-hVIWvjkfkcIRUPS7WHPLmDKea1V9161sCjq_4j0pxY/edit?usp=sharing"
+                target="_blank" class="form-btn">
+                <span>Corporate Wellness Program</span>
+                <i class="fas fa-users"></i>
+            </a>
+        </div>
     </div>
 
     <footer style="background: #111; color: #666; padding: 60px 5%; text-align: center;">
