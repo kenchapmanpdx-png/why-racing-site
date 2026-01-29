@@ -1396,33 +1396,95 @@
                 const saveBadge = document.getElementById('saveBadge');
 
                 if (distances.length > 0) {
-                    const validPrices = distances.map(d => parseFloat(d.base_price)).filter(p => p > 0);
-                    if (validPrices.length > 0) {
-                        const currentPrice = Math.min(...validPrices);
-                        // Mock an original price if not in DB yet
-                        const originalPrice = currentPrice + 15;
+                    const validDistances = distances.filter(d => parseFloat(d.base_price) > 0);
+
+                    if (validDistances.length > 0) {
+                        // Find the lowest base price
+                        validDistances.sort((a, b) => parseFloat(a.base_price) - parseFloat(b.base_price));
+                        const cheapest = validDistances[0];
+                        const currentPrice = parseFloat(cheapest.base_price);
+
+                        // Use DB standard_price if available, otherwise mock +15
+                        let originalPrice = currentPrice + 15;
+                        if (cheapest.standard_price && parseFloat(cheapest.standard_price) > currentPrice) {
+                            originalPrice = parseFloat(cheapest.standard_price);
+                        }
 
                         cardPrice.textContent = `$${currentPrice}`;
                         cardOldPrice.textContent = `$${originalPrice}`;
-                        saveBadge.textContent = `SAVE $15`;
+                        saveBadge.textContent = `SAVE $${originalPrice - currentPrice}`;
                         pricingHtml.style.display = 'block';
                     }
                 }
 
                 // Update Countdown
                 if (race.race_date) {
-                    const raceDate = new Date(race.race_date + 'T' + (race.race_time || '09:00:00'));
+                    let targetDate = new Date(race.race_date + 'T' + (race.race_time || '09:00:00'));
+                    let labelText = "RACE STARTS IN";
+                    let isPriceDeadline = false;
+
+                    // Check for next price increase
+                    if (race.pricing_tiers && race.pricing_tiers.length > 0) {
+                        const today = new Date();
+                        // Find active tiers that end in the future
+                        const upcomingTiers = race.pricing_tiers.filter(t => {
+                            if (!t.end_date) return false;
+                            const end = new Date(t.end_date);
+                            end.setUTCHours(23, 59, 59, 999);
+                            return end >= today && end.getFullYear() < 2099; // Filter out placeholders
+                        });
+
+                        if (upcomingTiers.length > 0) {
+                            // Sort by end date ascending to find the soonest deadline
+                            upcomingTiers.sort((a, b) => new Date(a.end_date) - new Date(b.end_date));
+                            const nextTier = upcomingTiers[0];
+                            const nextDeadline = new Date(nextTier.end_date);
+                            nextDeadline.setUTCHours(23, 59, 59, 999); // End of day
+
+                            // Use this as target if it's before the race date
+                            if (nextDeadline < targetDate) {
+                                targetDate = nextDeadline;
+                                labelText = "PRICE INCREASES IN";
+                                isPriceDeadline = true;
+                            }
+                        }
+                    }
+
                     const now = new Date();
 
-                    if (raceDate > now) {
-                        document.getElementById('countdownTimer').style.display = 'flex';
+                    if (targetDate > now) {
+                        const timerContainer = document.getElementById('countdownTimer');
+                        timerContainer.style.display = 'flex';
+
+                        // Add or update label if not exists
+                        let labelEl = document.getElementById('countdownLabel');
+                        if (!labelEl) {
+                            labelEl = document.createElement('div');
+                            labelEl.id = 'countdownLabel';
+                            labelEl.style.width = '100%';
+                            labelEl.style.textAlign = 'center';
+                            labelEl.style.marginBottom = '10px';
+                            labelEl.style.fontWeight = '700';
+                            labelEl.style.letterSpacing = '1px';
+                            labelEl.style.fontSize = '14px';
+                            timerContainer.insertBefore(labelEl, timerContainer.firstChild);
+                        }
+
+                        labelEl.textContent = labelText;
+                        labelEl.style.color = isPriceDeadline ? '#E31837' : 'white';
 
                         const updateCountdown = () => {
                             const currentTime = new Date();
-                            const diff = raceDate - currentTime;
+                            const diff = targetDate - currentTime;
 
                             if (diff <= 0) {
-                                document.getElementById('countdownTimer').style.display = 'none';
+                                // If price deadline passes, reload or fallback to race date (simplified: just hide)
+                                if (isPriceDeadline) {
+                                    // Optionally reload to get next tier
+                                    labelEl.textContent = "PRICE INCREASING...";
+                                } else {
+                                    timerContainer.style.display = 'none';
+                                }
                                 clearInterval(countdownInterval);
                                 return;
                             }

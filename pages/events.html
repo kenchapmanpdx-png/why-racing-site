@@ -906,17 +906,26 @@
 
             // Fallback to base_price if no tiers found
             if (!pricingHtml && distances.length > 0) {
-                const validPrices = distances.map(d => parseFloat(d.base_price)).filter(p => p > 0);
-                if (validPrices.length > 0) {
-                    const minPrice = Math.min(...validPrices);
-                    const originalPrice = minPrice + 15;
+                const validDistances = distances.filter(d => parseFloat(d.base_price) > 0);
+                if (validDistances.length > 0) {
+                    // Find cheapest distance
+                    validDistances.sort((a, b) => parseFloat(a.base_price) - parseFloat(b.base_price));
+                    const cheapest = validDistances[0];
+                    const minPrice = parseFloat(cheapest.base_price);
+
+                    // Use standard_price if available
+                    let originalPrice = minPrice + 15;
+                    if (cheapest.standard_price && parseFloat(cheapest.standard_price) > minPrice) {
+                        originalPrice = parseFloat(cheapest.standard_price);
+                    }
+
                     pricingHtml = `
                         <div class="card-pricing">
                             <div>
                                 <span class="price-now">$${minPrice}</span>
                                 <span class="price-was">$${originalPrice}</span>
                             </div>
-                            <span class="save">SAVE $15</span>
+                            <span class="save">SAVE $${originalPrice - minPrice}</span>
                         </div>
                     `;
                     timerHtml = `<div style="font-size: 11px; color: #E31837; font-weight: bold; margin-bottom: 5px;"><i class="fas fa-bolt"></i> Lock in Early-Bird Price!</div>`;

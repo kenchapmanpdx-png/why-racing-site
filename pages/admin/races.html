@@ -1752,7 +1752,7 @@
             distanceList.innerHTML = '';
             if (race.race_distances && race.race_distances.length > 0) {
                 race.race_distances.forEach(d => {
-                    addDistanceWithValue(d.name, d.distance_value, d.capacity, d.base_price, d.start_time);
+                    addDistanceWithValue(d.name, d.distance_value, d.capacity, d.base_price, d.start_time, d.standard_price);
                 });
             } else {
                 addDistance();
@@ -1873,13 +1873,14 @@
             }
         }
 
-        function addDistanceWithValue(name = '', distance = '', capacity = '', price = '', startTime = '') {
+        function addDistanceWithValue(name = '', distance = '', capacity = '', price = '', startTime = '', standardPrice = '') {
             // Convert null/undefined to empty strings for form inputs
             name = name ?? '';
             distance = distance ?? '';
             capacity = (capacity === null || capacity === undefined) ? '' : capacity;
             price = (price === null || price === undefined) ? '' : price;
             startTime = startTime ?? '';
+            standardPrice = (standardPrice === null || standardPrice === undefined) ? '' : standardPrice;
 
             const list = document.getElementById('distanceList');
             const item = document.createElement('div');
@@ -1926,6 +1927,10 @@
         <div>
           <label>Base Price</label>
           <input type="number" name="distancePrice[]" value="${price}" placeholder="75" step="0.01">
+        </div>
+        <div>
+          <label>Standard Price</label>
+          <input type="number" name="distanceStandardPrice[]" value="${standardPrice}" placeholder="90" step="0.01">
         </div>
         <div>
           <label>Start Time</label>
@@ -2390,6 +2395,7 @@
             const dValues = formData.getAll('distanceValue[]');
             const dCapacities = formData.getAll('distanceCapacity[]');
             const dPrices = formData.getAll('distancePrice[]');
+            const dStandardPrices = formData.getAll('distanceStandardPrice[]');
             const dStartTimes = formData.getAll('distanceStartTime[]');
 
             const distances = dNames.map((name, i) => ({
@@ -2397,6 +2403,7 @@
                 distance_value: dValues[i],
                 capacity: parseInt(dCapacities[i]) || null,
                 base_price: parseFloat(dPrices[i]) || 0,
+                standard_price: parseFloat(dStandardPrices[i]) || null,
                 start_time: dStartTimes[i] || null
             })).filter(d => d.name);
 
