@@ -379,6 +379,57 @@
             color: var(--brand-red);
         }
 
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .testimonial-card p {
+            font-style: italic;
+            color: #555;
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-top: auto;
+        }
+
+        .testimonial-author img {
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .testimonial-author h4 {
+            font-size: 0.9rem;
+            margin: 0;
+            color: var(--brand-blue);
+        }
+
+        .testimonial-author span {
+            font-size: 0.75rem;
+            color: #888;
+            display: block;
+        }
+
         @media (max-width: 768px) {
             header h1 {
                 font-size: 2.5rem;
@@ -575,6 +626,52 @@
                         <li><i class="fas fa-check"></i> VIP race day experiences for clients and staff</li>
                         <li><i class="fas fa-check"></i> Year-round partnership touchpoints beyond event day</li>
                     </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="industry-section" style="background: white;">
+        <div class="section-header" style="max-width: 800px; margin: 0 auto; margin-bottom: 50px;">
+            <h2 style="font-size: 2.5rem;">What Athletes Are Saying</h2>
+            <p>Our community energy directly translates to brand value for our partners.</p>
+        </div>
+
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <p>"WhyRacing consistently delivers the gold standard for Pacific Northwest events. From the precision
+                    timing to the high-energy atmosphere, every detail is handled with professional care. They make
+                    every runner feel like an elite athlete."</p>
+                <div class="testimonial-author">
+                    <img src="../images/athletes/jenni.jpg" alt="Finisher">
+                    <div class="info">
+                        <h4>Finisher</h4>
+                        <span>Spring Classic Duathlon & Half Marathon</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p>"The best race-day swag and post-party scene in Washington! The medals are incredible, the free
+                    photos are a huge bonus, and the community energy at the finish line is unmatched. I wouldn’t miss
+                    their events for anything."</p>
+                <div class="testimonial-author">
+                    <img src="../images/athletes/dan.jpg" alt="Participant">
+                    <div class="info">
+                        <h4>Participant</h4>
+                        <span>Couve Clover Run</span>
+                    </div>
+                </div>
+            </div>
+            <div class="testimonial-card">
+                <p>"Whether you’re looking for a scenic PR on a flat, fast course or a beautifully organized trail run,
+                    WhyRacing nails it. The volunteer support is world-class and the courses around Vancouver are
+                    absolutely stunning."</p>
+                <div class="testimonial-author">
+                    <img src="../images/athletes/amy.jpg" alt="Runner">
+                    <div class="info">
+                        <h4>Runner</h4>
+                        <span>Appletree Marathon</span>
+                    </div>
                 </div>
             </div>
         </div>
