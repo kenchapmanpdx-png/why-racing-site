@@ -211,8 +211,9 @@
 
         /* --- AUDIENCE PROFILE --- */
         .profile-section {
-            padding: 80px 5%;
-            background: var(--grey);
+            padding: 80px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .profile-split {
@@ -220,65 +221,85 @@
             grid-template-columns: 1fr 1fr;
             gap: 60px;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
         }
 
         .profile-text h2 {
-            margin-bottom: 20px;
             font-size: 2.5rem;
+            margin-bottom: 24px;
+            color: var(--dark);
+            line-height: 1.1;
         }
 
-        .check-list {
-            list-style: none;
-        }
-
-        .check-list li {
-            margin-bottom: 15px;
+        .data-highlight-bar {
             display: flex;
-            align-items: flex-start;
-            gap: 15px;
+            gap: 30px;
+            margin: 30px 0;
+            padding: 20px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
         }
 
-        .check-list i {
+        .stat-item {
+            flex: 1;
+        }
+
+        .stat-number {
+            display: block;
+            font-size: 1.5rem;
+            font-weight: 800;
             color: var(--brand-red);
-            margin-top: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #666;
         }
 
         /* --- INDUSTRY GRID --- */
         .industry-section {
-            padding: 100px 5%;
-            text-align: center;
+            background: #f8f9fa;
+            padding: 80px 20px;
         }
 
         .industry-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 40px auto 0;
         }
 
         .industry-card {
-            border: 1px solid #eee;
-            padding: 20px;
-            border-radius: 8px;
-            transition: 0.3s;
+            background: white;
+            padding: 40px 30px;
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            text-align: center;
         }
 
         .industry-card:hover {
-            background: var(--brand-blue);
-            color: white;
-            transform: translateY(-5px);
+            transform: translateY(-10px);
+            background: white;
+            color: inherit;
         }
 
         .industry-card i {
-            font-size: 2rem;
-            margin-bottom: 15px;
+            font-size: 2.5rem;
             color: var(--brand-red);
+            margin-bottom: 20px;
+            display: block;
         }
 
         .industry-card:hover i {
-            color: white;
+            color: var(--brand-red);
+        }
+
+        .industry-card h4 {
+            font-size: 1.25rem;
+            margin-bottom: 15px;
         }
 
         /* --- LEAD CAPTURE FORM --- */
@@ -437,6 +458,15 @@
 
             .profile-split {
                 grid-template-columns: 1fr;
+                gap: 40px;
+            }
+
+            .profile-text {
+                order: 2;
+            }
+
+            .profile-image {
+                order: 1;
             }
 
             .nav-links {
@@ -532,53 +562,60 @@
         <div class="profile-split">
             <div class="profile-text">
                 <h2>A Highly Desirable Audience</h2>
-                <p style="margin-bottom: 20px;">Our athletes aren't just active—they're affluent, educated
-                    decision-makers with strong brand loyalty. Runners and triathletes average $112,000 in household
-                    income and are 79% college-educated, making them among the most valuable demographics in event
-                    marketing.</p>
-                <p style="margin-bottom: 20px; font-weight: 600; color: var(--brand-red);">More importantly: runner
-                    identity directly predicts purchase intention.</p>
-                <p>When athletes connect with brands that support their events, they don't just notice—they buy, they
-                    advocate, and they stay loyal for years.</p>
+                <p>Our athletes aren't just active—they're affluent, educated decision-makers with strong brand loyalty.
+                </p>
+
+                <div class="data-highlight-bar">
+                    <div class="stat-item">
+                        <span class="stat-number">$112,000</span>
+                        <span class="stat-label">Avg. HHI</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-number">79%</span>
+                        <span class="stat-label">College Educated</span>
+                    </div>
+                </div>
+
+                <p style="font-weight: 600; color: var(--brand-red); margin-bottom: 15px;">
+                    Runner identity directly predicts purchase intention.
+                </p>
+                <p>When athletes connect with brands that support their passions, they don't just notice—they advocate
+                    and stay loyal for years.</p>
             </div>
-            <div>
+            <div class="profile-image">
                 <img src="../images/action/pdx-tri-1.jpg?q=80&w=2670&auto=format&fit=crop"
-                    style="width: 100%; border-radius: 8px; box-shadow: 20px 20px 0px rgba(227, 24, 55, 0.1);"
+                    style="width: 100%; border-radius: 12px; box-shadow: 30px 30px 0px rgba(227, 24, 55, 0.05);"
                     alt="Why Racing Community">
             </div>
         </div>
     </section>
 
-    <section class="industry-section" style="background: white;">
-        <div class="section-header" style="max-width: 800px; margin: 0 auto;">
-            <h2 style="font-size: 2.5rem;">Who You'll Reach</h2>
-            <p>Our participants are committed consumers who invest heavily in performance, recovery, and lifestyle:</p>
+    <section class="industry-section">
+        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
+            <h2 style="font-size: 2.5rem; color: var(--dark);">Who You'll Reach</h2>
+            <p>Our participants are committed consumers who invest heavily in performance and lifestyle.</p>
         </div>
 
         <div class="industry-grid">
             <div class="industry-card">
                 <i class="fas fa-heartbeat"></i>
                 <h4>Health & Recovery</h4>
-                <p style="font-size: 0.85rem; text-transform: none;">Massage, physical therapy, chiropractic, sports
-                    medicine, coaching. They push hard and pay for expert recovery.</p>
+                <p>From physical therapy to chiropractic care, they push hard and invest in expert recovery.</p>
             </div>
             <div class="industry-card">
                 <i class="fas fa-bicycle"></i>
                 <h4>Gear & Equipment</h4>
-                <p style="font-size: 0.85rem; text-transform: none;">Premium bikes, quality running shoes, technical
-                    apparel, GPS devices. Once they find what works, they become brand ambassadors.</p>
+                <p>Premium bikes, tech, and apparel. Once they find what works, they become ambassadors.</p>
             </div>
             <div class="industry-card">
                 <i class="fas fa-bolt"></i>
                 <h4>Nutrition & Fuel</h4>
-                <p style="font-size: 0.85rem; text-transform: none;">Energy products, supplements, performance foods.
-                    Athletes who find their formula stick with it—and tell everyone.</p>
+                <p>Performance foods and supplements. When they find their formula, they stick with it.</p>
             </div>
             <div class="industry-card">
                 <i class="fas fa-glass-cheers"></i>
-                <h4>Lifestyle & Experiences</h4>
-                <p style="font-size: 0.85rem; text-transform: none;">Restaurants, travel, vehicles, craft beverages,
-                    financial services. They work hard, play hard, and spend accordingly.</p>
+                <h4>Lifestyle</h4>
+                <p>Restaurants, travel, and craft beverages. They work hard, play hard, and spend accordingly.</p>
             </div>
         </div>
     </section>
