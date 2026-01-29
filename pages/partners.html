@@ -4,47 +4,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Partner With Us | Why Racing Events</title>
+
+    <title>Race Sponsorship Opportunities Washington & Oregon | Why Racing Events</title>
 
     <meta name="description"
-        content="Partner with Why Racing Events to connect your brand with the Pacific Northwest's most dedicated, affluent, and active audience.">
-    <meta name="keywords" content="Why Racing, Sponsorship, Partnership, PNW Events, Triathlon, Running Community">
-    <link rel="icon" type="image/png" href="../attached_assets/why-racing-logo_1767589311719.png">
+        content="Reach 50,000+ affluent, active consumers in the PNW. Why Racing Events offers premier marathon, triathlon, and 5K sponsorship packages with measurable ROI.">
 
-    <!-- Open Graph / Facebook -->
+    <link rel="canonical" href="https://whyracingevents.com/partners" />
+
+    <meta property="og:title" content="Partner With Why Racing Events | Premier PNW Sponsorships">
+    <meta property="og:description"
+        content="Don't just sponsor a race. Own the moment with the region's most affluent audience.">
+    <meta property="og:image" content="https://whyracingevents.com/images/share-image.jpg">
     <meta property="og:type" content="website">
-    <meta property="og:url" content="https://whyracingevents.com/pages/partners.html">
-    <meta property="og:title" content="Partner With Us | Why Racing Events">
-    <meta property="og:description" content="Connect your brand with the PNW's most active community.">
-    <meta property="og:image" content="../attached_assets/why-racing-logo_1767589311719.png">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&family=Oswald:wght@500;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Oswald:wght@400;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Why Racing Events",
+      "url": "https://whyracingevents.com",
+      "logo": "https://whyracingevents.com/logo.png",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "jess@whyracingevents.com",
+        "contactType": "sponsorship",
+        "areaServed": ["US-WA", "US-OR"]
+      },
+      "sameAs": [
+        "https://www.facebook.com/whyracingevents/",
+        "https://www.instagram.com/why_racing_events/"
+      ]
+    }
+    </script>
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "What sponsorship opportunities are available?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "We offer experiential activations (booths), digital visibility, category exclusivity, and corporate team wellness programs across our 21 annual events."
+        }
+      }, {
+        "@type": "Question",
+        "name": "What is the demographic of Why Racing participants?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our audience is 79% college-educated with an average household income of $112,000, primarily located in Washington and Oregon."
+        }
+      }]
+    }
+    </script>
+
     <style>
-        /* --- BRANDING VARIABLES (Matches Main Site) --- */
         :root {
             --brand-red: #E31837;
-            --brand-blue: #000000;
-            --dark: #0a0a0a;
-            --light: #ffffff;
-            --grey: #f4f4f4;
+            --brand-black: #0a0a0a;
+            --brand-dark: #121212;
+            --text-grey: #b0b0b0;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        /* --- GLOBAL RESET & TEXTURE --- */
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--light);
-            color: #333;
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            color: var(--brand-dark);
+            background-color: #f8f8f8;
             line-height: 1.6;
         }
 
@@ -54,95 +91,52 @@
         h4 {
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            color: var(--brand-blue);
+            margin: 0;
+            line-height: 1;
+            letter-spacing: 0.5px;
         }
 
-        .btn {
-            padding: 14px 32px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            border-radius: 4px;
-            display: inline-block;
-            text-decoration: none;
-            transition: 0.3s;
-            cursor: pointer;
-            border: none;
+        /* Texture overlay for visual depth */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
+            pointer-events: none;
+            z-index: 9999;
         }
 
-        .btn-primary {
-            background: var(--brand-red);
-            color: white;
-            box-shadow: 0 4px 15px rgba(227, 24, 55, 0.3);
+        .container {
+            max-width: 1240px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 2;
         }
 
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 20px rgba(227, 24, 55, 0.4);
+        .section-pad {
+            padding: 120px 0;
         }
 
-        /* --- NAVIGATION --- */
+        /* --- NAVIGATION (Standard Site Nav) --- */
         nav {
-            padding: 20px 5%;
+            padding: 15px 5%;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: var(--brand-blue);
+            background: var(--brand-black);
             color: white;
-            position: relative;
+            position: sticky;
+            top: 0;
             z-index: 1002;
         }
 
-        .logo {
-            text-decoration: none;
-            padding: 5px 0;
-        }
-
         .logo img {
-            height: 45px;
+            height: 40px;
             filter: brightness(0) invert(1);
-        }
-
-        /* SPONSOR TICKER */
-        .sponsor-ticker {
-            background: white;
-            padding: 40px 0;
-            overflow: hidden;
-            white-space: nowrap;
-            border-top: 1px solid #eee;
-            border-bottom: 1px solid #eee;
-        }
-
-        .sponsor-ticker-label {
-            text-align: center;
-            font-size: 15px;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 2.5px;
-            margin-bottom: 25px;
-        }
-
-        .sponsor-track {
-            display: inline-block;
-            animation: sponsorScroll 30s linear infinite;
-        }
-
-        .sponsor-track img {
-            height: 62.5px;
-            margin: 0 30px;
-            opacity: 1;
-            vertical-align: middle;
-        }
-
-        @keyframes sponsorScroll {
-            0% {
-                transform: translateX(-50%);
-            }
-
-            100% {
-                transform: translateX(0);
-            }
         }
 
         .nav-links {
@@ -154,7 +148,9 @@
             color: white;
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: 0.3s;
         }
 
@@ -162,235 +158,17 @@
             color: var(--brand-red);
         }
 
-        /* --- B2B HERO SECTION --- */
-        header {
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.7)), url('../images/action/pdx-tri-1.jpg?q=80&w=2670&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 120px 5%;
-            text-align: center;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-        }
-
-        header h1 {
-            color: white;
-            font-size: 3.5rem;
-            margin-bottom: 20px;
-            line-height: 1.1;
-        }
-
-        header p {
-            font-size: 1.25rem;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            opacity: 0.9;
-        }
-
-        /* --- STATS GRID --- */
-        .stats-section {
-            padding: 80px 5%;
-            text-align: center;
-            margin-top: -60px;
-            /* Overlap effect */
-            position: relative;
-            z-index: 5;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .stat-card {
-            background: white;
-            padding: 40px 30px;
-            border-radius: 8px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-            border-bottom: 4px solid var(--brand-red);
-            transition: transform 0.3s ease;
-        }
-
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .stat-number {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: var(--brand-red);
-            font-family: 'Oswald', sans-serif;
-            margin-bottom: 5px;
-        }
-
-        .stat-label {
-            font-weight: 700;
-            color: #666;
-            text-transform: uppercase;
-            font-size: 0.85rem;
-            letter-spacing: 1px;
-        }
-
-        /* --- AUDIENCE PROFILE --- */
-        .profile-section {
-            padding: 100px 5%;
-            background: var(--grey);
-        }
-
-        .profile-split {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .profile-text h2 {
-            margin-bottom: 25px;
-            font-size: 2.8rem;
-            line-height: 1.1;
-        }
-
-        .check-list {
-            list-style: none;
-            margin-top: 30px;
-        }
-
-        .check-list li {
-            margin-bottom: 20px;
-            display: flex;
-            align-items: flex-start;
-            gap: 15px;
-        }
-
-        .check-list i {
-            color: var(--brand-red);
-            margin-top: 5px;
-            font-size: 1.1rem;
-        }
-
-        /* --- INDUSTRY GRID --- */
-        .industry-section {
-            padding: 120px 5%;
-            text-align: center;
-        }
-
-        .industry-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 25px;
-            margin-top: 50px;
-        }
-
-        .industry-card {
-            border: 1px solid #eee;
-            padding: 40px 30px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
-            text-align: center;
-        }
-
-        .industry-card:hover {
-            background: var(--brand-blue);
-            color: white;
-            transform: translateY(-8px);
-            border-color: var(--brand-blue);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .industry-card i {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--brand-red);
-        }
-
-        .industry-card:hover i {
-            color: white;
-        }
-
-        .industry-card h4 {
-            margin-bottom: 15px;
-            font-size: 1.25rem;
-        }
-
-        /* --- LEAD CAPTURE FORM --- */
-        .form-section {
-            background: var(--brand-blue);
-            color: white;
-            padding: 100px 5%;
-        }
-
-        .form-container {
-            max-width: 650px;
-            margin: 0 auto;
-            background: white;
-            padding: 50px;
-            border-radius: 16px;
-            color: #333;
-            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
-        }
-
-        .form-group {
-            margin-bottom: 25px;
-        }
-
-        .form-group label {
-            display: block;
-            font-weight: 700;
-            margin-bottom: 10px;
-            font-size: 0.95rem;
-            color: #444;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 14px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            font-family: 'Inter', sans-serif;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--brand-red);
-        }
-
-        /* MOBILE MENU */
         .hamburger {
             display: none;
             flex-direction: column;
             gap: 5px;
             cursor: pointer;
-            padding: 10px;
-            z-index: 1001;
         }
 
         .hamburger span {
             width: 25px;
-            height: 3px;
+            height: 2px;
             background: white;
-            border-radius: 3px;
-            transition: 0.3s;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 5px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(7px, -6px);
         }
 
         .mobile-menu {
@@ -401,7 +179,7 @@
             width: 100%;
             height: 100vh;
             background: rgba(0, 0, 0, 0.98);
-            z-index: 999;
+            z-index: 1001;
             flex-direction: column;
             justify-content: center;
             align-items: center;
@@ -414,31 +192,468 @@
 
         .mobile-menu a {
             color: white;
-            font-family: 'Oswald', sans-serif;
-            font-size: 2rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
+            font-size: 1.5rem;
             text-decoration: none;
+            text-transform: uppercase;
+            font-family: 'Oswald', sans-serif;
         }
 
-        .mobile-menu a:hover {
+        /* --- HERO --- */
+        .hero-wrapper {
+            position: relative;
+            background-color: var(--brand-black);
+            background: linear-gradient(180deg, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%), url('../images/action/spring-classic-1.jpg');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 180px 0 260px;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            z-index: 1;
+        }
+
+        .hero-pre {
+            color: var(--brand-red);
+            font-family: 'Montserrat', sans-serif;
+            font-weight: 800;
+            letter-spacing: 4px;
+            font-size: 0.85rem;
+            margin-bottom: 25px;
+            display: block;
+            text-shadow: 0 2px 10px rgba(227, 24, 55, 0.4);
+        }
+
+        .hero-title {
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            font-weight: 700;
+            margin-bottom: 20px;
+            color: white;
+            font-style: italic;
+        }
+
+        .hero-title span {
+            color: transparent;
+            -webkit-text-stroke: 2px white;
+            display: block;
+            opacity: 0.8;
+        }
+
+        .hero-sub {
+            font-size: 1.25rem;
+            max-width: 650px;
+            margin: 0 auto;
+            color: var(--text-grey);
+            font-weight: 400;
+            border-left: 4px solid var(--brand-red);
+            padding-left: 20px;
+            text-align: left;
+            display: inline-block;
+        }
+
+        /* --- STATS --- */
+        .stats-deck {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            margin-top: -160px;
+            position: relative;
+            z-index: 10;
+            margin-bottom: 100px;
+        }
+
+        .stat-card {
+            background: white;
+            padding: 35px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid rgba(0, 0, 0, 0.05);
+        }
+
+        .stat-card::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--brand-red);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+            transform-origin: left;
+        }
+
+        .stat-card:hover::after {
+            transform: scaleX(1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-num {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--brand-black);
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: #888;
+            letter-spacing: 1px;
+        }
+
+        /* --- CONTENT --- */
+        .audience-split {
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .section-title {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: var(--brand-black);
+        }
+
+        .section-title span {
             color: var(--brand-red);
         }
 
-        @media (max-width: 900px) {
-            .profile-split {
-                grid-template-columns: 1fr;
-                gap: 50px;
-            }
-
-            header h1 {
-                font-size: 2.8rem;
-            }
+        .insight-quote {
+            background: var(--brand-black);
+            color: white;
+            padding: 30px;
+            border-left: 8px solid var(--brand-red);
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            margin: 30px 0;
+            letter-spacing: 0.5px;
+            box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.1);
         }
 
-        @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.2rem;
+        /* --- DARK SECTION --- */
+        .advantage-section {
+            background-color: var(--brand-black);
+            color: white;
+            padding: 140px 0;
+            clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
+            margin-top: 60px;
+        }
+
+        .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .advantage-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            transition: 0.3s;
+        }
+
+        .advantage-card:hover {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+            transform: translateY(-5px);
+        }
+
+        .advantage-card h4 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .advantage-card p {
+            color: #ccc;
+            font-size: 0.95rem;
+        }
+
+        .advantage-card:hover p {
+            color: white;
+        }
+
+        /* --- OFFERS --- */
+        .offer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 60px;
+            margin-top: 60px;
+        }
+
+        .offer-col h3 {
+            font-size: 1.8rem;
+            color: var(--brand-black);
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .offer-col h3::before {
+            content: '';
+            width: 8px;
+            height: 30px;
+            background: var(--brand-red);
+            display: block;
+            skewX: -20deg;
+        }
+
+        .check-item {
+            margin-bottom: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .check-item i {
+            color: var(--brand-red);
+            font-size: 1.2rem;
+            margin-top: 4px;
+        }
+
+        .check-item strong {
+            display: block;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.1rem;
+            color: var(--brand-black);
+            letter-spacing: 0.5px;
+        }
+
+        .check-item span {
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        /* --- QUOTES --- */
+        .quote-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .quote-card {
+            background: white;
+            padding: 40px;
+            border-top: 5px solid var(--brand-black);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            font-style: italic;
+            position: relative;
+        }
+
+        .quote-card::before {
+            content: '“';
+            font-family: serif;
+            font-size: 6rem;
+            color: #f0f0f0;
+            position: absolute;
+            top: 10px;
+            left: 20px;
+            z-index: 0;
+        }
+
+        .quote-text {
+            position: relative;
+            z-index: 1;
+            color: #444;
+            font-weight: 500;
+        }
+
+        .quote-author {
+            display: block;
+            margin-top: 20px;
+            font-weight: 800;
+            font-family: 'Oswald', sans-serif;
+            color: var(--brand-red);
+            font-style: normal;
+            font-size: 0.9rem;
+        }
+
+        /* --- FAQ SECTION (For NLP/SEO) --- */
+        .faq-section {
+            background: #f0f0f0;
+            padding: 80px 0;
+        }
+
+        .faq-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .faq-item h5 {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--brand-black);
+        }
+
+        .faq-item p {
+            font-size: 0.9rem;
+            color: #555;
+        }
+
+        /* --- FOOTER --- */
+        .cta-footer {
+            background: white;
+            padding: 140px 0 100px;
+            text-align: center;
+            border-top: 1px solid #eee;
+        }
+
+        .btn-race {
+            display: inline-block;
+            background: var(--brand-red);
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 20px 60px;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transform: skewX(-15deg);
+            transition: 0.3s;
+            box-shadow: 10px 10px 0px var(--brand-black);
+        }
+
+        .btn-race span {
+            display: block;
+            transform: skewX(15deg);
+        }
+
+        .btn-race:hover {
+            transform: skewX(-15deg) translateY(-5px);
+            box-shadow: 15px 15px 0px var(--brand-black);
+            background: #c90e2b;
+        }
+
+        .form-portal {
+            margin-top: 80px;
+            border-top: 2px solid #f0f0f0;
+            padding-top: 60px;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin-top: 40px;
+        }
+
+        .form-btn {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: white;
+            border: 2px solid #e0e0e0;
+            padding: 25px;
+            text-decoration: none;
+            transition: 0.3s;
+        }
+
+        .form-btn-content {
+            text-align: left;
+        }
+
+        .form-btn h5 {
+            font-size: 1.1rem;
+            color: var(--brand-black);
+            margin-bottom: 5px;
+            font-weight: 700;
+            margin-top: 0;
+        }
+
+        .form-btn p {
+            font-size: 0.8rem;
+            color: #888;
+            margin: 0;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .form-btn i {
+            font-size: 1.5rem;
+            color: var(--brand-red);
+            transition: 0.3s;
+        }
+
+        .form-btn:hover {
+            border-color: var(--brand-red);
+            transform: translateX(5px);
+        }
+
+        footer {
+            background: #111;
+            color: #666;
+            padding: 60px 5%;
+            text-align: center;
+            position: relative;
+            z-index: 2;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: #888;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .footer-social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .footer-social a {
+            color: #666;
+            font-size: 1.5rem;
+        }
+
+        @media (max-width: 900px) {
+
+            .stats-deck,
+            .audience-split,
+            .advantage-grid,
+            .quote-grid,
+            .offer-grid,
+            .form-grid,
+            .faq-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .stats-deck {
+                margin-top: -80px;
             }
 
             .nav-links {
@@ -447,10 +662,6 @@
 
             .hamburger {
                 display: flex;
-            }
-
-            .form-container {
-                padding: 30px 20px;
             }
         }
     </style>
@@ -470,7 +681,7 @@
             <a href="locations.html">Travel</a>
             <a href="partners.html">Sponsors</a>
         </div>
-        <div class="hamburger" aria-label="Toggle Menu" onclick="toggleMobileMenu()">
+        <div class="hamburger" onclick="toggleMobileMenu()">
             <span></span>
             <span></span>
             <span></span>
@@ -488,211 +699,261 @@
         <a href="about.html" onclick="toggleMobileMenu()">About Us</a>
     </div>
 
-    <header>
-        <h1>Partner With <br><span style="color: var(--brand-red);">Why Racing Events</span></h1>
-        <p>50,000+ participants. 21 events. One highly desirable audience.</p>
-        <a href="#contact-jess" class="btn btn-primary" style="background: white; color: var(--brand-red);">Let's
-            Talk</a>
-    </header>
-
-    <div class="sponsor-ticker">
-        <div class="sponsor-ticker-label">Proud Partners</div>
-        <div class="sponsor-track">
-            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth" loading="lazy">
-            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic" loading="lazy">
-            <img src="../images/sponsors/pepsi.png" alt="PepsiCo" loading="lazy">
-            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota" loading="lazy">
-            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training" loading="lazy">
-            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete" loading="lazy">
-            <!-- Repeat for seamless scroll -->
-            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth" loading="lazy">
-            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic" loading="lazy">
-            <img src="../images/sponsors/pepsi.png" alt="PepsiCo" loading="lazy">
-            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota" loading="lazy">
-            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training" loading="lazy">
-            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete" loading="lazy">
+    <div class="hero-wrapper">
+        <div class="container" style="text-align: center;">
+            <span class="hero-pre">PACIFIC NORTHWEST DOMINANCE</span>
+            <h1 class="hero-title">
+                <span>WHY RACING</span>
+                EVENTS
+            </h1>
+            <div class="hero-sub">
+                Don't just sponsor a race. Own the moment with the region's most affluent, dedicated, and active
+                audience.
+            </div>
         </div>
     </div>
 
-    <section class="stats-section">
-        <div class="stats-grid">
+    <div class="container">
+        <div class="stats-deck">
             <div class="stat-card">
-                <div class="stat-number">50,000+</div>
-                <div class="stat-label">Active Participants</div>
+                <span class="stat-num">50k+</span>
+                <span class="stat-label">Active Participants</span>
             </div>
             <div class="stat-card">
-                <div class="stat-number">$112,000</div>
-                <div class="stat-label">Avg. Household Income</div>
+                <span class="stat-num">21</span>
+                <span class="stat-label">Regional Events</span>
             </div>
             <div class="stat-card">
-                <div class="stat-number">21</div>
-                <div class="stat-label">Signature Events</div>
+                <span class="stat-num">$112k</span>
+                <span class="stat-label">Avg. Household Income</span>
             </div>
             <div class="stat-card">
-                <div class="stat-number">79%</div>
-                <div class="stat-label">College Educated</div>
+                <span class="stat-num">79%</span>
+                <span class="stat-label">College Educated</span>
             </div>
         </div>
-    </section>
+    </div>
 
-    <section class="profile-section">
-        <div class="profile-split">
-            <div class="profile-text">
-                <h2>A Highly Desirable Audience</h2>
-                <p style="margin-bottom: 20px;">Our athletes aren't just active &mdash; they're affluent, educated
-                    decision-makers with strong brand loyalty. Runners and triathletes average $112,000 in household
-                    income and are 79% college-educated, making them among the most valuable demographics in event
-                    marketing.</p>
-                <p style="margin-bottom: 20px; font-weight: 600; color: var(--brand-red);">More importantly: runner
-                    identity directly predicts purchase intention.</p>
-                <p>When athletes connect with brands that support their events, they don't just notice &mdash; they buy,
-                    they advocate, and they stay loyal for years.</p>
+    <section class="section-pad">
+        <div class="container audience-split">
+            <div>
+                <h2 class="section-title">A HIGH-VALUE <br><span>AUDIENCE</span></h2>
+                <p style="font-size: 1.1rem; color: #666;">
+                    Our athletes aren't just active—they're decision-makers. Research shows that runner identity
+                    directly predicts purchase intention. When they connect with brands that support their passions,
+                    they don't just notice—they buy.
+                </p>
+                <div class="insight-quote">
+                    "SPONSORS AREN'T BUYING LOGO PLACEMENT. THEY ARE BUYING ACCESS TO AN EMOTIONALLY ENGAGED COMMUNITY."
+                </div>
             </div>
             <div>
                 <img src="../images/action/spring-classic-1.jpg"
-                    style="width: 100%; border-radius: 8px; box-shadow: 20px 20px 0px rgba(227, 24, 55, 0.1);"
-                    alt="Why Racing Community" loading="lazy">
+                    style="width: 100%; box-shadow: 20px 20px 0px var(--brand-black); filter: contrast(1.1);"
+                    alt="Active Why Racing event participants in Portland" loading="lazy">
             </div>
         </div>
     </section>
 
-    <section class="industry-section" style="background: white;">
-        <div class="section-header" style="max-width: 800px; margin: 0 auto;">
-            <h2 style="font-size: 2.5rem;">Who You'll Reach</h2>
-            <p>Our participants are committed consumers who invest heavily in performance, recovery, and lifestyle:</p>
-        </div>
-
-        <div class="industry-grid">
-            <div class="industry-card">
-                <i class="fas fa-heartbeat"></i>
-                <h4>Health & Recovery</h4>
-                <p style="font-size: 0.85rem;">Massage, PT, Chiro, sports medicine, coaching. They push hard and pay for
-                    expert recovery.</p>
+    <section class="advantage-section">
+        <div class="container">
+            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
+                <span style="color: var(--brand-red); font-weight: 700; letter-spacing: 2px;">THE COMPETITIVE
+                    EDGE</span>
+                <h2 style="font-size: 3rem; margin-top: 10px;">WHY PARTNER WITH US?</h2>
             </div>
-            <div class="industry-card">
-                <i class="fas fa-bicycle"></i>
-                <h4>Gear & Equipment</h4>
-                <p style="font-size: 0.85rem;">Premium bikes, shoes, technical apparel, GPS devices. They become brand
-                    ambassadors.</p>
-            </div>
-            <div class="industry-card">
-                <i class="fas fa-bolt"></i>
-                <h4>Nutrition & Fuel</h4>
-                <p style="font-size: 0.85rem;">Energy products, supplements, performance foods. Athletes who find their
-                    formula stick with it.</p>
-            </div>
-            <div class="industry-card">
-                <i class="fas fa-glass-cheers"></i>
-                <h4>Lifestyle & Experiences</h4>
-                <p style="font-size: 0.85rem;">Restaurants, travel, vehicles, craft beverages. They work hard, play
-                    hard, and spend accordingly.</p>
-            </div>
-        </div>
-    </section>
-
-    <section class="profile-section" style="background: var(--grey);">
-        <div class="profile-split">
-            <div>
-                <img src="../images/Scrapedimages/2025-swag-scaled.jpg" alt="Why Racing Swag"
-                    style="width: 100%; border-radius: 8px; box-shadow: 0 10px 30px rgba(0,0,0,0.1);" loading="lazy">
-            </div>
-            <div class="profile-text">
-                <h2>What We Offer Partners</h2>
-                <p style="margin-bottom: 20px;">We design sponsorship packages around your marketing objectives &mdash;
-                    not generic tier lists. Whether you're building brand awareness, generating leads, or deepening
-                    customer relationships, we'll create a partnership that delivers measurable ROI.</p>
-
-                <ul class="check-list">
-                    <li>
-                        <i class="fas fa-star"></i>
-                        <div>
-                            <strong>Experiential Activation:</strong><br>
-                            Expo booths, product sampling at aid stations, and branded finish line experiences.
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fas fa-eye"></i>
-                        <div>
-                            <strong>Integrated Visibility:</strong><br>
-                            Logo placement across web, email, social, event apparel, and on-site materials.
-                        </div>
-                    </li>
-                    <li>
-                        <i class="fas fa-users-cog"></i>
-                        <div>
-                            <strong>Employee & Team Engagement:</strong><br>
-                            Corporate registration programs and VIP race day experiences for clients and staff.
-                        </div>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact-jess" class="form-section">
-        <div class="form-container">
-            <h2 style="text-align: center; margin-bottom: 15px;">Let's Talk</h2>
-            <p style="text-align: center; margin-bottom: 20px; color: #333; font-weight: 400; line-height: 1.5;">
-                We start every partnership conversation by understanding your goals &mdash; not by sending a generic
-                PDF.
-            </p>
-            <div
-                style="background: #f9f9f9; padding: 25px; border-radius: 8px; border-left: 4px solid var(--brand-red); margin-bottom: 30px;">
-                <p style="margin-bottom: 10px;"><strong>Contact Jess</strong> at <a
-                        href="mailto:jess@whyracingevents.com"
-                        style="color: var(--brand-red); font-weight: 700;">jess@whyracingevents.com</a> to schedule a
-                    15-minute discovery call.</p>
-                <p style="font-size: 0.95rem; color: #555;">We'll discuss what you're trying to achieve, explore how our
-                    events align with your audience, and determine if there's a fit worth pursuing.</p>
-            </div>
-
-            <form action="#" method="POST">
-                <div class="form-group">
-                    <label for="company">Company Name</label>
-                    <input type="text" id="company" name="company" placeholder="e.g. Acme Inc." required>
+            <div class="advantage-grid">
+                <div class="advantage-card">
+                    <h4><i class="fas fa-shield-alt" aria-hidden="true"></i> CATEGORY PROTECTION</h4>
+                    <p>We don't clutter the course. We offer category exclusivity so your competitor isn't standing next
+                        to you at the finish line.</p>
                 </div>
-                <div class="form-group">
-                    <label for="name">Contact Person</label>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                <div class="advantage-card">
+                    <h4><i class="fas fa-calendar-alt" aria-hidden="true"></i> YEAR-ROUND SCALE</h4>
+                    <p>With 21 events, we offer a full-year marketing calendar with a single contract. Stop negotiating
+                        20 tiny deals.</p>
                 </div>
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="you@company.com" required>
+                <div class="advantage-card">
+                    <h4><i class="fas fa-bullseye" aria-hidden="true"></i> PROVEN LOYALTY</h4>
+                    <p>Our athletes return year after year. Partnering with us builds long-term equity with a community
+                        that trusts our endorsements.</p>
                 </div>
-                <button type="submit" class="btn btn-primary" style="width: 100%;">Send Inquiry to Jess</button>
-            </form>
+            </div>
         </div>
     </section>
 
-    <footer style="background: #111; color: #666; padding: 60px 5%; text-align: center;">
-        <div class="footer-links" style="display: flex; justify-content: center; gap: 30px; margin-bottom: 30px;">
-            <a href="../index.html" style="color: #888; text-decoration: none;">Home</a>
-            <a href="events.html" style="color: #888; text-decoration: none;">Races</a>
-            <a href="beneficiary.html" style="color: #888; text-decoration: none;">Give Back</a>
-            <a href="volunteers.html" style="color: #888; text-decoration: none;">Volunteer</a>
-            <a href="community.html" style="color: #888; text-decoration: none;">Community</a>
-            <a href="locations.html" style="color: #888; text-decoration: none;">Travel</a>
-            <a href="partners.html" style="color: #888; text-decoration: none;">Sponsors</a>
-            <a href="about.html" style="color: #888; text-decoration: none;">About</a>
+    <section class="section-pad">
+        <div class="container">
+            <h2 class="section-title" style="text-align: center;">DRIVE MEASURABLE <span>RESULTS</span></h2>
+
+            <div class="offer-grid">
+                <div class="offer-col">
+                    <h3>CUSTOMER ACQUISITION</h3>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <div><strong>Face-to-Face Product Trial</strong><span>Get your product in hands at Expo booths &
+                                Aid Stations.</span></div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <div><strong>Direct Lead Generation</strong><span>Digital opt-ins and contest data
+                                capture.</span></div>
+                    </div>
+                </div>
+                <div class="offer-col">
+                    <h3>BRAND EQUITY</h3>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <div><strong>High-Frequency Recall</strong><span>Repeated exposure during peak emotional
+                                moments.</span></div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <div><strong>Category Ownership</strong><span>Be the exclusive partner in your industry.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="offer-col">
+                    <h3>CORPORATE IMPACT</h3>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <div><strong>Employee Wellness</strong><span>Turn-key team registration programs.</span></div>
+                    </div>
+                    <div class="check-item">
+                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <div><strong>VIP Client Hosting</strong><span>Premium race-day experiences for key
+                                accounts.</span></div>
+                    </div>
+                </div>
+            </div>
         </div>
-        <div class="footer-social" style="display: flex; justify-content: center; gap: 20px; margin-bottom: 30px;">
-            <a href="https://www.facebook.com/whyracingevents/" target="_blank" aria-label="Facebook"
-                style="color: #666; font-size: 1.5rem;"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/why_racing_events/" target="_blank" aria-label="Instagram"
-                style="color: #666; font-size: 1.5rem;"><i class="fab fa-instagram"></i></a>
-            <a href="https://x.com/whyracingevents" target="_blank" aria-label="Twitter"
-                style="color: #666; font-size: 1.5rem;"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" aria-label="YouTube"
-                style="color: #666; font-size: 1.5rem;"><i class="fab fa-youtube"></i></a>
+    </section>
+
+    <div class="container">
+        <h2 class="section-title" style="font-size: 2rem; border-bottom: 2px solid #ddd; padding-bottom: 20px;">TRUSTED
+            BY THE COMMUNITY</h2>
+        <div class="quote-grid">
+            <div class="quote-card">
+                <p class="quote-text">WhyRacing consistently delivers the gold standard. They make every runner feel
+                    like an elite athlete.</p>
+                <span class="quote-author">— SPRING CLASSIC FINISHER</span>
+            </div>
+            <div class="quote-card">
+                <p class="quote-text">The best race-day swag and post-party scene in Washington! The community energy is
+                    unmatched.</p>
+                <span class="quote-author">— COUVE CLOVER PARTICIPANT</span>
+            </div>
+            <div class="quote-card">
+                <p class="quote-text">Stunning courses and world-class support. It's why I come back every single year.
+                </p>
+                <span class="quote-author">— APPLETREE MARATHON RUNNER</span>
+            </div>
+        </div>
+    </div>
+
+    <section class="faq-section">
+        <div class="container">
+            <h2 class="section-title" style="font-size: 2rem;">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
+            <div class="faq-grid">
+                <div class="faq-item">
+                    <h5>Can we sponsor specific events?</h5>
+                    <p>Yes. While year-round partnerships offer the best scale, you can target specific demographics via
+                        events like the Appletree Marathon or Couve Clover Run.</p>
+                </div>
+                <div class="faq-item">
+                    <h5>Do you offer category exclusivity?</h5>
+                    <p>Yes. We offer category protection for major partners, ensuring your brand is the sole voice in
+                        your industry on race day.</p>
+                </div>
+                <div class="faq-item">
+                    <h5>How do corporate teams register?</h5>
+                    <p>We build a custom registration portal for your employees. You get a single invoice and a report
+                        on participation metrics.</p>
+                </div>
+                <div class="faq-item">
+                    <h5>What is the lead time for sponsorship?</h5>
+                    <p>For major activations involving apparel branding, we recommend finalizing agreements 6 months
+                        prior to the event.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-footer" id="partner-next-steps">
+        <div class="container">
+            <span
+                style="display: block; color: #888; font-weight: 700; margin-bottom: 20px; letter-spacing: 2px;">INVENTORY
+                IS LIMITED FOR 2026</span>
+            <h2 style="font-size: 3.5rem; margin-bottom: 40px; color: var(--brand-black);">SECURE YOUR <span
+                    style="color: var(--brand-red);">CATEGORY</span></h2>
+
+            <a href="mailto:jess@whyracingevents.com" class="btn-race">
+                <span>EMAIL JESS FOR A STRATEGY CALL</span>
+            </a>
+
+            <div class="form-portal">
+                <h4 style="color: #ccc; letter-spacing: 2px;">DIRECT APPLICATION PORTALS</h4>
+                <div class="form-grid">
+                    <a href="https://docs.google.com/forms/d/1F7JstuNB1VxfeRCqRCoYerrTDWk_9n3WLVSBoptge9E/viewform?usp=sf_link"
+                        target="_blank" class="form-btn">
+                        <div class="form-btn-content">
+                            <h5>Sponsorship Inquiry</h5>
+                            <p>Apply Now</p>
+                        </div>
+                        <i class="fas fa-handshake"></i>
+                    </a>
+                    <a href="https://docs.google.com/forms/d/1DmsTqpZO0rUcVzXBsH9u5eEVp60vTFLFYZlaIhl64Aw/viewform?usp=sf_link"
+                        target="_blank" class="form-btn">
+                        <div class="form-btn-content">
+                            <h5>Event Vendor</h5>
+                            <p>Apply Now</p>
+                        </div>
+                        <i class="fas fa-store"></i>
+                    </a>
+                    <a href="https://docs.google.com/forms/d/1GKysh5q1QnxXmi-AwPnAlSwOuMUSI38tLfaQ8sGJGqs/viewform?usp=sf_link"
+                        target="_blank" class="form-btn">
+                        <div class="form-btn-content">
+                            <h5>In-Kind Sponsorship</h5>
+                            <p>Submit Request</p>
+                        </div>
+                        <i class="fas fa-gift"></i>
+                    </a>
+                    <a href="https://docs.google.com/forms/d/1-hVIWvjkfkcIRUPS7WHPLmDKea1V9161sCjq_4j0pxY/viewform?usp=sf_link"
+                        target="_blank" class="form-btn">
+                        <div class="form-btn-content">
+                            <h5>Corporate Wellness</h5>
+                            <p>Team Programs</p>
+                        </div>
+                        <i class="fas fa-heartbeat"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-links">
+            <a href="../index.html">Home</a>
+            <a href="events.html">Races</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+            <a href="about.html">About</a>
+        </div>
+        <div class="footer-social">
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/whyracingevents" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i></a>
         </div>
         <p>&copy; 2026 Why Racing Events. Together we achieve the extraordinary.</p>
     </footer>
 
     <script>
         function toggleMobileMenu() {
-            const hamburger = document.querySelector('.hamburger');
             const mobileMenu = document.getElementById('mobileMenu');
-            hamburger.classList.toggle('active');
             mobileMenu.classList.toggle('active');
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         }
