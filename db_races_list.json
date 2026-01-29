@@ -1,0 +1,178 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env.local -- tip: ≡ƒöæ add access controls to secrets: https://dotenvx.com/ops
+[
+  {
+    "id": "495cc242-dd40-4f1a-949a-bb6d9a741031",
+    "name": "Girlfriends All-Women's Triathlon & Fitness Festival",
+    "race_date": "2026-08-09",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "e0558e0f-bbfb-422e-a8c9-74207a9f54c3",
+    "name": "Couve Clover Run",
+    "race_date": "2026-03-22",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "02a98ee5-b813-4ac1-90c5-8d617d8cb724",
+    "name": "Girlfriends Half Marathon",
+    "race_date": "2026-09-26",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "fc980021-13d8-4ac2-b4be-cce4a679010c",
+    "name": "PeaceHealth AppleTree Marathon, Half Marathon & 5K",
+    "race_date": "2026-08-30",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "bf98e648-d3ab-4220-82c5-837f1430e9aa",
+    "name": "Battle to the Pacific",
+    "race_date": "2026-11-15",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "ecdc4bcf-f7a1-435b-b204-c57fcc4d90ae",
+    "name": "Crown Stub 100",
+    "race_date": "2026-04-04",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "3d6778f2-2b8f-4636-b407-c32a320a8ef8",
+    "name": "Girlfriends Triathlon",
+    "race_date": "2026-08-15",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "91bfa9fc-918e-4702-b43e-348eb2ec7fba",
+    "name": "Bigfoot 5K/10K",
+    "race_date": "2026-07-11",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "59228c98-a4c9-43d4-99f1-74a725fc62d4",
+    "name": "White River Snowshoe Race",
+    "race_date": "2026-02-07",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "d74d60f1-40ac-47b6-964b-1ff132ac2fab",
+    "name": "Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K",
+    "race_date": "2026-12-12",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "2809cdaf-c136-4f94-ba86-8e3165eed541",
+    "name": "Bigfoot Fun Run",
+    "race_date": "2026-07-04",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "04fe2e1e-2541-441d-b1e4-b36001db3149",
+    "name": "Girlfriends Run",
+    "race_date": "2026-10-18",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "67609924-8391-47a9-88d2-14a277a4e782",
+    "name": "Pacific Coast Running Festival",
+    "race_date": "2026-09-26",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "0349a679-67a5-49b8-b4b9-c45c5dc75c0b",
+    "name": "Pacific Crest Endurance Sports Festival",
+    "race_date": "2027-06-15",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "3cdf3334-fb89-4018-a1dd-91ab1e5ce01f",
+    "name": "Appletree Marathon",
+    "race_date": "2026-08-29",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "78374509-9962-480b-b483-fae0a36c1258",
+    "name": "Hagg Lake Triathlon & Trail Festival",
+    "race_date": "2026-06-20",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "6f70d5bc-de4b-43b0-8d2c-b29cb47bfe04",
+    "name": "Reflection Run",
+    "race_date": "2026-05-17",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "aa9f9d6c-c230-49d9-a09b-446d9400cb3e",
+    "name": "Scary Run",
+    "race_date": "2026-10-25",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "f8694da0-6cb6-45c0-9a12-0792d58c1586",
+    "name": "PDX Triathlon Festival",
+    "race_date": "2026-05-31",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "5fc93199-4102-45ec-b813-2bce475424b0",
+    "name": "Hellz Bellz Ultra",
+    "race_date": "2026-07-05",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "48bf79e1-ddca-46dc-bad0-e8717d6eeb2b",
+    "name": "Columbia River Triathlon & Endurance Sports Festival",
+    "race_date": "2026-08-07",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "0fc95b7a-1a59-45bd-ad3e-cb66ee4350a3",
+    "name": "Silver Falls Trail Challenge",
+    "race_date": "2026-02-28",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "4121f0da-7d0d-40b0-aa72-8bfe84bde8f3",
+    "name": "Spring Classic Duathlon, Half Marathon, 10K & 5K",
+    "race_date": "2026-04-26",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "adf83ae4-311a-4026-a47d-6cdec218ba6b",
+    "name": "Stub Stewart Trail Challenge",
+    "race_date": "2026-04-05",
+    "status": "active",
+    "is_visible": true
+  },
+  {
+    "id": "5bc6592a-8f9f-42ab-ac3c-133b29d1883e",
+    "name": "Resolution Run",
+    "race_date": "2026-01-03",
+    "status": "active",
+    "is_visible": true
+  }
+]

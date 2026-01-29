@@ -1,0 +1,183 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env.local -- tip: ≡ƒöÉ prevent committing .env to code: https://dotenvx.com/precommit
+≡ƒöì COMPLETE RACE CHECK - All Active Races
+================================================================================
+
+ΓÜá∩╕Å Resolution Run
+   ≡ƒôà 2026-01-03 | ≡ƒôì Vancouver, WA
+   Terrain: mixed (road/trail)
+   Elevation: Flat and fast urban course.
+   Includes: medal, timing, food, tech_shirt
+   Distances: 0 ()
+   Γ¥î ISSUES: no_distances
+
+Γ£à White River Snowshoe Race
+   ≡ƒôà 2026-02-07 | ≡ƒôì Mt. Hood, OR
+   Terrain: snow
+   Elevation: Mountainous terrain with snowy undulations.
+   Includes: medal, timing, food
+   Distances: 2 (4K Snowshoe:$45, 8K Snowshoe:$55)
+
+Γ£à Silver Falls Trail Challenge
+   ≡ƒôà 2026-02-28 | ≡ƒôì Sublimity, OR
+   Terrain: technical trail
+   Elevation: Dynamic trail with steep canyon descents and climbs.
+   Includes: medal, timing, food
+   Distances: 3 (1/4 Marathon:$86, 1/2 Marathon:$97, 12 Mile Ruck Challenge:$76)
+
+Γ£à Couve Clover Run
+   ≡ƒôà 2026-03-22 | ≡ƒôì Vancouver, WA
+   Terrain: Road (Officers Row & Waterfront)
+   Elevation: Extremely Fast & Flat
+   Includes: tech_shirt, medal, timing, food, beer
+   Distances: 4 (Lucky Leap 1 Mile:$30, 3 Mile:$55, Lucky 7 Mile:$75, 10 Mile:$80)
+
+Γ£à Crown Stub 100
+   ≡ƒôà 2026-04-04 | ≡ƒôì Buxton, OR
+   Terrain: trail
+   Elevation: Gentle railway grades with minimal technical climbing.
+   Includes: medal, timing, food
+   Distances: 2 (Royal Ultra Relay:$357, Crown Stub 100:$257)
+
+Γ£à Stub Stewart Trail Challenge
+   ≡ƒôà 2026-04-05 | ≡ƒôì Buxton, OR
+   Terrain: technical trail
+   Elevation: Roughly 1,200ft of gain for the main loop with technical footing.
+   Includes: medal, timing, food, beer
+   Distances: 4 (1/4 Marathon:$85, 1/2 Marathon:$85, 3/4 Marathon:$85, Marathon:$85)
+
+Γ£à Spring Classic Duathlon, Half Marathon, 10K & 5K
+   ≡ƒôà 2026-04-26 | ≡ƒôì Vancouver, WA
+   Terrain: Road & Path (Vancouver Lake)
+   Elevation: Flat & Fast
+   Includes: tech_shirt, medal, timing, food
+   Distances: 4 (10K:$78, Half Marathon:$99, Sprint Duathlon:$108, 5K:$61)
+
+Γ£à Reflection Run
+   ≡ƒôà 2026-05-17 | ≡ƒôì Washougal, WA
+   Terrain: Road (Hero Posters Lined)
+   Elevation: Flat (Washougal Waterfront)
+   Includes: tech_shirt, medal, timing, food
+   Distances: 4 (Half Marathon:$80, 5K:$50, 12 Mile Ruck Challenge:$65, 10K:$60)
+
+Γ£à PDX Triathlon Festival
+   ≡ƒôà 2026-05-31 | ≡ƒôì Fairview, OR
+   Terrain: road and lake
+   Elevation: Minimal elevationvery flat and fast course.
+   Includes: tech_shirt, medal, timing, food, body_marking, transition_area
+   Distances: 7 (5K:$54, Super Sprint Triathlon:$125, Sprint Triathlon:$125, Olympic Triathlon:$157, Sprint Duathlon:$125, Olympic Duathlon:$157, Paddle Triathlon:$95)
+
+Γ£à Hagg Lake Triathlon & Trail Festival
+   ≡ƒôà 2026-06-20 | ≡ƒôì Gaston, OR
+   Terrain: mixed
+   Elevation: Rolling hills.
+   Includes: medal, timing, food
+   Distances: 10 (Sprint Triathlon:$130, Olympic Triathlon:$150, Off-Road Triathlon:$130, Sprint Duathlon:$130, Olympic Duathlon:$150, Sprint Aquabike:$130, Olympic Aquabike:$150, Trail Half Marathon:$85, Trail 5K:$50, Paddle Triathlon:$95)
+
+Γ£à Bigfoot Fun Run
+   ≡ƒôà 2026-07-04 | ≡ƒôì Yacolt, WA
+   Terrain: road/trail
+   Elevation: Rolling
+   Includes: tech_shirt, medal, timing, food
+   Distances: 2 (5K Run/Walk:$40, 10K Run/Walk:$50)
+
+Γ£à Hellz Bellz Ultra
+   ≡ƒôà 2026-07-05 | ≡ƒôì Yacolt, WA
+   Terrain: Technical Mountain Trails
+   Elevation: High (Bells Mountain)
+   Includes: medal, timing, food
+   Distances: 2 (Hellz Bellz Ultra - 50 Miles:$127, Purgatory Trail Marathon:$97)
+
+Γ£à Bigfoot 5K/10K
+   ≡ƒôà 2026-07-11 | ≡ƒôì Skamania, WA
+   Terrain: Road & Nature Paths
+   Elevation: Rolling Hills
+   Includes: tech_shirt, medal, timing, food
+   Distances: 2 (10K:$50, 5K:$40)
+
+Γ£à Columbia River Triathlon & Endurance Sports Festival
+   ≡ƒôà 2026-08-07 | ≡ƒôì Vancouver, WA
+   Terrain: Road & Park Trails
+   Elevation: Flat
+   Includes: tech_shirt, medal, timing, food, beer, parking, body_marking, transition_area
+   Distances: 6 (Sunset 5K:$52, Sunset 10K:$62, Sprint Triathlon:$140, Olympic Triathlon:$160, Kids Triathlon:$35, Girlfriends Sprint Tri:$140)
+
+Γ£à Girlfriends All-Women's Triathlon & Fitness Festival
+   ≡ƒôà 2026-08-09 | ≡ƒôì Vancouver, WA
+   Terrain: Fast & Flat (Paved paths & roads)
+   Elevation: Extremely flat course; fast down-current swim.
+   Includes: event_tank, medal, timing, food, parking
+   Distances: 5 (Sprint Aquabike:$144.56, 5K Run:$52.76, Sprint Duathlon:$142, Sprint Triathlon:$144.56, Relay Teams:$142)
+
+Γ£à Girlfriends Triathlon
+   ≡ƒôà 2026-08-15 | ≡ƒôì Vancouver, WA
+   Terrain: Fast & Flat (Paved paths & roads)
+   Elevation: Extremely flat course; fast down-current swim.
+   Includes: event_tank, medal, timing, food, parking
+   Distances: 3 (Sprint Triathlon:$144.56, Super Sprint Triathlon:$144.56, Relay Teams:$222)
+
+Γ£à Appletree Marathon
+   ≡ƒôà 2026-08-29 | ≡ƒôì Vancouver, WA
+   Terrain: Flat, fast, and scenic historic road course.
+   Elevation: Certified Boston Qualifier - Very Flat.
+   Includes: technical_shirt, medal, timing, food, photos
+   Distances: 4 (Marathon:$119, Half Marathon:$89, 5K:$44, 10K:$55)
+
+Γ£à PeaceHealth AppleTree Marathon, Half Marathon & 5K
+   ≡ƒôà 2026-08-30 | ≡ƒôì Vancouver, WA
+   Terrain: Flat, fast, and scenic historic road course.
+   Elevation: Certified Boston Qualifier - Very Flat.
+   Includes: technical_shirt, medal, timing, food, photos
+   Distances: 4 (Boston-Qualifying Marathon:$119, First Responder's Relay Marathon:$119, Half Marathon:$89, Sunset 5K:$44)
+
+Γ£à Girlfriends Half Marathon
+   ≡ƒôà 2026-09-26 | ≡ƒôì Vancouver, WA
+   Terrain: Fast & Flat Road / Waterfront Trail
+   Elevation: Mostly flat with a couple of short hills
+   Includes: technical_shirt, medal, timing, food, mimosas
+   Distances: 3 (5K:$52, Half Marathon:$83, 10K:$72)
+
+Γ£à Pacific Coast Running Festival
+   ≡ƒôà 2026-09-26 | ≡ƒôì Long Beach, WA
+   Terrain: sand/road
+   Elevation: Flat (beach)
+   Includes: tech_shirt, medal, timing, food
+   Distances: 8 (Sand Marathon:$130, Sunset Sand 5K:$40, Half Marathon:$90, 10K:$60, 5K:$40, Tour de Pacific Bike:$60, Kids 1 Mile Dash:$15, Kids 1/2 Mile Dash:$15)
+
+Γ£à Girlfriends Run
+   ≡ƒôà 2026-10-18 | ≡ƒôì Vancouver, WA
+   Terrain: Fast & Flat Road / Waterfront Trail
+   Elevation: Mostly flat with a couple of short hills
+   Includes: technical_shirt, medal, timing, food, mimosas
+   Distances: 3 (Half Marathon:$83, 10K:$72, 6K:$62)
+
+Γ£à Scary Run
+   ≡ƒôà 2026-10-25 | ≡ƒôì Washougal, WA
+   Terrain: Road & Community Trails
+   Elevation: Mixed/Rolling Hills
+   Includes: tech_shirt, medal, timing, food, beer
+   Distances: 3 (10K:$65, 5K:$50, 15K:$50)
+
+Γ£à Battle to the Pacific
+   ≡ƒôà 2026-11-15 | ≡ƒôì Hammond, OR
+   Terrain: trail (paved hiking/biking trails)
+   Elevation: Flat
+   Includes: medal, timing, food, beer
+   Distances: 4 (1/2 Marathon:$89, 1/4 Marathon:$69, 5K:$49, 12 Mile Ruck Challenge:$69)
+
+Γ£à Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K
+   ≡ƒôà 2026-12-12 | ≡ƒôì Washougal, WA
+   Terrain: road (5K), trail (10K)
+   Elevation: Rolling hills with a mix of pavement and dirt trails.
+   Includes: tech_shirt, medal, timing, food
+   Distances: 3 (5K Run/Walk:$45, Virtual 5K:$45, Dirty Santa 10K Trail Run:$55)
+
+Γ£à Pacific Crest Endurance Sports Festival
+   ≡ƒôà 2027-06-15 | ≡ƒôì Bend, OR
+   Terrain: Mountain roads and paved trails in Central Oregon
+   Elevation: Variable - Rolling hills on long courses.
+   Includes: technical_shirt, medal, timing, food, beer
+   Distances: 8 (Beastman Triathlon:$272, Olympic Triathlon:$137, Sprint Triathlon:$127, Marathon:$113, Half Marathon:$83, 10K:$69, Kids Splash Pedal n' Dash:$25, 5K:$57)
+
+================================================================================
+TOTAL: 25 races checked
+ΓÜá∩╕Å Some races have issues - see above

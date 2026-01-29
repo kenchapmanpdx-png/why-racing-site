@@ -1,0 +1,165 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env.local -- tip: ΓÜÖ∩╕Å  override existing env vars with { override: true }
+≡ƒÜÇ UNLEASHING THE SUPER AUDIT - FINE-TOOTH COMB MODE
+====================================================================================================
+
+Γ¥î Resolution Run (2026-01-03)
+   Γ¥î ISSUE: 3 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 3 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î White River Snowshoe Race (2026-02-07)
+   Γ¥î ISSUE: 2 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Silver Falls Trail Challenge (2026-02-28)
+   Γ¥î ISSUE: 3 distances have $0 price
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Couve Clover Run (2026-03-22)
+   Γ¥î ISSUE: 4 distances have $0 price
+   ΓÜá∩╕Å WARNING: 4 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Crown Stub 100 (2026-04-04)
+   Γ¥î ISSUE: 2 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Stub Stewart Trail Challenge (2026-04-05)
+   Γ¥î ISSUE: 4 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 4 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Policies defined
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Spring Classic Duathlon, Half Marathon, 10K & 5K (2026-04-26)
+   Γ¥î ISSUE: 4 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Reflection Run (2026-05-17)
+   Γ¥î ISSUE: 4 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î PDX Triathlon Festival (2026-05-31)
+   Γ¥î ISSUE: 7 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 7 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Hagg Lake Triathlon & Trail Festival (2026-06-20)
+   Γ¥î ISSUE: 10 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 10 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Bigfoot Fun Run (2026-07-04)
+   Γ¥î ISSUE: 2 distances have $0 price
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Hellz Bellz Ultra (2026-07-05)
+   Γ¥î ISSUE: 2 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Bigfoot 5K/10K (2026-07-11)
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Columbia River Triathlon & Endurance Sports Festival (2026-08-07)
+   Γ¥î ISSUE: 6 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   Γ¥î ISSUE: Triathlon/Duathlon missing multisport_details (water temp, transition, etc)
+   ΓÜá∩╕Å WARNING: 6 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Girlfriends All-Women's Triathlon & Fitness Festival (2026-08-09)
+   Γ¥î ISSUE: 5 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   Γ¥î ISSUE: Triathlon/Duathlon missing multisport_details (water temp, transition, etc)
+   ΓÜá∩╕Å WARNING: 5 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Girlfriends Triathlon (2026-08-15)
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   Γ¥î ISSUE: Triathlon/Duathlon missing multisport_details (water temp, transition, etc)
+   ΓÜá∩╕Å WARNING: 1 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Appletree Marathon (2026-08-29)
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î PeaceHealth AppleTree Marathon, Half Marathon & 5K (2026-08-30)
+   Γ¥î ISSUE: 4 distances have $0 price
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Girlfriends Half Marathon (2026-09-26)
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 3 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Pacific Coast Running Festival (2026-09-26)
+   Γ¥î ISSUE: 8 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 1 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Girlfriends Run (2026-10-18)
+   Γ¥î ISSUE: 3 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 3 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Scary Run (2026-10-25)
+   Γ¥î ISSUE: 3 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Battle to the Pacific (2026-11-15)
+   Γ¥î ISSUE: 4 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: No Policies defined
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K (2026-12-12)
+   Γ¥î ISSUE: 3 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: 3 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+Γ¥î Pacific Crest Endurance Sports Festival (2027-06-15)
+   Γ¥î ISSUE: 8 distances have $0 price
+   Γ¥î ISSUE: MISSING PACKET PICKUP INFO
+   ΓÜá∩╕Å WARNING: No Registration URL
+   ΓÜá∩╕Å WARNING: 8 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+   ΓÜá∩╕Å WARNING: No sponsors listed
+
+====================================================================================================
+AUDIT COMPLETE: 25 races checked.
+Found 45 critical issues across 25 races.
+Detailed report saved to super_audit_report.json

@@ -1,0 +1,95 @@
+﻿[dotenv@17.2.3] injecting env (7) from .env.local -- tip: ΓÜÖ∩╕Å  load multiple .env files with { path: ['.env.local', '.env'] }
+≡ƒÜÇ UNLEASHING THE SUPER AUDIT - FINE-TOOTH COMB MODE
+====================================================================================================
+
+ΓÜá∩╕Å Resolution Run (2026-01-03)
+   ΓÜá∩╕Å WARNING: 3 distances missing specific start times
+
+ΓÜá∩╕Å White River Snowshoe Race (2026-02-07)
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Silver Falls Trail Challenge (2026-02-28)
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Couve Clover Run (2026-03-22)
+   ΓÜá∩╕Å WARNING: 4 distances missing specific start times
+
+ΓÜá∩╕Å Crown Stub 100 (2026-04-04)
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Stub Stewart Trail Challenge (2026-04-05)
+   ΓÜá∩╕Å WARNING: 4 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Policies defined
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Spring Classic Duathlon, Half Marathon, 10K & 5K (2026-04-26)
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+
+Γ£à Reflection Run (2026-05-17)
+
+ΓÜá∩╕Å PDX Triathlon Festival (2026-05-31)
+   ΓÜá∩╕Å WARNING: 7 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Hagg Lake Triathlon & Trail Festival (2026-06-20)
+   ΓÜá∩╕Å WARNING: 10 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Bigfoot Fun Run (2026-07-04)
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Hellz Bellz Ultra (2026-07-05)
+   ΓÜá∩╕Å WARNING: 2 distances missing specific start times
+
+ΓÜá∩╕Å Bigfoot 5K/10K (2026-07-11)
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Columbia River Triathlon & Endurance Sports Festival (2026-08-07)
+   ΓÜá∩╕Å WARNING: 6 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Girlfriends All-Women's Triathlon & Fitness Festival (2026-08-09)
+   ΓÜá∩╕Å WARNING: 5 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Girlfriends Triathlon (2026-08-15)
+   ΓÜá∩╕Å WARNING: 1 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+Γ£à Appletree Marathon (2026-08-29)
+
+Γ£à PeaceHealth AppleTree Marathon, Half Marathon & 5K (2026-08-30)
+
+ΓÜá∩╕Å Girlfriends Half Marathon (2026-09-26)
+   ΓÜá∩╕Å WARNING: 3 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Pacific Coast Running Festival (2026-09-26)
+   ΓÜá∩╕Å WARNING: 1 distances missing specific start times
+
+ΓÜá∩╕Å Girlfriends Run (2026-10-18)
+   ΓÜá∩╕Å WARNING: 3 distances missing specific start times
+
+ΓÜá∩╕Å Scary Run (2026-10-25)
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Battle to the Pacific (2026-11-15)
+   ΓÜá∩╕Å WARNING: No Policies defined
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Santa's Holiday Hustle 5K & Dirty Santa Trail Run 10K (2026-12-12)
+   ΓÜá∩╕Å WARNING: 3 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+ΓÜá∩╕Å Pacific Crest Endurance Sports Festival (2027-06-15)
+   ΓÜá∩╕Å WARNING: No Registration URL
+   ΓÜá∩╕Å WARNING: 8 distances missing specific start times
+   ΓÜá∩╕Å WARNING: No Beneficiaries listed
+
+====================================================================================================
+AUDIT COMPLETE: 25 races checked.
+Found 0 critical issues across 0 races.
+Detailed report saved to super_audit_report.json
