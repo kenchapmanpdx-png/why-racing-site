@@ -51,6 +51,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/brand.css">
     <style>
         :root {
             --brand-red: #E31837;
@@ -86,28 +87,8 @@
             color: inherit;
         }
 
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: linear-gradient(90deg, rgba(0, 0, 0, 0.95) 0%, rgba(227, 24, 55, 0.95) 100%);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .logo {
-            overflow: visible;
-            padding: 10px 0;
-            text-decoration: none;
-        }
-
         .logo img {
             height: 45px;
-            filter: brightness(0) invert(1);
         }
 
         /* SPONSOR TICKER */
@@ -149,24 +130,6 @@
             100% {
                 transform: translateX(0);
             }
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: white;
-            letter-spacing: 1px;
-        }
-
-        .nav-links a:hover {
-            color: var(--brand-red);
         }
 
         .nav-btn {
@@ -335,83 +298,8 @@
             background: var(--brand-red);
         }
 
-        footer {
-            background: #111;
-            color: #888;
-            padding: 50px 5%;
-            text-align: center;
-        }
-
-        .footer-brand {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .footer-brand span {
-            color: var(--brand-red);
-        }
-
-        /* MOBILE MENU STYLES */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            transition: 0.3s;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 6px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -6px);
-        }
-
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(227, 24, 55, 0.95));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            z-index: 999;
-            transform: translateY(-100%);
-            transition: 0.4s;
-        }
-
-        .mobile-menu.active {
-            transform: translateY(0);
-        }
-
-        .mobile-menu a {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2rem;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-
         .mobile-menu a:hover {
-            color: var(--brand-blue);
+            color: var(--brand-red);
             transform: scale(1.1);
         }
 
@@ -442,56 +330,6 @@
                 flex-wrap: nowrap;
                 padding-bottom: 5px;
             }
-        }
-
-        .footer-tagline {
-            margin-bottom: 25px;
-            font-style: italic;
-        }
-
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 25px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            transition: 0.3s;
-        }
-
-        .footer-links a:hover {
-            color: var(--brand-red);
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 25px;
-        }
-
-        .footer-social a {
-            width: 40px;
-            height: 40px;
-            border: 1px solid #444;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            transition: 0.3s;
-        }
-
-        .footer-social a:hover {
-            background: var(--brand-red);
-            border-color: var(--brand-red);
-        }
-
-        .footer-copy {
-            font-size: 13px;
-            opacity: 0.5;
         }
 
         .filter-bar {
@@ -684,9 +522,9 @@
 
 <body>
 
-    <nav>
-        <a href="../index.html" class="logo"><img src="../images/Scrapedimages/why-racing-logo.png"
-                alt="Why Racing Events"></a>
+    <nav id="navbar">
+        <a href="../index.html" class="logo"><img src="../attached_assets/why-racing-logo_1767589311719.png"
+                alt="Why Racing Events Home"></a>
         <div class="nav-links">
             <a href="../index.html">Home</a>
             <a href="events.html">Races</a>
@@ -702,7 +540,7 @@
             <span></span>
             <span></span>
         </div>
-        <a href="events.html" class="nav-btn">Find A Race</a>
+        <a href="events.html" class="nav-btn">Find My Race</a>
     </nav>
 
     <div class="mobile-menu" id="mobileMenu">
@@ -714,6 +552,7 @@
         <a href="locations.html">Travel Guide</a>
         <a href="partners.html">Sponsors</a>
         <a href="about.html">About Us</a>
+        <a href="events.html" class="nav-btn" style="margin-top: 20px;">Find Your Race</a>
     </div>
 
     <div class="page-header">
@@ -1141,6 +980,32 @@
         });
     </script>
 
+
+    <footer>
+        <div class="footer-brand">WHY <span>RACING</span></div>
+        <div class="footer-tagline">"What's your WHY? Find it on the course."</div>
+        <div class="footer-links">
+            <a href="events.html">Races</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel Guide</a>
+            <a href="partners.html">Sponsors</a>
+            <a href="about.html">About Us</a>
+        </div>
+        <div class="footer-social">
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/whyracingevents" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i></a>
+        </div>
+        <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
+        <div style="margin-top: 20px; opacity: 0.5; font-size: 11px;">
+            <a href="admin/races.html" style="color: grey; text-decoration: none;">Staff Portal</a>
+        </div>
+    </footer>
+
+    <script src="../assets/js/nav.js"></script>
 
     <!-- Chatbot Widget -->
     <div id="chatbot-root"></div>

@@ -6,6 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">Race Details | Why Racing Events</title>
     <meta name="description" id="pageDescription" content="Join us for an amazing race experience!">
+    <link rel="canonical" id="canonicalLink" href="https://whyracingevents.com/pages/events/race-detail.html" />
+    <link rel="icon" type="image/png" href="../../attached_assets/why-racing-logo_1767589311719.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" id="ogUrl" content="https://whyracingevents.com/pages/events/race-detail.html">
+    <meta property="og:title" id="ogTitle" content="Race Details | Why Racing Events">
+    <meta property="og:description" id="ogDescription" content="Join us for an amazing race experience!">
+    <meta property="og:image" id="ogImage"
+        content="https://whyracingevents.com/attached_assets/why-racing-logo_1767589311719.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" id="twitterUrl" content="https://whyracingevents.com/pages/events/race-detail.html">
+    <meta property="twitter:title" id="twitterTitle" content="Race Details | Why Racing Events">
+    <meta property="twitter:description" id="twitterDescription" content="Join us for an amazing race experience!">
+    <meta property="twitter:image" id="twitterImage"
+        content="https://whyracingevents.com/attached_assets/why-racing-logo_1767589311719.png">
+
+    <!-- Structured Data Container -->
+    <script type="application/ld+json" id="eventSchema"></script>
+
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1318,9 +1340,64 @@
                 const race = await response.json();
                 currentRace = race;
 
-                // Update page title
-                document.getElementById('pageTitle').textContent = `${race.name} | Why Racing Events`;
-                document.getElementById('pageDescription').content = race.description || 'Join us for an amazing race!';
+                // Update page title & SEO
+                const fullTitle = `${race.name} | Why Racing Events`;
+                const fullDesc = race.description ? race.description.substring(0, 160) + '...' : 'Join us for an amazing race experience!';
+                const currentUrl = window.location.href;
+                const shareImage = race.hero_image_url || 'https://whyracingevents.com/attached_assets/why-racing-logo_1767589311719.png';
+
+                document.getElementById('pageTitle').textContent = fullTitle;
+                document.title = fullTitle;
+                document.getElementById('pageDescription').content = fullDesc;
+
+                // Dynamic OG/Twitter Tags
+                document.getElementById('ogUrl').content = currentUrl;
+                document.getElementById('ogTitle').content = fullTitle;
+                document.getElementById('ogDescription').content = fullDesc;
+                document.getElementById('ogImage').content = shareImage;
+
+                document.getElementById('twitterUrl').content = currentUrl;
+                document.getElementById('twitterTitle').content = fullTitle;
+                document.getElementById('twitterDescription').content = fullDesc;
+                document.getElementById('twitterImage').content = shareImage;
+
+                document.getElementById('canonicalLink').href = currentUrl;
+
+                // Dynamic JSON-LD Schema
+                const schema = {
+                    "@context": "https://schema.org",
+                    "@type": "Event",
+                    "name": race.name,
+                    "startDate": race.race_date,
+                    "endDate": race.race_date,
+                    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+                    "eventStatus": "https://schema.org/EventScheduled",
+                    "location": {
+                        "@type": "Place",
+                        "name": race.venue || race.city || 'TBA',
+                        "address": {
+                            "@type": "PostalAddress",
+                            "addressLocality": race.city || '',
+                            "addressRegion": race.state || '',
+                            "addressCountry": "US"
+                        }
+                    },
+                    "image": [shareImage],
+                    "description": race.description || '',
+                    "offers": {
+                        "@type": "Offer",
+                        "url": race.registration_url || currentUrl,
+                        "price": race.race_distances && race.race_distances.length > 0 ? race.race_distances[0].base_price : "0",
+                        "priceCurrency": "USD",
+                        "availability": race.registration_open ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
+                        "validFrom": new Date().toISOString().split('T')[0]
+                    },
+                    "performer": {
+                        "@type": "Organization",
+                        "name": "Why Racing Events"
+                    }
+                };
+                document.getElementById('eventSchema').textContent = JSON.stringify(schema);
 
                 // Update hero
                 if (race.hero_image_url) {
