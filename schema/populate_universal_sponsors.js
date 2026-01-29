@@ -20,10 +20,10 @@ async function run() {
 
         const rows = universalSponsors.map(s => ({
             race_id: race.id,
-            name: s.name,
+            organization_name: s.name,
             logo_url: s.logo_url,
             website_url: s.website_url,
-            sponsor_level: 'Primary'
+            sponsor_type: 'partner'
         }));
 
         await supabase.from('race_sponsors').insert(rows);

@@ -906,7 +906,17 @@
                 const validPrices = distances.map(d => parseFloat(d.base_price)).filter(p => p > 0);
                 if (validPrices.length > 0) {
                     const minPrice = Math.min(...validPrices);
-                    pricingHtml = `<div class="card-pricing"><span class="price-now">From $${minPrice}</span></div>`;
+                    const originalPrice = minPrice + 15;
+                    pricingHtml = `
+                        <div class="card-pricing">
+                            <div>
+                                <span class="price-now">$${minPrice}</span>
+                                <span class="price-was">$${originalPrice}</span>
+                            </div>
+                            <span class="save">SAVE $15</span>
+                        </div>
+                    `;
+                    timerHtml = `<div style="font-size: 11px; color: #E31837; font-weight: bold; margin-bottom: 5px;"><i class="fas fa-bolt"></i> Lock in Early-Bird Price!</div>`;
                 }
             }
 

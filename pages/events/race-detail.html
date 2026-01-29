@@ -598,6 +598,76 @@
             margin: 4px;
         }
 
+        /* Countdown Timer */
+        .countdown-timer {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 25px;
+        }
+
+        .countdown-item {
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 12px 10px;
+            border-radius: 10px;
+            min-width: 65px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            text-align: center;
+        }
+
+        .countdown-number {
+            display: block;
+            font-size: 1.6rem;
+            font-weight: 700;
+            font-family: 'Oswald', sans-serif;
+            color: white;
+            line-height: 1;
+        }
+
+        .countdown-label {
+            display: block;
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            opacity: 0.9;
+            color: white;
+            margin-top: 4px;
+            letter-spacing: 1px;
+        }
+
+        .card-price-container {
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8f9fa;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .price-now {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .price-was {
+            text-decoration: line-through;
+            color: #999;
+            font-size: 1.1rem;
+            margin-right: 10px;
+        }
+
+        .price-save-badge {
+            background: #28a745;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            margin-left: 10px;
+            vertical-align: middle;
+        }
+
         /* Sponsor Grid */
         .sponsor-grid {
             display: grid;
@@ -853,7 +923,28 @@
                     <i class="fas fa-map-marker-alt"></i>
                     <span id="raceLocation">Location TBD</span>
                 </div>
-                <a href="#register" class="hero-cta" id="heroCta">Secure My Spot</a>
+
+                <!-- Countdown Timer -->
+                <div class="countdown-timer" id="countdownTimer" style="display: none;">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">00</span>
+                        <span class="countdown-label">Days</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">00</span>
+                        <span class="countdown-label">Hrs</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="mins">00</span>
+                        <span class="countdown-label">Min</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="secs">00</span>
+                        <span class="countdown-label">Sec</span>
+                    </div>
+                </div>
+
+                <a href="#register" class="hero-cta" id="heroCta" style="margin-top: 30px;">Secure My Spot</a>
             </div>
         </div>
 
@@ -1071,6 +1162,13 @@
                 <div class="register-card">
                     <h3>🏃 Register Now</h3>
 
+                    <div id="priceDisplay" class="card-price-container" style="display: none;">
+                        <span id="cardOldPrice" class="price-was"></span>
+                        <span id="cardPrice" class="price-now"></span>
+                        <div id="saveBadge" class="price-save-badge" style="display: inline-block; margin-top: 5px;">
+                            SAVE $20</div>
+                    </div>
+
                     <div class="race-info-list">
                         <div class="race-info-item">
                             <span class="race-info-label">Date</span>
@@ -1282,6 +1380,60 @@
                     regBtn.textContent = '🔔 Registration Opening Soon';
                     regBtn.disabled = true;
                     regStatus.textContent = 'Check back for registration details';
+                }
+
+                // Update Pricing with "Slashed" look
+                const pricingHtml = document.getElementById('priceDisplay');
+                const cardPrice = document.getElementById('cardPrice');
+                const cardOldPrice = document.getElementById('cardOldPrice');
+                const saveBadge = document.getElementById('saveBadge');
+
+                if (distances.length > 0) {
+                    const validPrices = distances.map(d => parseFloat(d.base_price)).filter(p => p > 0);
+                    if (validPrices.length > 0) {
+                        const currentPrice = Math.min(...validPrices);
+                        // Mock an original price if not in DB yet
+                        const originalPrice = currentPrice + 15;
+
+                        cardPrice.textContent = `$${currentPrice}`;
+                        cardOldPrice.textContent = `$${originalPrice}`;
+                        saveBadge.textContent = `SAVE $15`;
+                        pricingHtml.style.display = 'block';
+                    }
+                }
+
+                // Update Countdown
+                if (race.race_date) {
+                    const raceDate = new Date(race.race_date + 'T' + (race.race_time || '09:00:00'));
+                    const now = new Date();
+
+                    if (raceDate > now) {
+                        document.getElementById('countdownTimer').style.display = 'flex';
+
+                        const updateCountdown = () => {
+                            const currentTime = new Date();
+                            const diff = raceDate - currentTime;
+
+                            if (diff <= 0) {
+                                document.getElementById('countdownTimer').style.display = 'none';
+                                clearInterval(countdownInterval);
+                                return;
+                            }
+
+                            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+                            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                            const s = Math.floor((diff % (1000 * 60)) / 1000);
+
+                            document.getElementById('days').textContent = d.toString().padStart(2, '0');
+                            document.getElementById('hours').textContent = h.toString().padStart(2, '0');
+                            document.getElementById('mins').textContent = m.toString().padStart(2, '0');
+                            document.getElementById('secs').textContent = s.toString().padStart(2, '0');
+                        };
+
+                        const countdownInterval = setInterval(updateCountdown, 1000);
+                        updateCountdown();
+                    }
                 }
 
                 // Update hero CTA
