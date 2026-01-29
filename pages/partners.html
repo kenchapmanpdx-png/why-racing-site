@@ -17,9 +17,13 @@
         :root {
             --brand-red: #E31837;
             --brand-blue: #000000;
+            --brand-dark: #1a1a1a;
             --dark: #0a0a0a;
             --light: #ffffff;
+            --white: #ffffff;
             --grey: #f4f4f4;
+            --soft-bg: #f8f9fa;
+            --text-gray: #4a4a4a;
         }
 
         * {
@@ -170,38 +174,43 @@
             opacity: 0.9;
         }
 
-        /* Stat Bar Styling */
+        /* Stat Bar - Fixed Overlap */
         .stat-hero-bar {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            background: white;
+            background: var(--white);
             padding: 30px;
             border-radius: 12px;
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
             text-align: center;
-            margin: -40px auto 40px;
             max-width: 1100px;
+            margin: -60px auto 60px;
             position: relative;
-            z-index: 10;
+            z-index: 20;
         }
 
         .stat-hero-bar h3 {
             color: var(--brand-red);
-            font-size: 2rem;
+            font-size: 2.2rem;
             margin: 0;
+            font-weight: 800;
         }
 
         .stat-hero-bar span {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             text-transform: uppercase;
             font-weight: 700;
-            color: #4a4a4a;
+            color: var(--text-gray);
+            letter-spacing: 1px;
         }
 
-        /* Layout & Text */
-        .profile-section {
-            padding: 80px 20px;
+        /* Layout Blocks */
+        .section-padding {
+            padding: 100px 20px;
+        }
+
+        .container {
             max-width: 1200px;
             margin: 0 auto;
         }
@@ -209,82 +218,169 @@
         .profile-split {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 80px;
             align-items: center;
         }
 
-        .profile-split.reverse {
-            direction: rtl;
-        }
-
-        .profile-split.reverse>div {
-            direction: ltr;
-        }
-
+        /* Industry Grid */
         .industry-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 25px;
+            margin-top: 50px;
         }
 
         .industry-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-            border-top: 4px solid var(--brand-red);
-            text-align: left;
+            background: var(--white);
+            padding: 40px 30px;
+            border-radius: 16px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.04);
+            transition: transform 0.3s ease;
+        }
+
+        .industry-card:hover {
+            transform: translateY(-10px);
+        }
+
+        .industry-card i {
+            font-size: 2rem;
+            color: var(--brand-red);
+            margin-bottom: 20px;
+            display: block;
         }
 
         .industry-card h4 {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
         }
 
-        .industry-card p {
-            font-size: 0.95rem;
-            color: #555;
-            line-height: 1.6;
+        /* Social Proof / Testimonials */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 40px;
         }
 
-        .offer-box {
-            background: white;
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 20px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-        }
-
-        .check-list {
-            list-style: none;
-            padding: 0;
-        }
-
-        .check-list li {
-            margin-bottom: 10px;
-            display: flex;
-            gap: 10px;
+        .testimonial-card {
+            background: var(--white);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--brand-red);
+            font-style: italic;
             font-size: 0.95rem;
         }
 
-        .check-list i {
+        .testimonial-tag {
+            display: block;
+            margin-top: 15px;
+            font-style: normal;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
             color: var(--brand-red);
-            margin-top: 4px;
+        }
+
+        /* Contact Footer */
+        .contact-footer {
+            background: var(--brand-dark);
+            color: var(--white);
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            background: var(--brand-red);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            margin: 30px 0;
+            transition: opacity 0.3s;
+        }
+
+        .contact-btn:hover {
+            opacity: 0.9;
+        }
+
+        /* MOBILE MENU */
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            padding: 10px;
+            z-index: 1001;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background: white;
+            border-radius: 3px;
+            transition: 0.3s;
+        }
+
+        .hamburger.active span:nth-child(1) {
+            transform: rotate(45deg) translate(5px, 5px);
+        }
+
+        .hamburger.active span:nth-child(2) {
+            opacity: 0;
+        }
+
+        .hamburger.active span:nth-child(3) {
+            transform: rotate(-45deg) translate(7px, -6px);
+        }
+
+        .mobile-menu {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.98);
+            z-index: 999;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .mobile-menu.active {
+            display: flex;
+        }
+
+        .mobile-menu a {
+            color: white;
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.8rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .mobile-menu a:hover {
+            color: var(--brand-red);
+        }
+
+        @media (max-width: 900px) {
+
+            .profile-split,
+            .testimonial-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stat-hero-bar {
+                grid-template-columns: 1fr 1fr;
+                margin-top: -30px;
+            }
         }
 
         @media (max-width: 768px) {
-
-            .profile-split,
-            .profile-split.reverse {
-                grid-template-columns: 1fr;
-                direction: ltr;
-            }
-
-            header h1 {
-                font-size: 2.5rem;
-            }
-
             .nav-links {
                 display: none;
             }
@@ -357,173 +453,131 @@
         </div>
     </div>
 
-    <div class="stat-hero-bar">
-        <div>
-            <h3>50,000+</h3><span>Participants</span>
-        </div>
-        <div>
-            <h3>21</h3><span>Events</span>
-        </div>
-        <div>
-            <h3>$112,000</h3><span>Avg. HHI</span>
-        </div>
-        <div>
-            <h3>79%</h3><span>College Educated</span>
+    <div class="container">
+        <div class="stat-hero-bar">
+            <div>
+                <h3>50,000+</h3><span>Participants</span>
+            </div>
+            <div>
+                <h3>21</h3><span>Annual Events</span>
+            </div>
+            <div>
+                <h3>$112,000</h3><span>Avg. HHI</span>
+            </div>
+            <div>
+                <h3>79%</h3><span>College Grad</span>
+            </div>
         </div>
     </div>
 
-    <section class="profile-section">
+    <section class="section-padding container">
         <div class="profile-split">
             <div class="profile-text">
-                <h2 style="font-size: 2.5rem; margin-bottom: 20px;">Partner With Why Racing Events</h2>
-                <p style="font-size: 1.2rem; font-weight: 600; color: var(--brand-red); margin-bottom: 20px;">50,000+
-                    participants. 21 events. One highly desirable audience.</p>
+                <h2>Partner With Why Racing Events</h2>
+                <p style="font-size: 1.25rem; color: var(--brand-red); font-weight: 700; margin-bottom: 20px;">
+                    50,000+ participants. 21 events. One highly desirable audience.
+                </p>
                 <p>Our athletes aren't just active—they're affluent, educated decision-makers with strong brand loyalty.
                     Runners and triathletes average $112,000 in household income and are 79% college-educated, making
                     them among the most valuable demographics in event marketing.</p>
-                <p style="margin-top: 20px; font-weight: 600;">More importantly: runner identity directly predicts
-                    purchase intention. When athletes connect with brands that support their events, they don't just
-                    notice—they buy, they advocate, and they stay loyal for years.</p>
+                <p style="margin-top: 20px; font-weight: 700;">More importantly: runner identity directly predicts
+                    purchase intention.</p>
+                <p>When athletes connect with brands that support their events, they don't just notice—they buy, they
+                    advocate, and they stay loyal for years.</p>
             </div>
-            <div>
-                <img src="../images/action/pdx-tri-1.jpg" style="width: 100%; border-radius: 12px;"
+            <div class="profile-image">
+                <img src="../images/action/pdx-tri-1.jpg"
+                    style="width: 100%; border-radius: 20px; box-shadow: 40px 40px 0px rgba(227, 24, 55, 0.05);"
                     alt="Why Racing Community">
             </div>
         </div>
     </section>
 
-    <section style="background: #f8f9fa; padding: 80px 20px;">
-        <div style="max-width: 1200px; margin: 0 auto;">
-            <h2 style="text-align: center; font-size: 2.2rem;">Who You'll Reach</h2>
-            <p style="text-align: center; margin-bottom: 40px;">Our participants are committed consumers who invest
-                heavily in performance, recovery, and lifestyle:</p>
+    <section style="background: var(--soft-bg);" class="section-padding">
+        <div class="container">
+            <h2 style="text-align: center;">Who You'll Reach</h2>
+            <p style="text-align: center; max-width: 700px; margin: 0 auto;">Our participants are committed consumers
+                who invest heavily in performance, recovery, and lifestyle.</p>
 
             <div class="industry-grid">
-                <div class="industry-card">
-                    <h4 style="color: var(--brand-red);">Health & Recovery</h4>
-                    <p>Massage, physical therapy, chiropractic, sports medicine, coaching. They push hard and pay for
-                        expert recovery.</p>
+                <div class="industry-card"><i class="fas fa-heartbeat"></i>
+                    <h4>Health & Recovery</h4>
+                    <p>Massage, physical therapy, chiropractic, sports medicine, coaching.</p>
                 </div>
-                <div class="industry-card">
-                    <h4 style="color: var(--brand-red);">Gear & Equipment</h4>
-                    <p>Premium bikes, quality running shoes, technical apparel, GPS devices. Once they find what works,
-                        they become brand ambassadors.</p>
+                <div class="industry-card"><i class="fas fa-bicycle"></i>
+                    <h4>Gear & Equipment</h4>
+                    <p>Premium bikes, quality running shoes, technical apparel, GPS devices.</p>
                 </div>
-                <div class="industry-card">
-                    <h4 style="color: var(--brand-red);">Nutrition & Fuel</h4>
-                    <p>Energy products, supplements, performance foods. Athletes who find their formula stick with
-                        it—and tell everyone.</p>
+                <div class="industry-card"><i class="fas fa-bolt"></i>
+                    <h4>Nutrition & Fuel</h4>
+                    <p>Energy products, supplements, performance foods.</p>
                 </div>
-                <div class="industry-card">
-                    <h4 style="color: var(--brand-red);">Lifestyle & Experiences</h4>
-                    <p>Restaurants, travel, vehicles, craft beverages, financial services. They work hard, play hard,
-                        and spend accordingly.</p>
+                <div class="industry-card"><i class="fas fa-glass-cheers"></i>
+                    <h4>Lifestyle</h4>
+                    <p>Restaurants, travel, vehicles, craft beverages, financial services.</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="profile-section">
-        <div class="profile-split reverse">
-            <div class="profile-text">
+    <section class="section-padding container">
+        <h2 style="text-align: center;">What Athletes Are Saying</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-card">
+                "WhyRacing consistently delivers the gold standard for PNW events. Every detail is handled with
+                professional care. They make every runner feel like an elite athlete."
+                <span class="testimonial-tag">— Spring Classic Finisher</span>
+            </div>
+            <div class="testimonial-card">
+                "The best race-day swag and post-party scene in Washington! The medals are incredible, the free photos
+                are a huge bonus, and the community energy is unmatched."
+                <span class="testimonial-tag">— Couve Clover Participant</span>
+            </div>
+            <div class="testimonial-card">
+                "Whether you’re looking for a scenic PR or a beautifully organized trail run, WhyRacing nails it. The
+                volunteer support is world-class and the courses are stunning."
+                <span class="testimonial-tag">— Appletree Marathon Runner</span>
+            </div>
+        </div>
+    </section>
+
+    <section style="background: #f1f1f1;" class="section-padding">
+        <div class="container profile-split" style="direction: rtl;">
+            <div class="profile-text" style="direction: ltr;">
                 <h2>What We Offer Partners</h2>
-                <p style="margin-bottom: 30px;">We design sponsorship packages around your marketing objectives—not
-                    generic tier lists. Whether you're building brand awareness, generating leads, or deepening customer
-                    relationships, we'll create a partnership that delivers measurable ROI.</p>
+                <p>We design sponsorship packages around your marketing objectives—not generic tier lists. Whether
+                    you're building brand awareness or deepening customer relationships, we'll create a partnership that
+                    delivers measurable ROI.</p>
 
-                <div class="offer-box">
-                    <h4 style="color: var(--brand-red); margin-bottom: 15px;">Experiential Activation</h4>
-                    <ul class="check-list">
-                        <li><i class="fas fa-check"></i> Expo booth presence with direct athlete engagement</li>
-                        <li><i class="fas fa-check"></i> Product sampling at aid stations, finish lines, and recovery
-                            zones</li>
-                        <li><i class="fas fa-check"></i> Branded experiences that create lasting impressions</li>
-                    </ul>
-                </div>
+                <div style="margin-top: 30px;">
+                    <h4 style="color: var(--brand-red);">Experiential Activation</h4>
+                    <p style="font-size: 0.9rem;">Expo booths, product sampling at aid stations, and branded
+                        experiences.</p>
 
-                <div class="offer-box">
-                    <h4 style="color: var(--brand-red); margin-bottom: 15px;">Integrated Visibility</h4>
-                    <ul class="check-list">
-                        <li><i class="fas fa-check"></i> Logo placement across web, email, social, and event materials
-                        </li>
-                        <li><i class="fas fa-check"></i> Recognition during race announcements and athlete
-                            communications</li>
-                        <li><i class="fas fa-check"></i> Presence on event apparel and participant materials</li>
-                    </ul>
-                </div>
+                    <h4 style="color: var(--brand-red); margin-top: 20px;">Integrated Visibility</h4>
+                    <p style="font-size: 0.9rem;">Logo placement (Web, Email, Social), race announcements, and apparel
+                        branding.</p>
 
-                <div class="offer-box">
-                    <h4 style="color: var(--brand-red); margin-bottom: 15px;">Employee & Team Engagement</h4>
-                    <ul class="check-list">
-                        <li><i class="fas fa-check"></i> Corporate team registration programs</li>
-                        <li><i class="fas fa-check"></i> VIP race day experiences for clients and staff</li>
-                        <li><i class="fas fa-check"></i> Year-round partnership touchpoints beyond event day</li>
-                    </ul>
+                    <h4 style="color: var(--brand-red); margin-top: 20px;">Employee Engagement</h4>
+                    <p style="font-size: 0.9rem;">Corporate registration programs and VIP race day experiences.</p>
                 </div>
             </div>
-            <div>
-                <img src="../images/Scrapedimages/2025-swag-scaled.jpg" style="width: 100%; border-radius: 12px;"
-                    alt="Sponsorship Swag">
+            <div class="profile-image" style="direction: ltr;">
+                <img src="../images/Scrapedimages/2025-swag-scaled.jpg" style="width: 100%; border-radius: 20px;"
+                    alt="Why Racing Swag">
             </div>
         </div>
     </section>
 
-    <section class="industry-section" style="background: white;">
-        <div class="section-header" style="max-width: 800px; margin: 0 auto; margin-bottom: 50px; text-align: center;">
-            <h2 style="font-size: 2.5rem;">What Athletes Are Saying</h2>
-            <p>Our community energy directly translates to brand value for our partners.</p>
+    <section class="contact-footer">
+        <div class="container">
+            <h2>Let's Talk</h2>
+            <p style="max-width: 800px; margin: 0 auto;">We start every partnership conversation by understanding your
+                goals—not by sending a generic PDF. Contact Jess to schedule a 15-minute discovery call.</p>
+            <a href="mailto:jess@whyracingevents.com" class="contact-btn">Email Jess @ WhyRacing</a>
+            <p style="font-size: 0.9rem; opacity: 0.8;">We'll discuss your goals, explore alignment, and determine if
+                there's a fit worth pursuing.</p>
         </div>
-
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p>"WhyRacing consistently delivers the gold standard for Pacific Northwest events. From the precision
-                    timing to the high-energy atmosphere, every detail is handled with professional care. They make
-                    every runner feel like an elite athlete."</p>
-                <div class="testimonial-author">
-                    <img src="../images/athletes/jenni.jpg" alt="Finisher">
-                    <div class="info">
-                        <h4>Finisher</h4>
-                        <span>Spring Classic Duathlon & Half Marathon</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p>"The best race-day swag and post-party scene in Washington! The medals are incredible, the free
-                    photos are a huge bonus, and the community energy at the finish line is unmatched. I wouldn’t miss
-                    their events for anything."</p>
-                <div class="testimonial-author">
-                    <img src="../images/athletes/dan.jpg" alt="Participant">
-                    <div class="info">
-                        <h4>Participant</h4>
-                        <span>Couve Clover Run</span>
-                    </div>
-                </div>
-            </div>
-            <div class="testimonial-card">
-                <p>"Whether you’re looking for a scenic PR on a flat, fast course or a beautifully organized trail run,
-                    WhyRacing nails it. The volunteer support is world-class and the courses around Vancouver are
-                    absolutely stunning."</p>
-                <div class="testimonial-author">
-                    <img src="../images/athletes/amy.jpg" alt="Runner">
-                    <div class="info">
-                        <h4>Runner</h4>
-                        <span>Appletree Marathon</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact-jess"
-        style="background: var(--brand-dark); color: white; padding: 80px 20px; text-align: center;">
-        <h2 style="font-size: 2.5rem; margin-bottom: 20px; color: white;">Let's Talk</h2>
-        <p style="max-width: 700px; margin: 0 auto 30px; opacity: 0.9;">We start every partnership conversation by
-            understanding your goals—not by sending a generic PDF. Contact Jess at <a
-                href="mailto:jess@whyracingevents.com"
-                style="color: var(--brand-red); text-decoration: none; font-weight: bold;">jess@whyracingevents.com</a>
-            to schedule a 15-minute discovery call.</p>
-        <p style="max-width: 700px; margin: 0 auto; opacity: 0.9;">We'll discuss what you're trying to achieve, explore
-            how our events align with your audience, and determine if there's a fit worth pursuing.</p>
     </section>
 
     <footer style="background: #111; color: #666; padding: 60px 5%; text-align: center;">
