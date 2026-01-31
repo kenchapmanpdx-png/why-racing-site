@@ -1389,6 +1389,22 @@
             </div>
         </div>
 
+        <!-- Hero Carousel Images -->
+        <div class="media-block">
+            <h4>🎡 Hero Photo Carousel</h4>
+            <p class="media-hint">Add multiple photos to cycle in the hero section (2-second timer). If empty, the hero
+                background image above will be used.</p>
+            <div class="form-group full-width">
+                <div id="carouselSlots"
+                    style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                    <!-- Carousel slots will be added here -->
+                </div>
+                <button type="button" class="btn btn-secondary" onclick="addCarouselSlot()" style="margin-top: 15px;">
+                    <span>➕</span> Add Carousel Photo
+                </button>
+            </div>
+        </div>
+
         <!-- Thumbnail Image -->
         <div class="media-block">
             <h4>🏷️ Race Thumbnail</h4>
@@ -1830,6 +1846,15 @@
                 // Add one empty slot by default
                 document.getElementById('gallerySlots').innerHTML = '';
                 addGallerySlot();
+            }
+
+            // Handle Hero Carousel
+            const carouselContainer = document.getElementById('carouselSlots');
+            carouselContainer.innerHTML = '';
+            if (race.hero_carousel_images && race.hero_carousel_images.length > 0) {
+                race.hero_carousel_images.forEach((url) => {
+                    addCarouselSlotWithImage(url);
+                });
             }
 
             // Handle Theme
@@ -2320,13 +2345,13 @@
                 const slot = input.closest('.gallery-slot');
 
                 // If slot has existing URL and no new file, keep the existing URL
-                if (slot.dataset.existingUrl && !input.files[0]) {
+                if (slot.dataset.existingUrl && (!input.files || !input.files[0])) {
                     galleryUrls.push(slot.dataset.existingUrl);
                     continue;
                 }
 
                 // If there's a new file, upload it
-                if (input.files[0]) {
+                if (input.files && input.files[0]) {
                     try {
                         console.log(`Uploading gallery image ${i}: ${input.files[0].name}`);
 
@@ -2359,6 +2384,52 @@
                     } catch (err) {
                         console.error(`Gallery image ${i} upload error:`, err);
                         alert(`Error uploading gallery image ${i + 1}: ${err.message}`);
+                    }
+                }
+            }
+
+            // Upload Carousel Images from individual slots
+            let carouselUrls = [];
+            const carouselSlots = document.querySelectorAll('.carousel-slot');
+            for (let i = 0; i < carouselSlots.length; i++) {
+                const slot = carouselSlots[i];
+                const input = slot.querySelector('input[type="file"]');
+
+                // If slot has existing URL and no new file, keep it
+                if (slot.dataset.existingUrl && (!input.files || !input.files[0])) {
+                    carouselUrls.push(slot.dataset.existingUrl);
+                    continue;
+                }
+
+                // If there's a new file, upload it
+                if (input.files && input.files[0]) {
+                    try {
+                        console.log(`Uploading carousel image ${i}: ${input.files[0].name}`);
+
+                        const uploadFormData = new FormData();
+                        uploadFormData.append('file', input.files[0]);
+                        uploadFormData.append('type', `carousel-${i}`);
+                        uploadFormData.append('raceId', raceId);
+
+                        const uploadRes = await fetch('/api/races/upload', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
+                            },
+                            body: uploadFormData
+                        });
+
+                        if (uploadRes.ok) {
+                            const uploadData = await uploadRes.json();
+                            carouselUrls.push(uploadData.url);
+                            console.log(`Carousel image ${i} uploaded successfully:`, uploadData.url);
+                        } else {
+                            const errorText = await uploadRes.text();
+                            console.error(`Carousel image ${i} upload failed:`, errorText);
+                        }
+                        await new Promise(resolve => setTimeout(resolve, 300));
+                    } catch (err) {
+                        console.error(`Carousel image ${i} upload error:`, err);
                     }
                 }
             }
@@ -2430,6 +2501,7 @@
                 logo_url: logoUrl || (editingId ? races.find(r => r.id === editingId)?.logo_url : null),
                 instructions_pdf_url: instructionsPdfUrl || (editingId ? races.find(r => r.id === editingId)?.instructions_pdf_url : null),
                 gallery_images: galleryUrls,
+                hero_carousel_images: carouselUrls,
                 // Course Details
                 terrain: formData.get('terrain'),
                 elevation: formData.get('elevation'),
@@ -2759,10 +2831,89 @@
             }
         }
 
-        // Initialize with one empty slot on page load
+        // === Carousel Slot Management ===
+        let carouselSlotCounter = 0;
+
+        function addCarouselSlot() {
+            const container = document.getElementById('carouselSlots');
+            const slotId = carouselSlotCounter++;
+
+            const slot = document.createElement('div');
+            slot.className = 'carousel-slot';
+            slot.id = `carouselSlot-${slotId}`;
+            slot.style.cssText = 'display: flex; flex-direction: column; gap: 10px; padding: 15px; background: #1e293b; border-radius: 12px; border: 1px solid #334155; position: relative;';
+
+            slot.innerHTML = `
+                <div style="width: 100%; aspect-ratio: 16/9; background: #0f172a; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #475569; position: relative;">
+                    <span id="carouselPreview-${slotId}-placeholder" style="font-size: 32px;">🖼️</span>
+                    <img id="carouselPreview-${slotId}" style="width: 100%; height: 100%; object-fit: cover; display: none;">
+                </div>
+                <input type="file" id="carouselFile-${slotId}" accept="image/*" onchange="previewCarouselImage(this, ${slotId})" style="font-size: 12px; color: #94a3b8;">
+                <button type="button" onclick="removeCarouselSlot(${slotId})" style="position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; width: 24px; height: 24px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; z-index: 10;">✕</button>
+            `;
+
+            container.appendChild(slot);
+        }
+
+        function addCarouselSlotWithImage(existingUrl) {
+            const container = document.getElementById('carouselSlots');
+            const slotId = carouselSlotCounter++;
+
+            const slot = document.createElement('div');
+            slot.className = 'carousel-slot';
+            slot.id = `carouselSlot-${slotId}`;
+            slot.dataset.existingUrl = existingUrl;
+            slot.style.cssText = 'display: flex; flex-direction: column; gap: 10px; padding: 15px; background: #1e293b; border-radius: 12px; border: 1px solid #334155; position: relative;';
+
+            slot.innerHTML = `
+                <div style="width: 100%; aspect-ratio: 16/9; background: #0f172a; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative;">
+                    <img id="carouselPreview-${slotId}" src="${existingUrl}" style="width: 100%; height: 100%; object-fit: cover;">
+                </div>
+                <input type="file" id="carouselFile-${slotId}" accept="image/*" onchange="previewCarouselImage(this, ${slotId})" style="font-size: 12px; color: #94a3b8;">
+                <small style="color: #64748b; font-size: 11px;">Current image saved. Upload new to replace.</small>
+                <button type="button" onclick="removeCarouselSlot(${slotId})" style="position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; width: 24px; height: 24px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; z-index: 10;">✕</button>
+            `;
+
+            container.appendChild(slot);
+        }
+
+        function removeCarouselSlot(slotId) {
+            const slot = document.getElementById(`carouselSlot-${slotId}`);
+            if (slot) slot.remove();
+        }
+
+        function previewCarouselImage(input, slotId) {
+            const preview = document.getElementById(`carouselPreview-${slotId}`);
+            const placeholder = document.getElementById(`carouselPreview-${slotId}-placeholder`);
+            const slot = document.getElementById(`carouselSlot-${slotId}`);
+
+            if (input.files && input.files[0]) {
+                const file = input.files[0];
+                if (!validateImage(file)) {
+                    input.value = '';
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    if (placeholder) placeholder.style.display = 'none';
+                    // Clear existing URL since we're replacing
+                    delete slot.dataset.existingUrl;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Initialize with empty slots if needed
         document.addEventListener('DOMContentLoaded', function () {
             if (document.getElementById('gallerySlots') && document.querySelectorAll('.gallery-slot').length === 0) {
                 addGallerySlot();
+            }
+            if (document.getElementById('carouselSlots') && document.querySelectorAll('.carousel-slot').length === 0) {
+                // We don't necessarily need empty carousel slots by default, but we can add one
+                // addCarouselSlot();
             }
         });
 

@@ -163,15 +163,30 @@
             overflow: hidden;
         }
 
-        #heroBackground {
+        .hero-carousel {
             position: absolute;
             top: 0;
             left: 0;
             right: 0;
             bottom: 0;
+            z-index: 0;
+        }
+
+        .hero-slide {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
             background-size: cover;
             background-position: center top;
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
             z-index: 0;
+        }
+
+        .hero-slide.active {
+            opacity: 1;
         }
 
         #heroOverlay {
@@ -938,7 +953,7 @@
     <!-- Main Content (hidden until loaded) -->
     <div id="mainContent" style="display: none;">
         <div class="event-hero">
-            <div id="heroBackground"></div>
+            <div id="heroBackground" class="hero-carousel"></div>
             <div id="heroOverlay"></div>
             <div class="event-hero-content">
                 <div id="raceLogoContainer" style="display: none; margin-bottom: 20px;">
@@ -1399,9 +1414,32 @@
                 };
                 document.getElementById('eventSchema').textContent = JSON.stringify(schema);
 
-                // Update hero
-                if (race.hero_image_url) {
-                    document.getElementById('heroBackground').style.backgroundImage = `url('${race.hero_image_url}')`;
+                // Update hero carousel
+                const carouselImages = (race.hero_carousel_images && race.hero_carousel_images.length > 0)
+                    ? race.hero_carousel_images
+                    : (race.hero_image_url ? [race.hero_image_url] : []);
+
+                const heroBg = document.getElementById('heroBackground');
+                heroBg.innerHTML = '';
+
+                if (carouselImages.length > 0) {
+                    carouselImages.forEach((imgUrl, index) => {
+                        const slide = document.createElement('div');
+                        slide.className = `hero-slide${index === 0 ? ' active' : ''}`;
+                        slide.style.backgroundImage = `url('${imgUrl}')`;
+                        heroBg.appendChild(slide);
+                    });
+
+                    if (carouselImages.length > 1) {
+                        let currentSlide = 0;
+                        const slides = heroBg.querySelectorAll('.hero-slide');
+                        setInterval(() => {
+                            if (slides.length === 0) return;
+                            slides[currentSlide].classList.remove('active');
+                            currentSlide = (currentSlide + 1) % slides.length;
+                            slides[currentSlide].classList.add('active');
+                        }, 2000);
+                    }
                 }
                 document.getElementById('raceType').textContent = getRaceTypeLabel(race.race_type);
                 document.getElementById('raceDate').textContent = '📅 ' + formatDate(race.race_date);
