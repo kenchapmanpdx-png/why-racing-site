@@ -1514,7 +1514,8 @@
         <div class="form-group full-width ai-prompt-area">
             <label for="themePrompt">Theme Description</label>
             <textarea id="themePrompt" name="themePrompt"
-                placeholder="Example: Spooky Halloween theme with fog effects, orange and purple colors, gothic fonts, perfect for our October night race..."></textarea>
+                placeholder="Example: St. Patrick's Day theme with green and gold..."
+                onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); generateTheme(); }"></textarea>
             <button type="button" class="generate-theme-btn" onclick="generateTheme()">
                 <span>✨</span> Generate Theme
             </button>
@@ -1524,7 +1525,7 @@
             <h4>Generated Theme Preview</h4>
             <div class="color-swatches">
                 <div class="color-swatch-group">
-                    <label>Primary Color</label>
+                    <label>🎨 Primary Color Selector</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <input type="color" id="primaryPicker" oninput="syncColor('primary', 'picker')">
                         <input type="text" id="primaryColor" name="primaryColor" value="#E31837"
@@ -1532,7 +1533,7 @@
                     </div>
                 </div>
                 <div class="color-swatch-group">
-                    <label>Secondary Color</label>
+                    <label>🎨 Secondary Color Selector</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <input type="color" id="secondaryPicker" oninput="syncColor('secondary', 'picker')">
                         <input type="text" id="secondaryColor" name="secondaryColor" value="#0ea5e9"
@@ -1540,7 +1541,7 @@
                     </div>
                 </div>
                 <div class="color-swatch-group">
-                    <label>Accent Color</label>
+                    <label>🎨 Accent Color Selector</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <input type="color" id="accentPicker" oninput="syncColor('accent', 'picker')">
                         <input type="text" id="accentColor" name="accentColor" value="#22c55e"
@@ -1548,7 +1549,7 @@
                     </div>
                 </div>
                 <div class="color-swatch-group">
-                    <label>Background Color</label>
+                    <label>🎨 Background Color Selector</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
                         <input type="color" id="backgroundPicker" oninput="syncColor('background', 'picker')">
                         <input type="text" id="backgroundColor" name="backgroundColor" value="#0a0a0a"

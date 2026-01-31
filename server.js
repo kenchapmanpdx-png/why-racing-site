@@ -675,12 +675,24 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
     }
 
     const text = data.candidates[0].content.parts[0].text;
+    console.log('Raw AI Response:', text);
 
-    // Clean up response (remove any markdown backticks if present)
-    const cleanText = text.replace(/```json\n?|\n?```/g, '').trim();
-
-    // Parse the JSON response
-    const theme = JSON.parse(cleanText);
+    // Robust JSON extraction
+    let theme;
+    try {
+      // Try parsing the whole thing first
+      theme = JSON.parse(text.replace(/```json\n?|\n?```/g, '').trim());
+    } catch (e) {
+      // If that fails, try finding the first { and last }
+      const start = text.indexOf('{');
+      const end = text.lastIndexOf('}');
+      if (start !== -1 && end !== -1) {
+        const jsonStr = text.substring(start, end + 1);
+        theme = JSON.parse(jsonStr);
+      } else {
+        throw new Error('Could not find JSON in AI response');
+      }
+    }
 
     return res.status(200).json(theme);
   } catch (error) {
