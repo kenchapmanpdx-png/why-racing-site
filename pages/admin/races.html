@@ -998,11 +998,6 @@
                             <label for="raceDate">Race Date *</label>
                             <input type="date" id="raceDate" name="raceDate" required>
                         </div>
-                        <div class="form-group full-width">
-                            <label for="raceName">Race Name</label>
-                            <input type="text" id="raceName" name="raceName" placeholder="e.g., St. Patrick's Day Run"
-                                required>
-                        </div>
                         <div class="form-group">
                             <label for="raceTime">Start Time</label>
                             <input type="time" id="raceTime" name="raceTime">
@@ -1757,7 +1752,12 @@
             form.dataset.editingId = id;
 
             // Fill basic info
-            form.raceName.value = race.name || '';
+            console.log('Editing race:', race.name, '(ID: ' + race.id + ')');
+            if (document.getElementById('raceName')) {
+                document.getElementById('raceName').value = race.name || '';
+            } else {
+                console.error('CRITICAL: raceName input not found in DOM!');
+            }
             form.raceDate.value = race.race_date || '';
             form.raceTime.value = race.race_time || '';
             form.raceType.value = race.race_type || 'running';
