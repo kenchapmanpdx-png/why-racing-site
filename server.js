@@ -621,7 +621,7 @@ app.post('/api/generate-theme', async (req, res) => {
       throw new Error('API key configuration error');
     }
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
 
     console.log('Generating theme for prompt:', prompt.substring(0, 50) + '...');
 
@@ -664,7 +664,7 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
     if (!response.ok) {
       const errorBody = await response.text();
       console.error('Gemini API error:', response.status, errorBody);
-      throw new Error(`Gemini API error: ${response.status}`);
+      throw new Error(`Gemini API error: ${response.status} - ${errorBody}`);
     }
 
     const data = await response.json();
