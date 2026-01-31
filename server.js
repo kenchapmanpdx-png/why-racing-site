@@ -621,7 +621,7 @@ app.post('/api/generate-theme', async (req, res) => {
       throw new Error('API key configuration error');
     }
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
     console.log('--- Theme Generation Start ---');
     console.log('Prompt:', prompt);
