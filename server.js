@@ -631,11 +631,17 @@ app.post('/api/generate-theme', async (req, res) => {
       body: JSON.stringify({
         contents: [{
           parts: [{
-            text: `You are a web designer creating a theme for a race event page. Based on this description, generate a cohesive color scheme and style.
+            text: `You are an expert web designer specializing in high-energy event branding. Generate a unique, vibrant, and cohesive visual theme for a race event based on the description below.
 
 Description: "${prompt}"
 
-Respond with ONLY valid JSON (no markdown, no backticks, no explanation) in this exact format:
+CRITICAL RULES:
+1. DO NOT use generic red/blue/green unless explicitly requested.
+2. Be creative with the palette (e.g., "Midnight Neon", "Desert Sunset", "Electric Forest").
+3. Ensure colors are distinct from each other (no same hex codes for primary/secondary unless intentional).
+4. backgroundColor should usually be very dark (#050505 to #1a1a1a) to maintain the premium dashboard aesthetic, but colors must POP against it.
+
+Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
 {
   "primaryColor": "#hexcode",
   "secondaryColor": "#hexcode",
@@ -643,19 +649,12 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation) in this
   "backgroundColor": "#hexcode",
   "fontStyle": "modern|playful|bold|elegant|rugged|gothic",
   "mood": "comma, separated, keywords",
-  "tagline": "A catchy tagline for this race (under 60 characters)"
-}
-
-Guidelines:
-- Colors should be vibrant and work well together
-- backgroundColor should be dark (for the admin theme) but could be light for actual race pages
-- fontStyle should match the vibe (gothic for spooky, playful for family events, rugged for trail races, etc.)
-- mood keywords help with imagery selection
-- tagline should be motivating and match the theme`
+  "tagline": "A catchy, motivating tagline (under 60 characters)"
+}`
           }]
         }],
         generationConfig: {
-          temperature: 0.7,
+          temperature: 0.9,
           maxOutputTokens: 256
         }
       })

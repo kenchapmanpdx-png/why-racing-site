@@ -504,38 +504,66 @@
 
         .color-swatches {
             display: flex;
-            gap: 16px;
-            margin-bottom: 16px;
-        }
-
-        .color-swatch {
-            text-align: center;
-        }
-
-        .color-swatch .swatch {
-            width: 60px;
-            height: 60px;
-            border-radius: 8px;
-            margin-bottom: 8px;
-            border: 2px solid #334155;
-        }
-
-        .color-swatch input {
-            width: 80px;
-            padding: 6px;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin-bottom: 24px;
+            padding: 16px;
+            background: rgba(15, 23, 42, 0.5);
+            border-radius: 12px;
             border: 1px solid #334155;
-            border-radius: 4px;
-            background: #1e293b;
-            color: #e2e8f0;
-            font-size: 12px;
-            text-align: center;
         }
 
-        .color-swatch label {
-            font-size: 11px;
-            color: #64748b;
-            display: block;
-            margin-bottom: 4px;
+        .color-swatch-group {
+            flex: 1;
+            min-width: 140px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .color-swatch-group label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .color-swatch-group input[type="color"] {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 48px;
+            height: 48px;
+            background-color: transparent;
+            border: 2px solid #334155;
+            border-radius: 8px;
+            cursor: pointer;
+            padding: 0;
+            overflow: hidden;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .color-swatch-group input[type="color"]::-webkit-color-swatch-wrapper {
+            padding: 0;
+        }
+
+        .color-swatch-group input[type="color"]::-webkit-color-swatch {
+            border: none;
+            border-radius: 6px;
+        }
+
+        .color-swatch-group input[type="color"]:hover {
+            transform: scale(1.05);
+            border-color: var(--brand-red);
+        }
+
+        .color-swatch-group input[type="text"] {
+            width: 100%;
+            padding: 8px 12px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            text-transform: uppercase;
         }
 
         .generated-tagline {
@@ -1494,42 +1522,37 @@
 
         <div class="theme-preview" id="themePreview">
             <h4>Generated Theme Preview</h4>
-            <div class="color-swatches"
-                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+            <div class="color-swatches">
                 <div class="color-swatch-group">
                     <label>Primary Color</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        <input type="color" id="primaryPicker" oninput="syncColor('primary', 'picker')"
-                            style="width: 40px; height: 40px; padding: 0; border: none; border-radius: 4px; cursor: pointer; background: none;">
+                        <input type="color" id="primaryPicker" oninput="syncColor('primary', 'picker')">
                         <input type="text" id="primaryColor" name="primaryColor" value="#E31837"
-                            onchange="syncColor('primary', 'text')" placeholder="#hex" style="margin-bottom: 0;">
+                            onchange="syncColor('primary', 'text')" placeholder="#hex">
                     </div>
                 </div>
                 <div class="color-swatch-group">
                     <label>Secondary Color</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        <input type="color" id="secondaryPicker" oninput="syncColor('secondary', 'picker')"
-                            style="width: 40px; height: 40px; padding: 0; border: none; border-radius: 4px; cursor: pointer; background: none;">
+                        <input type="color" id="secondaryPicker" oninput="syncColor('secondary', 'picker')">
                         <input type="text" id="secondaryColor" name="secondaryColor" value="#0ea5e9"
-                            onchange="syncColor('secondary', 'text')" placeholder="#hex" style="margin-bottom: 0;">
+                            onchange="syncColor('secondary', 'text')" placeholder="#hex">
                     </div>
                 </div>
                 <div class="color-swatch-group">
                     <label>Accent Color</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        <input type="color" id="accentPicker" oninput="syncColor('accent', 'picker')"
-                            style="width: 40px; height: 40px; padding: 0; border: none; border-radius: 4px; cursor: pointer; background: none;">
+                        <input type="color" id="accentPicker" oninput="syncColor('accent', 'picker')">
                         <input type="text" id="accentColor" name="accentColor" value="#22c55e"
-                            onchange="syncColor('accent', 'text')" placeholder="#hex" style="margin-bottom: 0;">
+                            onchange="syncColor('accent', 'text')" placeholder="#hex">
                     </div>
                 </div>
                 <div class="color-swatch-group">
                     <label>Background Color</label>
                     <div style="display: flex; gap: 8px; align-items: center;">
-                        <input type="color" id="backgroundPicker" oninput="syncColor('background', 'picker')"
-                            style="width: 40px; height: 40px; padding: 0; border: none; border-radius: 4px; cursor: pointer; background: none;">
+                        <input type="color" id="backgroundPicker" oninput="syncColor('background', 'picker')">
                         <input type="text" id="backgroundColor" name="backgroundColor" value="#0a0a0a"
-                            onchange="syncColor('background', 'text')" placeholder="#hex" style="margin-bottom: 0;">
+                            onchange="syncColor('background', 'text')" placeholder="#hex">
                     </div>
                 </div>
             </div>
