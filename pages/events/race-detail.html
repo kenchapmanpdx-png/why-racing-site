@@ -250,12 +250,14 @@
 
         .event-hero-content .event-tag {
             background: var(--primary);
-            padding: 10px 20px;
+            padding: 16px 24px;
             font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
             border-radius: 4px;
             display: inline-block;
+            height: fit-content;
+            line-height: 1;
         }
 
         .event-hero-content h1 {
@@ -1510,7 +1512,7 @@
                             slides[currentSlide].classList.remove('active');
                             currentSlide = (currentSlide + 1) % slides.length;
                             slides[currentSlide].classList.add('active');
-                        }, 4000);
+                        }, 3000);
                     }
                 }
                 document.getElementById('raceType').textContent = getRaceTypeLabel(race.race_type);
