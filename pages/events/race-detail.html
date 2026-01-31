@@ -206,13 +206,12 @@
 
         .event-hero-content .event-tag {
             background: var(--primary);
-            padding: 8px 16px;
-            font-size: 12px;
+            padding: 10px 20px;
+            font-size: 14px;
             font-weight: 700;
             text-transform: uppercase;
             border-radius: 4px;
             display: inline-block;
-            margin-bottom: 15px;
         }
 
         .event-hero-content h1 {
@@ -960,7 +959,6 @@
                     <img id="raceLogo" src="" alt="Race Logo"
                         style="max-height: 120px; max-width: 280px; object-fit: contain; margin-bottom: 20px;">
                 </div>
-                <span class="event-tag" id="raceType">🏃 Race</span>
                 <div class="event-date" id="raceDate">📅 Date TBD</div>
                 <h1 id="raceName">Race Name</h1>
                 <div class="event-location">
@@ -988,7 +986,11 @@
                     </div>
                 </div>
 
-                <a href="#register" class="hero-cta" id="heroCta" style="margin-top: 30px;">Secure My Spot</a>
+                <div class="hero-actions"
+                    style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
+                    <span class="event-tag" id="raceType">🏃 Race</span>
+                    <a href="#register" class="hero-cta" id="heroCta" style="margin-top: 0;">Secure My Spot</a>
+                </div>
             </div>
         </div>
 
@@ -1414,6 +1416,31 @@
                 };
                 document.getElementById('eventSchema').textContent = JSON.stringify(schema);
 
+                // Apply AI Theme
+                if (race.theme_config) {
+                    const theme = race.theme_config;
+                    const root = document.documentElement;
+                    if (theme.primaryColor) root.style.setProperty('--primary', theme.primaryColor);
+                    if (theme.secondaryColor) root.style.setProperty('--brand-blue', theme.secondaryColor);
+                    if (theme.backgroundColor) root.style.setProperty('--light', theme.backgroundColor);
+
+                    if (theme.fontStyle) {
+                        const fontMap = {
+                            'modern': "'Inter', sans-serif",
+                            'bold': "'Oswald', sans-serif",
+                            'classic': "'Georgia', serif",
+                            'playful': "'Comic Sans MS', cursive"
+                        };
+                        if (fontMap[theme.fontStyle]) {
+                            document.body.style.fontFamily = fontMap[theme.fontStyle];
+                        }
+                    }
+
+                    if (theme.tagline && !race.tagline) {
+                        document.getElementById('raceName').insertAdjacentHTML('afterend', `<p id="themeTagline" style="font-style: italic; opacity: 0.9; margin-bottom: 15px; font-size: 1.2rem;">${theme.tagline}</p>`);
+                    }
+                }
+
                 // Update hero carousel
                 const carouselImages = (race.hero_carousel_images && race.hero_carousel_images.length > 0)
                     ? race.hero_carousel_images
@@ -1438,7 +1465,7 @@
                             slides[currentSlide].classList.remove('active');
                             currentSlide = (currentSlide + 1) % slides.length;
                             slides[currentSlide].classList.add('active');
-                        }, 2000);
+                        }, 3000);
                     }
                 }
                 document.getElementById('raceType').textContent = getRaceTypeLabel(race.race_type);
