@@ -615,24 +615,31 @@ app.post('/api/generate-theme', async (req, res) => {
   }
 
   try {
-    const apiKey = process.env.GEMINI_API_KEY;
+    const apiKey = process.env.OPENAI_API_KEY;
     if (!apiKey) {
-      console.error('ERROR: GEMINI_API_KEY is missing from environment variables');
+      console.error('ERROR: OPENAI_API_KEY is missing from environment variables');
       throw new Error('API key configuration error');
     }
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+    const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
-    console.log('--- Theme Generation Start ---');
+    console.log('--- Theme Generation Start (OpenAI) ---');
     console.log('Prompt:', prompt);
 
     const response = await fetch(apiUrl, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${apiKey}`
+      },
       body: JSON.stringify({
-        contents: [{
-          parts: [{
-            text: `You are an expert web designer specializing in high-energy event branding. Generate a unique, vibrant, and cohesive visual theme for a race event based on the description below.
+        model: "gpt-4o-mini",
+        messages: [{
+          role: "system",
+          content: "You are an expert web designer specializing in high-energy event branding. Respond only with valid JSON."
+        }, {
+          role: "user",
+          content: `Generate a unique, vibrant, and cohesive visual theme for a race event based on the description below.
 
 Description: "${prompt}"
 
@@ -642,7 +649,7 @@ CRITICAL RULES:
 3. Ensure colors are distinct from each other (no same hex codes for primary/secondary unless intentional).
 4. backgroundColor should usually be very dark (#050505 to #1a1a1a) to maintain the premium dashboard aesthetic, but colors must POP against it.
 
-Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
+Respond with ONLY valid JSON:
 {
   "primaryColor": "#hexcode",
   "secondaryColor": "#hexcode",
@@ -652,48 +659,23 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
   "mood": "comma, separated, keywords",
   "tagline": "A catchy, motivating tagline (under 60 characters)"
 }`
-          }]
         }],
-        generationConfig: {
-          temperature: 0.9,
-          maxOutputTokens: 256
-        }
+        temperature: 0.8,
+        response_format: { type: "json_object" }
       })
-    }
-    );
+    });
 
     if (!response.ok) {
       const errorBody = await response.text();
-      console.error('Gemini API error:', response.status, errorBody);
-      throw new Error(`Gemini API error: ${response.status} - ${errorBody}`);
+      console.error('OpenAI API error:', response.status, errorBody);
+      throw new Error(`OpenAI API error: ${response.status} - ${errorBody}`);
     }
 
     const data = await response.json();
-
-    if (!data.candidates || !data.candidates[0]) {
-      console.error('Gemini returned no candidates:', JSON.stringify(data));
-      throw new Error('No response from AI');
-    }
-
-    const text = data.candidates[0].content.parts[0].text;
+    const text = data.choices[0].message.content;
     console.log('Raw AI Response:', text);
 
-    // Robust JSON extraction
-    let theme;
-    try {
-      // Try parsing the whole thing first
-      theme = JSON.parse(text.replace(/```json\n?|\n?```/g, '').trim());
-    } catch (e) {
-      // If that fails, try finding the first { and last }
-      const start = text.indexOf('{');
-      const end = text.lastIndexOf('}');
-      if (start !== -1 && end !== -1) {
-        const jsonStr = text.substring(start, end + 1);
-        theme = JSON.parse(jsonStr);
-      } else {
-        throw new Error('Could not find JSON in AI response');
-      }
-    }
+    let theme = JSON.parse(text);
 
     return res.status(200).json(theme);
   } catch (error) {
