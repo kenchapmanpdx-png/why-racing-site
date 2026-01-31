@@ -1494,30 +1494,43 @@
 
         <div class="theme-preview" id="themePreview">
             <h4>Generated Theme Preview</h4>
-            <div class="color-swatches">
-                <div class="color-swatch">
-                    <div class="swatch" id="primarySwatch" style="background: var(--brand-red);"></div>
-                    <label>Primary</label>
-                    <input type="text" id="primaryColor" name="primaryColor" value="#E31837"
-                        onchange="updateSwatch('primary', this.value)">
+            <div class="color-swatches"
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 20px;">
+                <div class="color-swatch-group">
+                    <label>Primary Color</label>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="color" id="primaryPicker" oninput="syncColor('primary', 'picker')"
+                            style="width: 40px; height: 40px; padding: 0; border: none; border-radius: 4px; cursor: pointer; background: none;">
+                        <input type="text" id="primaryColor" name="primaryColor" value="#E31837"
+                            onchange="syncColor('primary', 'text')" placeholder="#hex" style="margin-bottom: 0;">
+                    </div>
                 </div>
-                <div class="color-swatch">
-                    <div class="swatch" id="secondarySwatch" style="background: #0ea5e9;"></div>
-                    <label>Secondary</label>
-                    <input type="text" id="secondaryColor" name="secondaryColor" value="#0ea5e9"
-                        onchange="updateSwatch('secondary', this.value)">
+                <div class="color-swatch-group">
+                    <label>Secondary Color</label>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="color" id="secondaryPicker" oninput="syncColor('secondary', 'picker')"
+                            style="width: 40px; height: 40px; padding: 0; border: none; border-radius: 4px; cursor: pointer; background: none;">
+                        <input type="text" id="secondaryColor" name="secondaryColor" value="#0ea5e9"
+                            onchange="syncColor('secondary', 'text')" placeholder="#hex" style="margin-bottom: 0;">
+                    </div>
                 </div>
-                <div class="color-swatch">
-                    <div class="swatch" id="accentSwatch" style="background: #22c55e;"></div>
-                    <label>Accent</label>
-                    <input type="text" id="accentColor" name="accentColor" value="#22c55e"
-                        onchange="updateSwatch('accent', this.value)">
+                <div class="color-swatch-group">
+                    <label>Accent Color</label>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="color" id="accentPicker" oninput="syncColor('accent', 'picker')"
+                            style="width: 40px; height: 40px; padding: 0; border: none; border-radius: 4px; cursor: pointer; background: none;">
+                        <input type="text" id="accentColor" name="accentColor" value="#22c55e"
+                            onchange="syncColor('accent', 'text')" placeholder="#hex" style="margin-bottom: 0;">
+                    </div>
                 </div>
-                <div class="color-swatch">
-                    <div class="swatch" id="backgroundSwatch" style="background: var(--brand-dark);"></div>
-                    <label>Background</label>
-                    <input type="text" id="backgroundColor" name="backgroundColor" value="#0a0a0a"
-                        onchange="updateSwatch('background', this.value)">
+                <div class="color-swatch-group">
+                    <label>Background Color</label>
+                    <div style="display: flex; gap: 8px; align-items: center;">
+                        <input type="color" id="backgroundPicker" oninput="syncColor('background', 'picker')"
+                            style="width: 40px; height: 40px; padding: 0; border: none; border-radius: 4px; cursor: pointer; background: none;">
+                        <input type="text" id="backgroundColor" name="backgroundColor" value="#0a0a0a"
+                            onchange="syncColor('background', 'text')" placeholder="#hex" style="margin-bottom: 0;">
+                    </div>
                 </div>
             </div>
             <div class="form-grid">
@@ -2135,21 +2148,34 @@
             document.getElementById('secondaryColor').value = theme.secondaryColor;
             document.getElementById('accentColor').value = theme.accentColor;
             document.getElementById('backgroundColor').value = theme.backgroundColor;
+
+            // Sync color pickers
+            document.getElementById('primaryPicker').value = theme.primaryColor || '#E31837';
+            document.getElementById('secondaryPicker').value = theme.secondaryColor || '#0ea5e9';
+            document.getElementById('accentPicker').value = theme.accentColor || '#22c55e';
+            document.getElementById('backgroundPicker').value = theme.backgroundColor || '#0a0a0a';
+
             document.getElementById('fontStyle').value = theme.fontStyle;
             document.getElementById('mood').value = theme.mood;
             document.getElementById('generatedTagline').textContent = `"${theme.tagline || ''}"`;
 
-            updateSwatch('primary', theme.primaryColor);
-            updateSwatch('secondary', theme.secondaryColor);
-            updateSwatch('accent', theme.accentColor);
-            updateSwatch('background', theme.backgroundColor);
-
             document.getElementById('themePreview').classList.add('visible');
         }
 
-        function updateSwatch(name, color) {
-            const swatch = document.getElementById(`${name}Swatch`);
-            if (swatch) swatch.style.backgroundColor = color;
+        function syncColor(type, source) {
+            const textInput = document.getElementById(`${type}Color`);
+            const picker = document.getElementById(`${type}Picker`);
+
+            if (source === 'picker') {
+                textInput.value = picker.value.toUpperCase();
+            } else {
+                // Validate if it's a correct hex color before syncing to picker
+                let val = textInput.value;
+                if (!val.startsWith('#')) val = '#' + val;
+                if (/^#[0-9A-F]{6}$/i.test(val)) {
+                    picker.value = val;
+                }
+            }
         }
 
         // === Form Actions ===
