@@ -621,9 +621,10 @@ app.post('/api/generate-theme', async (req, res) => {
       throw new Error('API key configuration error');
     }
 
-    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash-latest:generateContent?key=${apiKey}`;
+    const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-1.5-flash:generateContent?key=${apiKey}`;
 
-    console.log('Generating theme for prompt:', prompt.substring(0, 50) + '...');
+    console.log('--- Theme Generation Start ---');
+    console.log('Prompt:', prompt);
 
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -706,7 +707,8 @@ Respond with ONLY valid JSON (no markdown, no backticks, no explanation):
       fontStyle: 'bold',
       mood: 'energetic, motivating, fun',
       tagline: 'Your next adventure starts here!',
-      _fallback: true
+      _fallback: true,
+      _error: error.message
     });
   }
 });

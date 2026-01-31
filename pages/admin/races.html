@@ -2154,13 +2154,18 @@
 
                 if (response.ok) {
                     const theme = await response.json();
+                    if (theme._fallback) {
+                        console.warn('AI Theme Fallback Triggered:', theme._error);
+                        alert('Note: Using default colors because: ' + (theme._error || 'AI generation failed.'));
+                    }
                     updateThemeFields(theme);
                 } else {
-                    throw new Error('Theme generation failed');
+                    const errorText = await response.text();
+                    throw new Error(errorText || 'Theme generation failed');
                 }
             } catch (error) {
                 console.error('Theme generation failed:', error);
-                alert('Failed to generate theme. Fallback applied.');
+                alert('CRITICAL ERROR: ' + error.message);
             }
 
             btn.classList.remove('loading');
