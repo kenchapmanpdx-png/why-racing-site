@@ -1500,42 +1500,19 @@
                 currentRace = race;
 
                 // === Dynamic Theming ===
-                // 2. Apply Theming (Priority: Saved Theme > Dynamic Theme)
-                if (race.theme_config && Object.keys(race.theme_config).length > 0) {
-                    const config = race.theme_config;
-                    const root = document.documentElement;
+                if (window.ThemeEngine && race.name) {
+                    let overrides = null;
+                    if (race.theme_config && Object.keys(race.theme_config).length > 0) {
+                        const cfg = race.theme_config;
+                        overrides = {};
+                        if (cfg.primaryColor) overrides.primary = cfg.primaryColor;
+                        if (cfg.secondaryColor) overrides.secondary = cfg.secondaryColor;
+                        if (cfg.accentColor) overrides.accent = cfg.accentColor;
+                        if (cfg.backgroundColor) overrides.dark = cfg.backgroundColor;
 
-                    // Set CSS variables from saved config
-                    if (config.primaryColor) {
-                        root.style.setProperty('--primary', config.primaryColor);
-                        root.style.setProperty('--theme-primary', config.primaryColor);
-
-                        // Generate a darker variant for gradients
-                        const darkenColor = (hex, percent) => {
-                            try {
-                                const num = parseInt(hex.slice(1), 16),
-                                    amt = Math.round(2.55 * percent),
-                                    R = (num >> 16) - amt,
-                                    G = (num >> 8 & 0x00FF) - amt,
-                                    B = (num & 0x0000FF) - amt;
-                                return "#" + (0x1000000 + (R < 255 ? R < 0 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 0 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 0 ? 0 : B : 255)).toString(16).slice(1);
-                            } catch (e) { return hex; }
-                        };
-                        root.style.setProperty('--primary-dark', darkenColor(config.primaryColor, 20));
+                        console.log('ThemeEngine: Applying with SAVED overrides:', overrides);
                     }
-                    if (config.secondaryColor) root.style.setProperty('--secondaryColor', config.secondaryColor);
-                    if (config.accentColor) root.style.setProperty('--accentColor', config.accentColor);
-                    if (config.backgroundColor) root.style.setProperty('--backgroundColor', config.backgroundColor);
-
-                    console.log('Applied SAVED theme config:', config);
-
-                    // Still run ThemeEngine.apply to get icons and animations if name matches
-                    if (window.ThemeEngine && race.name) {
-                        ThemeEngine.apply(race.name);
-                    }
-                } else if (window.ThemeEngine && race.name) {
-                    console.log('No saved theme, applying dynamic theme for:', race.name);
-                    ThemeEngine.apply(race.name);
+                    ThemeEngine.apply(race.name, overrides);
                 }
 
                 // Update page title & SEO

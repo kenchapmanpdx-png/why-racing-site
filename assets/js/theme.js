@@ -106,9 +106,16 @@ class ThemeEngine {
     /**
      * Apply the generated theme to the current document.
      * @param {string} prompt - The theme prompt.
+     * @param {object} overrides - Optional color overrides (e.g. { primary: '#hex' })
      */
-    static apply(prompt) {
+    static apply(prompt, overrides = null) {
         const theme = this.generate(prompt);
+
+        // Merge overrides if provided
+        if (overrides) {
+            theme.colors = { ...theme.colors, ...overrides };
+        }
+
         const root = document.documentElement;
 
         // Helper to convert hex to RGB components
