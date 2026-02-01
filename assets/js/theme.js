@@ -119,26 +119,38 @@ class ThemeEngine {
             return `${r}, ${g}, ${b}`;
         };
 
-        // 1. Apply CSS Variables
+        // Helper to darken a color for gradients (e.g. for --primary-dark)
+        const darkenColor = (hex, percent) => {
+            const num = parseInt(hex.slice(1), 16),
+                amt = Math.round(2.55 * percent),
+                R = (num >> 16) - amt,
+                G = (num >> 8 & 0x00FF) - amt,
+                B = (num & 0x0000FF) - amt;
+            return "#" + (0x1000000 + (R < 255 ? R < 0 ? 0 : R : 255) * 0x10000 + (G < 255 ? G < 0 ? 0 : G : 255) * 0x100 + (B < 255 ? B < 0 ? 0 : B : 255)).toString(16).slice(1);
+        };
+
+        const primaryDark = darkenColor(theme.colors.primary, 20);
+
+        // 1. Apply Theme-Specific Variables (for components that use them explicitly)
         root.style.setProperty('--theme-primary', theme.colors.primary);
         root.style.setProperty('--theme-primary-rgb', hexToRgb(theme.colors.primary));
-
         root.style.setProperty('--theme-secondary', theme.colors.secondary);
-        root.style.setProperty('--theme-secondary-rgb', hexToRgb(theme.colors.secondary));
-
         root.style.setProperty('--theme-accent', theme.colors.accent);
-        root.style.setProperty('--theme-accent-rgb', hexToRgb(theme.colors.accent));
-
         root.style.setProperty('--theme-dark', theme.colors.dark);
-        root.style.setProperty('--theme-dark-rgb', hexToRgb(theme.colors.dark));
-
-        // 2. Apply Dynamic Symbol
         root.style.setProperty('--theme-symbol', `"${theme.symbol}"`);
 
-        // Map 'gold' to accent for backward compatibility or specific use cases
-        root.style.setProperty('--theme-gold', theme.colors.accent);
+        // 2. Harmonize with Site-Wide Global Variables
+        // This ensures the theme applies to all buttons, navigation, and brand elements
+        root.style.setProperty('--primary', theme.colors.primary);
+        root.style.setProperty('--primary-dark', primaryDark);
+        root.style.setProperty('--brand-red', theme.colors.primary);
+        root.style.setProperty('--brand-blue', theme.colors.secondary || '#0ea5e9');
+        root.style.setProperty('--accent', theme.colors.accent);
 
-        console.log(`ThemeEngine: Applied theme for "${prompt}"`, theme);
+        console.log(`ThemeEngine: Applied and Harmonized theme for "${prompt}"`, {
+            ...theme,
+            primaryDark
+        });
 
         // 2. Inject Floating Icons
         this.injectFloatingIcons(theme.icons);

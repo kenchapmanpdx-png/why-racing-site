@@ -28,8 +28,14 @@ const sanitizeData = (data) => {
     if (Array.isArray(sanitized[key])) continue;
     if (typeof sanitized[key] === 'object' && sanitized[key] !== null) continue;
 
+    // Convert empty strings to null to avoid DB syntax errors (especially for dates/numbers)
+    // but keep 'name' as an empty string if it's empty to get a cleaner constraint error
     if (sanitized[key] === '' || sanitized[key] === undefined) {
-      sanitized[key] = null;
+      if (key === 'name') {
+        sanitized[key] = ''; // Keep as empty string, let DB/validation handle it
+      } else {
+        sanitized[key] = null;
+      }
     }
   }
   return sanitized;
