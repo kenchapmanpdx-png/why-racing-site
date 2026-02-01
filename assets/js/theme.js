@@ -54,6 +54,12 @@ class ThemeEngine {
                     colors: { primary: '#0288d1', secondary: '#03a9f4', accent: '#ffeb3b', dark: '#01579b' },
                     icons: ['☀️', '🏖️', '🍦', '🕶️', '🌊', '🌴', '🐬'],
                     symbol: '☀️'
+                },
+                triathlon: {
+                    triggers: ['triathlon', 'duathlon', 'multisport', 'swim', 'bike', 'ironman'],
+                    colors: { primary: '#0288d1', secondary: '#01579b', accent: '#ffeb3b', dark: '#0a0a0a' },
+                    icons: ['🏊', '🚴', '🏃', '⏱️', '🌊', '🥇', '👟'],
+                    symbol: '🏊'
                 }
             },
             defaults: {

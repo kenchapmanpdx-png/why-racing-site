@@ -2640,13 +2640,13 @@
                     notes: formData.getAll('pickupNotes[]')[i]
                 })).filter(loc => loc.location_name),
                 beneficiaries: formData.getAll('beneficiaryName[]').map((name, i) => ({
-                    name: name,
-                    role_description: formData.getAll('beneficiaryRole[]')[i]
-                })).filter(b => b.name),
+                    organization_name: name,
+                    description: formData.getAll('beneficiaryRole[]')[i]
+                })).filter(b => b.organization_name),
                 sponsors: formData.getAll('sponsorName[]').map((name, i) => ({
-                    name: name,
-                    sponsor_level: formData.getAll('sponsorLevel[]')[i]
-                })).filter(s => s.name)
+                    organization_name: name,
+                    sponsor_type: formData.getAll('sponsorLevel[]')[i]
+                })).filter(s => s.organization_name)
             };
 
             try {
