@@ -21,6 +21,20 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY || ''
 );
 
+// Helper to sanitize data (convert empty strings to null for DB)
+const sanitizeData = (data) => {
+  const sanitized = { ...data };
+  for (const key in sanitized) {
+    if (Array.isArray(sanitized[key])) continue;
+    if (typeof sanitized[key] === 'object' && sanitized[key] !== null) continue;
+
+    if (sanitized[key] === '' || sanitized[key] === undefined) {
+      sanitized[key] = null;
+    }
+  }
+  return sanitized;
+};
+
 const app = express();
 const PORT = 5000;
 
@@ -834,25 +848,6 @@ app.post('/api/races', adminAuth, async (req, res) => {
     ...raceData
   } = req.body;
 
-  // Sanitize data: convert empty strings to null for database fields,
-  // but keep critical fields as empty strings if they are required to be non-null
-  const sanitizeData = (data) => {
-    const sanitized = { ...data };
-    for (const key in sanitized) {
-      if (Array.isArray(sanitized[key])) continue;
-      if (typeof sanitized[key] === 'object' && sanitized[key] !== null) continue;
-
-      // Don't nullify critical required fields if they are empty
-      // Let the database or validation handle the error instead of sending NULL
-      if (['name', 'race_date'].includes(key)) continue;
-
-      if (sanitized[key] === '' || sanitized[key] === undefined) {
-        sanitized[key] = null;
-      }
-    }
-    return sanitized;
-  };
-
   const cleanRaceData = sanitizeData(raceData);
 
   try {
@@ -931,22 +926,6 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
     updated_at,
     ...raceData
   } = req.body;
-
-  // Sanitize data: convert empty strings to null
-  const sanitizeData = (data) => {
-    const sanitized = { ...data };
-    for (const key in sanitized) {
-      if (Array.isArray(sanitized[key])) continue;
-      if (typeof sanitized[key] === 'object' && sanitized[key] !== null) continue;
-
-      if (['name', 'race_date'].includes(key)) continue;
-
-      if (sanitized[key] === '' || sanitized[key] === undefined) {
-        sanitized[key] = null;
-      }
-    }
-    return sanitized;
-  };
 
   const cleanRaceData = sanitizeData(raceData);
 
