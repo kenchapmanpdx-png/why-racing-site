@@ -10,47 +10,56 @@ class ThemeEngine {
                 st_patrick: {
                     triggers: ['st patrick', 'shamrock', 'clover', 'lucky', 'green', 'irish', 'paddy'],
                     colors: { primary: '#2e7d32', secondary: '#228b22', accent: '#ffd700', dark: '#1a3d1a' },
-                    icons: ['☘️', '🍀', '🌈', '🥇', '💚', '🍻', '🎩']
+                    icons: ['☘️', '🍀', '🌈', '🥇', '💚', '🍻', '🎩'],
+                    symbol: '☘️'
                 },
                 easter: {
                     triggers: ['easter', 'bunny', 'egg', 'spring', 'chocolate', 'hop'],
                     colors: { primary: '#9c27b0', secondary: '#ba68c8', accent: '#ffeb3b', dark: '#4a148c' },
-                    icons: ['🥚', '🐰', '🌸', '🐣', '🍫', '🥕', '🌷']
+                    icons: ['🥚', '🐰', '🌸', '🐣', '🍫', '🥕', '🌷'],
+                    symbol: '🐰'
                 },
                 usa: {
                     triggers: ['usa', 'america', 'flag', 'freedom', 'eagle', 'patriot', 'july', 'stars'],
                     colors: { primary: '#B22234', secondary: '#3C3B6E', accent: '#FFFFFF', dark: '#0a0a0a' }, // Red, Blue, White
-                    icons: ['🇺🇸', '🦅', '🎆', '🗽', '❤️', '💙', '⭐']
+                    icons: ['🇺🇸', '🦅', '🎆', '🗽', '❤️', '💙', '⭐'],
+                    symbol: '🇺🇸'
                 },
                 christmas: {
                     triggers: ['christmas', 'santa', 'snow', 'winter', 'jolly', 'gift'],
                     colors: { primary: '#D42426', secondary: '#165B33', accent: '#F8B229', dark: '#1a1a1a' },
-                    icons: ['🎅', '🎄', '❄️', '⛄', '🎁', '🦌', '🍪']
+                    icons: ['🎅', '🎄', '❄️', '⛄', '🎁', '🦌', '🍪'],
+                    symbol: '🎄'
                 },
                 halloween: {
                     triggers: ['halloween', 'spooky', 'ghost', 'pumpkin', 'witch', 'zombie', 'scary'],
                     colors: { primary: '#ff9800', secondary: '#7c4dff', accent: '#00e676', dark: '#212121' },
-                    icons: ['🎃', '👻', '🕸️', '🧛', '🧟', '🍬', '🦇']
+                    icons: ['🎃', '👻', '🕸️', '🧛', '🧟', '🍬', '🦇'],
+                    symbol: '🎃'
                 },
                 thanksgiving: {
                     triggers: ['thanksgiving', 'turkey', 'fall', 'autumn', 'harvest', 'leaf'],
                     colors: { primary: '#d84315', secondary: '#ff6f00', accent: '#ffca28', dark: '#3e2723' },
-                    icons: ['🦃', '🍂', '🍁', '🌽', '🥧', '🥘', '🧡']
+                    icons: ['🦃', '🍂', '🍁', '🌽', '🥧', '🥘', '🧡'],
+                    symbol: '🦃'
                 },
                 valentine: {
                     triggers: ['love', 'valentine', 'heart', 'cupid', 'romance', 'kiss'],
                     colors: { primary: '#e91e63', secondary: '#f48fb1', accent: '#ffffff', dark: '#880e4f' },
-                    icons: ['❤️', '💘', '💋', '💌', '🌹', '🥰', '🍫']
+                    icons: ['❤️', '💘', '💋', '💌', '🌹', '🥰', '🍫'],
+                    symbol: '❤️'
                 },
                 summer: {
                     triggers: ['summer', 'sun', 'beach', 'hot', 'swim', 'vacation'],
                     colors: { primary: '#0288d1', secondary: '#03a9f4', accent: '#ffeb3b', dark: '#01579b' },
-                    icons: ['☀️', '🏖️', '🍦', '🕶️', '🌊', '🌴', '🐬']
+                    icons: ['☀️', '🏖️', '🍦', '🕶️', '🌊', '🌴', '🐬'],
+                    symbol: '☀️'
                 }
             },
             defaults: {
                 colors: { primary: '#E31837', secondary: '#000000', accent: '#ffffff', dark: '#0a0a0a' }, // Brand Red/Black
-                icons: ['🏃', '👟', '🏅', '🔥', '🏁', '🏆']
+                icons: ['🏃', '👟', '🏅', '🔥', '🏁', '🏆'],
+                symbol: '🏃'
             }
         };
     }
@@ -60,14 +69,17 @@ class ThemeEngine {
      * @param {string} prompt - User input string (e.g. "St. Patrick's Day")
      */
     static generate(prompt) {
-        const lowerPrompt = prompt.toLowerCase();
+        // Normalize: lowercase + remove punctuation for better matching
+        const normalizedPrompt = prompt.toLowerCase().replace(/[.,'\/#!$%\^&\*;:{}=\-_`~()]/g, "");
         let bestMatch = null;
         let maxScore = 0;
 
         for (const [key, theme] of Object.entries(this.KNOWLEDGE_BASE.keywords)) {
             let score = 0;
             theme.triggers.forEach(trigger => {
-                if (lowerPrompt.includes(trigger)) score++;
+                // Also normalize triggers just in case
+                const normalizedTrigger = trigger.toLowerCase();
+                if (normalizedPrompt.includes(normalizedTrigger)) score++;
             });
 
             if (score > maxScore) {
@@ -93,11 +105,30 @@ class ThemeEngine {
         const theme = this.generate(prompt);
         const root = document.documentElement;
 
+        // Helper to convert hex to RGB components
+        const hexToRgb = (hex) => {
+            const r = parseInt(hex.slice(1, 3), 16);
+            const g = parseInt(hex.slice(3, 5), 16);
+            const b = parseInt(hex.slice(5, 7), 16);
+            return `${r}, ${g}, ${b}`;
+        };
+
         // 1. Apply CSS Variables
         root.style.setProperty('--theme-primary', theme.colors.primary);
+        root.style.setProperty('--theme-primary-rgb', hexToRgb(theme.colors.primary));
+
         root.style.setProperty('--theme-secondary', theme.colors.secondary);
+        root.style.setProperty('--theme-secondary-rgb', hexToRgb(theme.colors.secondary));
+
         root.style.setProperty('--theme-accent', theme.colors.accent);
+        root.style.setProperty('--theme-accent-rgb', hexToRgb(theme.colors.accent));
+
         root.style.setProperty('--theme-dark', theme.colors.dark);
+        root.style.setProperty('--theme-dark-rgb', hexToRgb(theme.colors.dark));
+
+        // 2. Apply Dynamic Symbol
+        root.style.setProperty('--theme-symbol', `"${theme.symbol}"`);
+
         // Map 'gold' to accent for backward compatibility or specific use cases
         root.style.setProperty('--theme-gold', theme.colors.accent);
 
