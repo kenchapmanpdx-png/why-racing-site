@@ -2,7 +2,7 @@
  * Smart Theme Engine
  * Generates race themes (colors + icons) dynamically based on text prompts.
  */
-export class ThemeEngine {
+class ThemeEngine {
     static get KNOWLEDGE_BASE() {
         return {
             keywords: {
@@ -155,4 +155,9 @@ export class ThemeEngine {
             container.appendChild(span);
         }
     }
+}
+
+// Globally expose for non-module usage
+if (typeof window !== 'undefined') {
+    window.ThemeEngine = ThemeEngine;
 }
