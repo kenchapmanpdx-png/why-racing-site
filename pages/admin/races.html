@@ -1428,10 +1428,14 @@
                                 style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
                                 <!-- Carousel slots will be added here -->
                             </div>
-                            <button type="button" class="btn btn-secondary" onclick="addCarouselSlot()"
+                            <button type="button" class="btn btn-secondary"
+                                onclick="document.getElementById('bulkCarouselInput').click()"
                                 style="margin-top: 15px;">
-                                <span>➕</span> Add Carousel Photo
+                                <span>➕</span> Add Carousel Photos
                             </button>
+                            <input type="file" id="bulkCarouselInput" multiple accept="image/*" style="display: none;"
+                                onchange="handleBulkCarouselUpload(this)">
+
                         </div>
                     </div>
 
@@ -3002,6 +3006,54 @@
                 };
                 reader.readAsDataURL(file);
             }
+        }
+
+        function handleBulkCarouselUpload(input) {
+            if (!input.files || input.files.length === 0) return;
+
+            const files = Array.from(input.files);
+            files.forEach(file => {
+                if (!validateImage(file)) return;
+
+                const slotId = carouselSlotCounter++;
+                const container = document.getElementById('carouselSlots');
+
+                const slot = document.createElement('div');
+                slot.className = 'carousel-slot';
+                slot.id = `carouselSlot-${slotId}`;
+                slot.style.cssText = 'display: flex; flex-direction: column; gap: 10px; padding: 15px; background: #1e293b; border-radius: 12px; border: 1px solid #334155; position: relative;';
+
+                slot.innerHTML = `
+                    <div style="width: 100%; aspect-ratio: 16/9; background: #0f172a; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #475569; position: relative;">
+                        <span id="carouselPreview-${slotId}-placeholder" style="font-size: 32px; display: none;">🖼️</span>
+                        <img id="carouselPreview-${slotId}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
+                    </div>
+                    <input type="file" id="carouselFile-${slotId}" accept="image/*" onchange="previewCarouselImage(this, ${slotId})" style="font-size: 12px; color: #94a3b8;">
+                    <button type="button" onclick="removeCarouselSlot(${slotId})" style="position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; width: 24px; height: 24px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; z-index: 10;">✕</button>
+                `;
+
+                container.appendChild(slot);
+
+                // Set file in the new slot's input and preview it
+                const slotInput = slot.querySelector('input[type="file"]');
+                const slotPreview = slot.querySelector('img');
+
+                // We can't programmatically set a FileList, but we can set the image source
+                const reader = new FileReader();
+                reader.onload = (e) => {
+                    slotPreview.src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+
+                // We'll store the file on the input element for saveRace to pick up
+                // Creating a DataTransfer to set the file on the input
+                const dt = new DataTransfer();
+                dt.items.add(file);
+                slotInput.files = dt.files;
+            });
+
+            // Clear the bulk input so it can be used again for same files if needed
+            input.value = '';
         }
 
         // Initialize with empty slots if needed
