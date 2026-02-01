@@ -6,13 +6,22 @@ const { createClient } = require('@supabase/supabase-js');
 const { formidable } = require('formidable');
 const fs = require('fs');
 const fetch = require('node-fetch');
+const rateLimit = require('express-rate-limit');
 
-// Debug: Log environment variables at startup
+// === Environment Validation ===
+const requiredEnvVars = ['NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
+const missingVars = requiredEnvVars.filter(v => !process.env[v]);
+if (missingVars.length > 0) {
+  console.error(`❌ FATAL: Missing required environment variables: ${missingVars.join(', ')}`);
+  console.error('Server cannot start without these. Please check your .env.local file.');
+  process.exit(1);
+}
+
+// Startup check (non-sensitive)
 console.log('=== Environment Check ===');
-console.log('SUPABASE_URL:', process.env.NEXT_PUBLIC_SUPABASE_URL ? '✓ Loaded' : '✗ MISSING');
-console.log('SUPABASE_SERVICE_KEY:', process.env.SUPABASE_SERVICE_ROLE_KEY ? '✓ Loaded' : '✗ MISSING');
-console.log('ADMIN_SECRET:', process.env.ADMIN_SECRET ? '✓ Loaded' : '✗ MISSING');
-console.log('GEMINI_API_KEY:', process.env.GEMINI_API_KEY ? '✓ Loaded' : '✗ MISSING');
+console.log('SUPABASE_URL:', '✓ Loaded');
+console.log('SUPABASE_SERVICE_KEY:', '✓ Loaded');
+console.log('ADMIN_SECRET:', process.env.ADMIN_SECRET ? '✓ Loaded' : '⚠ MISSING (admin routes disabled)');
 console.log('=========================');
 
 // Initialize Supabase
@@ -44,8 +53,29 @@ const sanitizeData = (data) => {
 const app = express();
 const PORT = 5000;
 
+// === Rate Limiting ===
+const apiLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // Limit each IP to 100 requests per window
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Too many requests, please try again later.' }
+});
+
+const chatLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 10, // 10 chat requests per minute
+  standardHeaders: true,
+  legacyHeaders: false,
+  message: { error: 'Chat rate limit reached. Please wait a moment.' }
+});
+
 app.use(express.json());
 app.use(express.static('.'));
+
+// Apply rate limiting to API routes
+app.use('/api/', apiLimiter);
+app.use('/api/chat', chatLimiter);
 
 // Health check endpoint
 app.get('/api/health', async (req, res) => {
@@ -614,15 +644,9 @@ app.post('/api/chat', async (req, res) => {
 const adminAuth = (req, res, next) => {
   const authHeader = req.headers.authorization;
   const expectedAuth = `Bearer ${process.env.ADMIN_SECRET}`;
-  console.log('=== Auth Check ===');
-  console.log('Received:', authHeader);
-  console.log('Expected:', expectedAuth);
-  console.log('Match:', authHeader === expectedAuth);
   if (authHeader !== expectedAuth) {
-    console.log('AUTH FAILED - returning 401');
     return res.status(401).json({ error: 'Unauthorized' });
   }
-  console.log('AUTH PASSED');
   next();
 };
 
