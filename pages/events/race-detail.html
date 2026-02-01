@@ -40,6 +40,7 @@
             --dark: #0a0a0a;
             --light: #ffffff;
             --grey: #f4f4f4;
+            --text-main: #333333;
         }
 
         * {
@@ -51,7 +52,8 @@
         body {
             font-family: 'Inter', sans-serif;
             background: var(--light);
-            color: #333;
+            color: var(--text-main);
+            transition: background 0.3s, color 0.3s;
         }
 
         h1,
@@ -1480,6 +1482,23 @@
                         if (fontMap[theme.fontStyle]) {
                             document.body.style.fontFamily = fontMap[theme.fontStyle];
                         }
+                    }
+
+                    // Adaptive Text Contrast Logic
+                    if (theme.backgroundColor) {
+                        const getContrastYIQ = (hexcolor) => {
+                            hexcolor = hexcolor.replace('#', '');
+                            var r = parseInt(hexcolor.substr(0, 2), 16);
+                            var g = parseInt(hexcolor.substr(2, 2), 16);
+                            var b = parseInt(hexcolor.substr(4, 2), 16);
+                            var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+                            return (yiq >= 128) ? '#333333' : '#ffffff';
+                        };
+                        const textColor = getContrastYIQ(theme.backgroundColor);
+                        root.style.setProperty('--text-main', textColor);
+
+                        // Also update h2/h3 if needed for better contrast
+                        root.style.setProperty('--brand-blue', (textColor === '#ffffff') ? '#ffffff' : theme.secondaryColor || '#000000');
                     }
 
                     if (theme.tagline && !race.tagline) {

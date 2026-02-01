@@ -2189,6 +2189,8 @@
             document.getElementById('accentPicker').value = theme.accentColor || '#22c55e';
             document.getElementById('backgroundPicker').value = theme.backgroundColor || '#0a0a0a';
 
+            checkContrast(theme.backgroundColor);
+
             document.getElementById('fontStyle').value = theme.fontStyle;
             document.getElementById('mood').value = theme.mood;
             document.getElementById('generatedTagline').textContent = `"${theme.tagline || ''}"`;
@@ -2199,16 +2201,44 @@
         function syncColor(type, source) {
             const textInput = document.getElementById(`${type}Color`);
             const picker = document.getElementById(`${type}Picker`);
+            let newValue = '';
 
             if (source === 'picker') {
-                textInput.value = picker.value.toUpperCase();
+                newValue = picker.value.toUpperCase();
+                textInput.value = newValue;
             } else {
                 // Validate if it's a correct hex color before syncing to picker
                 let val = textInput.value;
                 if (!val.startsWith('#')) val = '#' + val;
                 if (/^#[0-9A-F]{6}$/i.test(val)) {
                     picker.value = val;
+                    newValue = val;
                 }
+            }
+
+            if (type === 'background' && newValue) {
+                checkContrast(newValue);
+            }
+        }
+
+        function checkContrast(hexcolor) {
+            if (!hexcolor) return;
+            hexcolor = hexcolor.replace('#', '');
+            if (hexcolor.length === 3) hexcolor = hexcolor.split('').map(c => c + c).join('');
+
+            var r = parseInt(hexcolor.substr(0, 2), 16);
+            var g = parseInt(hexcolor.substr(2, 2), 16);
+            var b = parseInt(hexcolor.substr(4, 2), 16);
+            var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
+
+            const textColor = (yiq >= 128) ? '#333333' : '#ffffff';
+            const themePreview = document.getElementById('themePreview');
+
+            // While we can't change the whole admin page variable, we can show a warning or update the preview text
+            if (themePreview) {
+                themePreview.style.backgroundColor = '#' + hexcolor;
+                themePreview.style.color = textColor;
+                themePreview.querySelectorAll('h4, label').forEach(el => el.style.color = textColor);
             }
         }
 
