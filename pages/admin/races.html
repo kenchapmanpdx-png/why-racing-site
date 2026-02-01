@@ -1044,10 +1044,25 @@
                                 placeholder="Describe the race experience, what makes it special, the course, atmosphere, etc."></textarea>
                         </div>
                         <div class="form-group full-width">
-                            <label for="registrationUrl">Registration URL (RunSignUp, etc.)</label>
+                            <label for="logoUrl">Race Logo URL</label>
+                            <input type="url" id="logoUrl" name="logoUrl"
+                                placeholder="https://your-storage.com/logo.png">
+                            <small style="color: #888; display: block; margin-top: 4px;">URL to the race logo image
+                                (displayed on race cards)</small>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="heroImageUrl">Hero Image URL</label>
+                            <input type="url" id="heroImageUrl" name="heroImageUrl"
+                                placeholder="https://your-storage.com/hero-image.jpg">
+                            <small style="color: #888; display: block; margin-top: 4px;">Main photo for the race
+                                card</small>
+                        </div>
+                        <div class="form-group full-width">
+                            <label for="registrationUrl">Registration URL (RunSignUp) *</label>
                             <input type="url" id="registrationUrl" name="registrationUrl"
                                 placeholder="https://runsignup.com/Race/WA/Vancouver/YourRaceName">
-                            <small style="color: #888; display: block; margin-top: 4px;">Paste the full URL where
+                            <small style="color: #888; display: block; margin-top: 4px;">Paste the full RunSignUp URL
+                                where
                                 participants can register</small>
                         </div>
                     </div>
@@ -2597,10 +2612,10 @@
                 registration_open: formData.get('registrationOpen') === 'on',
                 is_featured: formData.get('isFeatured') === 'on',
                 waitlist_enabled: formData.get('waitlistEnabled') === 'on',
-                // Image & PDF URLs
-                hero_image_url: heroImageUrl || (editingId ? races.find(r => r.id === editingId)?.hero_image_url : null),
+                // Image & PDF URLs - use file upload URL, then text field URL, then preserve existing
+                hero_image_url: heroImageUrl || formData.get('heroImageUrl') || (editingId ? races.find(r => r.id === editingId)?.hero_image_url : null),
                 thumbnail_url: thumbnailImageUrl || (editingId ? races.find(r => r.id === editingId)?.thumbnail_url : null),
-                logo_url: logoUrl || (editingId ? races.find(r => r.id === editingId)?.logo_url : null),
+                logo_url: logoUrl || formData.get('logoUrl') || (editingId ? races.find(r => r.id === editingId)?.logo_url : null),
                 instructions_pdf_url: instructionsPdfUrl || (editingId ? races.find(r => r.id === editingId)?.instructions_pdf_url : null),
                 gallery_images: galleryUrls,
                 hero_carousel_images: carouselUrls,
