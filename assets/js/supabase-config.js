@@ -2,8 +2,8 @@
 // This file provides direct Supabase access for homepages and admin panels
 
 const SUPABASE_CONFIG = {
-    url: 'https://cqoynntpggqvuuglbhbk.supabase.co',
-    anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNxb3lubnRwZ2dxdnV1Z2xiaGJrIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzcyNTE2NjgsImV4cCI6MjA1MjgyNzY2OH0.2mP_T8BxckxYH7Xw0MHfr4GfXOKZmhpdsCpYYlJqsVY'
+    url: 'https://qotqzsbpokvjsgueewdi.supabase.co',
+    anonKey: 'sb_publishable_fXuI-424iSHecLVrshRIdQ_uzPs5z7H'
 };
 
 // Initialize Supabase client (requires supabase-js to be loaded first)
