@@ -1875,46 +1875,13 @@
         // Load and insert database races
         async function loadHomepageRaces() {
             try {
-                // Initialize Supabase client directly (bypasses API endpoint)
-                const SUPABASE_URL = 'https://qotqzsbpokvjsgueewdi.supabase.co';
-                const SUPABASE_ANON_KEY = 'sb_publishable_fXuI-424iSHecLVrshRIdQ_uzPs5z7H';
-
-                const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-
-                const { data: races, error } = await supabase
-                    .from('races')
-                    .select(`
-                        id,
-                        name,
-                        slug,
-                        race_date,
-                        race_type,
-                        city,
-                        state,
-                        venue_name,
-                        registration_url,
-                        registration_open,
-                        hero_image_url,
-                        thumbnail_url,
-                        is_visible,
-                        status,
-                        race_distances (
-                            id,
-                            name,
-                            distance_value,
-                            distance_unit
-                        )
-                    `)
-                    .eq('is_visible', true)
-                    .eq('status', 'active')
-                    .order('race_date', { ascending: true });
-
-                if (error) {
-                    console.error('Supabase error:', error);
+                // Use server API endpoint (has valid Supabase credentials)
+                const response = await fetch('/api/races');
+                if (!response.ok) {
+                    console.error('API error:', response.status);
                     return;
                 }
-
-                const visibleRaces = races || [];
+                const visibleRaces = await response.json();
 
                 if (visibleRaces.length === 0) return;
 
