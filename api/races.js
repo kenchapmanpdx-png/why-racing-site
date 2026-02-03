@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
         console.log('[API] Supabase client initialized');
 
         console.log('[API] Executing query...');
-        const query = supabase
+        const { data: races, error } = await supabase
             .from('races')
             .select(`
                 id,
