@@ -21,13 +21,21 @@ module.exports = async (req, res) => {
         return res.status(405).json({ error: 'Method not allowed' });
     }
 
+    // Debug: Log environment variable status
+    console.log('[API] Environment check:', {
+        hasUrl: !!supabaseUrl,
+        hasKey: !!supabaseKey,
+        urlPrefix: supabaseUrl ? supabaseUrl.substring(0, 30) : 'MISSING'
+    });
+
     if (!supabaseUrl || !supabaseKey) {
-        console.error('Missing Supabase credentials');
+        console.error('[API] Missing Supabase credentials');
         return res.status(500).json({
-            error: 'Server configuration error',
+            error: 'Server configuration error - missing environment variables',
             debug: {
                 hasUrl: !!supabaseUrl,
-                hasKey: !!supabaseKey
+                hasKey: !!supabaseKey,
+                hint: 'Check Vercel Environment Variables: NEXT_PUBLIC_SUPABASE_URL and SUPABASE_SERVICE_ROLE_KEY'
             }
         });
     }
