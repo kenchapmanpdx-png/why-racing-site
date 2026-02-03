@@ -12,9 +12,8 @@ const rateLimit = require('express-rate-limit');
 const requiredEnvVars = ['NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
 const missingVars = requiredEnvVars.filter(v => !process.env[v]);
 if (missingVars.length > 0) {
-  console.error(`❌ FATAL: Missing required environment variables: ${missingVars.join(', ')}`);
-  console.error('Server cannot start without these. Please check your .env.local file.');
-  process.exit(1);
+  console.warn(`⚠ WARNING: Missing required environment variables: ${missingVars.join(', ')}`);
+  console.warn('Server may not function correctly. Please check your environment variables.');
 }
 
 // Startup check (non-sensitive)
