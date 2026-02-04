@@ -2,10 +2,6 @@
     "version": 2,
     "rewrites": [
         {
-            "source": "/api/races",
-            "destination": "/api/races.js"
-        },
-        {
             "source": "/api/(.*)",
             "destination": "/api/index.js"
         }
