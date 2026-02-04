@@ -74,13 +74,16 @@ module.exports = async (req, res) => {
         if (error) {
             console.error('[API] Supabase error:', error);
 
-            // diagnostic: if service role fails, try anon key (if available) to see if it's a permission issue
+            let anonResult = 'not_tested';
             const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
             if (anonKey && anonKey !== supabaseKey) {
-                console.log('[API] Service key failed, testing if Anon key works...');
-                const anonClient = createClient(supabaseUrl, anonKey);
-                const { error: anonError } = await anonClient.from('races').select('id').limit(1);
-                console.log('[API] Anon key test result:', anonError ? 'Failed: ' + anonError.message : 'SUCCESS');
+                try {
+                    const anonClient = createClient(supabaseUrl, anonKey);
+                    const { error: anonError } = await anonClient.from('races').select('id').limit(1);
+                    anonResult = anonError ? 'Failed: ' + anonError.message : 'SUCCESS';
+                } catch (e) {
+                    anonResult = 'Error: ' + e.message;
+                }
             }
 
             return res.status(500).json({
@@ -88,7 +91,8 @@ module.exports = async (req, res) => {
                 details: error.message,
                 diagnostic: {
                     keyLength: supabaseKey ? supabaseKey.length : 0,
-                    url: supabaseUrl.substring(0, 25) + '...'
+                    url: supabaseUrl.substring(0, 25) + '...',
+                    anonTest: anonResult
                 }
             });
         }
