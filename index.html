@@ -1481,14 +1481,19 @@
 
             <!-- FEATURED NEXT EVENT CARD -->
             <div class="hero-event-card">
-                <div class="next-label">❄️ Next Event</div>
+                <div class="next-label">❄️ Next Event - Registration Closing Soon</div>
                 <h3>White River Snowshoe</h3>
                 <div class="event-details">
                     <span><i class="fas fa-calendar"></i> February 7, 2026</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Government Camp, OR</span>
-                    <span><i class="fas fa-snowflake"></i> 4K / 8K Snowshoe</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Mt. Hood, OR</span>
+                    <span><i class="fas fa-snowflake"></i> 5K / 10K</span>
                 </div>
-                <a href="#" class="btn btn-primary" id="heroRegisterBtn">Register Now →</a>
+                <div class="price-line">
+                    <span class="price">$49</span>
+                    <span class="price-old">$65</span>
+                    <span class="save-badge">SAVE $16</span>
+                </div>
+                <a href="pages/events/white-river-snowshoe.html" class="btn btn-primary">Secure My Spot →</a>
             </div>
 
             <div class="hero-buttons">
@@ -1983,18 +1988,6 @@
                 });
 
                 console.log('Added', visibleRaces.length, 'database races to homepage');
-
-                // Update hero Register Now button with next event's registration URL
-                const today = new Date();
-                const upcomingRaces = visibleRaces.filter(r => new Date(r.race_date) >= today).sort((a, b) => new Date(a.race_date) - new Date(b.race_date));
-                if (upcomingRaces.length > 0) {
-                    const nextRace = upcomingRaces[0];
-                    const heroBtn = document.getElementById('heroRegisterBtn');
-                    if (heroBtn && nextRace.registration_url) {
-                        heroBtn.href = nextRace.registration_url;
-                        heroBtn.target = '_blank';
-                    }
-                }
             } catch (error) {
                 console.error('Could not load database races:', error);
                 document.getElementById('apiError').style.display = 'block';
