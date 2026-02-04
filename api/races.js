@@ -45,7 +45,7 @@ module.exports = async (req, res) => {
         race_type,
         city,
         state,
-        venue,
+        venue_name,
         registration_url,
         registration_open,
         hero_image_url,
