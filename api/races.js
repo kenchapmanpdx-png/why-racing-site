@@ -36,16 +36,10 @@ module.exports = async (req, res) => {
     }
 
     try {
-        console.log('[API] Loading @supabase/supabase-js...');
         const { createClient } = require('@supabase/supabase-js');
-        console.log('[API] createClient module loaded');
-
-        console.log('[API] Initializing Supabase client with URL:', supabaseUrl.substring(0, 20) + '...');
         const supabase = createClient(supabaseUrl, supabaseKey);
-        console.log('[API] Supabase client initialized');
 
-        console.log('[API] Executing query...');
-        const query = supabase
+        const { data: races, error } = await supabase
             .from('races')
             .select(`
                 id,
