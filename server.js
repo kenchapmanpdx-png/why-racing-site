@@ -105,7 +105,7 @@ app.get('/api/races', async (req, res) => {
         race_type,
         city,
         state,
-        venue,
+        venue_name,
         registration_url,
         registration_open,
         hero_image_url,
@@ -116,8 +116,7 @@ app.get('/api/races', async (req, res) => {
           id,
           name,
           distance_value,
-          base_price,
-          start_time
+          distance_unit
         )
       `)
       .eq('is_visible', true)
@@ -150,7 +149,7 @@ app.get('/api/races/all', async (req, res) => {
         race_type,
         city,
         state,
-        venue,
+        venue_name,
         address,
         tagline,
         description,
@@ -161,11 +160,12 @@ app.get('/api/races/all', async (req, res) => {
         is_visible,
         status,
         youtube_url,
-        theme_config,
+        theme_colors,
         race_distances (
           id,
           name,
           distance_value,
+          distance_unit,
           capacity,
           base_price,
           start_time
