@@ -70,7 +70,7 @@ nav {
 
 .logo img {
     height: 45px;
-    filter: invert(1) brightness(2);
+    filter: brightness(0) invert(1);
 }
 
 .nav-links {
