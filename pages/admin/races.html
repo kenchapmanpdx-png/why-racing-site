@@ -1720,14 +1720,11 @@
 
         async function loadRaces() {
             try {
-                // Use server API endpoint (has valid Supabase credentials)
-                const response = await fetch('/api/races/all');
-                if (!response.ok) throw new Error('Failed to load races: ' + response.status);
-                races = await response.json();
+                // Use direct Supabase client instead of API endpoint
+                races = await loadAllRacesFromDB();
                 renderRaceList();
             } catch (error) {
                 console.error('Failed to load races:', error);
-                document.getElementById('raceList').innerHTML = '<p style="text-align: center; color: #ef4444; padding: 40px;">Error loading races. Is the server running?</p>';
             }
         }
 

@@ -135,56 +135,6 @@ app.get('/api/races', async (req, res) => {
   }
 });
 
-// === GET All Races (Admin API - includes drafts and inactive) ===
-app.get('/api/races/all', async (req, res) => {
-  try {
-    const { data: races, error } = await supabase
-      .from('races')
-      .select(`
-        id,
-        name,
-        slug,
-        race_date,
-        race_time,
-        race_type,
-        city,
-        state,
-        venue_name,
-        address,
-        tagline,
-        description,
-        registration_url,
-        registration_open,
-        hero_image_url,
-        thumbnail_url,
-        is_visible,
-        status,
-        youtube_url,
-        theme_colors,
-        race_distances (
-          id,
-          name,
-          distance_value,
-          distance_unit,
-          capacity,
-          base_price,
-          start_time
-        )
-      `)
-      .order('race_date', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching all races:', error);
-      return res.status(500).json({ error: 'Failed to fetch races' });
-    }
-
-    res.json(races || []);
-  } catch (err) {
-    console.error('Races All API error:', err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
 
 // === Auto-Archive Past Races ===
 // Automatically move races to "draft" status after their date passes
