@@ -23,21 +23,11 @@ console.log('SUPABASE_SERVICE_KEY:', '✓ Loaded');
 console.log('ADMIN_SECRET:', process.env.ADMIN_SECRET ? '✓ Loaded' : '⚠ MISSING (admin routes disabled)');
 console.log('=========================');
 
-// Global supabase instance - initialized on demand
-let _supabaseClient = null;
-const supabase = new Proxy({}, {
-  get: (target, prop) => {
-    if (!_supabaseClient) {
-      const url = process.env.NEXT_PUBLIC_SUPABASE_URL;
-      const key = process.env.SUPABASE_SERVICE_ROLE_KEY;
-      if (!url || !key) {
-        throw new Error('Supabase configuration missing in Environment Variables.');
-      }
-      _supabaseClient = createClient(url, key);
-    }
-    return _supabaseClient[prop];
-  }
-});
+// Initialize Supabase
+const supabase = createClient(
+  process.env.NEXT_PUBLIC_SUPABASE_URL || '',
+  process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+);
 
 // Helper to sanitize data (convert empty strings to null for DB)
 const sanitizeData = (data) => {
