@@ -748,8 +748,25 @@ Respond with ONLY valid JSON:
   }
 });
 
-// 2. Races CRUD
-// Get all races
+// Get all races (Admin view - including drafts/invisible)
+app.get('/api/races/all', adminAuth, async (req, res) => {
+  const { data, error } = await supabase
+    .from('races')
+    .select(`
+      *,
+      race_distances (*),
+      pricing_tiers (*)
+    `)
+    .order('race_date', { ascending: true });
+
+  if (error) {
+    console.error('Supabase Error (GET /api/races/all):', error);
+    return res.status(500).json({ error: error.message });
+  }
+  return res.status(200).json(data || []);
+});
+
+// Get public races
 app.get('/api/races', async (req, res) => {
   const { data, error } = await supabase
     .from('races')
