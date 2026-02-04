@@ -92,50 +92,6 @@ app.get('/api/health', async (req, res) => {
   });
 });
 
-// === GET All Races (Public API for Homepage Calendar) ===
-app.get('/api/races', async (req, res) => {
-  try {
-    const { data: races, error } = await supabase
-      .from('races')
-      .select(`
-        id,
-        name,
-        slug,
-        race_date,
-        race_type,
-        city,
-        state,
-        venue_name,
-        registration_url,
-        registration_open,
-        hero_image_url,
-        thumbnail_url,
-        is_visible,
-        status,
-        race_distances (
-          id,
-          name,
-          distance_value,
-          distance_unit
-        )
-      `)
-      .eq('is_visible', true)
-      .eq('status', 'active')
-      .order('race_date', { ascending: true });
-
-    if (error) {
-      console.error('Error fetching races:', error);
-      return res.status(500).json({ error: 'Failed to fetch races' });
-    }
-
-    res.json(races || []);
-  } catch (err) {
-    console.error('Races API error:', err);
-    res.status(500).json({ error: 'Internal server error' });
-  }
-});
-
-
 // === Auto-Archive Past Races ===
 // Automatically move races to "draft" status after their date passes
 // This runs on server startup and allows races to be reused for next year
