@@ -7,8 +7,6 @@
     <title>Race Admin | Why Racing Events</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
         rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="../../assets/js/supabase-config.js"></script>
     <style>
         :root {
             --brand-red: #E31837;
@@ -921,8 +919,7 @@
     <!-- Password Gate -->
     <div class="password-gate" id="passwordGate">
         <div class="password-box">
-            <img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Logo"
-                class="logo-placeholder">
+            <img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Logo" class="logo-placeholder">
             <h1>Race Admin Panel</h1>
             <p>Enter password to access the dashboard</p>
             <input type="password" id="passwordInput" placeholder="Password"
@@ -936,8 +933,7 @@
     <div class="admin-dashboard" id="adminDashboard">
         <header class="admin-header">
             <div style="display: flex; align-items: center; gap: 15px;">
-                <img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Logo"
-                    style="height: 50px;">
+                <img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Logo" style="height: 50px;">
                 <h1>Events Admin</h1>
             </div>
             <div style="display: flex; gap: 15px; align-items: center;">
@@ -1720,9 +1716,15 @@
 
         async function loadRaces() {
             try {
-                // Use direct Supabase client instead of API endpoint
-                races = await loadAllRacesFromDB();
-                renderRaceList();
+                const response = await fetch(RACES_ENDPOINT, {
+                    headers: {
+                        'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
+                    }
+                });
+                if (response.ok) {
+                    races = await response.json();
+                    renderRaceList();
+                }
             } catch (error) {
                 console.error('Failed to load races:', error);
             }
