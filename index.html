@@ -1777,38 +1777,26 @@
             var nav = document.getElementById('navbar');
             var sticky = document.getElementById('stickyBar');
 
-            if (nav) {
-                if (window.scrollY > 50) nav.classList.add('scrolled');
-                else nav.classList.remove('scrolled');
-            }
+            if (window.scrollY > 50) nav.classList.add('scrolled');
+            else nav.classList.remove('scrolled');
 
-            if (sticky) {
-                if (window.scrollY > 500) sticky.classList.add('visible');
-                else sticky.classList.remove('visible');
-            }
+            if (window.scrollY > 500) sticky.classList.add('visible');
+            else sticky.classList.remove('visible');
         });
 
         // Countdown timer
         var end = Date.now() + (2 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000) + (33 * 60 * 1000);
         function updateTimer() {
-            var daysEl = document.getElementById('days');
-            var hoursEl = document.getElementById('hours');
-            var minsEl = document.getElementById('mins');
-            var secsEl = document.getElementById('secs');
-
-            // Skip if timer elements don't exist
-            if (!daysEl || !hoursEl || !minsEl || !secsEl) return;
-
             var diff = end - Date.now();
             if (diff < 0) diff = 0;
             var d = Math.floor(diff / 86400000);
             var h = Math.floor((diff % 86400000) / 3600000);
             var m = Math.floor((diff % 3600000) / 60000);
             var s = Math.floor((diff % 60000) / 1000);
-            daysEl.innerText = d < 10 ? '0' + d : d;
-            hoursEl.innerText = h < 10 ? '0' + h : h;
-            minsEl.innerText = m < 10 ? '0' + m : m;
-            secsEl.innerText = s < 10 ? '0' + s : s;
+            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
+            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
+            document.getElementById('mins').innerText = m < 10 ? '0' + m : m;
+            document.getElementById('secs').innerText = s < 10 ? '0' + s : s;
         }
         setInterval(updateTimer, 1000);
         updateTimer();
@@ -1817,7 +1805,6 @@
         var regCounter = document.getElementById('regCount');
         var baseCount = 2847;
         function updateRegCount() {
-            if (!regCounter) return;
             var randomAdd = Math.floor(Math.random() * 3);
             baseCount += randomAdd;
             regCounter.innerText = baseCount.toLocaleString();
@@ -1887,23 +1874,16 @@
 
         // Load and insert database races
         async function loadHomepageRaces() {
-            console.log('[DEBUG] loadHomepageRaces() called');
             try {
                 // Use server API endpoint (has valid Supabase credentials)
-                console.log('[DEBUG] Fetching from /api/races...');
                 const response = await fetch('/api/races');
-                console.log('[DEBUG] Response status:', response.status);
                 if (!response.ok) {
                     console.error('API error:', response.status);
                     return;
                 }
                 const visibleRaces = await response.json();
-                console.log('[DEBUG] Received races:', visibleRaces.length, visibleRaces);
 
-                if (visibleRaces.length === 0) {
-                    console.log('[DEBUG] No races returned, exiting');
-                    return;
-                }
+                if (visibleRaces.length === 0) return;
 
                 // Get all event grids by quarter ID
                 const grids = {
@@ -1912,14 +1892,10 @@
                     'Q3': document.querySelector('#q3-section .event-grid'),
                     'Q4': document.querySelector('#q4-section .event-grid')
                 };
-                console.log('[DEBUG] Found grids:', Object.entries(grids).map(([k, v]) => k + ':' + (v ? 'found' : 'missing')).join(', '));
 
                 // Insert each race into the appropriate quarter
                 visibleRaces.forEach(race => {
-                    if (!race.race_date) {
-                        console.log('[DEBUG] Skip race with no date:', race.name);
-                        return;
-                    }
+                    if (!race.race_date) return;
 
                     const date = new Date(race.race_date + 'T00:00:00');
                     const month = date.getMonth() + 1;
@@ -1930,12 +1906,10 @@
                     else if (month <= 9) quarter = 'Q3';
 
                     const grid = grids[quarter];
-                    console.log('[DEBUG] Race', race.name, 'date:', race.race_date, 'month:', month, 'quarter:', quarter, 'grid:', grid ? 'found' : 'MISSING');
 
                     if (grid) {
                         const card = createDynamicRaceCard(race);
                         grid.appendChild(card);
-                        console.log('[DEBUG] Added card for', race.name);
                     }
                 });
 
