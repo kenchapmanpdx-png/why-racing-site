@@ -159,9 +159,9 @@
         }
 
         .logo img {
-            filter: brightness(0) invert(1);
             transform: scale(1.5);
             transform-origin: left center;
+            filter: invert(1) brightness(2);
         }
 
         .logo span {
@@ -1424,8 +1424,8 @@
 
     <!-- NAV -->
     <nav id="navbar">
-        <a href="index.html" class="logo"><img src="attached_assets/logo-2026.png" alt="Why Racing Events Home"
-                style="height:45px;"></a>
+        <a href="index.html" class="logo"><img src="attached_assets/why-racing-logo_1767589311719.png"
+                alt="Why Racing Events Home" style="height:45px;"></a>
         <div class="nav-links">
             <a href="pages/events.html">Races</a>
             <a href="pages/volunteers.html">Volunteer</a>
@@ -1481,19 +1481,14 @@
 
             <!-- FEATURED NEXT EVENT CARD -->
             <div class="hero-event-card">
-                <div class="next-label">❄️ Next Event - Registration Closing Soon</div>
+                <div class="next-label">❄️ Next Event</div>
                 <h3>White River Snowshoe</h3>
                 <div class="event-details">
                     <span><i class="fas fa-calendar"></i> February 7, 2026</span>
-                    <span><i class="fas fa-map-marker-alt"></i> Mt. Hood, OR</span>
-                    <span><i class="fas fa-snowflake"></i> 5K / 10K</span>
+                    <span><i class="fas fa-map-marker-alt"></i> Government Camp, OR</span>
+                    <span><i class="fas fa-snowflake"></i> 4K / 8K Snowshoe</span>
                 </div>
-                <div class="price-line">
-                    <span class="price">$49</span>
-                    <span class="price-old">$65</span>
-                    <span class="save-badge">SAVE $16</span>
-                </div>
-                <a href="pages/events/white-river-snowshoe.html" class="btn btn-primary">Secure My Spot →</a>
+                <a href="#" class="btn btn-primary" id="heroRegisterBtn">Register Now →</a>
             </div>
 
             <div class="hero-buttons">
@@ -1900,128 +1895,28 @@
             const date = new Date(race.race_date + 'T00:00:00');
             const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-            // Pricing Logic
-            let pricingHtml = '';
-            let timerHtml = '';
+            // Build Register Now button - links directly to RunSignUp
+            const registerButton = race.registration_url && race.registration_open
+                ? `<a href="${race.registration_url}" target="_blank" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 13px;">Register Now</a>`
+                : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 13px; color: #666;">Coming Soon</span>`;
 
-            if (race.pricing_tiers && race.pricing_tiers.length > 0) {
-                const today = new Date();
-
-                // 1. Find all tiers active TODAY
-                const activeTiers = race.pricing_tiers.filter(t => {
-                    const start = t.start_date ? new Date(t.start_date) : new Date('2000-01-01');
-                    let end = t.end_date ? new Date(t.end_date) : new Date('2099-12-31');
-
-                    // Important: Set end time to end of day (23:59:59) so it includes the full end date
-                    // Fix timezone offset issues by treating the string as local date for calculation if needed, 
-                    // but simple setHours works if input is YYYY-MM-DD
-                    end.setUTCHours(23, 59, 59, 999);
-
-                    return today >= start && today <= end;
-                });
-
-                if (activeTiers.length > 0) {
-                    // 2. Find the cheapest current price (e.g. 5K price)
-                    activeTiers.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
-                    const bestTier = activeTiers[0];
-                    const currentPrice = parseFloat(bestTier.price);
-
-                    // 3. Find the standard (max) price for THIS distance
-                    const distanceTiers = race.pricing_tiers.filter(t => t.distance_id === bestTier.distance_id);
-                    const maxPrice = Math.max(...distanceTiers.map(t => parseFloat(t.price)));
-
-                    const savings = maxPrice - currentPrice;
-
-                    // 4. Generate Pricing HTML
-                    if (savings > 0) {
-                        pricingHtml = `
-                            <div class="card-pricing">
-                                <div>
-                                    <span class="price-now">$${currentPrice}</span>
-                                    <span class="price-was">$${maxPrice}</span>
-                                </div>
-                                <span class="save">SAVE $${savings.toFixed(0)}</span>
-                            </div>
-                        `;
-                    } else {
-                        pricingHtml = `
-                            <div class="card-pricing">
-                                <span class="price-now">$${currentPrice}</span>
-                            </div>
-                        `;
-                    }
-
-                    // 5. Generate Timer HTML (if deadline is approaching)
-                    if (bestTier.end_date) {
-                        const deadline = new Date(bestTier.end_date);
-                        const diffTime = deadline - today;
-                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-
-                        if (diffDays > 0 && diffDays <= 30) {
-                            timerHtml = `<div style="font-size: 11px; color: #E31837; font-weight: bold; margin-bottom: 5px;"><i class="fas fa-clock"></i> Price increases in ${diffDays} days!</div>`;
-                        }
-                    }
-                }
-            }
-
-            // Fallback to base_price if no tiers found
-            // Fallback to base_price if no tiers found
-            if (!pricingHtml && distances.length > 0) {
-                const validDistances = distances.filter(d => parseFloat(d.base_price) > 0);
-                if (validDistances.length > 0) {
-                    // Find cheapest distance
-                    validDistances.sort((a, b) => parseFloat(a.base_price) - parseFloat(b.base_price));
-                    const cheapest = validDistances[0];
-                    const minPrice = parseFloat(cheapest.base_price);
-
-                    // Use standard_price if available
-                    let originalPrice = minPrice + 15;
-                    if (cheapest.standard_price && parseFloat(cheapest.standard_price) > minPrice) {
-                        originalPrice = parseFloat(cheapest.standard_price);
-                    }
-
-                    pricingHtml = `
-                        <div class="card-pricing">
-                            <div>
-                                <span class="price-now">$${minPrice}</span>
-                                <span class="price-was">$${originalPrice}</span>
-                            </div>
-                            <span class="save">SAVE $${originalPrice - minPrice}</span>
-                        </div>
-                    `;
-                    timerHtml = `<div style="font-size: 11px; color: #E31837; font-weight: bold; margin-bottom: 5px;"><i class="fas fa-bolt"></i> Lock in Early-Bird Price!</div>`;
-                }
-            }
-
-            const card = document.createElement('a');
-            card.href = `pages/events/race-detail.html?id=${race.id}`;
+            const card = document.createElement('div');
             card.className = 'event-card dynamic-db-card';
             card.dataset.distance = filterKeywords;
             card.dataset.dateSort = race.race_date;
-            // Insert Pricing and Timer before the title/meta
+
             card.innerHTML = `
                 <div class="card-img" style="background-image: url('${cardImage}')">
                     <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
-                    ${race.is_featured ? '<span class="card-scarcity" style="background: gold; color: #333;"><i class="fas fa-star"></i> Featured</span>' : '<span class="card-scarcity"><i class="fas fa-bolt"></i> New!</span>'}
                 </div>
                 <div class="card-body">
                     <span class="card-date">${dateStr}</span>
                     <h3 class="card-title">${race.name || 'New Race'}</h3>
-                    
-                    ${timerHtml}
-                    ${pricingHtml}
-
                     <div class="card-meta">
                         <span><i class="fas fa-route"></i> ${distanceText}</span>
                         <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
                     </div>
-                    <div class="card-actions" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto;">
-                        <a href="pages/events/race-detail.html?id=${race.id}" class="card-cta" style="background: transparent; color: var(--brand-blue); border: 2px solid var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px;">View Details</a>
-                        ${race.registration_url && race.registration_open
-                    ? `<a href="${race.registration_url}" target="_blank" class="card-cta" style="background: var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px;">Register Now</a>`
-                    : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; color: #666;">Closed</span>`
-                }
-                    </div>
+                    ${registerButton}
                 </div>
             `;
             return card;
@@ -2088,6 +1983,18 @@
                 });
 
                 console.log('Added', visibleRaces.length, 'database races to homepage');
+
+                // Update hero Register Now button with next event's registration URL
+                const today = new Date();
+                const upcomingRaces = visibleRaces.filter(r => new Date(r.race_date) >= today).sort((a, b) => new Date(a.race_date) - new Date(b.race_date));
+                if (upcomingRaces.length > 0) {
+                    const nextRace = upcomingRaces[0];
+                    const heroBtn = document.getElementById('heroRegisterBtn');
+                    if (heroBtn && nextRace.registration_url) {
+                        heroBtn.href = nextRace.registration_url;
+                        heroBtn.target = '_blank';
+                    }
+                }
             } catch (error) {
                 console.error('Could not load database races:', error);
                 document.getElementById('apiError').style.display = 'block';
