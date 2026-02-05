@@ -736,6 +736,7 @@
             border-radius: 12px;
             text-align: center;
             border-left: 4px solid var(--theme-secondary);
+            -webkit-backdrop-filter: blur(5px);
             backdrop-filter: blur(5px);
         }
 
@@ -916,6 +917,22 @@
             transform: translateY(-2px);
             box-shadow: 0 6px 25px rgba(227, 24, 55, 0.4);
         }
+
+        .section-heading-accent {
+            margin-top: 30px;
+            margin-bottom: 15px;
+            color: var(--theme-primary);
+        }
+
+        .price-tier-final {
+            margin-top: 10px;
+            padding-top: 15px;
+            border-top: 2px solid #0d47a1;
+        }
+
+        .price-tier-deadline {
+            color: #f57c00;
+        }
     </style>
 </head>
 
@@ -995,7 +1012,7 @@
                 enthusiastic crowd support, and perfect late-summer weather. This is where personal records are made and
                 Boston dreams come true.</p>
 
-            <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🏃 Choose Your Distance</h3>
+            <h3 class="section-heading-accent">🏃 Choose Your Distance</h3>
             <div class="distances">
                 <span class="distance-tag">🍎 5K</span>
                 <span class="distance-tag">🏃 10K</span>
@@ -1020,7 +1037,7 @@
                 </div>
             </div>
 
-            <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">🏆 What's Included</h3>
+            <h3 class="section-heading-accent">🏆 What's Included</h3>
             <ul>
                 <li><i class="fas fa-medal"></i> Premium finisher medal with BQ emblem</li>
                 <li><i class="fas fa-tshirt"></i> Technical performance race shirt</li>
@@ -1031,7 +1048,7 @@
                 <li><i class="fas fa-camera"></i> Free professional race photos</li>
             </ul>
 
-            <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--theme-primary);">📅 Race Weekend Schedule
+            <h3 class="section-heading-accent">📅 Race Weekend Schedule
             </h3>
             <ul>
                 <li><i class="fas fa-calendar"></i> Saturday, Aug 29 - Expo & Packet Pickup (10am-6pm)</li>
@@ -1079,8 +1096,8 @@
                         <span class="price-tier-name">Marathon Early Bird</span>
                         <span class="price-tier-amount">$115</span>
                     </div>
-                    <div class="price-tier" style="margin-top: 10px; padding-top: 15px; border-top: 2px solid #0d47a1;">
-                        <span class="price-tier-name" style="color: #f57c00;">Early Bird ends July 15</span>
+                    <div class="price-tier price-tier-final">
+                        <span class="price-tier-name price-tier-deadline">Early Bird ends July 15</span>
                         <span class="price-tier-amount"></span>
                     </div>
                 </div>
@@ -1136,7 +1153,8 @@
             </iframe>
         </div>
         <div class="video-cta">
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i> Watch More
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener"><i
+                    class="fab fa-youtube"></i> Watch More
                 Videos</a>
         </div>
     </section>
