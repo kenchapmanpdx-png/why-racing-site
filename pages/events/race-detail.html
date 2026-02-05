@@ -6,86 +6,226 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title id="pageTitle">Race Details | Why Racing Events</title>
     <meta name="description" id="pageDescription" content="Join us for an amazing race experience!">
-    <link rel="canonical" id="canonicalLink" href="https://whyracingevents.com/pages/events/race-detail.html" />
     <link rel="icon" type="image/png" href="../../attached_assets/why-racing-logo_1767589311719.png">
-
-    <!-- Open Graph / Facebook -->
-    <meta property="og:type" content="website">
-    <meta property="og:url" id="ogUrl" content="https://whyracingevents.com/pages/events/race-detail.html">
-    <meta property="og:title" id="ogTitle" content="Race Details | Why Racing Events">
-    <meta property="og:description" id="ogDescription" content="Join us for an amazing race experience!">
-    <meta property="og:image" id="ogImage"
-        content="https://whyracingevents.com/attached_assets/why-racing-logo_1767589311719.png">
-
-    <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" id="twitterUrl" content="https://whyracingevents.com/pages/events/race-detail.html">
-    <meta property="twitter:title" id="twitterTitle" content="Race Details | Why Racing Events">
-    <meta property="twitter:description" id="twitterDescription" content="Join us for an amazing race experience!">
-    <meta property="twitter:image" id="twitterImage"
-        content="https://whyracingevents.com/attached_assets/why-racing-logo_1767589311719.png">
-
-    <!-- Structured Data Container -->
-    <script type="application/ld+json" id="eventSchema"></script>
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../../assets/css/brand.css">
     <script src="../../assets/js/theme.js"></script>
+    <script src="../../assets/js/nav.js"></script>
+
     <style>
         :root {
-            --brand-red: #E31837;
-            --brand-blue: #000000;
-            --primary: #E31837;
-            --primary-dark: #b91429;
-            --dark: #0a0a0a;
-            --light: #ffffff;
-            --grey: #f4f4f4;
-            --text-main: #333333;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+            --primary: var(--brand-red);
         }
 
         body {
             font-family: 'Inter', sans-serif;
-            background: var(--light);
-            color: var(--text-main);
-            transition: background 0.3s, color 0.3s;
+            background: #f8f9fa;
         }
 
-        h1,
-        h2,
-        h3,
-        h4 {
+        .event-hero {
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: flex-end;
+            padding-bottom: 60px;
+            color: white;
+            position: relative;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .event-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.8) 100%);
+        }
+
+        .hero-container {
+            position: relative;
+            z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 5%;
+        }
+
+        .event-hero h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-family: 'Oswald', sans-serif;
+            font-style: italic;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+        }
+
+        .hero-meta {
+            display: flex;
+            gap: 20px;
+            font-weight: 600;
+            flex-wrap: wrap;
+        }
+
+        .hero-meta span {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 5%;
+            display: grid;
+            grid-template-columns: 1fr 350px;
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .content-section {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            margin-bottom: 30px;
+        }
+
+        h2 {
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
-            letter-spacing: 1px;
+            margin-bottom: 20px;
+            color: var(--brand-blue);
+            border-left: 4px solid var(--primary);
+            padding-left: 15px;
         }
 
-        a {
-            text-decoration: none;
-            color: inherit;
+        #raceDescription {
+            line-height: 1.8;
+            color: #444;
+            font-size: 1.05rem;
+            white-space: pre-line;
         }
 
-        /* Loading State */
-        .loading-container {
+        .distance-list {
             display: flex;
-            flex-direction: column;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .distance-item {
+            background: #f1f5f9;
+            padding: 15px 25px;
+            border-radius: 8px;
+            border-left: 4px solid var(--primary);
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .dist-name {
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--brand-blue);
+            display: block;
+        }
+
+        .dist-meta {
+            font-size: 0.9rem;
+            color: #64748b;
+            margin-top: 4px;
+        }
+
+        .sidebar-card {
+            position: sticky;
+            top: 100px;
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            border-top: 5px solid var(--primary);
+        }
+
+        .register-btn {
+            display: block;
+            width: 100%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+            padding: 18px;
+            border-radius: 6px;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 1px;
+            margin-top: 20px;
+            transition: 0.3s;
+        }
+
+        .register-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(227, 24, 55, 0.3);
+        }
+
+        .info-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .info-label {
+            color: #64748b;
+            font-size: 0.9rem;
+        }
+
+        .info-value {
+            font-weight: 600;
+            color: var(--brand-blue);
+        }
+
+        .loading-state {
+            display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 80vh;
-            text-align: center;
+            min-height: 100vh;
+            background: white;
         }
 
-        .loading-spinner {
+        #mainContent {
+            display: none;
+        }
+
+        #raceTypeTag {
+            background: var(--primary);
+            padding: 4px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .sidebar-card h3 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .spinner {
             width: 50px;
             height: 50px;
-            border: 4px solid #eee;
-            border-top-color: var(--primary);
+            border: 4px solid #f1f5f9;
+            border-top: 4px solid var(--primary);
             border-radius: 50%;
             animation: spin 1s linear infinite;
         }
@@ -95,2155 +235,190 @@
                 transform: rotate(360deg);
             }
         }
-
-        .loading-text {
-            margin-top: 20px;
-            font-size: 1.2rem;
-            color: #666;
-        }
-
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: linear-gradient(90deg, rgba(0, 0, 0, 0.35) 0%, rgba(227, 24, 55, 0.35) 100%);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .logo {
-            text-decoration: none;
-            padding: 5px 0;
-        }
-
-        .logo img {
-            height: 40px;
-            filter: brightness(0) invert(1);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 25px;
-            align-items: center;
-        }
-
-        .nav-links a {
-            font-size: 13px;
-            font-weight: 700;
-            text-transform: uppercase;
-            color: white;
-            letter-spacing: 1px;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-btn {
-            background: white;
-            color: var(--primary);
-            padding: 10px 20px;
-            border-radius: 4px;
-            font-weight: 700;
-            font-size: 12px;
-        }
-
-        .event-hero {
-            height: 60vh;
-            min-height: 400px;
-            background: linear-gradient(135deg, rgba(227, 24, 55, 0.4) 0%, rgba(0, 0, 0, 0.3) 100%), url('../../images/action/hagg-lake-run.jpg') center top/cover;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding: 100px 20px 60px;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-carousel {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            z-index: 0;
-        }
-
-        .hero-slide {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 2s ease-in-out;
-            z-index: 0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        /* Blurred background layer */
-        .hero-slide::before {
-            content: '';
-            position: absolute;
-            top: -20px;
-            left: -20px;
-            right: -20px;
-            bottom: -20px;
-            background-image: inherit;
-            background-size: cover;
-            background-position: center;
-            filter: blur(30px) brightness(0.6);
-            z-index: -1;
-        }
-
-        /* Foreground image layer */
-        .hero-slide::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-image: inherit;
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center;
-            z-index: 1;
-        }
-
-        /* Mobile fallback: Use cover for best fit on small screens */
-        @media (max-width: 768px) {
-            .hero-slide::after {
-                background-size: cover;
-            }
-
-            .hero-slide::before {
-                display: none;
-                /* Blur not needed if image covers */
-            }
-        }
-
-        .hero-slide.active {
-            opacity: 1;
-        }
-
-        #heroOverlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(227, 24, 55, 0.4) 0%, rgba(0, 0, 0, 0.3) 100%);
-            z-index: 1;
-        }
-
-        .event-hero-content {
-            position: relative;
-            z-index: 2;
-        }
-
-        .event-hero-content .event-tag {
-            background: var(--primary);
-            padding: 16px 24px;
-            font-size: 14px;
-            font-weight: 700;
-            text-transform: uppercase;
-            border-radius: 4px;
-            display: inline-block;
-            height: fit-content;
-            line-height: 1;
-        }
-
-        .event-hero-content h1 {
-            font-size: 3.5rem;
-            font-style: italic;
-            margin-bottom: 15px;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
-        }
-
-        .event-hero-content .event-date {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .event-hero-content .event-location {
-            font-size: 1.1rem;
-            opacity: 0.9;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            margin-bottom: 20px;
-        }
-
-        .hero-cta {
-            display: inline-block;
-            background: white;
-            color: var(--primary);
-            padding: 16px 36px;
-            font-weight: 700;
-            text-transform: uppercase;
-            border-radius: 4px;
-            font-size: 15px;
-            transition: 0.3s;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-        }
-
-        .hero-cta:hover {
-            background: var(--grey);
-            transform: translateY(-2px);
-        }
-
-        .info-banner {
-            background: var(--grey);
-            padding: 20px 5%;
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-            border-bottom: 3px solid var(--primary);
-        }
-
-        .info-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 600;
-        }
-
-        .info-item i {
-            color: var(--primary);
-            font-size: 1.2rem;
-        }
-
-        .event-details {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 5%;
-            display: grid;
-            grid-template-columns: 1.8fr 1fr;
-            gap: 50px;
-        }
-
-        .event-info h2 {
-            font-size: 1.8rem;
-            color: var(--brand-blue);
-            font-style: italic;
-            margin-bottom: 20px;
-            border-left: 4px solid var(--primary);
-            padding-left: 15px;
-        }
-
-        .event-info p {
-            font-size: 1.05rem;
-            line-height: 1.8;
-            color: #555;
-            margin-bottom: 20px;
-        }
-
-        #includedList {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 15px;
-            list-style: none;
-            margin-bottom: 30px;
-        }
-
-        #includedList li {
-            background: var(--grey);
-            padding: 12px 16px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            font-size: 0.95rem;
-            border: 1px solid rgba(0, 0, 0, 0.05);
-        }
-
-        #includedList li i {
-            color: var(--primary);
-            width: 20px;
-            text-align: center;
-        }
-
-        .distances {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
-            margin-bottom: 30px;
-        }
-
-        .logistics-bar {
-            background: var(--grey);
-            padding: 20px;
-            border-radius: 12px;
-            border-left: 5px solid var(--primary);
-            display: flex;
-            flex-wrap: wrap;
-            gap: 30px;
-            margin-top: 15px;
-        }
-
-        .logistics-item {
-            flex: 1;
-            min-width: 150px;
-        }
-
-        .logistics-label {
-            display: block;
-            font-size: 11px;
-            font-weight: 700;
-            color: #888;
-            text-transform: uppercase;
-            margin-bottom: 5px;
-            letter-spacing: 0.5px;
-        }
-
-        .logistics-value {
-            display: block;
-            font-weight: 700;
-            color: var(--brand-blue);
-            font-size: 14px;
-            line-height: 1.4;
-        }
-
-        .distance-tag {
-            background: var(--grey);
-            padding: 12px 24px;
-            border-radius: 6px;
-            font-weight: 700;
-            color: var(--brand-blue);
-            border-left: 4px solid var(--primary);
-        }
-
-        .register-card {
-            background: white;
-            border-radius: 12px;
-            padding: 30px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
-            position: sticky;
-            top: 100px;
-            border-top: 5px solid var(--primary);
-        }
-
-        .register-card h3 {
-            font-size: 1.3rem;
-            color: var(--brand-blue);
-            margin-bottom: 20px;
-            font-style: italic;
-            text-align: center;
-        }
-
-        .register-btn {
-            width: 100%;
-            background: linear-gradient(90deg, var(--primary) 0%, var(--primary-dark) 100%);
-            color: white;
-            border: none;
-            padding: 18px;
-            font-size: 16px;
-            font-weight: 700;
-            text-transform: uppercase;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.3s;
-            letter-spacing: 1px;
-        }
-
-        .register-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(227, 24, 55, 0.4);
-        }
-
-        .register-btn:disabled {
-            background: #ccc;
-            cursor: not-allowed;
-        }
-
-        .race-info-list {
-            margin: 20px 0;
-        }
-
-        .race-info-item {
-            display: flex;
-            justify-content: space-between;
-            padding: 12px 0;
-            border-bottom: 1px solid #eee;
-        }
-
-        .race-info-label {
-            color: #666;
-        }
-
-        .race-info-value {
-            font-weight: 700;
-            color: var(--brand-blue);
-        }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            color: var(--primary);
-            font-weight: 600;
-            margin-bottom: 30px;
-            transition: 0.3s;
-        }
-
-        .back-link:hover {
-            gap: 12px;
-        }
-
-        footer {
-            background: #111;
-            color: rgba(255, 255, 255, 0.35);
-            padding: 50px 5%;
-            text-align: center;
-        }
-
-        .footer-brand {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .footer-brand span {
-            color: var(--primary);
-        }
-
-        .footer-copy {
-            font-size: 13px;
-            opacity: 0.7;
-        }
-
-        @media (max-width: 900px) {
-            .event-hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .event-details {
-                grid-template-columns: 1fr;
-            }
-
-            .register-card {
-                position: static;
-            }
-
-            .nav-links {
-                display: none;
-            }
-
-            .info-banner {
-                gap: 20px;
-            }
-        }
-
-        /* Accordion Styles */
-        .accordion-container {
-            margin-top: 40px;
-            border-radius: 12px;
-            overflow: hidden;
-            background: white;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
-        }
-
-        .accordion-section {
-            border-bottom: 1px solid #eee;
-        }
-
-        .accordion-section:last-child {
-            border-bottom: none;
-        }
-
-        .accordion-header {
-            width: 100%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 18px 24px;
-            background: white;
-            border: none;
-            cursor: pointer;
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--brand-blue);
-            text-align: left;
-            transition: background 0.2s;
-        }
-
-        .accordion-header:hover {
-            background: #f9f9f9;
-        }
-
-        .accordion-header i {
-            transition: transform 0.3s;
-            color: var(--primary);
-        }
-
-        .accordion-header.active i {
-            transform: rotate(180deg);
-        }
-
-        .accordion-content {
-            display: none;
-            padding: 0 24px 24px;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .accordion-content.show {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(-10px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Content Cards */
-        .content-card {
-            background: var(--grey);
-            padding: 16px 20px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            border-left: 4px solid var(--primary);
-        }
-
-        .content-card h4 {
-            font-size: 1rem;
-            margin-bottom: 8px;
-            color: var(--brand-blue);
-        }
-
-        .content-card p {
-            font-size: 0.9rem;
-            color: #555;
-            line-height: 1.6;
-        }
-
-        /* FAQ Styles */
-        .faq-item {
-            background: var(--grey);
-            border-radius: 8px;
-            margin-bottom: 10px;
-            overflow: hidden;
-        }
-
-        .faq-question {
-            padding: 16px 20px;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            transition: background 0.2s;
-        }
-
-        .faq-question:hover {
-            background: #e8e8e8;
-        }
-
-        .faq-answer {
-            display: none;
-            padding: 0 20px 16px;
-            color: #555;
-            line-height: 1.7;
-        }
-
-        .faq-answer.show {
-            display: block;
-        }
-
-        /* Policy Badge */
-        .policy-badge {
-            display: inline-block;
-            background: #e8e8e8;
-            padding: 8px 16px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 600;
-            margin: 4px;
-        }
-
-        /* Countdown Timer */
-        .countdown-timer {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-top: 25px;
-        }
-
-        .countdown-item {
-            background: rgba(0, 0, 0, 0.5);
-            backdrop-filter: blur(8px);
-            padding: 12px 10px;
-            border-radius: 10px;
-            min-width: 65px;
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            text-align: center;
-        }
-
-        .countdown-number {
-            display: block;
-            font-size: 1.6rem;
-            font-weight: 700;
-            font-family: 'Oswald', sans-serif;
-            color: white;
-            line-height: 1;
-        }
-
-        .countdown-label {
-            display: block;
-            font-size: 0.65rem;
-            text-transform: uppercase;
-            opacity: 0.9;
-            color: white;
-            margin-top: 4px;
-            letter-spacing: 1px;
-        }
-
-        .card-price-container {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            text-align: center;
-        }
-
-        .price-now {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2rem;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        .price-was {
-            text-decoration: line-through;
-            color: #999;
-            font-size: 1.1rem;
-            margin-right: 10px;
-        }
-
-        .price-save-badge {
-            background: #28a745;
-            color: white;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.75rem;
-            font-weight: 700;
-            margin-left: 10px;
-            vertical-align: middle;
-        }
-
-        /* Sponsor Grid */
-        .sponsor-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 20px;
-            margin-top: 15px;
-        }
-
-        .sponsor-logo {
-            background: white;
-            padding: 15px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
-            min-height: 80px;
-        }
-
-        .sponsor-logo img {
-            max-width: 100%;
-            max-height: 60px;
-            object-fit: contain;
-        }
-
-        /* Beneficiary Card */
-        .beneficiary-card {
-            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
-            padding: 24px;
-            border-radius: 12px;
-            border-left: 4px solid #f59e0b;
-            margin-bottom: 16px;
-        }
-
-        .beneficiary-card h4 {
-            color: #92400e;
-            margin-bottom: 8px;
-        }
-
-        .beneficiary-card p {
-            color: #78350f;
-        }
-
-        /* Pickup Location */
-        .pickup-card {
-            background: var(--grey);
-            padding: 16px 20px;
-            border-radius: 8px;
-            margin-bottom: 12px;
-            display: grid;
-            grid-template-columns: auto 1fr;
-            gap: 16px;
-            align-items: start;
-        }
-
-        /* Multi-Sport Quick Facts */
-        .ms-facts-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .ms-fact-card {
-            background: white;
-            padding: 24px;
-            border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
-            border-top: 4px solid var(--theme-primary, var(--primary));
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .ms-fact-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .ms-fact-icon {
-            font-size: 2.5rem;
-            margin-bottom: 15px;
-            display: block;
-        }
-
-        .ms-fact-label {
-            display: block;
-            font-size: 0.75rem;
-            font-weight: 700;
-            color: #888;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 5px;
-        }
-
-        .ms-fact-value {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.2rem;
-            color: var(--brand-blue);
-            font-weight: 600;
-        }
-
-        /* Floating Icons Animation */
-        .floating-icons {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            overflow: hidden;
-            z-index: 1;
-        }
-
-        .floating-icons span {
-            position: absolute;
-            font-size: 2rem;
-            opacity: 0.2;
-            animation: float linear infinite;
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(110vh) rotate(0deg);
-                opacity: 0;
-            }
-
-            10% {
-                opacity: 0.2;
-            }
-
-            90% {
-                opacity: 0.2;
-            }
-
-            100% {
-                transform: translateY(-10vh) rotate(360deg);
-                opacity: 0;
-            }
-        }
-
-        .pickup-date {
-            background: var(--primary);
-            color: white;
-            padding: 10px 14px;
-            border-radius: 8px;
-            text-align: center;
-            min-width: 65px;
-        }
-
-        .pickup-date .day {
-            font-size: 1.4rem;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .pickup-date .month {
-            font-size: 0.75rem;
-            text-transform: uppercase;
-        }
-
-        /* Award Category Tags */
-        .award-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .award-tag {
-            background: #e8e8e8;
-            padding: 6px 14px;
-            border-radius: 20px;
-            font-size: 0.85rem;
-            font-weight: 500;
-        }
-
-        /* Mobile Menu */
-        .hamburger {
-            display: none;
-            flex-direction: column;
-            gap: 6px;
-            cursor: pointer;
-        }
-
-        .hamburger span {
-            width: 25px;
-            height: 3px;
-            background: white;
-            transition: 0.3s;
-        }
-
-        .hamburger.active span:nth-child(1) {
-            transform: rotate(45deg) translate(5px, 6px);
-        }
-
-        .hamburger.active span:nth-child(2) {
-            opacity: 0;
-        }
-
-        .hamburger.active span:nth-child(3) {
-            transform: rotate(-45deg) translate(5px, -6px);
-        }
-
-        .mobile-menu {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100vh;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(227, 24, 55, 0.95));
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            gap: 30px;
-            z-index: 999;
-            transform: translateY(-100%);
-            transition: 0.4s;
-        }
-
-        .mobile-menu.active {
-            transform: translateY(0);
-        }
-
-        .mobile-menu a {
-            font-family: 'Oswald', sans-serif;
-            font-size: 2rem;
-            color: white;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            transition: 0.3s;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-
-            .nav-btn.register-btn {
-                display: none;
-            }
-
-            /* Hide large register button in nav if needed */
-            .hamburger {
-                display: flex;
-            }
-
-            .event-hero {
-                height: auto;
-                min-height: 50vh;
-                padding-top: 120px;
-            }
-
-            .event-hero-content h1 {
-                font-size: 2.5rem;
-            }
-
-            .event-details {
-                grid-template-columns: 1fr;
-                gap: 40px;
-                padding: 40px 5%;
-            }
-
-            .info-banner {
-                gap: 20px;
-                text-align: center;
-            }
-        }
-
-        /* Footer Styles */
-        footer {
-            background: #111;
-            color: #888;
-            padding: 50px 5%;
-            text-align: center;
-        }
-
-        .footer-brand {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.5rem;
-            color: white;
-            margin-bottom: 10px;
-        }
-
-        .footer-brand span {
-            color: var(--brand-red);
-        }
     </style>
 </head>
 
 <body>
 
     <nav>
-        <a href="../../index.html" class="logo"><img src="../../attached_assets/why-racing-logo_1767589311719.png"
-                alt="Why Racing Events"></a>
+        <a href="../../index.html" class="logo">
+            <img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Events">
+        </a>
         <div class="nav-links">
             <a href="../../index.html">Home</a>
-            <a href="../events.html">Races</a>
+            <a href="../events.html">Events</a>
             <a href="../volunteers.html">Volunteer</a>
-            <a href="../beneficiary.html">Give Back</a>
-            <a href="../community.html">Community</a>
-            <a href="../locations.html">Travel</a>
-            <a href="../partners.html">Sponsors</a>
-            <a href="../about.html">About</a>
         </div>
         <div class="hamburger" onclick="toggleMobileMenu()">
-            <span></span>
-            <span></span>
-            <span></span>
+            <span></span><span></span><span></span>
         </div>
-        <a href="#register" class="nav-btn" id="navRegisterBtn">Register Now</a>
     </nav>
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="../../index.html">Home</a>
-        <a href="../events.html">Races</a>
+        <a href="../events.html">Events</a>
         <a href="../volunteers.html">Volunteer</a>
-        <a href="../beneficiary.html">Give Back</a>
-        <a href="../community.html">Community</a>
-        <a href="../locations.html">Travel Guide</a>
-        <a href="../partners.html">Sponsors</a>
-        <a href="../about.html">About Us</a>
-        <a href="#register" onclick="toggleMobileMenu()">Register Now</a>
     </div>
 
-    <!-- Loading State -->
-    <div class="loading-container" id="loadingState">
-        <div class="loading-spinner"></div>
-        <div class="loading-text">Loading race details...</div>
+    <div id="loading" class="loading-state">
+        <div class="spinner"></div>
     </div>
 
-    <!-- Main Content (hidden until loaded) -->
-    <div id="mainContent" style="display: none;">
-        <div class="event-hero">
-            <div id="heroBackground" class="hero-carousel"></div>
-            <div id="heroOverlay"></div>
-            <div class="event-hero-content">
-                <div id="raceLogoContainer" style="display: none; margin-bottom: 20px;">
-                    <img id="raceLogo" src="" alt="Race Logo"
-                        style="max-height: 120px; max-width: 280px; object-fit: contain; margin-bottom: 20px;">
-                </div>
-                <div class="event-date" id="raceDate">📅 Date TBD</div>
-                <h1 id="raceName">Race Name</h1>
-                <div class="event-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span id="raceLocation">Location TBD</span>
-                </div>
-
-                <!-- Countdown Timer -->
-                <div class="countdown-timer" id="countdownTimer" style="display: none;">
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="days">00</span>
-                        <span class="countdown-label">Days</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="hours">00</span>
-                        <span class="countdown-label">Hrs</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="mins">00</span>
-                        <span class="countdown-label">Min</span>
-                    </div>
-                    <div class="countdown-item">
-                        <span class="countdown-number" id="secs">00</span>
-                        <span class="countdown-label">Sec</span>
-                    </div>
-                </div>
-
-                <div class="hero-actions"
-                    style="display: flex; align-items: center; justify-content: center; gap: 15px; margin-top: 30px; flex-wrap: wrap;">
-                    <span class="event-tag" id="raceType">🏃 Race</span>
-                    <a href="#register" class="hero-cta" id="heroCta" style="margin-top: 0;">Secure My Spot</a>
+    <div id="mainContent">
+        <header id="heroSection" class="event-hero">
+            <div class="hero-container">
+                <span id="raceTypeTag"></span>
+                <h1 id="raceName"></h1>
+                <div class="hero-meta">
+                    <span id="raceDate"><i class="fas fa-calendar"></i> </span>
+                    <span id="raceLocation"><i class="fas fa-map-marker-alt"></i> </span>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <div class="info-banner" id="infoBanner">
-            <div class="info-item" id="infoTime" style="display: none;">
-                <i class="fas fa-clock"></i>
-                <span id="raceTime">8:00 AM</span>
-            </div>
-            <div class="info-item" id="infoVenue" style="display: none;">
-                <i class="fas fa-location-dot"></i>
-                <span id="raceVenue">Venue</span>
-            </div>
-            <div class="info-item">
-                <i class="fas fa-running"></i>
-                <span id="raceDistances">5K / 10K</span>
-            </div>
-        </div>
+        <main class="main-content">
+            <div class="left-col">
+                <section class="content-section">
+                    <h2>About the Race</h2>
+                    <div id="raceDescription"></div>
+                </section>
 
-        <section class="event-details">
-            <div class="event-info">
-                <a href="../events.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to All Events</a>
-
-                <h2>About This Race</h2>
-                <p id="raceDescription">Join us for an amazing race experience! More details coming soon.</p>
-
-                <!-- Multi-Sport Quick Facts Section -->
-                <div id="msQuickFacts" style="display: none;">
-                    <h3 style="margin-top: 40px; margin-bottom: 20px; color: var(--brand-blue); font-style: italic;">🏅
-                        Multi-Sport Quick Facts</h3>
-                    <div id="msFactsContainer" class="ms-facts-grid">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-
-                <div id="distancesSection">
-                    <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">🏃
-                        Available Distances</h3>
-                    <div class="distances" id="distancesList">
-                        <!-- Distances will be loaded here -->
-                    </div>
-                </div>
-
-                <div id="includedSection" style="display: none;">
-                    <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">🎁
-                        What's Included</h3>
-                    <ul id="includedList">
-                        <!-- Will be populated from database -->
-                    </ul>
-                </div>
-
-                <!-- YouTube Video Section -->
-                <div id="videoSection" style="display: none; margin-top: 40px;">
-                    <h3 style="margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">🎬 Race Video</h3>
-                    <div id="videoContainer"
-                        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1);">
-                        <iframe id="youtubeEmbed"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;" frameborder="0"
-                            allowfullscreen></iframe>
-                    </div>
-                </div>
-
-                <!-- Course Details Section -->
-                <div id="courseSection" style="display: none; margin-top: 40px;">
-                    <h3 style="margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">🗺️ Course Details
-                    </h3>
-                    <div style="background: var(--grey); padding: 20px; border-radius: 8px;">
-                        <div id="courseDetails"></div>
-                    </div>
-                </div>
-
-                <!-- Event Logistics Bar -->
-                <div id="logisticsSection" style="display: none; margin-top: 40px;">
-                    <h3 style="margin-bottom: 15px; color: var(--brand-blue); font-style: italic;">📋 Event Logistics
-                    </h3>
-                    <div class="logistics-bar">
-                        <div id="aidSection" class="logistics-item" style="display: none;">
-                            <span class="logistics-label">🥤 Aid Stations</span>
-                            <span id="aidInfo" class="logistics-value"></span>
-                        </div>
-                        <div id="parkingSection" class="logistics-item" style="display: none;">
-                            <span class="logistics-label">🅿️ Parking</span>
-                            <span id="parkingInfo" class="logistics-value"></span>
-                        </div>
-                        <div id="packetSection" class="logistics-item" style="display: none;">
-                            <span class="logistics-label">📦 Packet Pickup</span>
-                            <span id="packetInfo" class="logistics-value"></span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Charity Section -->
-                <div id="charitySection"
-                    style="display: none; margin-top: 40px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); padding: 25px; border-radius: 12px; border-left: 4px solid #f59e0b;">
-                    <h3 style="margin-bottom: 10px; color: #92400e; font-style: italic;">❤️ Supporting a Good Cause</h3>
-                    <p id="charityName" style="font-weight: 700; font-size: 1.1rem; color: #78350f;"></p>
-                    <p id="charityDesc" style="color: #92400e; margin-top: 8px;"></p>
-                </div>
-
-                <!-- Video Highlights Section -->
-                <div id="videoSection" style="display: none; margin-top: 40px;">
-                    <h3 style="margin-bottom: 20px; color: var(--brand-blue); font-style: italic;">🎬 Race Highlights
-                    </h3>
-                    <div
-                        style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.15);">
-                        <iframe id="videoFrame"
-                            style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: 0;"
-                            allowfullscreen
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
-                    </div>
-                </div>
-
-                <!-- Gallery Section -->
-                <div id="gallerySection" style="display: none; margin-top: 40px;">
-                    <h3 style="margin-bottom: 20px; color: var(--brand-blue); font-style: italic;">📸 Race Gallery</h3>
-                    <div id="galleryGrid"
-                        style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
-                        <!-- Gallery images will be loaded here -->
-                    </div>
-                </div>
-
-                <!-- ACCORDION SECTIONS -->
-                <div class="accordion-container" id="accordionSections">
-
-                    <!-- Packet Pickup Section -->
-                    <div class="accordion-section" id="pickupAccordion" style="display: none;">
-                        <button class="accordion-header" onclick="toggleAccordion(this)">
-                            📦 Packet Pickup Locations
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content" id="pickupContent">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-
-                    <!-- FAQs Section -->
-                    <div class="accordion-section" id="faqAccordion" style="display: none;">
-                        <button class="accordion-header" onclick="toggleAccordion(this)">
-                            ❓ Frequently Asked Questions
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content" id="faqContent">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-
-                    <!-- Policies Section -->
-                    <div class="accordion-section" id="policiesAccordion" style="display: none;">
-                        <button class="accordion-header" onclick="toggleAccordion(this)">
-                            📋 Rules & Policies
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content" id="policiesContent">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-
-                    <!-- Awards Section -->
-                    <div class="accordion-section" id="awardsAccordion" style="display: none;">
-                        <button class="accordion-header" onclick="toggleAccordion(this)">
-                            🏆 Awards & Age Groups
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content" id="awardsContent">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-
-                    <!-- Travel Section -->
-                    <div class="accordion-section" id="travelAccordion" style="display: none;">
-                        <button class="accordion-header" onclick="toggleAccordion(this)">
-                            ✈️ Travel & Accommodations
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content" id="travelContent">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-
-                    <!-- Spectator Section -->
-                    <div class="accordion-section" id="spectatorAccordion" style="display: none;">
-                        <button class="accordion-header" onclick="toggleAccordion(this)">
-                            👀 Spectator Guide
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content" id="spectatorContent">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-
-                    <!-- Multi-Sport Section (conditionally shown) -->
-                    <div class="accordion-section" id="multisportAccordion" style="display: none;">
-                        <button class="accordion-header" onclick="toggleAccordion(this)">
-                            🏊 Multi-Sport Details
-                            <i class="fas fa-chevron-down"></i>
-                        </button>
-                        <div class="accordion-content" id="multisportContent">
-                            <!-- Populated by JS -->
-                        </div>
-                    </div>
-
-                </div>
-
-                <!-- Beneficiaries Section (Always Visible) -->
-                <div id="beneficiariesSection" style="display: none; margin-top: 40px;">
-                    <h3 style="margin-bottom: 20px; color: var(--brand-blue); font-style: italic;">❤️ Supporting Great
-                        Causes</h3>
-                    <div id="beneficiariesList">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-
-                <!-- Sponsors Section (Always Visible) -->
-                <div id="sponsorsSection" style="display: none; margin-top: 40px;">
-                    <h3 style="margin-bottom: 20px; color: var(--brand-blue); font-style: italic;">🤝 Our Partners &
-                        Sponsors</h3>
-                    <div id="sponsorsList">
-                        <!-- Populated by JS -->
-                    </div>
-                </div>
-
+                <section class="content-section">
+                    <h2>Available Distances</h2>
+                    <div id="distanceList" class="distance-list"></div>
+                </section>
             </div>
 
-            <div id="register" class="registration-sidebar">
-                <div class="register-card">
-                    <h3>🏃 Register Now</h3>
+            <aside class="right-col">
+                <div class="sidebar-card">
+                    <h3>Race Information</h3>
 
-                    <div id="priceDisplay" class="card-price-container" style="display: none;">
-                        <span id="cardOldPrice" class="price-was"></span>
-                        <span id="cardPrice" class="price-now"></span>
-                        <div id="saveBadge" class="price-save-badge" style="display: inline-block; margin-top: 5px;">
-                            SAVE $20</div>
+                    <div class="info-row">
+                        <span class="info-label">Date</span>
+                        <span class="info-value" id="sideDate"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">Venue</span>
+                        <span class="info-value" id="sideVenue"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">City</span>
+                        <span class="info-value" id="sideCity"></span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">State</span>
+                        <span class="info-value" id="sideState"></span>
                     </div>
 
-                    <div class="race-info-list">
-                        <div class="race-info-item">
-                            <span class="race-info-label">Date</span>
-                            <span class="race-info-value" id="cardDate">TBD</span>
-                        </div>
-                        <div class="race-info-item" id="cardTimeRow" style="display: none;">
-                            <span class="race-info-label">Start Time</span>
-                            <span class="race-info-value" id="cardTime">TBD</span>
-                        </div>
-                        <div class="race-info-item">
-                            <span class="race-info-label">Location</span>
-                            <span class="race-info-value" id="cardLocation">TBD</span>
-                        </div>
-                        <div class="race-info-item" id="pdfLinkRow" style="display: none;">
-                            <span class="race-info-label">Instructions</span>
-                            <span class="race-info-value"><a href="#" id="pdfLink" target="_blank"
-                                    style="color: var(--primary); font-weight: 700;">📄 Pre-Race (PDF)</a></span>
-                        </div>
-                    </div>
-
-                    <button class="register-btn" id="registerBtn" onclick="handleRegister()">
-                        Register Now
-                    </button>
-
-                    <p id="regStatus" style="text-align: center; margin-top: 15px; font-size: 13px; color: #666;"></p>
+                    <a id="registerBtn" href="#" target="_blank" class="register-btn">Register Now</a>
                 </div>
-            </div>
-        </section>
+            </aside>
+        </main>
     </div>
 
     <footer>
         <div class="footer-brand">WHY<span>RACING</span></div>
-        <div class="footer-copy">&copy; 2026 Why Racing Events Inc. | La Center, WA | (360) 314-4682</div>
-        <div style="margin-top: 15px; opacity: 0.3; font-size: 10px; text-align: center;">
-            <a href="../admin/races.html" style="color: white; text-decoration: none;">Staff Portal</a>
+        <p class="footer-tagline">Providing professional race management for all levels of athletes.</p>
+        <div class="footer-copy">&copy; 2026 Why Racing Events Inc. | (360) 314-4682</div>
+        <div class="staff-portal-footer">
+            <a href="../admin/races.html" class="staff-portal-link">Staff Portal</a>
         </div>
     </footer>
 
     <script>
-        // Mobile menu toggle
-        function toggleMobileMenu() {
-            const hamburger = document.querySelector('.hamburger');
-            const mobileMenu = document.getElementById('mobileMenu');
-            hamburger.classList.toggle('active');
-            mobileMenu.classList.toggle('active');
-            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
-        }
-
-        let currentRace = null;
-
-        // Get race ID from URL
-        function getRaceId() {
-            const params = new URLSearchParams(window.location.search);
-            return params.get('id');
-        }
-
-        // Format date
-        function formatDate(dateString) {
-            if (!dateString) return 'TBD';
-            const date = new Date(dateString + 'T00:00:00');
-            return date.toLocaleDateString('en-US', {
-                weekday: 'long',
-                month: 'long',
-                day: 'numeric',
-                year: 'numeric'
-            });
-        }
-
-        // Format time
-        function formatTime(timeString) {
-            if (!timeString) return null;
-            // Handle both HH:MM:SS and HH:MM
-            const parts = timeString.split(':');
-            const h = parseInt(parts[0]);
-            const m = parts[1];
-            const ampm = h >= 12 ? 'PM' : 'AM';
-            const h12 = h % 12 || 12;
-            return `${h12}:${m} ${ampm}`;
-        }
-
-        // Get race type label
-        function getRaceTypeLabel(type) {
-            const types = {
-                'run': '🏃 Road Race',
-                'running': '🏃 Road Race',
-                'trail': '🌲 Trail Run',
-                'triathlon': '🏊 Triathlon',
-                'ultra': '🏔️ Ultra',
-                'fun_run': '🎉 Fun Run',
-                'kids': '👶 Kids Race',
-                'virtual': '💻 Virtual'
-            };
-            return types[type] || '🏃 Race';
-        }
-
-        // Extract YouTube video ID from URL
-        function extractYouTubeId(url) {
-            if (!url) return null;
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
-                /youtube\.com\/v\/([^&\n?#]+)/
-            ];
-            for (const pattern of patterns) {
-                const match = url.match(pattern);
-                if (match && match[1]) return match[1];
-            }
-            return null;
-        }
-
-        // Handle registration click
-        function handleRegister() {
-            if (!currentRace) return;
-
-            if (currentRace.registration_url) {
-                window.open(currentRace.registration_url, '_blank');
-            } else if (currentRace.registration_open) {
-                alert('Online registration is being set up. Please check back soon or contact info@whyracingevents.com');
-            } else {
-                alert('Registration is not yet open. Please check back later!');
-            }
-        }
-
-        // Load race data
         async function loadRace() {
-            const raceId = getRaceId();
+            const params = new URLSearchParams(window.location.search);
+            const raceId = params.get('id');
 
             if (!raceId) {
-                document.getElementById('loadingState').innerHTML = `
-                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #e74c3c; margin-bottom: 20px;"></i>
-                <h2>Race Not Found</h2>
-                <p style="margin-top: 15px;"><a href="../events.html" style="color: var(--primary);">← Back to All Events</a></p>
-            `;
+                window.location.href = '../events.html';
                 return;
             }
 
             try {
                 const response = await fetch(`/api/races/${raceId}/full`);
                 if (!response.ok) throw new Error('Race not found');
-
                 const race = await response.json();
-                currentRace = race;
 
-                // === Dynamic Theming ===
-                if (window.ThemeEngine && race.name) {
-                    let overrides = null;
-                    if (race.theme_config && Object.keys(race.theme_config).length > 0) {
-                        const cfg = race.theme_config;
-                        overrides = {};
-                        if (cfg.primaryColor) overrides.primary = cfg.primaryColor;
-                        if (cfg.secondaryColor) overrides.secondary = cfg.secondaryColor;
-                        if (cfg.accentColor) overrides.accent = cfg.accentColor;
-                        if (cfg.backgroundColor) overrides.dark = cfg.backgroundColor;
+                // Page Title & SEO
+                document.title = `${race.name} | Why Racing Events`;
+                document.getElementById('raceName').textContent = race.name;
 
-                        console.log('ThemeEngine: Applying with SAVED overrides:', overrides);
-                    }
-                    ThemeEngine.apply(race.name, overrides);
+                // Formatted Date
+                const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+                const formattedDate = new Date(race.race_date + 'T00:00:00').toLocaleDateString('en-US', dateOptions);
+                document.getElementById('raceDate').innerHTML = `<i class="fas fa-calendar"></i> ${formattedDate}`;
+                document.getElementById('sideDate').textContent = formattedDate;
+
+                // Location
+                const locationText = `${race.city || 'TBD'}, ${race.state || ''}`;
+                document.getElementById('raceLocation').innerHTML = `<i class="fas fa-map-marker-alt"></i> ${locationText}`;
+                document.getElementById('sideCity').textContent = race.city || 'TBD';
+                document.getElementById('sideState').textContent = race.state || 'TBD';
+                document.getElementById('sideVenue').textContent = race.venue || 'TBA';
+
+                // Description
+                document.getElementById('raceDescription').textContent = race.description || 'Join us for this exciting event! Full details coming soon.';
+
+                // Race Type
+                const raceTypeEl = document.getElementById('raceTypeTag');
+                raceTypeEl.textContent = race.race_type.replace('_', ' ');
+
+                // thumbnail as background
+                if (race.thumbnail_url) {
+                    document.getElementById('heroSection').style.backgroundImage = `url('${race.thumbnail_url}')`;
                 }
 
-                // Update page title & SEO
-                const fullTitle = `${race.name} | Why Racing Events`;
-                const fullDesc = race.description ? race.description.substring(0, 160) + '...' : 'Join us for an amazing race experience!';
-                const currentUrl = window.location.href;
-                const shareImage = race.hero_image_url || 'https://whyracingevents.com/attached_assets/why-racing-logo_1767589311719.png';
-
-                document.getElementById('pageTitle').textContent = fullTitle;
-                document.title = fullTitle;
-                document.getElementById('pageDescription').content = fullDesc;
-
-                // Dynamic OG/Twitter Tags
-                document.getElementById('ogUrl').content = currentUrl;
-                document.getElementById('ogTitle').content = fullTitle;
-                document.getElementById('ogDescription').content = fullDesc;
-                document.getElementById('ogImage').content = shareImage;
-
-                document.getElementById('twitterUrl').content = currentUrl;
-                document.getElementById('twitterTitle').content = fullTitle;
-                document.getElementById('twitterDescription').content = fullDesc;
-                document.getElementById('twitterImage').content = shareImage;
-
-                document.getElementById('canonicalLink').href = currentUrl;
-
-                // Dynamic JSON-LD Schema
-                const schema = {
-                    "@context": "https://schema.org",
-                    "@type": "Event",
-                    "name": race.name,
-                    "startDate": race.race_date,
-                    "endDate": race.race_date,
-                    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-                    "eventStatus": "https://schema.org/EventScheduled",
-                    "location": {
-                        "@type": "Place",
-                        "name": race.venue || race.city || 'TBA',
-                        "address": {
-                            "@type": "PostalAddress",
-                            "addressLocality": race.city || '',
-                            "addressRegion": race.state || '',
-                            "addressCountry": "US"
-                        }
-                    },
-                    "image": [shareImage],
-                    "description": race.description || '',
-                    "offers": {
-                        "@type": "Offer",
-                        "url": race.registration_url || currentUrl,
-                        "price": race.race_distances && race.race_distances.length > 0 ? race.race_distances[0].base_price : "0",
-                        "priceCurrency": "USD",
-                        "availability": race.registration_open ? "https://schema.org/InStock" : "https://schema.org/OutOfStock",
-                        "validFrom": new Date().toISOString().split('T')[0]
-                    },
-                    "performer": {
-                        "@type": "Organization",
-                        "name": "Why Racing Events"
-                    }
-                };
-                document.getElementById('eventSchema').textContent = JSON.stringify(schema);
-
-                // Apply AI Theme
-                if (race.theme_config) {
-                    const theme = race.theme_config;
-                    const root = document.documentElement;
-                    if (theme.primaryColor) root.style.setProperty('--primary', theme.primaryColor);
-                    if (theme.secondaryColor) root.style.setProperty('--brand-blue', theme.secondaryColor);
-                    if (theme.backgroundColor) root.style.setProperty('--light', theme.backgroundColor);
-
-                    if (theme.fontStyle) {
-                        const fontMap = {
-                            'modern': "'Inter', sans-serif",
-                            'bold': "'Oswald', sans-serif",
-                            'classic': "'Georgia', serif",
-                            'playful': "'Comic Sans MS', cursive"
-                        };
-                        if (fontMap[theme.fontStyle]) {
-                            document.body.style.fontFamily = fontMap[theme.fontStyle];
-                        }
-                    }
-
-                    // Adaptive Text Contrast Logic
-                    if (theme.backgroundColor) {
-                        const getContrastYIQ = (hexcolor) => {
-                            hexcolor = hexcolor.replace('#', '');
-                            var r = parseInt(hexcolor.substr(0, 2), 16);
-                            var g = parseInt(hexcolor.substr(2, 2), 16);
-                            var b = parseInt(hexcolor.substr(4, 2), 16);
-                            var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-                            return (yiq >= 128) ? '#333333' : '#ffffff';
-                        };
-                        const textColor = getContrastYIQ(theme.backgroundColor);
-                        root.style.setProperty('--text-main', textColor);
-
-                        // Also update h2/h3 if needed for better contrast
-                        root.style.setProperty('--brand-blue', (textColor === '#ffffff') ? '#ffffff' : theme.secondaryColor || '#000000');
-                    }
-
-                    if (theme.tagline && !race.tagline) {
-                        document.getElementById('raceName').insertAdjacentHTML('afterend', `<p id="themeTagline" style="font-style: italic; opacity: 0.9; margin-bottom: 15px; font-size: 1.2rem;">${theme.tagline}</p>`);
-                    }
-                }
-
-                // Update hero carousel
-                const carouselImages = (race.hero_carousel_images && race.hero_carousel_images.length > 0)
-                    ? race.hero_carousel_images
-                    : (race.hero_image_url ? [race.hero_image_url] : []);
-
-                const heroBg = document.getElementById('heroBackground');
-                heroBg.innerHTML = '';
-
-                if (carouselImages.length > 0) {
-                    carouselImages.forEach((imgUrl, index) => {
-                        const slide = document.createElement('div');
-                        slide.className = `hero-slide${index === 0 ? ' active' : ''}`;
-                        // We set the background image on the slide itself so ::before and ::after can inherit it
-                        slide.style.backgroundImage = `url('${imgUrl}')`;
-                        heroBg.appendChild(slide);
-                    });
-
-                    if (carouselImages.length > 1) {
-                        let currentSlide = 0;
-                        const slides = heroBg.querySelectorAll('.hero-slide');
-                        setInterval(() => {
-                            if (slides.length === 0) return;
-                            slides[currentSlide].classList.remove('active');
-                            currentSlide = (currentSlide + 1) % slides.length;
-                            slides[currentSlide].classList.add('active');
-                        }, 3000);
-                    }
-                }
-                document.getElementById('raceType').textContent = getRaceTypeLabel(race.race_type);
-                document.getElementById('raceDate').textContent = '📅 ' + formatDate(race.race_date);
-                document.getElementById('raceName').textContent = race.name || 'Race';
-                document.getElementById('raceLocation').textContent = `${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}`;
-
-                // Update info banner
-                if (race.race_time) {
-                    document.getElementById('infoTime').style.display = 'flex';
-                    document.getElementById('raceTime').textContent = formatTime(race.race_time);
-                }
-                if (race.venue) {
-                    document.getElementById('infoVenue').style.display = 'flex';
-                    document.getElementById('raceVenue').textContent = race.venue;
-                }
-
-                // Update distances
-                const distances = race.race_distances || [];
-                if (distances.length > 0) {
-                    document.getElementById('distancesList').innerHTML = distances.map(d => {
-                        const time = d.start_time ? `<span style="display: block; font-size: 0.8rem; margin-top: 4px; opacity: 0.8;">Starts ${formatTime(d.start_time)}</span>` : '';
-                        return `<div class="distance-tag" style="display: block; padding: 12px 20px;">
-                            ${d.name || d.distance_value}
-                            ${time}
-                        </div>`;
-                    }).join('');
-                    document.getElementById('raceDistances').textContent = distances.map(d => d.name || d.distance_value).join(' / ');
+                // Distances
+                const distContainer = document.getElementById('distanceList');
+                if (race.race_distances && race.race_distances.length > 0) {
+                    distContainer.innerHTML = race.race_distances.map(d => `
+                        <div class="distance-item">
+                            <span class="dist-name">${d.name}</span>
+                            <div class="dist-meta">
+                                ${d.distance_value ? `<span>${d.distance_value}</span>` : ''}
+                                ${d.start_time ? `<span> • Starts ${d.start_time.substring(0, 5)}</span>` : ''}
+                                ${d.base_price ? `<span style="display: block; margin-top: 5px; color: var(--primary); font-weight: 700;">From $${d.base_price}</span>` : ''}
+                            </div>
+                        </div>
+                    `).join('');
                 } else {
-                    document.getElementById('raceDistances').textContent = 'Details TBA';
+                    distContainer.innerHTML = '<p>Distance information coming soon.</p>';
                 }
 
-                // Update description
-                document.getElementById('raceDescription').textContent = race.description || 'More details coming soon! Check back later for full race information.';
-
-                // Update card
-                document.getElementById('cardDate').textContent = formatDate(race.race_date);
-                document.getElementById('cardLocation').textContent = `${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}`;
-                if (race.race_time) {
-                    document.getElementById('cardTimeRow').style.display = 'flex';
-                    document.getElementById('cardTime').textContent = formatTime(race.race_time);
-                }
-
-                // Handle PDF Instructions
-                if (race.instructions_pdf_url) {
-                    document.getElementById('pdfLinkRow').style.display = 'flex';
-                    document.getElementById('pdfLink').href = race.instructions_pdf_url;
-                }
-
-                // Update registration button
+                // Registration
                 const regBtn = document.getElementById('registerBtn');
-                const regStatus = document.getElementById('regStatus');
-
                 if (race.registration_url) {
-                    regBtn.textContent = '🏃 Register Now';
-                    regStatus.textContent = 'Secure checkout via RunSignUp';
-                } else if (race.registration_open) {
-                    regBtn.textContent = '📧 Contact to Register';
-                    regStatus.textContent = 'Online registration coming soon';
+                    regBtn.href = race.registration_url;
                 } else {
-                    regBtn.textContent = '🔔 Registration Opening Soon';
-                    regBtn.disabled = true;
-                    regStatus.textContent = 'Check back for registration details';
+                    regBtn.textContent = 'Registration TBA';
+                    regBtn.style.opacity = '0.5';
+                    regBtn.style.pointerEvents = 'none';
                 }
 
-                // Update Pricing with "Slashed" look
-                const pricingHtml = document.getElementById('priceDisplay');
-                const cardPrice = document.getElementById('cardPrice');
-                const cardOldPrice = document.getElementById('cardOldPrice');
-                const saveBadge = document.getElementById('saveBadge');
-
-                if (distances.length > 0) {
-                    const validDistances = distances.filter(d => parseFloat(d.base_price) > 0);
-
-                    if (validDistances.length > 0) {
-                        // Find the lowest base price
-                        validDistances.sort((a, b) => parseFloat(a.base_price) - parseFloat(b.base_price));
-                        const cheapest = validDistances[0];
-                        const currentPrice = parseFloat(cheapest.base_price);
-
-                        // Use DB standard_price if available, otherwise mock +15
-                        let originalPrice = currentPrice + 15;
-                        if (cheapest.standard_price && parseFloat(cheapest.standard_price) > currentPrice) {
-                            originalPrice = parseFloat(cheapest.standard_price);
-                        }
-
-                        cardPrice.textContent = `$${currentPrice}`;
-                        cardOldPrice.textContent = `$${originalPrice}`;
-                        saveBadge.textContent = `SAVE $${originalPrice - currentPrice}`;
-                        pricingHtml.style.display = 'block';
-                    }
+                // Theme
+                if (window.ThemeEngine && race.name) {
+                    ThemeEngine.apply(race.name);
                 }
 
-                // Update Countdown
-                if (race.race_date) {
-                    let targetDate = new Date(race.race_date + 'T' + (race.race_time || '09:00:00'));
-                    let labelText = "RACE STARTS IN";
-                    let isPriceDeadline = false;
-
-                    // Check for next price increase
-                    if (race.pricing_tiers && race.pricing_tiers.length > 0) {
-                        const today = new Date();
-                        // Find active tiers that end in the future
-                        const upcomingTiers = race.pricing_tiers.filter(t => {
-                            if (!t.end_date) return false;
-                            const end = new Date(t.end_date);
-                            end.setUTCHours(23, 59, 59, 999);
-                            return end >= today && end.getFullYear() < 2099; // Filter out placeholders
-                        });
-
-                        if (upcomingTiers.length > 0) {
-                            // Sort by end date ascending to find the soonest deadline
-                            upcomingTiers.sort((a, b) => new Date(a.end_date) - new Date(b.end_date));
-                            const nextTier = upcomingTiers[0];
-                            const nextDeadline = new Date(nextTier.end_date);
-                            nextDeadline.setUTCHours(23, 59, 59, 999); // End of day
-
-                            // Use this as target if it's before the race date
-                            if (nextDeadline < targetDate) {
-                                targetDate = nextDeadline;
-                                labelText = "PRICE INCREASES IN";
-                                isPriceDeadline = true;
-                            }
-                        }
-                    }
-
-                    const now = new Date();
-
-                    if (targetDate > now) {
-                        const timerContainer = document.getElementById('countdownTimer');
-                        timerContainer.style.display = 'flex';
-
-                        // Add or update label if not exists
-                        let labelEl = document.getElementById('countdownLabel');
-                        if (!labelEl) {
-                            labelEl = document.createElement('div');
-                            labelEl.id = 'countdownLabel';
-                            labelEl.style.width = '100%';
-                            labelEl.style.textAlign = 'center';
-                            labelEl.style.marginBottom = '10px';
-                            labelEl.style.fontWeight = '700';
-                            labelEl.style.letterSpacing = '1px';
-                            labelEl.style.fontSize = '14px';
-                            timerContainer.insertBefore(labelEl, timerContainer.firstChild);
-                        }
-
-                        labelEl.textContent = labelText;
-                        labelEl.style.color = isPriceDeadline ? '#E31837' : 'white';
-
-                        const updateCountdown = () => {
-                            const currentTime = new Date();
-                            const diff = targetDate - currentTime;
-
-                            if (diff <= 0) {
-                                // If price deadline passes, reload or fallback to race date (simplified: just hide)
-                                if (isPriceDeadline) {
-                                    // Optionally reload to get next tier
-                                    labelEl.textContent = "PRICE INCREASING...";
-                                } else {
-                                    timerContainer.style.display = 'none';
-                                }
-                                clearInterval(countdownInterval);
-                                return;
-                            }
-
-                            const d = Math.floor(diff / (1000 * 60 * 60 * 24));
-                            const h = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                            const m = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                            const s = Math.floor((diff % (1000 * 60)) / 1000);
-
-                            document.getElementById('days').textContent = d.toString().padStart(2, '0');
-                            document.getElementById('hours').textContent = h.toString().padStart(2, '0');
-                            document.getElementById('mins').textContent = m.toString().padStart(2, '0');
-                            document.getElementById('secs').textContent = s.toString().padStart(2, '0');
-                        };
-
-                        const countdownInterval = setInterval(updateCountdown, 1000);
-                        updateCountdown();
-                    }
-                }
-
-                // Update hero CTA
-                const heroCta = document.getElementById('heroCta');
-                if (race.registration_url) {
-                    heroCta.textContent = '🏃 Secure My Spot';
-                    heroCta.onclick = () => window.open(race.registration_url, '_blank');
-                } else if (!race.registration_open) {
-                    heroCta.textContent = '🔔 Coming Soon';
-                    heroCta.style.opacity = '0.7';
-                }
-
-                // === What's Included (from database) ===
-                const includes = race.includes || [];
-                if (includes.length > 0) {
-                    const includeIcons = {
-                        'shirt': 'fas fa-tshirt',
-                        'tech_shirt': 'fas fa-tshirt',
-                        'technical_shirt': 'fas fa-tshirt',
-                        'event_tank': 'fas fa-tshirt',
-                        'medal': 'fas fa-medal',
-                        'bib': 'fas fa-id-badge',
-                        'timing': 'fas fa-stopwatch',
-                        'food': 'fas fa-utensils',
-                        'post_race_party': 'fas fa-champagne-glasses',
-                        'mimosas': 'fas fa-glass-cheers',
-                        'beer': 'fas fa-beer-mug-empty',
-                        'photos': 'fas fa-camera',
-                        'bag': 'fas fa-shopping-bag',
-                        'shuttle': 'fas fa-bus',
-                        'cert': 'fas fa-certificate',
-                        'parking': 'fas fa-parking',
-                        'body_marking': 'fas fa-marker',
-                        'transition_area': 'fas fa-arrows-alt'
-                    };
-                    const includeLabels = {
-                        'shirt': 'Race Shirt',
-                        'tech_shirt': 'Technical Shirt',
-                        'technical_shirt': 'Technical Shirt',
-                        'event_tank': 'Event Tank',
-                        'medal': 'Finisher Medal',
-                        'bib': 'Race Bib',
-                        'timing': 'Chip Timing',
-                        'food': 'Post-Race Food',
-                        'post_race_party': 'Post-Race Party',
-                        'mimosas': 'Mimosas & Treats',
-                        'beer': 'Post-Race Beer',
-                        'photos': 'Free Race Photos',
-                        'bag': 'Swag Bag',
-                        'shuttle': 'Shuttle Service',
-                        'cert': 'Finisher Certificate',
-                        'parking': 'Included Parking',
-                        'body_marking': 'Body Marking',
-                        'transition_area': 'Transition Area'
-                    };
-
-                    document.getElementById('includedList').innerHTML = includes.map(item =>
-                        `<li><i class="${includeIcons[item] || 'fas fa-check'}"></i> ${includeLabels[item] || item}</li>`
-                    ).join('');
-                    document.getElementById('includedSection').style.display = 'block';
-                }
-
-                // === YouTube Video ===
-                if (race.youtube_url) {
-                    const videoId = extractYouTubeId(race.youtube_url);
-                    if (videoId) {
-                        document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoId}`;
-                        document.getElementById('videoSection').style.display = 'block';
-                    }
-                }
-
-                // === Course Details ===
-                let courseHtml = '';
-                if (race.terrain) courseHtml += `<p><strong>🛤️ Terrain:</strong> ${race.terrain.charAt(0).toUpperCase() + race.terrain.slice(1)}</p>`;
-                if (race.elevation) courseHtml += `<p><strong>📈 Elevation Gain:</strong> ${race.elevation}</p>`;
-                if (courseHtml) {
-                    document.getElementById('courseDetails').innerHTML = courseHtml;
-                    document.getElementById('courseSection').style.display = 'block';
-                }
-
-                // === Logistics ===
-                let hasLogistics = false;
-                if (race.aid_stations) {
-                    document.getElementById('aidInfo').textContent = race.aid_stations;
-                    document.getElementById('aidSection').style.display = 'block';
-                    hasLogistics = true;
-                }
-                if (race.parking) {
-                    document.getElementById('parkingInfo').textContent = race.parking;
-                    document.getElementById('parkingSection').style.display = 'block';
-                    hasLogistics = true;
-                }
-                if (race.packet_pickup && race.packet_pickup.length > 0) {
-                    // packet_pickup is an array of location objects from the API
-                    const pickupSummary = race.packet_pickup.map(loc => {
-                        const date = new Date(loc.pickup_date + 'T00:00:00');
-                        const dateStr = date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-                        return `${loc.location_name} (${dateStr})`;
-                    }).join(' • ');
-                    document.getElementById('packetInfo').textContent = pickupSummary;
-                    document.getElementById('packetSection').style.display = 'block';
-                    hasLogistics = true;
-                }
-
-                if (hasLogistics) {
-                    document.getElementById('logisticsSection').style.display = 'block';
-                }
-
-                // === Charity ===
-                if (race.charity_name) {
-                    document.getElementById('charityName').textContent = race.charity_name;
-                    if (race.charity_description) {
-                        document.getElementById('charityDesc').textContent = race.charity_description;
-                    }
-                    if (race.charity_percent) {
-                        document.getElementById('charityDesc').textContent += ` (${race.charity_percent}% of proceeds donated)`;
-                    }
-                    document.getElementById('charitySection').style.display = 'block';
-                }
-
-                // === Logo ===
-                if (race.logo_url) {
-                    document.getElementById('raceLogo').src = race.logo_url;
-                    document.getElementById('raceLogoContainer').style.display = 'block';
-                }
-
-                // === Gallery ===
-                const gallery = race.gallery_images || [];
-                if (gallery.length > 0) {
-                    document.getElementById('galleryGrid').innerHTML = gallery.map(imgUrl =>
-                        `<div style="aspect-ratio: 1; overflow: hidden; border-radius: 8px; cursor: pointer;" onclick="window.open('${imgUrl}', '_blank')">
-                            <img src="${imgUrl}" alt="Gallery Image" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s;" onmouseover="this.style.transform='scale(1.1)'" onmouseout="this.style.transform='scale(1.0)'">
-                        </div>`
-                    ).join('');
-                    document.getElementById('gallerySection').style.display = 'block';
-                }
-
-                // ========================================
-                // ACCORDION SECTIONS (NEW)
-                // ========================================
-
-                // === Packet Pickup ===
-                if (race.packet_pickup && race.packet_pickup.length > 0) {
-                    const pickupHtml = race.packet_pickup.map(loc => {
-                        const date = new Date(loc.pickup_date + 'T00:00:00');
-                        const day = date.getDate();
-                        const month = date.toLocaleDateString('en-US', { month: 'short' });
-                        return `
-                            <div class="pickup-card">
-                                <div class="pickup-date">
-                                    <div class="day">${day}</div>
-                                    <div class="month">${month}</div>
-                                </div>
-                                <div>
-                                    <strong>${loc.location_name}</strong>
-                                    <p style="font-size: 0.9rem; color: #666; margin-top: 4px;">${loc.address}${loc.city ? ', ' + loc.city : ''}</p>
-                                    <p style="font-size: 0.85rem; color: #888; margin-top: 4px;">${formatTime(loc.start_time)} - ${formatTime(loc.end_time)}</p>
-                                    ${loc.is_race_day ? '<span style="background: var(--primary); color: white; padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; margin-top: 4px; display: inline-block;">Race Day</span>' : ''}
-                                    ${loc.notes ? `<p style="font-size: 0.85rem; color: #666; margin-top: 6px; font-style: italic;">${loc.notes}</p>` : ''}
-                                </div>
-                            </div>
-                        `;
-                    }).join('');
-                    document.getElementById('pickupContent').innerHTML = pickupHtml;
-                    document.getElementById('pickupAccordion').style.display = 'block';
-                }
-
-                // === FAQs ===
-                if (race.faqs && race.faqs.length > 0) {
-                    const faqHtml = race.faqs.map((faq, index) => `
-                        <div class="faq-item">
-                            <div class="faq-question" onclick="toggleFaq(this)">
-                                <span>${faq.question}</span>
-                                <i class="fas fa-plus"></i>
-                            </div>
-                            <div class="faq-answer">${faq.answer}</div>
-                        </div>
-                    `).join('');
-                    document.getElementById('faqContent').innerHTML = faqHtml;
-                    document.getElementById('faqAccordion').style.display = 'block';
-                }
-
-                // === Policies ===
-                if (race.policies && race.policies.length > 0) {
-                    const policyLabels = {
-                        'headphone_policy': '🎧 Headphones',
-                        'dog_policy': '🐕 Dogs',
-                        'stroller_policy': '👶 Strollers',
-                        'bag_check': '🎒 Bag Check',
-                        'shirt_swap': '👕 Shirt Swap'
-                    };
-                    const policiesHtml = race.policies.map(p => `
-                        <div class="content-card">
-                            <h4>${policyLabels[p.policy_type] || p.policy_type}</h4>
-                            <p>${p.policy_text}</p>
-                        </div>
-                    `).join('');
-                    document.getElementById('policiesContent').innerHTML = policiesHtml;
-                    document.getElementById('policiesAccordion').style.display = 'block';
-                }
-
-                // === Awards & Age Groups ===
-                if (race.award_categories && race.award_categories.length > 0) {
-                    const ageGroups = race.award_categories.filter(a => a.category_type === 'age_group');
-                    const specialAwards = race.award_categories.filter(a => a.category_type !== 'age_group');
-
-                    let html = '';
-                    if (ageGroups.length > 0) {
-                        html += `<h4 style="margin-bottom: 12px; font-size: 0.95rem;">Age Groups</h4>
-                        <div class="award-tags">${ageGroups.map(a => `<span class="award-tag">${a.category_name}</span>`).join('')}</div>`;
-                    }
-                    if (specialAwards.length > 0) {
-                        html += `<h4 style="margin: 20px 0 12px; font-size: 0.95rem;">Special Categories</h4>
-                        <div class="award-tags">${specialAwards.map(a => `<span class="award-tag" style="background: #fef3c7; border-left: 3px solid #f59e0b;">${a.category_name}</span>`).join('')}</div>`;
-                    }
-
-                    // Course Records
-                    if (race.course_records && race.course_records.length > 0) {
-                        html += `<h4 style="margin: 20px 0 12px; font-size: 0.95rem;">🏆 Course Records</h4>`;
-                        html += race.course_records.map(r => `
-                            <div style="display: flex; gap: 20px; margin-bottom: 8px;">
-                                <span style="font-weight: 600; text-transform: capitalize;">${r.gender}:</span>
-                                <span>${r.record_holder_name}</span>
-                                <span style="color: var(--primary); font-weight: 700;">${r.finish_time}</span>
-                                <span style="color: #888;">(${r.record_year})</span>
-                            </div>
-                        `).join('');
-                    }
-
-                    document.getElementById('awardsContent').innerHTML = html;
-                    document.getElementById('awardsAccordion').style.display = 'block';
-                }
-
-                // === Travel & Accommodations ===
-                const content = race.content || {};
-                const hasTravel = content.nearest_airport || (race.accommodations && race.accommodations.length > 0);
-                if (hasTravel) {
-                    let travelHtml = '';
-                    if (content.nearest_airport) {
-                        travelHtml += `<div class="content-card"><h4>✈️ Nearest Airport</h4><p>${content.nearest_airport}${content.airport_distance ? ' (' + content.airport_distance + ')' : ''}</p></div>`;
-                    }
-                    if (race.accommodations && race.accommodations.length > 0) {
-                        travelHtml += `<h4 style="margin: 16px 0 12px;">🏨 Hotels</h4>`;
-                        travelHtml += race.accommodations.map(h => `
-                            <div class="content-card">
-                                <h4>${h.hotel_name}</h4>
-                                ${h.discount_description ? `<p style="color: var(--primary); font-weight: 600;">${h.discount_description}</p>` : ''}
-                                ${h.website_url ? `<a href="${h.website_url}" target="_blank" style="color: var(--primary); font-size: 0.9rem;">Visit Website →</a>` : ''}
-                            </div>
-                        `).join('');
-                    }
-                    document.getElementById('travelContent').innerHTML = travelHtml;
-                    document.getElementById('travelAccordion').style.display = 'block';
-                }
-
-                // === Spectator Locations ===
-                if (race.spectator_locations && race.spectator_locations.length > 0) {
-                    const spectatorHtml = race.spectator_locations.map(loc => `
-                        <div class="content-card">
-                            <h4>📍 ${loc.location_name}</h4>
-                            <p>${loc.description || ''}</p>
-                            ${loc.has_parking ? '<span style="background: #d1fae5; color: #065f46; padding: 2px 8px; border-radius: 4px; font-size: 0.8rem;">Parking Available</span>' : ''}
-                        </div>
-                    `).join('');
-                    document.getElementById('spectatorContent').innerHTML = spectatorHtml;
-                    document.getElementById('spectatorAccordion').style.display = 'block';
-                }
-
-                // === Multi-Sport Details ===
-                if (race.multisport_details) {
-                    const ms = race.multisport_details;
-                    const container = document.getElementById('msFactsContainer');
-                    const section = document.getElementById('msQuickFacts');
-
-                    const facts = [
-                        { label: 'Water Temp', value: ms.water_temperature_typical, icon: '🌊' },
-                        { label: 'Wetsuit Policy', value: ms.wetsuit_policy, icon: '🏊' },
-                        { label: 'Bike Requirements', value: ms.bike_requirements, icon: '🚴' },
-                        { label: 'Transition Area', value: ms.transition_area_notes, icon: '🔄' },
-                        { label: 'Relay Rules', value: ms.relay_rules, icon: '👥' }
-                    ].filter(f => f.value);
-
-                    if (facts.length > 0) {
-                        container.innerHTML = facts.map(f => `
-                            <div class="ms-fact-card">
-                                <span class="ms-fact-icon">${f.icon}</span>
-                                <span class="ms-fact-label">${f.label}</span>
-                                <span class="ms-fact-value">${f.value}</span>
-                            </div>
-                        `).join('');
-                        section.style.display = 'block';
-                    }
-
-                    let msHtml = '';
-                    if (ms.water_temperature_typical) msHtml += `<div class="content-card"><h4>🌊 Water Temperature</h4><p>${ms.water_temperature_typical}</p></div>`;
-                    if (ms.wetsuit_policy) msHtml += `<div class="content-card"><h4>🏊 Wetsuit Policy</h4><p>${ms.wetsuit_policy}</p></div>`;
-                    if (ms.bike_requirements) msHtml += `<div class="content-card"><h4>🚴 Bike Requirements</h4><p>${ms.bike_requirements}</p></div>`;
-                    if (ms.transition_area_notes) msHtml += `<div class="content-card"><h4>🔄 Transition Area</h4><p>${ms.transition_area_notes}</p></div>`;
-                    if (ms.relay_rules) msHtml += `<div class="content-card"><h4>👥 Relay Rules</h4><p>${ms.relay_rules}</p></div>`;
-                    if (ms.usat_rules_url) msHtml += `<a href="${ms.usat_rules_url}" target="_blank" class="content-card" style="display: block; text-decoration: none;"><h4>📋 USAT Rules</h4><p style="color: var(--primary);">View Official Rules →</p></a>`;
-
-                    if (msHtml) {
-                        document.getElementById('multisportContent').innerHTML = msHtml;
-                        document.getElementById('multisportAccordion').style.display = 'block';
-                    }
-                }
-
-                // Video Highlights
-                if (race.youtube_video_url) {
-                    const url = race.youtube_video_url;
-                    let videoId = '';
-                    if (url.includes('v=')) {
-                        videoId = url.split('v=')[1].split('&')[0];
-                    } else if (url.includes('youtu.be/')) {
-                        videoId = url.split('youtu.be/')[1].split('?')[0];
-                    }
-
-                    if (videoId) {
-                        document.getElementById('videoFrame').src = `https://www.youtube.com/embed/${videoId}`;
-                        document.getElementById('videoSection').style.display = 'block';
-                    }
-                }
-
-                // === Beneficiaries (Always Visible) ===
-                if (race.beneficiaries && race.beneficiaries.length > 0) {
-                    const beneficiariesHtml = race.beneficiaries.map(b => `
-                        <div class="beneficiary-card">
-                            <h4>❤️ ${b.organization_name}</h4>
-                            ${b.description ? `<p>${b.description}</p>` : ''}
-                            ${b.website_url ? `<a href="${b.website_url}" target="_blank" style="color: #78350f; font-weight: 600; margin-top: 8px; display: inline-block;">Learn More →</a>` : ''}
-                        </div>
-                    `).join('');
-                    document.getElementById('beneficiariesList').innerHTML = beneficiariesHtml;
-                    document.getElementById('beneficiariesSection').style.display = 'block';
-                }
-
-                // === Sponsors (Always Visible) ===
-                if (race.sponsors && race.sponsors.length > 0) {
-                    // Group by type
-                    const exclusive = race.sponsors.filter(s => s.sponsor_type === 'exclusive_partner');
-                    const partners = race.sponsors.filter(s => s.sponsor_type === 'partner');
-                    const sponsors = race.sponsors.filter(s => s.sponsor_type === 'sponsor');
-
-                    let sponsorHtml = '';
-                    if (exclusive.length > 0) {
-                        sponsorHtml += `<h4 style="margin-bottom: 12px; color: #f59e0b;">⭐ Exclusive Partners</h4>`;
-                        sponsorHtml += `<div class="sponsor-grid">${exclusive.map(s => `
-                            <a href="${s.website_url || '#'}" target="_blank" class="sponsor-logo" title="${s.organization_name}">
-                                ${s.logo_url ? `<img src="${s.logo_url}" alt="${s.organization_name}">` : `<span style="font-weight: 600; text-align: center;">${s.organization_name}</span>`}
-                            </a>
-                        `).join('')}</div>`;
-                    }
-                    if (partners.length > 0) {
-                        sponsorHtml += `<h4 style="margin: 20px 0 12px;">🤝 Partners</h4>`;
-                        sponsorHtml += `<div class="sponsor-grid">${partners.map(s => `
-                            <a href="${s.website_url || '#'}" target="_blank" class="sponsor-logo" title="${s.organization_name}">
-                                ${s.logo_url ? `<img src="${s.logo_url}" alt="${s.organization_name}">` : `<span style="font-weight: 600; text-align: center;">${s.organization_name}</span>`}
-                            </a>
-                        `).join('')}</div>`;
-                    }
-                    if (sponsors.length > 0) {
-                        sponsorHtml += `<h4 style="margin: 20px 0 12px;">Sponsors</h4>`;
-                        sponsorHtml += `<div class="sponsor-grid">${sponsors.map(s => `
-                            <a href="${s.website_url || '#'}" target="_blank" class="sponsor-logo" title="${s.organization_name}">
-                                ${s.logo_url ? `<img src="${s.logo_url}" alt="${s.organization_name}">` : `<span style="font-weight: 600; text-align: center; font-size: 0.8rem;">${s.organization_name}</span>`}
-                            </a>
-                        `).join('')}</div>`;
-                    }
-
-                    document.getElementById('sponsorsList').innerHTML = sponsorHtml;
-                    document.getElementById('sponsorsSection').style.display = 'block';
-                }
-
-                // Hide loading, show content
-                document.getElementById('loadingState').style.display = 'none';
+                // Show Content
+                document.getElementById('loading').style.display = 'none';
                 document.getElementById('mainContent').style.display = 'block';
 
-            } catch (error) {
-                console.error('Error loading race:', error);
-                document.getElementById('loadingState').innerHTML = `
-                <i class="fas fa-exclamation-triangle" style="font-size: 3rem; color: #e74c3c; margin-bottom: 20px;"></i>
-                <h2>Race Not Found</h2>
-                <p style="color: #666; margin: 15px 0;">This race may have been removed or the link is incorrect.</p>
-                <p><a href="../events.html" style="color: var(--primary); font-weight: 600;">← Back to All Events</a></p>
-            `;
+            } catch (err) {
+                console.error(err);
+                document.getElementById('loading').innerHTML = `
+                    <div style="text-align: center; padding: 50px;">
+                        <h2>Error Loading Race</h2>
+                        <p>${err.message}</p>
+                        <a href="../events.html" style="color: var(--primary);">Return to Events</a>
+                    </div>
+                `;
             }
         }
 
-        // Accordion Toggle Function
-        function toggleAccordion(header) {
-            const content = header.nextElementSibling;
-            const isOpen = content.classList.contains('show');
-
-            // Close all others
-            document.querySelectorAll('.accordion-content').forEach(c => c.classList.remove('show'));
-            document.querySelectorAll('.accordion-header').forEach(h => h.classList.remove('active'));
-
-            // Toggle current
-            if (!isOpen) {
-                content.classList.add('show');
-                header.classList.add('active');
-            }
-        }
-
-        // FAQ Toggle Function
-        function toggleFaq(question) {
-            const answer = question.nextElementSibling;
-            const icon = question.querySelector('i');
-            const isOpen = answer.classList.contains('show');
-
-            if (isOpen) {
-                answer.classList.remove('show');
-                icon.className = 'fas fa-plus';
-            } else {
-                answer.classList.add('show');
-                icon.className = 'fas fa-minus';
-            }
-        }
-
-        // Load on page load
         document.addEventListener('DOMContentLoaded', loadRace);
     </script>
-
 </body>
 
 </html>

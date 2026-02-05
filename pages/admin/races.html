@@ -1175,10 +1175,7 @@
                             <label for="raceDate">Race Date *</label>
                             <input type="date" id="raceDate" name="raceDate" required>
                         </div>
-                        <div class="form-group">
-                            <label for="raceTime">Start Time</label>
-                            <input type="time" id="raceTime" name="raceTime">
-                        </div>
+
                         <div class="form-group">
                             <label for="raceType">Race Type</label>
                             <select id="raceType" name="raceType">
@@ -1194,10 +1191,7 @@
                             <label for="venue">Venue Name</label>
                             <input type="text" id="venue" name="venue" placeholder="e.g., Lacamas Lake Regional Park">
                         </div>
-                        <div class="form-group">
-                            <label for="address">Address</label>
-                            <input type="text" id="address" name="address" placeholder="Street address">
-                        </div>
+
                         <div class="form-group">
                             <label for="city">City</label>
                             <input type="text" id="city" name="city" placeholder="e.g., Camas">
@@ -1210,30 +1204,10 @@
                                 <option value="ID">Idaho</option>
                             </select>
                         </div>
-                        <div class="form-group full-width">
-                            <label for="tagline">Short Tagline</label>
-                            <input type="text" id="tagline" name="tagline"
-                                placeholder="e.g., The spookiest run in the Pacific Northwest!" maxlength="100">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="description">Full Description</label>
-                            <textarea id="description" name="description"
-                                placeholder="Describe the race experience, what makes it special, the course, atmosphere, etc."></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="logoUrl">Race Logo URL</label>
-                            <input type="url" id="logoUrl" name="logoUrl"
-                                placeholder="https://your-storage.com/logo.png">
-                            <small class="help-text">URL to the race logo image
-                                (displayed on race cards)</small>
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="heroImageUrl">Hero Image URL</label>
-                            <input type="url" id="heroImageUrl" name="heroImageUrl"
-                                placeholder="https://your-storage.com/hero-image.jpg">
-                            <small class="help-text">Main photo for the race
-                                card</small>
-                        </div>
+
+
+
+
                         <div class="form-group full-width">
                             <label for="registrationUrl">Registration URL (RunSignUp) *</label>
                             <input type="url" id="registrationUrl" name="registrationUrl"
@@ -1276,136 +1250,23 @@
                                 <label>Distance Value</label>
                                 <input type="text" name="distanceValue[]" placeholder="e.g., 3.1 miles">
                             </div>
-                            <div>
-                                <label>Capacity</label>
-                                <input type="number" name="distanceCapacity[]" placeholder="500">
-                            </div>
+
                             <div>
                                 <label>Base Price</label>
                                 <input type="number" name="distancePrice[]" placeholder="75" step="0.01">
                             </div>
-                            <div>
-                                <label>Start Time</label>
-                                <input type="time" name="distanceStartTime[]">
-                            </div>
+
                             <button type="button" class="remove-distance" onclick="removeDistance(this)">×</button>
                         </div>
                     </div>
                     <button type="button" class="add-distance" onclick="addDistance()">+ Add Another Distance</button>
                 </div>
 
-                <!-- Pricing Tiers -->
-                <div class="form-section">
-                    <h2>💰 Pricing Tiers</h2>
-                    <div class="pricing-tier">
-                        <h4>🐦 Early Bird</h4>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Discount Amount ($)</label>
-                                <input type="number" name="earlyBirdDiscount" placeholder="15" step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <label>Start Date</label>
-                                <input type="date" name="earlyBirdStart">
-                            </div>
-                            <div class="form-group">
-                                <label>End Date</label>
-                                <input type="date" name="earlyBirdEnd">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="pricing-tier">
-                        <h4>⏰ Late Registration</h4>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label>Surcharge Amount ($)</label>
-                                <input type="number" name="lateSurcharge" placeholder="10" step="0.01">
-                            </div>
-                            <div class="form-group">
-                                <label>Start Date</label>
-                                <input type="date" name="lateStart">
-                            </div>
-                            <div class="form-group">
-                                <label>End Date</label>
-                                <input type="date" name="lateEnd">
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Registration Settings -->
-                <div class="form-section">
-                    <h2>📅 Registration Settings</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="regOpen">Registration Opens</label>
-                            <input type="datetime-local" id="regOpen" name="regOpen">
-                        </div>
-                        <div class="form-group">
-                            <label for="regClose">Registration Closes</label>
-                            <input type="datetime-local" id="regClose" name="regClose">
-                        </div>
-                        <div class="form-group">
-                            <label for="maxParticipants">Total Max Participants</label>
-                            <input type="number" id="maxParticipants" name="maxParticipants" placeholder="1000">
-                        </div>
-                        <div class="form-group">
-                            <label for="minAge">Minimum Age</label>
-                            <input type="number" id="minAge" name="minAge" placeholder="0">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="refundPolicy">Transfer/Refund Policy</label>
-                            <textarea id="refundPolicy" name="refundPolicy"
-                                placeholder="Describe your transfer and refund policies..."></textarea>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Course & Logistics -->
-                <div class="form-section">
-                    <h2>🗺️ Course & Logistics</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="terrain">Surface Type / Terrain</label>
-                            <input type="text" id="terrain" name="terrain" placeholder="e.g., Road, Trail, Mixed">
-                        </div>
-                        <div class="form-group">
-                            <label for="elevation">Elevation Gain</label>
-                            <input type="text" id="elevation" name="elevation" placeholder="e.g., 500 ft">
-                        </div>
-                        <div class="form-group">
-                            <label for="courseMap">Course Map (upload)</label>
-                            <input type="file" id="courseMap" name="courseMap" accept="image/*,.pdf">
-                        </div>
-                        <div class="form-group">
-                            <label for="elevationProfile">Elevation Profile (upload)</label>
-                            <input type="file" id="elevationProfile" name="elevationProfile" accept="image/*">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="aidStations">Aid Station Information</label>
-                            <textarea id="aidStations" name="aidStations"
-                                placeholder="Describe aid station locations and what's available..."></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="parking">Parking Details</label>
-                            <textarea id="parking" name="parking"
-                                placeholder="Where can participants park? Cost? Shuttle info?"></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="packetPickup">Packet Pickup Summary (displays at top of section)</label>
-                            <textarea id="packetPickup" name="packetPickup"
-                                placeholder="When and where is packet pickup? Race morning option?"></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <label>Detailed Pickup Locations</label>
-                            <div id="pickupList" class="repeater-list">
-                                <!-- Populated by JS -->
-                            </div>
-                            <button type="button" class="add-btn" onclick="addPickupLocation()">+ Add Pickup
-                                Location</button>
-                        </div>
-                    </div>
-                </div>
+
+
+
 
                 <!-- Beneficiaries & Sponsors -->
                 <div class="form-section">
@@ -1428,206 +1289,21 @@
                     </div>
                 </div>
 
-                <!-- What's Included -->
-                <div class="form-section">
-                    <h2>🎁 What's Included</h2>
-                    <div class="included-items">
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="shirt">
-                            <span>Race Shirt</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="medal">
-                            <span>Finisher Medal</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="bib">
-                            <span>Race Bib</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="timing">
-                            <span>Chip Timing</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="food">
-                            <span>Post-Race Food</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="beer">
-                            <span>Post-Race Beer</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="photos">
-                            <span>Free Race Photos</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="bag">
-                            <span>Swag Bag</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="shuttle">
-                            <span>Shuttle Service</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="cert">
-                            <span>Finisher Certificate</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="tech_shirt">
-                            <span>Technical Shirt</span>
-                        </label>
-                        <label class="checkbox-item">
-                            <input type="checkbox" name="includes[]" value="transition_area">
-                            <span>Transition Area</span>
-                        </label>
-                    </div>
-                    <div class="form-grid mt-20">
-                        <div class="form-group full-width">
-                            <label for="shirtSizes">T-Shirt Sizes Available</label>
-                            <div class="checkbox-group">
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
-                                        value="XS"><span>XS</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
-                                        value="S"><span>S</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="M"
-                                        checked><span>M</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="L"
-                                        checked><span>L</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]" value="XL"
-                                        checked><span>XL</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
-                                        value="2XL"><span>2XL</span></label>
-                                <label class="checkbox-item"><input type="checkbox" name="shirtSizes[]"
-                                        value="3XL"><span>3XL</span></label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Multi-Sport Details (Triathlon/Duathlon) -->
-                <div class="form-section" id="multisportSection">
-                    <h2>🏊 Multi-Sport Details</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="waterTemp">Typical Water Temp</label>
-                            <input type="text" id="waterTemp" name="waterTemp" placeholder="e.g., 68-72°F">
-                        </div>
-                        <div class="form-group">
-                            <label for="wetsuitPolicy">Wetsuit Policy</label>
-                            <input type="text" id="wetsuitPolicy" name="wetsuitPolicy"
-                                placeholder="e.g., Wetsuit legal">
-                        </div>
-                        <div class="form-group">
-                            <label for="bikeRequirements">Bike Requirements</label>
-                            <input type="text" id="bikeRequirements" name="bikeRequirements"
-                                placeholder="e.g., Helmets mandatory, all bike types welcome">
-                        </div>
-                        <div class="form-group">
-                            <label for="usatRules">USAT Rules URL</label>
-                            <input type="url" id="usatRules" name="usatRules" placeholder="https://...">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="transitionNotes">Transition Area Notes</label>
-                            <textarea id="transitionNotes" name="transitionNotes"
-                                placeholder="Describe transition area flow, security, timing mats..."></textarea>
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="relayRules">Relay Rules</label>
-                            <textarea id="relayRules" name="relayRules"
-                                placeholder="Describe how relay teams swap chips, etc..."></textarea>
-                        </div>
-                    </div>
-                </div>
 
-                <!-- Charity -->
-                <div class="form-section">
-                    <h2>❤️ Charity & Cause</h2>
-                    <div class="form-grid">
-                        <div class="form-group">
-                            <label for="charityName">Benefiting Charity</label>
-                            <input type="text" id="charityName" name="charityName"
-                                placeholder="e.g., Clark County Food Bank">
-                        </div>
-                        <div class="form-group">
-                            <label for="charityAmount">Donation per Registration ($)</label>
-                            <input type="number" id="charityAmount" name="charityAmount" placeholder="5" step="0.01">
-                        </div>
-                        <div class="form-group">
-                            <label for="charityPercent">Donation Percentage (%)</label>
-                            <input type="number" id="charityPercent" name="charityPercent" placeholder="10">
-                        </div>
-                        <div class="form-group full-width">
-                            <label for="charityDescription">Charity Description</label>
-                            <textarea id="charityDescription" name="charityDescription"
-                                placeholder="Tell participants about the cause..."></textarea>
-                        </div>
-                    </div>
-                </div>
+
+
+
 
                 <!-- Media -->
                 <div class="form-section">
                     <h2>📸 Media</h2>
 
-                    <!-- YouTube Video -->
-                    <div class="media-block">
-                        <h4>🎬 Race Video</h4>
-                        <p class="media-hint">Paste a YouTube link to feature on the race page</p>
-                        <div class="form-group">
-                            <label for="youtubeUrl">YouTube URL</label>
-                            <div class="input-with-button">
-                                <input type="url" id="youtubeUrl" name="youtubeUrl"
-                                    placeholder="https://www.youtube.com/watch?v=... or https://youtu.be/...">
-                                <button type="button" class="preview-btn" onclick="previewYouTube()">Preview</button>
-                            </div>
-                        </div>
-                        <div class="youtube-preview" id="youtubePreview">
-                            <div class="youtube-placeholder">
-                                <span>🎬</span>
-                                <p>YouTube preview will appear here</p>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Hero/Background Image -->
-                    <div class="media-block">
-                        <h4>🖼️ Hero Background Image</h4>
-                        <p class="media-hint">Main banner image for the race page (recommended: 1920x1080)</p>
-                        <div class="form-group">
-                            <div class="image-upload-area" id="heroUploadArea"
-                                onclick="document.getElementById('heroImage').click()">
-                                <input type="file" id="heroImage" name="heroImage" accept="image/*"
-                                    onchange="previewImage(this, 'heroPreview')" hidden>
-                                <div class="upload-placeholder" id="heroPlaceholder">
-                                    <span>📁</span>
-                                    <p>Click to upload or drag & drop</p>
-                                    <small>PNG, JPG, WebP up to 10MB</small>
-                                </div>
-                                <img id="heroPreview" class="image-preview display-none">
-                            </div>
-                            <button type="button" class="clear-image-btn display-none" onclick="clearImage('hero')"
-                                id="heroClearBtn">✕ Remove Image</button>
-                        </div>
-                    </div>
 
-                    <!-- Hero Carousel Images -->
-                    <div class="media-block">
-                        <h4>🎡 Hero Photo Carousel</h4>
-                        <p class="media-hint">Add multiple photos to cycle in the hero section (2-second timer). If
-                            empty, the hero
-                            background image above will be used.</p>
-                        <div class="form-group full-width">
-                            <div id="carouselSlots" class="carousel-slots-grid">
-                                <!-- Carousel slots will be added here -->
-                            </div>
-                            <button type="button" class="btn btn-secondary mt-15"
-                                onclick="document.getElementById('bulkCarouselInput').click()">
-                                <span>➕</span> Add Carousel Photos
-                            </button>
-                            <input type="file" id="bulkCarouselInput" multiple accept="image/*" class="display-none"
-                                onchange="handleBulkCarouselUpload(this)">
 
-                        </div>
-                    </div>
+
+
 
                     <!-- Thumbnail Image -->
                     <div class="media-block">
@@ -1650,130 +1326,10 @@
                         </div>
                     </div>
 
-                    <!-- Additional Media -->
-                    <div class="media-block">
-                        <h4>📷 Race Logo & Gallery</h4>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="logoImage">Race Logo</label>
-                                <div class="image-upload-area thumbnail-upload" id="logoUploadArea"
-                                    onclick="document.getElementById('logoImage').click()">
-                                    <input type="file" id="logoImage" name="logoImage" accept="image/*"
-                                        onchange="previewImage(this, 'logoPreview')" hidden>
-                                    <div class="upload-placeholder" id="logoPlaceholder">
-                                        <span>🎨</span>
-                                        <p>Click to upload logo</p>
-                                    </div>
-                                    <img id="logoPreview" class="image-preview display-none preview-contain">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="instructionsPdf">Race Instructions (PDF)</label>
-                                <div class="image-upload-area thumbnail-upload" id="pdfUploadArea"
-                                    onclick="document.getElementById('instructionsPdf').click()">
-                                    <input type="file" id="instructionsPdf" name="instructionsPdf" accept=".pdf"
-                                        onchange="previewPDF(this)" hidden>
-                                    <div class="upload-placeholder" id="pdfPlaceholder">
-                                        <span>📄</span>
-                                        <p>Click to upload PDF instructions</p>
-                                    </div>
-                                    <div id="pdfPreview" class="display-none preview-contain-pad text-center">
-                                        <span class="fs-40px">PDF</span>
-                                        <p id="pdfFilename" class="fs-12px mt-5 break-all"></p>
-                                    </div>
-                                </div>
-                                <button type="button" class="clear-image-btn display-none" id="pdfClearBtn"
-                                    onclick="clearPDF()">✕ Remove PDF</button>
-                            </div>
-                            <div class="form-group full-width">
-                                <label>Race Gallery</label>
-                                <p class="media-hint mb-15">Add photos to showcase your race.
-                                    Each slot can pick from a different folder.</p>
-                                <div id="gallerySlots">
-                                    <!-- Gallery slots will be added here -->
-                                </div>
-                                <button type="button" class="btn btn-secondary mt-10" onclick="addGallerySlot()">
-                                    <span>➕</span> Add Another Image
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
 
-                <!-- AI Theme Generator -->
-                <div class="form-section ai-theme-section">
-                    <h2>✨ AI Theme Generator</h2>
-                    <p class="color-slate mb-16">Describe how you want this race page to look and
-                        feel. Our AI will generate a custom theme.</p>
-                    <div class="form-group full-width ai-prompt-area">
-                        <label for="themePrompt">Theme Description</label>
-                        <textarea id="themePrompt" name="themePrompt"
-                            placeholder="Example: St. Patrick's Day theme with green and gold..."
-                            onkeydown="if(event.key === 'Enter' && !event.shiftKey) { event.preventDefault(); generateTheme(); }"></textarea>
-                        <button type="button" class="generate-theme-btn" onclick="generateTheme()">
-                            <span>✨</span> Generate Theme
-                        </button>
-                    </div>
 
-                    <div class="theme-preview" id="themePreview">
-                        <h4>Generated Theme Preview</h4>
-                        <div class="color-swatches">
-                            <div class="color-swatch-group">
-                                <label>🎨 Primary Color Selector</label>
-                                <div class="flex-centered-gap-8">
-                                    <input type="color" id="primaryPicker" oninput="syncColor('primary', 'picker')">
-                                    <input type="text" id="primaryColor" name="primaryColor" value="#E31837"
-                                        onchange="syncColor('primary', 'text')" placeholder="#hex">
-                                </div>
-                            </div>
-                            <div class="color-swatch-group">
-                                <label>🎨 Secondary Color Selector</label>
-                                <div class="flex-centered-gap-8">
-                                    <input type="color" id="secondaryPicker" oninput="syncColor('secondary', 'picker')">
-                                    <input type="text" id="secondaryColor" name="secondaryColor" value="#0ea5e9"
-                                        onchange="syncColor('secondary', 'text')" placeholder="#hex">
-                                </div>
-                            </div>
-                            <div class="color-swatch-group">
-                                <label>🎨 Accent Color Selector</label>
-                                <div class="flex-centered-gap-8">
-                                    <input type="color" id="accentPicker" oninput="syncColor('accent', 'picker')">
-                                    <input type="text" id="accentColor" name="accentColor" value="#22c55e"
-                                        onchange="syncColor('accent', 'text')" placeholder="#hex">
-                                </div>
-                            </div>
-                            <div class="color-swatch-group">
-                                <label>🎨 Background Color Selector</label>
-                                <div class="flex-centered-gap-8">
-                                    <input type="color" id="backgroundPicker"
-                                        oninput="syncColor('background', 'picker')">
-                                    <input type="text" id="backgroundColor" name="backgroundColor" value="#0a0a0a"
-                                        onchange="syncColor('background', 'text')" placeholder="#hex">
-                                </div>
-                            </div>
-                        </div>
-                        <div class="form-grid">
-                            <div class="form-group">
-                                <label for="fontStyle">Font Style</label>
-                                <select id="fontStyle" name="fontStyle">
-                                    <option value="modern">Modern</option>
-                                    <option value="playful">Playful</option>
-                                    <option value="bold">Bold</option>
-                                    <option value="elegant">Elegant</option>
-                                    <option value="rugged">Rugged</option>
-                                    <option value="gothic">Gothic</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="mood">Mood Keywords</label>
-                                <input type="text" id="mood" name="mood" placeholder="energetic, fun, challenging">
-                            </div>
-                        </div>
-                        <div class="generated-tagline" id="generatedTagline">
-                            "Your AI-generated tagline will appear here..."
-                        </div>
-                    </div>
-                </div>
 
                 <!-- Form Actions -->
                 <div class="form-actions">
@@ -1950,31 +1506,6 @@
                 console.error('CRITICAL: raceName input not found in DOM!');
             }
             form.raceDate.value = race.race_date || '';
-            form.raceTime.value = race.race_time || '';
-            form.raceType.value = race.race_type || 'running';
-            form.venue.value = race.venue || '';
-            form.address.value = race.address || '';
-            form.city.value = race.city || '';
-            form.state.value = race.state || 'WA';
-            form.tagline.value = race.tagline || '';
-            form.description.value = race.description || '';
-            form.registrationUrl.value = race.registration_url || '';
-
-            // YouTube URL
-            if (form.youtubeUrl) form.youtubeUrl.value = race.youtube_url || '';
-
-            // Course Details
-            if (form.terrain) form.terrain.value = race.terrain || '';
-            if (form.elevation) form.elevation.value = race.elevation || '';
-            if (form.aidStations) form.aidStations.value = race.aid_stations || '';
-            if (form.parking) form.parking.value = race.parking || '';
-            if (form.packetPickup) form.packetPickup.value = race.packet_pickup || '';
-
-            // Charity
-            if (form.charityName) form.charityName.value = race.charity_name || '';
-            if (form.charityDescription) form.charityDescription.value = race.charity_description || '';
-            if (form.charityPercent) form.charityPercent.value = race.charity_percent || '';
-
             form.isActive.checked = race.is_visible;
             form.registrationOpen.checked = race.registration_open;
             form.isFeatured.checked = race.is_featured;
@@ -1984,17 +1515,6 @@
             document.getElementById('viewLiveBtn').style.display = 'inline-block';
             document.getElementById('deleteSection').style.display = 'block';
 
-            // What's Included checkboxes
-            const includes = race.includes || [];
-            document.querySelectorAll('input[name="includes[]"]').forEach(cb => {
-                cb.checked = includes.includes(cb.value);
-            });
-
-            // Shirt Sizes checkboxes
-            const shirtSizes = race.shirt_sizes || [];
-            document.querySelectorAll('input[name="shirtSizes[]"]').forEach(cb => {
-                cb.checked = shirtSizes.includes(cb.value);
-            });
 
             // Handle distances
             const distanceList = document.getElementById('distanceList');
@@ -2007,50 +1527,8 @@
                 addDistance();
             }
 
-            // Handle Pricing Tiers Display (Early Bird)
-            // Try to find an "Early Bird" tier in the data to populate the fields
-            if (race.pricing_tiers && race.pricing_tiers.length > 0) {
-                const ebTier = race.pricing_tiers.find(t => t.tier_name === 'Early Bird');
-                if (ebTier && race.race_distances && race.race_distances.length > 0) {
-                    // Calculate discount: Base Price - Early Bird Price
-                    // We need to find the base price for this specific distance to calculate the discount
-                    const dist = race.race_distances.find(d => d.id === ebTier.distance_id);
-                    if (dist) {
-                        const basePrice = parseFloat(dist.base_price) || 0;
-                        const ebPrice = parseFloat(ebTier.price) || 0;
-                        const discount = basePrice - ebPrice;
 
-                        if (form.earlyBirdDiscount) form.earlyBirdDiscount.value = discount > 0 ? discount : '';
-                        if (form.earlyBirdStart) form.earlyBirdStart.value = ebTier.start_date || '';
-                        if (form.earlyBirdEnd) form.earlyBirdEnd.value = ebTier.end_date || '';
-                    }
-                }
-            }
 
-            // Handle PDF
-            if (race.instructions_pdf_url) {
-                const pdfPreview = document.getElementById('pdfPreview');
-                const pdfPlaceholder = document.getElementById('pdfPlaceholder');
-                const pdfFilename = document.getElementById('pdfFilename');
-                const pdfUploadArea = document.getElementById('pdfUploadArea');
-                const pdfClearBtn = document.getElementById('pdfClearBtn');
-
-                pdfPreview.style.display = 'block';
-                pdfPlaceholder.style.display = 'none';
-                pdfFilename.textContent = 'Existing PDF Instructions';
-                pdfUploadArea.classList.add('has-image');
-                pdfClearBtn.style.display = 'inline-block';
-            }
-
-            // Handle Images
-            if (race.hero_image_url) {
-                const preview = document.getElementById('heroPreview');
-                preview.src = race.hero_image_url;
-                preview.style.display = 'block';
-                document.getElementById('heroPlaceholder').style.display = 'none';
-                document.getElementById('heroUploadArea').classList.add('has-image');
-                document.getElementById('heroClearBtn').style.display = 'inline-block';
-            }
             if (race.thumbnail_url) {
                 const preview = document.getElementById('thumbnailPreview');
                 preview.src = race.thumbnail_url;
@@ -2060,75 +1538,7 @@
                 document.getElementById('thumbnailClearBtn').style.display = 'inline-block';
             }
 
-            // Handle Logo & Gallery hints
-            if (race.logo_url) {
-                const preview = document.getElementById('logoPreview');
-                preview.src = race.logo_url;
-                preview.style.display = 'block';
-                document.getElementById('logoPlaceholder').style.display = 'none';
-                document.getElementById('logoUploadArea').classList.add('has-image');
-                document.getElementById('logoClearBtn').style.display = 'inline-block';
-            }
-            if (race.gallery_images && race.gallery_images.length > 0) {
-                const slotsContainer = document.getElementById('gallerySlots');
-                slotsContainer.innerHTML = '';
-                race.gallery_images.forEach((url, index) => {
-                    addGallerySlotWithImage(url, index);
-                });
-            } else {
-                // Add one empty slot by default
-                document.getElementById('gallerySlots').innerHTML = '';
-                addGallerySlot();
-            }
 
-            // Handle Hero Carousel
-            const carouselContainer = document.getElementById('carouselSlots');
-            carouselContainer.innerHTML = '';
-            if (race.hero_carousel_images && race.hero_carousel_images.length > 0) {
-                race.hero_carousel_images.forEach((url) => {
-                    addCarouselSlotWithImage(url);
-                });
-            }
-
-            // Handle Theme
-            if (race.theme_config) {
-                updateThemeFields(race.theme_config);
-            }
-
-            // Handle Packet Pickup Locations
-            document.getElementById('pickupList').innerHTML = '';
-            if (race.packet_pickup && Array.isArray(race.packet_pickup)) {
-                race.packet_pickup.forEach(loc => {
-                    addPickupWithValue(loc.location_name, loc.pickup_date, loc.pickup_time, loc.address, loc.notes);
-                });
-            }
-
-            // Handle Beneficiaries
-            document.getElementById('beneficiaryList').innerHTML = '';
-            if (race.beneficiaries && Array.isArray(race.beneficiaries)) {
-                race.beneficiaries.forEach(b => {
-                    addBeneficiaryWithValue(b.name, b.role_description);
-                });
-            }
-
-            // Handle Sponsors
-            document.getElementById('sponsorList').innerHTML = '';
-            if (race.sponsors && Array.isArray(race.sponsors)) {
-                race.sponsors.forEach(s => {
-                    addSponsorWithValue(s.name, s.sponsor_level);
-                });
-            }
-
-            // Handle Multisport Details
-            if (race.multisport_details) {
-                const md = race.multisport_details;
-                if (form.waterTemp) form.waterTemp.value = md.water_temp_avg || '';
-                if (form.wetsuitPolicy) form.wetsuitPolicy.value = md.wetsuit_policy || '';
-                if (form.bikeRequirements) form.bikeRequirements.value = md.bike_requirements || '';
-                if (form.usatRules) form.usatRules.value = md.usat_rules_url || '';
-                if (form.transitionNotes) form.transitionNotes.value = md.transition_area_notes || '';
-                if (form.relayRules) form.relayRules.value = md.relay_rules || '';
-            }
         }
 
         function addDistanceWithValue(name = '', distance = '', capacity = '', price = '', startTime = '', standardPrice = '') {
@@ -2211,89 +1621,8 @@
             }
         }
 
-        // === Packet Pickup Repeater ===
-        function addPickupLocation() {
-            addPickupWithValue();
-        }
 
-        function addPickupWithValue(name = '', date = '', time = '', address = '', notes = '') {
-            const list = document.getElementById('pickupList');
-            const item = document.createElement('div');
-            item.className = 'repeater-item pickup-item';
 
-            item.innerHTML = `
-                <div class="form-group">
-                    <label>Location Name</label>
-                    <input type="text" name="pickupName[]" value="${name}" placeholder="e.g., Fleet Feet Vancouver">
-                </div>
-                <div class="form-group">
-                    <label>Date</label>
-                    <input type="text" name="pickupDate[]" value="${date}" placeholder="e.g., Friday Oct 25">
-                </div>
-                <div class="form-group">
-                    <label>Time</label>
-                    <input type="text" name="pickupTime[]" value="${time}" placeholder="e.g., 10am - 6pm">
-                </div>
-                <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" name="pickupAddress[]" value="${address}" placeholder="Street address">
-                </div>
-                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
-                <div class="form-group full-width" style="grid-column: span 4;">
-                    <label>Pickup Notes</label>
-                    <input type="text" name="pickupNotes[]" value="${notes}" placeholder="Additional info for this location">
-                </div>
-            `;
-            list.appendChild(item);
-        }
-
-        // === Beneficiary Repeater ===
-        function addBeneficiary() {
-            addBeneficiaryWithValue();
-        }
-
-        function addBeneficiaryWithValue(name = '', role = '', url = '', logo = '') {
-            const list = document.getElementById('beneficiaryList');
-            const item = document.createElement('div');
-            item.className = 'repeater-item beneficiary-item';
-
-            item.innerHTML = `
-                <div class="form-group">
-                    <label>Name</label>
-                    <input type="text" name="beneficiaryName[]" value="${name}" placeholder="e.g., Girlfriends Run for a Cure">
-                </div>
-                <div class="form-group">
-                    <label>Role/Support</label>
-                    <input type="text" name="beneficiaryRole[]" value="${role}" placeholder="e.g., Primary Beneficiary">
-                </div>
-                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
-            `;
-            list.appendChild(item);
-        }
-
-        // === Sponsor Repeater ===
-        function addSponsor() {
-            addSponsorWithValue();
-        }
-
-        function addSponsorWithValue(name = '', level = '', url = '', logo = '') {
-            const list = document.getElementById('sponsorList');
-            const item = document.createElement('div');
-            item.className = 'repeater-item sponsor-item';
-
-            item.innerHTML = `
-                <div class="form-group">
-                    <label>Sponsor Name</label>
-                    <input type="text" name="sponsorName[]" value="${name}" placeholder="e.g., Deschutes Brewery">
-                </div>
-                <div class="form-group">
-                    <label>Sponsor Level</label>
-                    <input type="text" name="sponsorLevel[]" value="${level}" placeholder="e.g., Gold Sponsor">
-                </div>
-                <button type="button" class="remove-btn" onclick="this.parentElement.remove()">Remove</button>
-            `;
-            list.appendChild(item);
-        }
 
         // Standard distance values - auto-fills when distance type is selected
         const distanceValues = {
@@ -2329,109 +1658,6 @@
         }
 
 
-        // === AI Theme Generator ===
-        async function generateTheme() {
-            const prompt = document.getElementById('themePrompt').value;
-            if (!prompt.trim()) {
-                alert('Please describe how you want the race themed.');
-                return;
-            }
-
-            const btn = document.querySelector('.generate-theme-btn');
-            btn.classList.add('loading');
-            btn.innerHTML = '<span>⏳</span> Generating...';
-
-            try {
-                const response = await fetch(AI_ENDPOINT, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ prompt })
-                });
-
-                if (response.ok) {
-                    const theme = await response.json();
-                    if (theme._fallback) {
-                        console.warn('AI Theme Fallback Triggered:', theme._error);
-                        alert('Note: Using default colors because: ' + (theme._error || 'AI generation failed.'));
-                    }
-                    updateThemeFields(theme);
-                } else {
-                    const errorText = await response.text();
-                    throw new Error(errorText || 'Theme generation failed');
-                }
-            } catch (error) {
-                console.error('Theme generation failed:', error);
-                alert('CRITICAL ERROR: ' + error.message);
-            }
-
-            btn.classList.remove('loading');
-            btn.innerHTML = '<span>✨</span> Generate Theme';
-        }
-
-        function updateThemeFields(theme) {
-            document.getElementById('primaryColor').value = theme.primaryColor;
-            document.getElementById('secondaryColor').value = theme.secondaryColor;
-            document.getElementById('accentColor').value = theme.accentColor;
-            document.getElementById('backgroundColor').value = theme.backgroundColor;
-
-            // Sync color pickers
-            document.getElementById('primaryPicker').value = theme.primaryColor || '#E31837';
-            document.getElementById('secondaryPicker').value = theme.secondaryColor || '#0ea5e9';
-            document.getElementById('accentPicker').value = theme.accentColor || '#22c55e';
-            document.getElementById('backgroundPicker').value = theme.backgroundColor || '#0a0a0a';
-
-            checkContrast(theme.backgroundColor);
-
-            document.getElementById('fontStyle').value = theme.fontStyle;
-            document.getElementById('mood').value = theme.mood;
-            document.getElementById('generatedTagline').textContent = `"${theme.tagline || ''}"`;
-
-            document.getElementById('themePreview').classList.add('visible');
-        }
-
-        function syncColor(type, source) {
-            const textInput = document.getElementById(`${type}Color`);
-            const picker = document.getElementById(`${type}Picker`);
-            let newValue = '';
-
-            if (source === 'picker') {
-                newValue = picker.value.toUpperCase();
-                textInput.value = newValue;
-            } else {
-                // Validate if it's a correct hex color before syncing to picker
-                let val = textInput.value;
-                if (!val.startsWith('#')) val = '#' + val;
-                if (/^#[0-9A-F]{6}$/i.test(val)) {
-                    picker.value = val;
-                    newValue = val;
-                }
-            }
-
-            if (type === 'background' && newValue) {
-                checkContrast(newValue);
-            }
-        }
-
-        function checkContrast(hexcolor) {
-            if (!hexcolor) return;
-            hexcolor = hexcolor.replace('#', '');
-            if (hexcolor.length === 3) hexcolor = hexcolor.split('').map(c => c + c).join('');
-
-            var r = parseInt(hexcolor.substr(0, 2), 16);
-            var g = parseInt(hexcolor.substr(2, 2), 16);
-            var b = parseInt(hexcolor.substr(4, 2), 16);
-            var yiq = ((r * 299) + (g * 587) + (b * 114)) / 1000;
-
-            const textColor = (yiq >= 128) ? '#333333' : '#ffffff';
-            const themePreview = document.getElementById('themePreview');
-
-            // While we can't change the whole admin page variable, we can show a warning or update the preview text
-            if (themePreview) {
-                themePreview.style.backgroundColor = '#' + hexcolor;
-                themePreview.style.color = textColor;
-                themePreview.querySelectorAll('h4, label').forEach(el => el.style.color = textColor);
-            }
-        }
 
         // === Form Actions ===
         function clearForm() {
@@ -2441,20 +1667,12 @@
                 delete form.dataset.editingId;
                 document.getElementById('viewLiveBtn').style.display = 'none';
                 document.getElementById('deleteSection').style.display = 'none';
-                document.getElementById('themePreview').classList.remove('visible');
-                clearImage('hero');
                 clearImage('thumbnail');
 
                 // Clear repeaters
                 document.getElementById('distanceList').innerHTML = '';
                 addDistance(); // Add one default distance
-                document.getElementById('pickupList').innerHTML = '';
-                document.getElementById('beneficiaryList').innerHTML = '';
-                document.getElementById('sponsorList').innerHTML = '';
 
-                // Clear gallery
-                document.getElementById('gallerySlots').innerHTML = '';
-                addGallerySlot();
             }
         }
 
@@ -2512,42 +1730,10 @@
             const raceId = editingId || 'temp-' + Date.now();
 
             // Upload images first
-            let heroImageUrl = null;
             let thumbnailImageUrl = null;
 
-            const heroFile = document.getElementById('heroImage').files[0];
             const thumbnailFile = document.getElementById('thumbnailImage').files[0];
-            const pdfFile = document.getElementById('instructionsPdf')?.files[0];
 
-            if (heroFile) {
-                try {
-                    const uploadFormData = new FormData();
-                    uploadFormData.append('file', heroFile);
-                    uploadFormData.append('type', 'hero');
-                    uploadFormData.append('raceId', raceId);
-
-                    const uploadRes = await fetch('/api/races/upload', {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
-                        },
-                        body: uploadFormData
-                    });
-
-                    if (uploadRes.ok) {
-                        const uploadData = await uploadRes.json();
-                        heroImageUrl = uploadData.url;
-                        console.log('Hero image uploaded:', heroImageUrl);
-                    } else {
-                        const errorText = await uploadRes.text();
-                        console.error('Hero upload failed:', errorText);
-                        alert('Hero image upload failed: ' + errorText);
-                    }
-                } catch (err) {
-                    console.error('Hero upload error:', err);
-                    alert('Hero image upload error: ' + err.message);
-                }
-            }
 
             if (thumbnailFile) {
                 try {
@@ -2579,168 +1765,9 @@
                 }
             }
 
-            // Upload Logo
-            let logoUrl = null;
-            const logoFile = document.getElementById('logoImage').files[0];
-            if (logoFile) {
-                try {
-                    const uploadFormData = new FormData();
-                    uploadFormData.append('file', logoFile);
-                    uploadFormData.append('type', 'logo');
-                    uploadFormData.append('raceId', raceId);
 
-                    const uploadRes = await fetch('/api/races/upload', {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
-                        },
-                        body: uploadFormData
-                    });
 
-                    if (uploadRes.ok) {
-                        const uploadData = await uploadRes.json();
-                        logoUrl = uploadData.url;
-                        console.log('Logo uploaded:', logoUrl);
-                    }
-                } catch (err) {
-                    console.error('Logo upload error:', err);
-                }
-            }
 
-            // Upload Gallery Images from individual slots
-            let galleryUrls = [];
-
-            // First, collect existing gallery URLs that should be preserved
-            const existingGalleryUrls = [];
-            document.querySelectorAll('.gallery-slot').forEach(slot => {
-                const existingUrl = slot.dataset.existingUrl;
-                if (existingUrl) {
-                    existingGalleryUrls.push(existingUrl);
-                }
-            });
-
-            // Now upload any new files from slots
-            const gallerySlots = document.querySelectorAll('.gallery-slot input[type="file"]');
-            for (let i = 0; i < gallerySlots.length; i++) {
-                const input = gallerySlots[i];
-                const slot = input.closest('.gallery-slot');
-
-                // If slot has existing URL and no new file, keep the existing URL
-                if (slot.dataset.existingUrl && (!input.files || !input.files[0])) {
-                    galleryUrls.push(slot.dataset.existingUrl);
-                    continue;
-                }
-
-                // If there's a new file, upload it
-                if (input.files && input.files[0]) {
-                    try {
-                        console.log(`Uploading gallery image ${i}: ${input.files[0].name}`);
-
-                        const uploadFormData = new FormData();
-                        uploadFormData.append('file', input.files[0]);
-                        uploadFormData.append('type', `gallery-${i}`);
-                        uploadFormData.append('raceId', raceId);
-
-                        const uploadRes = await fetch('/api/races/upload', {
-                            method: 'POST',
-                            headers: {
-                                'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
-                            },
-                            body: uploadFormData
-                        });
-
-                        if (uploadRes.ok) {
-                            const uploadData = await uploadRes.json();
-                            galleryUrls.push(uploadData.url);
-                            console.log(`Gallery image ${i} uploaded successfully:`, uploadData.url);
-                        } else {
-                            const errorText = await uploadRes.text();
-                            console.error(`Gallery image ${i} upload failed (${uploadRes.status}):`, errorText);
-                            alert(`Failed to upload gallery image ${i + 1}: ${errorText}`);
-                        }
-
-                        // Small delay between uploads to prevent rate limiting
-                        await new Promise(resolve => setTimeout(resolve, 300));
-
-                    } catch (err) {
-                        console.error(`Gallery image ${i} upload error:`, err);
-                        alert(`Error uploading gallery image ${i + 1}: ${err.message}`);
-                    }
-                }
-            }
-
-            // Upload Carousel Images from individual slots
-            let carouselUrls = [];
-            const carouselSlots = document.querySelectorAll('.carousel-slot');
-            for (let i = 0; i < carouselSlots.length; i++) {
-                const slot = carouselSlots[i];
-                const input = slot.querySelector('input[type="file"]');
-
-                // If slot has existing URL and no new file, keep it
-                if (slot.dataset.existingUrl && (!input.files || !input.files[0])) {
-                    carouselUrls.push(slot.dataset.existingUrl);
-                    continue;
-                }
-
-                // If there's a new file, upload it
-                if (input.files && input.files[0]) {
-                    try {
-                        console.log(`Uploading carousel image ${i}: ${input.files[0].name}`);
-
-                        const uploadFormData = new FormData();
-                        uploadFormData.append('file', input.files[0]);
-                        uploadFormData.append('type', `carousel-${i}`);
-                        uploadFormData.append('raceId', raceId);
-
-                        const uploadRes = await fetch('/api/races/upload', {
-                            method: 'POST',
-                            headers: {
-                                'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
-                            },
-                            body: uploadFormData
-                        });
-
-                        if (uploadRes.ok) {
-                            const uploadData = await uploadRes.json();
-                            carouselUrls.push(uploadData.url);
-                            console.log(`Carousel image ${i} uploaded successfully:`, uploadData.url);
-                        } else {
-                            const errorText = await uploadRes.text();
-                            console.error(`Carousel image ${i} upload failed:`, errorText);
-                        }
-                        await new Promise(resolve => setTimeout(resolve, 300));
-                    } catch (err) {
-                        console.error(`Carousel image ${i} upload error:`, err);
-                    }
-                }
-            }
-
-            // Upload PDF if present
-            let instructionsPdfUrl = null;
-            if (pdfFile) {
-                try {
-                    const uploadFormData = new FormData();
-                    uploadFormData.append('file', pdfFile);
-                    uploadFormData.append('type', 'instructions');
-                    uploadFormData.append('raceId', raceId);
-
-                    const uploadRes = await fetch('/api/races/upload', {
-                        method: 'POST',
-                        headers: {
-                            'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
-                        },
-                        body: uploadFormData
-                    });
-
-                    if (uploadRes.ok) {
-                        const uploadData = await uploadRes.json();
-                        instructionsPdfUrl = uploadData.url;
-                        console.log('PDF uploaded:', instructionsPdfUrl);
-                    }
-                } catch (err) {
-                    console.error('PDF upload error:', err);
-                }
-            }
 
             // Extract distances
             const dNames = formData.getAll('distanceName[]');
@@ -2762,82 +1789,17 @@
             const payload = {
                 name: formData.get('raceName'),
                 race_date: formData.get('raceDate'),
-                race_time: formData.get('raceTime'),
                 race_type: formData.get('raceType'),
                 venue: formData.get('venue'),
                 city: formData.get('city'),
                 state: formData.get('state'),
-                tagline: formData.get('tagline'),
-                description: formData.get('description'),
                 registration_url: formData.get('registrationUrl'),
-                youtube_url: formData.get('youtubeUrl'),
                 status: status,
                 is_visible: formData.get('isActive') === 'on',
-                registration_open: formData.get('registrationOpen') === 'on',
                 is_featured: formData.get('isFeatured') === 'on',
                 waitlist_enabled: formData.get('waitlistEnabled') === 'on',
-                // Image & PDF URLs - use file upload URL, then text field URL, then preserve existing
-                hero_image_url: heroImageUrl || formData.get('heroImageUrl') || (editingId ? races.find(r => r.id === editingId)?.hero_image_url : null),
                 thumbnail_url: thumbnailImageUrl || (editingId ? races.find(r => r.id === editingId)?.thumbnail_url : null),
-                logo_url: logoUrl || formData.get('logoUrl') || (editingId ? races.find(r => r.id === editingId)?.logo_url : null),
-                instructions_pdf_url: instructionsPdfUrl || (editingId ? races.find(r => r.id === editingId)?.instructions_pdf_url : null),
-                gallery_images: galleryUrls,
-                hero_carousel_images: carouselUrls,
-                // Course Details
-                terrain: formData.get('terrain'),
-                elevation: formData.get('elevation'),
-                aid_stations: formData.get('aidStations'),
-                parking: formData.get('parking'),
-                packet_pickup: formData.get('packetPickup'),
-                // What's Included (as JSON array)
-                includes: formData.getAll('includes[]'),
-                shirt_sizes: formData.getAll('shirtSizes[]'),
-                // Charity
-                charity_name: formData.get('charityName'),
-                charity_description: formData.get('charityDescription'),
-                charity_percent: parseFloat(formData.get('charityPercent')) || null,
-                // Distances
-                distances: distances,
-                // Pricing Config (to auto-generate tiers)
-                pricing_config: {
-                    earlyBirdDiscount: formData.get('earlyBirdDiscount'),
-                    earlyBirdStart: formData.get('earlyBirdStart'),
-                    earlyBirdEnd: formData.get('earlyBirdEnd')
-                },
-                theme_config: {
-                    primaryColor: formData.get('primaryColor'),
-                    secondaryColor: formData.get('secondaryColor'),
-                    accentColor: formData.get('accentColor'),
-                    backgroundColor: formData.get('backgroundColor'),
-                    fontStyle: formData.get('fontStyle'),
-                    mood: formData.get('mood'),
-                    tagline: document.getElementById('generatedTagline').textContent.replace(/"/g, '')
-                },
-                // Multisport Details
-                multisport_details: {
-                    water_temp_avg: formData.get('waterTemp'),
-                    wetsuit_policy: formData.get('wetsuitPolicy'),
-                    bike_requirements: formData.get('bikeRequirements'),
-                    usat_rules_url: formData.get('usatRules'),
-                    transition_area_notes: formData.get('transitionNotes'),
-                    relay_rules: formData.get('relayRules')
-                },
-                // Nested Repeaters
-                packet_pickup_locations: formData.getAll('pickupName[]').map((name, i) => ({
-                    location_name: name,
-                    pickup_date: formData.getAll('pickupDate[]')[i],
-                    pickup_time: formData.getAll('pickupTime[]')[i],
-                    address: formData.getAll('pickupAddress[]')[i],
-                    notes: formData.getAll('pickupNotes[]')[i]
-                })).filter(loc => loc.location_name),
-                beneficiaries: formData.getAll('beneficiaryName[]').map((name, i) => ({
-                    organization_name: name,
-                    description: formData.getAll('beneficiaryRole[]')[i]
-                })).filter(b => b.organization_name),
-                sponsors: formData.getAll('sponsorName[]').map((name, i) => ({
-                    organization_name: name,
-                    sponsor_type: formData.getAll('sponsorLevel[]')[i]
-                })).filter(s => s.organization_name)
+                distances: distances
             };
 
             try {
@@ -2886,48 +1848,6 @@
             saveRace('active');
         });
 
-        // === YouTube Preview ===
-        function previewYouTube() {
-            const url = document.getElementById('youtubeUrl').value.trim();
-            const previewDiv = document.getElementById('youtubePreview');
-
-            if (!url) {
-                alert('Please enter a YouTube URL');
-                return;
-            }
-
-            const videoId = extractYouTubeId(url);
-
-            if (videoId) {
-                previewDiv.innerHTML = `
-          <iframe 
-            src="https://www.youtube.com/embed/${videoId}" 
-            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-            allowfullscreen>
-          </iframe>
-        `;
-            } else {
-                previewDiv.innerHTML = `
-          <div class="youtube-placeholder" style="color: #ef4444;">
-            <span>⚠️</span>
-            <p>Invalid YouTube URL</p>
-          </div>
-        `;
-            }
-        }
-
-        function extractYouTubeId(url) {
-            const patterns = [
-                /(?:youtube\.com\/watch\?v=|youtu\.be\/|youtube\.com\/embed\/)([^&\n?#]+)/,
-                /youtube\.com\/shorts\/([^&\n?#]+)/
-            ];
-
-            for (const pattern of patterns) {
-                const match = url.match(pattern);
-                if (match) return match[1];
-            }
-            return null;
-        }
 
         // === Image Upload & Preview ===
         function validateImage(file) {
@@ -2947,42 +1867,6 @@
             return true;
         }
 
-        function clearPDF() {
-            const input = document.getElementById('instructionsPdf');
-            const preview = document.getElementById('pdfPreview');
-            const placeholder = document.getElementById('pdfPlaceholder');
-            const uploadArea = document.getElementById('pdfUploadArea');
-            const clearBtn = document.getElementById('pdfClearBtn');
-
-            if (input) input.value = '';
-            if (preview) preview.style.display = 'none';
-            if (placeholder) placeholder.style.display = 'block';
-            if (uploadArea) uploadArea.classList.remove('has-image');
-            if (clearBtn) clearBtn.style.display = 'none';
-        }
-
-        function previewPDF(input) {
-            const preview = document.getElementById('pdfPreview');
-            const placeholder = document.getElementById('pdfPlaceholder');
-            const uploadArea = document.getElementById('pdfUploadArea');
-            const clearBtn = document.getElementById('pdfClearBtn');
-            const filenameLabel = document.getElementById('pdfFilename');
-
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                if (file.type !== 'application/pdf') {
-                    alert('Please select a PDF file');
-                    input.value = '';
-                    return;
-                }
-
-                filenameLabel.textContent = file.name;
-                preview.style.display = 'block';
-                placeholder.style.display = 'none';
-                uploadArea.classList.add('has-image');
-                clearBtn.style.display = 'inline-block';
-            }
-        }
 
         function previewImage(input, previewId) {
             const preview = document.getElementById(previewId);
@@ -3027,213 +1911,7 @@
             if (clearBtn) clearBtn.style.display = 'none';
         }
 
-        // === Gallery Slot Management ===
-        let gallerySlotCounter = 0;
 
-        function addGallerySlot() {
-            const container = document.getElementById('gallerySlots');
-            const slotId = gallerySlotCounter++;
-
-            const slot = document.createElement('div');
-            slot.className = 'gallery-slot';
-            slot.id = `gallerySlot-${slotId}`;
-            slot.style.cssText = 'display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding: 15px; background: #333; border-radius: 8px; border: 1px solid #444;';
-
-            slot.innerHTML = `
-                <div class="gallery-slot-preview" style="width: 80px; height: 80px; background: #222; border-radius: 6px; overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; color: #666;">
-                    <span id="galleryPreview-${slotId}-placeholder">📷</span>
-                    <img id="galleryPreview-${slotId}" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                </div>
-                <div style="flex: 1;">
-                    <input type="file" id="galleryFile-${slotId}" accept="image/*" onchange="previewGalleryImage(this, ${slotId})" style="width: 100%;">
-                </div>
-                <button type="button" onclick="removeGallerySlot(${slotId})" style="background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px;">✕</button>
-            `;
-
-            container.appendChild(slot);
-        }
-
-        function addGallerySlotWithImage(existingUrl, index) {
-            const container = document.getElementById('gallerySlots');
-            const slotId = gallerySlotCounter++;
-
-            const slot = document.createElement('div');
-            slot.className = 'gallery-slot';
-            slot.id = `gallerySlot-${slotId}`;
-            slot.dataset.existingUrl = existingUrl;
-            slot.style.cssText = 'display: flex; align-items: center; gap: 15px; margin-bottom: 15px; padding: 15px; background: #333; border-radius: 8px; border: 1px solid #444;';
-
-            slot.innerHTML = `
-                <div class="gallery-slot-preview" style="width: 80px; height: 80px; background: #222; border-radius: 6px; overflow: hidden; flex-shrink: 0;">
-                    <img id="galleryPreview-${slotId}" src="${existingUrl}" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <div style="flex: 1;">
-                    <input type="file" id="galleryFile-${slotId}" accept="image/*" onchange="previewGalleryImage(this, ${slotId})" style="width: 100%;">
-                    <small style="color: #888; display: block; margin-top: 5px;">Current image saved. Select new file to replace.</small>
-                </div>
-                <button type="button" onclick="removeGallerySlot(${slotId})" style="background: #ef4444; color: white; border: none; padding: 8px 12px; border-radius: 6px; cursor: pointer; font-size: 14px;">✕</button>
-            `;
-
-            container.appendChild(slot);
-        }
-
-        function removeGallerySlot(slotId) {
-            const slot = document.getElementById(`gallerySlot-${slotId}`);
-            if (slot) {
-                slot.remove();
-            }
-            // Add empty slot if none left
-            if (document.querySelectorAll('.gallery-slot').length === 0) {
-                addGallerySlot();
-            }
-        }
-
-        function previewGalleryImage(input, slotId) {
-            const preview = document.getElementById(`galleryPreview-${slotId}`);
-            const placeholder = document.getElementById(`galleryPreview-${slotId}-placeholder`);
-            const slot = document.getElementById(`gallerySlot-${slotId}`);
-
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                if (!validateImage(file)) {
-                    input.value = '';
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    if (placeholder) placeholder.style.display = 'none';
-                    // Clear existing URL since we're replacing
-                    delete slot.dataset.existingUrl;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        // === Carousel Slot Management ===
-        let carouselSlotCounter = 0;
-
-        function addCarouselSlot() {
-            const container = document.getElementById('carouselSlots');
-            const slotId = carouselSlotCounter++;
-
-            const slot = document.createElement('div');
-            slot.className = 'carousel-slot';
-            slot.id = `carouselSlot-${slotId}`;
-            slot.style.cssText = 'display: flex; flex-direction: column; gap: 10px; padding: 15px; background: #1e293b; border-radius: 12px; border: 1px solid #334155; position: relative;';
-
-            slot.innerHTML = `
-                <div style="width: 100%; aspect-ratio: 16/9; background: #0f172a; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #475569; position: relative;">
-                    <span id="carouselPreview-${slotId}-placeholder" style="font-size: 32px;">🖼️</span>
-                    <img id="carouselPreview-${slotId}" style="width: 100%; height: 100%; object-fit: cover; display: none;">
-                </div>
-                <input type="file" id="carouselFile-${slotId}" accept="image/*" onchange="previewCarouselImage(this, ${slotId})" style="font-size: 12px; color: #94a3b8;">
-                <button type="button" onclick="removeCarouselSlot(${slotId})" style="position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; width: 24px; height: 24px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; z-index: 10;">✕</button>
-            `;
-
-            container.appendChild(slot);
-        }
-
-        function addCarouselSlotWithImage(existingUrl) {
-            const container = document.getElementById('carouselSlots');
-            const slotId = carouselSlotCounter++;
-
-            const slot = document.createElement('div');
-            slot.className = 'carousel-slot';
-            slot.id = `carouselSlot-${slotId}`;
-            slot.dataset.existingUrl = existingUrl;
-            slot.style.cssText = 'display: flex; flex-direction: column; gap: 10px; padding: 15px; background: #1e293b; border-radius: 12px; border: 1px solid #334155; position: relative;';
-
-            slot.innerHTML = `
-                <div style="width: 100%; aspect-ratio: 16/9; background: #0f172a; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; position: relative;">
-                    <img id="carouselPreview-${slotId}" src="${existingUrl}" style="width: 100%; height: 100%; object-fit: cover;">
-                </div>
-                <input type="file" id="carouselFile-${slotId}" accept="image/*" onchange="previewCarouselImage(this, ${slotId})" style="font-size: 12px; color: #94a3b8;">
-                <small style="color: #64748b; font-size: 11px;">Current image saved. Upload new to replace.</small>
-                <button type="button" onclick="removeCarouselSlot(${slotId})" style="position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; width: 24px; height: 24px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; z-index: 10;">✕</button>
-            `;
-
-            container.appendChild(slot);
-        }
-
-        function removeCarouselSlot(slotId) {
-            const slot = document.getElementById(`carouselSlot-${slotId}`);
-            if (slot) slot.remove();
-        }
-
-        function previewCarouselImage(input, slotId) {
-            const preview = document.getElementById(`carouselPreview-${slotId}`);
-            const placeholder = document.getElementById(`carouselPreview-${slotId}-placeholder`);
-            const slot = document.getElementById(`carouselSlot-${slotId}`);
-
-            if (input.files && input.files[0]) {
-                const file = input.files[0];
-                if (!validateImage(file)) {
-                    input.value = '';
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    preview.src = e.target.result;
-                    preview.style.display = 'block';
-                    if (placeholder) placeholder.style.display = 'none';
-                    // Clear existing URL since we're replacing
-                    delete slot.dataset.existingUrl;
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function handleBulkCarouselUpload(input) {
-            if (!input.files || input.files.length === 0) return;
-
-            const files = Array.from(input.files);
-            files.forEach(file => {
-                if (!validateImage(file)) return;
-
-                const slotId = carouselSlotCounter++;
-                const container = document.getElementById('carouselSlots');
-
-                const slot = document.createElement('div');
-                slot.className = 'carousel-slot';
-                slot.id = `carouselSlot-${slotId}`;
-                slot.style.cssText = 'display: flex; flex-direction: column; gap: 10px; padding: 15px; background: #1e293b; border-radius: 12px; border: 1px solid #334155; position: relative;';
-
-                slot.innerHTML = `
-                    <div style="width: 100%; aspect-ratio: 16/9; background: #0f172a; border-radius: 8px; overflow: hidden; display: flex; align-items: center; justify-content: center; color: #475569; position: relative;">
-                        <span id="carouselPreview-${slotId}-placeholder" style="font-size: 32px; display: none;">🖼️</span>
-                        <img id="carouselPreview-${slotId}" style="width: 100%; height: 100%; object-fit: cover; display: block;">
-                    </div>
-                    <input type="file" id="carouselFile-${slotId}" accept="image/*" onchange="previewCarouselImage(this, ${slotId})" style="font-size: 12px; color: #94a3b8;">
-                    <button type="button" onclick="removeCarouselSlot(${slotId})" style="position: absolute; top: 10px; right: 10px; background: #ef4444; color: white; border: none; width: 24px; height: 24px; border-radius: 12px; cursor: pointer; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: bold; z-index: 10;">✕</button>
-                `;
-
-                container.appendChild(slot);
-
-                // Set file in the new slot's input and preview it
-                const slotInput = slot.querySelector('input[type="file"]');
-                const slotPreview = slot.querySelector('img');
-
-                // We can't programmatically set a FileList, but we can set the image source
-                const reader = new FileReader();
-                reader.onload = (e) => {
-                    slotPreview.src = e.target.result;
-                };
-                reader.readAsDataURL(file);
-
-                // We'll store the file on the input element for saveRace to pick up
-                // Creating a DataTransfer to set the file on the input
-                const dt = new DataTransfer();
-                dt.items.add(file);
-                slotInput.files = dt.files;
-            });
-
-            // Clear the bulk input so it can be used again for same files if needed
-            input.value = '';
-        }
 
         // Initialize with empty slots if needed
         document.addEventListener('DOMContentLoaded', function () {
@@ -3247,37 +1925,6 @@
         });
 
         // === Drag and Drop ===
-        ['hero', 'thumbnail', 'logo', 'gallery'].forEach(type => {
-            const uploadArea = document.getElementById(type + 'UploadArea');
-
-            if (uploadArea) {
-                uploadArea.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    uploadArea.classList.add('dragover');
-                });
-
-                uploadArea.addEventListener('dragleave', () => {
-                    uploadArea.classList.remove('dragover');
-                });
-
-                uploadArea.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    uploadArea.classList.remove('dragover');
-
-                    const files = e.dataTransfer.files;
-                    if (files.length > 0 && files[0].type.startsWith('image/')) {
-                        const input = document.getElementById(type + 'Image' + (type === 'gallery' ? 's' : ''));
-                        input.files = files;
-
-                        if (type === 'gallery') {
-                            previewMultipleImages(input, 'galleryPreviewGrid');
-                        } else {
-                            previewImage(input, type + 'Preview');
-                        }
-                    }
-                });
-            }
-        });
     </script>
 
 </body>

@@ -2021,6 +2021,10 @@
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         }
 
+        function showRaceDetails(id) {
+            window.location.href = `pages/events/race-detail.html?id=${id}`;
+        }
+
         // Nav scroll effect
         window.addEventListener('scroll', function () {
             var nav = document.getElementById('navbar');
@@ -2117,8 +2121,8 @@
             const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
             const registerButton = race.registration_url && race.registration_open
-                ? `<a href="${race.registration_url}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 13px;">Register Now</a>`
-                : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 13px; color: #666;">Coming Soon</span>`;
+                ? `<a href="${race.registration_url}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; font-weight: 800; width: 100%; border-radius: 6px;">Register Now</a>`
+                : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; color: #666; width: 100%; border-radius: 6px;">Coming Soon</span>`;
 
             const card = document.createElement('div');
             card.className = 'event-card dynamic-db-card loading';
@@ -2126,18 +2130,22 @@
             card.dataset.dateSort = race.race_date;
 
             card.innerHTML = `
-                <div class="card-img-container">
+                <div class="card-img-container" onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
                     <img src="${cardImage}" alt="${race.name}" loading="lazy" class="loading" onload="this.classList.remove('loading')">
                     <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
                 </div>
-                <div class="card-body">
-                    <span class="card-date">${dateStr}</span>
-                    <h3 class="card-title">${race.name || 'New Race'}</h3>
-                    <div class="card-meta">
-                        <span><i class="fas fa-route"></i> ${distanceText}</span>
-                        <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
+                <div class="card-body" style="display: flex; flex-direction: column; height: auto;">
+                    <div onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
+                        <span class="card-date">${dateStr}</span>
+                        <h3 class="card-title">${race.name || 'New Race'}</h3>
+                        <div class="card-meta">
+                            <span><i class="fas fa-route"></i> ${distanceText}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
+                        </div>
                     </div>
-                    ${registerButton}
+                    <div style="margin-top: auto; padding-top: 10px;">
+                        ${registerButton}
+                    </div>
                 </div>
             `;
 

@@ -829,6 +829,10 @@
             document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
         }
 
+        function showRaceDetails(id) {
+            window.location.href = `events/race-detail.html?id=${id}`;
+        }
+
         // Format date for display
         function formatDate(dateString) {
             if (!dateString) return 'TBD';
@@ -862,10 +866,10 @@
 
             let registerButton = '';
             if (regUrl && isRegOpen) {
-                registerButton = `<a href="${regUrl}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; border: none; cursor: pointer;">Register Now</a>`;
+                registerButton = `<a href="${regUrl}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; border: none; cursor: pointer; width: 100%; border-radius: 6px; font-weight: 800;">Register Now</a>`;
             } else {
                 const label = isRegOpen ? 'View Details' : 'Coming Soon';
-                registerButton = `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; color: #666; border: none;">${label}</span>`;
+                registerButton = `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; color: #666; border: none; width: 100%; border-radius: 6px;">${label}</span>`;
             }
 
             // Pricing Logic
@@ -916,17 +920,18 @@
                     <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
                     ${race.is_featured ? '<span style="position:absolute;top:15px;right:15px;background:gold;color:#333;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;">⭐ FEATURED</span>' : ''}
                 </div>
-                <div class="card-body">
-                    <span class="card-date">${formatDate(race.race_date)}</span>
-                    <h3 class="card-title">${race.name || 'New Race'}</h3>
-                    ${timerHtml}
-                    ${pricingHtml}
-                    <div class="card-meta">
-                        <span><i class="fas fa-route"></i> ${distanceText}</span>
-                        <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
+                <div class="card-body" style="display: flex; flex-direction: column; height: auto;">
+                    <div onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
+                        <span class="card-date">${formatDate(race.race_date)}</span>
+                        <h3 class="card-title">${race.name || 'New Race'}</h3>
+                        ${timerHtml}
+                        ${pricingHtml}
+                        <div class="card-meta">
+                            <span><i class="fas fa-route"></i> ${distanceText}</span>
+                            <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
+                        </div>
                     </div>
-                    <div class="card-actions" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto;">
-                        <button onclick="showRaceDetails('${race.id}')" class="card-cta" style="background: transparent; color: var(--brand-blue); border: 2px solid var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; cursor: pointer;">View Details</button>
+                    <div class="card-actions" style="margin-top: auto; padding-top: 10px;">
                         ${registerButton}
                     </div>
                 </div>
