@@ -517,6 +517,136 @@
                 font-size: 12px;
             }
         }
+
+        /* RACE CARD PERFORMANCE OPTIMIZATIONS */
+        .event-card {
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s ease-out;
+            opacity: 1;
+        }
+
+        .event-card.loading {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .event-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skeleton {
+            background: #f1f5f9;
+            background: linear-gradient(110deg, #f1f5f9 8%, #e2e8f0 18%, #f1f5f9 33%);
+            background-size: 200% 100%;
+            animation: skeleton-shine 1.5s linear infinite;
+            border-radius: 4px;
+        }
+
+        @keyframes skeleton-shine {
+            to {
+                background-position-x: -200%;
+            }
+        }
+
+        .skeleton-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+        }
+
+        .skeleton-img {
+            height: 200px;
+            border-radius: 0;
+        }
+
+        .skeleton-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skeleton-title {
+            height: 24px;
+            width: 80%;
+        }
+
+        .skeleton-date {
+            height: 16px;
+            width: 40%;
+        }
+
+        .skeleton-meta {
+            height: 16px;
+            width: 60%;
+        }
+
+        .skeleton-btn {
+            height: 44px;
+            width: 100%;
+            margin-top: auto;
+            border-radius: 6px;
+        }
+
+        .card-img-container {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background: #e2e8f0;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-img-container img.loading {
+            opacity: 0;
+        }
+
+        /* REFACTORED STYLES */
+        .dynamic-races-banner {
+            background: linear-gradient(135deg, #E31837 0%, #000 100%) !important;
+            color: white !important;
+        }
+
+        .banner-header {
+            color: white !important;
+        }
+
+        .banner-title {
+            color: white !important;
+        }
+
+        .banner-subtitle {
+            color: rgba(255, 255, 255, 0.8) !important;
+        }
+
+        .q-alt {
+            background: var(--grey) !important;
+        }
+
+        .menu-cta {
+            margin-top: 20px !important;
+        }
+
+        .staff-portal {
+            margin-top: 20px;
+            opacity: 0.5;
+            font-size: 11px;
+        }
+
+        .staff-portal a {
+            color: #888;
+            text-decoration: none;
+        }
     </style>
 </head>
 
@@ -552,7 +682,7 @@
         <a href="locations.html">Travel Guide</a>
         <a href="partners.html">Sponsors</a>
         <a href="about.html">About Us</a>
-        <a href="events.html" class="nav-btn" style="margin-top: 20px;">Find Your Race</a>
+        <a href="events.html" class="nav-btn menu-cta">Find Your Race</a>
     </div>
 
     <div class="page-header">
@@ -595,11 +725,10 @@
     </div>
 
     <!-- Dynamic Races from Admin Dashboard -->
-    <section class="section" id="dynamicRacesSection"
-        style="display: none; background: linear-gradient(135deg, #E31837 0%, #000 100%); color: white;">
-        <div class="section-header" style="color: white;">
-            <h2 style="color: white;">✨ New Events</h2>
-            <p style="color: rgba(255,255,255,0.8);">Recently added races from our team</p>
+    <section class="section dynamic-races-banner" id="dynamicRacesSection">
+        <div class="section-header banner-header">
+            <h2 class="banner-title">✨ New Events</h2>
+            <p class="banner-subtitle">Recently added races from our team</p>
         </div>
         <div class="event-grid" id="dynamicRacesGrid">
             <!-- Races from database will be loaded here -->
@@ -622,7 +751,7 @@
         </div>
     </section>
 
-    <section class="section calendar-quarter" id="q2-section" style="background: var(--grey);">
+    <section class="section calendar-quarter" id="q2-section" class="q-alt">
         <div class="section-header">
             <h2>April - June</h2>
             <p>Spring into action with trail runs and triathlons</p>
@@ -642,7 +771,7 @@
         </div>
     </section>
 
-    <section class="section calendar-quarter" id="q4-section" style="background: var(--grey);">
+    <section class="section calendar-quarter" id="q4-section" class="q-alt">
         <div class="section-header">
             <h2>October - December</h2>
             <p>Finish the year with fall favorites and holiday races</p>
@@ -676,14 +805,18 @@
             <a href="about.html">About</a>
         </div>
         <div class="footer-social">
-            <a href="https://www.facebook.com/whyracingevents/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/why_racing_events/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://x.com/whyracingevents" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener"
+                title="Facebook - Why Racing Events"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
+                title="Instagram - Why Racing Events"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/whyracingevents" target="_blank" rel="noopener"
+                title="X (Twitter) - Why Racing Events"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener"
+                title="YouTube - Why Racing Events"><i class="fab fa-youtube"></i></a>
         </div>
         <div class="footer-copy">&copy; 2025 Why Racing Events Inc. | La Center, WA | (360) 314-4682</div>
-        <div style="margin-top: 20px; opacity: 0.5; font-size: 11px;">
-            <a href="admin/races.html" style="color: #888; text-decoration: none;">Staff Portal</a>
+        <div class="staff-portal">
+            <a href="admin/races.html">Staff Portal</a>
         </div>
     </footer>
 
@@ -711,13 +844,11 @@
                 const name = (d.name || '').toLowerCase();
                 if (name.includes('5k')) return '5k';
                 if (name.includes('10k')) return '10k';
-                if (name.includes('15k')) return '5k 10k'; // 15K shows in both
                 if (name.includes('half marathon')) return 'half';
-                if (name.includes('marathon') && !name.includes('half')) return 'marathon';
-                if (name.includes('ultra') || name.includes('100') || name.includes('50k')) return 'ultra';
+                if (name.includes('marathon')) return 'marathon';
+                if (name.includes('ultra')) return 'ultra';
                 if (name.includes('trail')) return 'trail';
-                if (name.includes('triathlon') || name.includes('ironman')) return 'triathlon';
-                if (name.includes('kids') || name.includes('1 mile')) return '5k'; // Kids in 5K filter
+                if (name.includes('triathlon')) return 'triathlon';
                 return '';
             }).filter(k => k).join(' ');
 
@@ -725,31 +856,28 @@
             const raceType = race.race_type || 'race';
             const typeLabels = { run: 'Road Race', running: 'Road Race', trail: 'Trail', triathlon: 'Triathlon', ultra: 'Ultra', fun_run: 'Fun Run', kids: 'Kids Race', virtual: 'Virtual' };
 
-            // Handle registration - check both URL and registration_open flag
+            // Handle registration
             const regUrl = race.registration_url;
-            const hasRegUrl = regUrl && regUrl.trim().length > 0;
             const isRegOpen = race.registration_open;
 
-            // Determine button text and action
-            let buttonText = 'Coming Soon';
-            let clickAction = `showRaceDetails('${race.id}')`;
-
-            if (hasRegUrl) {
-                buttonText = 'Register Now';
-            } else if (isRegOpen) {
-                buttonText = 'View Details';
+            let registerButton = '';
+            if (regUrl && isRegOpen) {
+                registerButton = `<a href="${regUrl}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; border: none; cursor: pointer;">Register Now</a>`;
+            } else {
+                const label = isRegOpen ? 'View Details' : 'Coming Soon';
+                registerButton = `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; color: #666; border: none;">${label}</span>`;
             }
 
             // Pricing Logic
             let pricingHtml = '';
             let timerHtml = '';
+            const today = new Date();
 
             if (race.pricing_tiers && race.pricing_tiers.length > 0) {
-                const today = new Date();
                 const activeTiers = race.pricing_tiers.filter(t => {
                     const start = t.start_date ? new Date(t.start_date) : new Date('2000-01-01');
                     let end = t.end_date ? new Date(t.end_date) : new Date('2099-12-31');
-                    end.setUTCHours(23, 59, 59, 999); // Include full end day
+                    end.setUTCHours(23, 59, 59, 999);
                     return today >= start && today <= end;
                 });
 
@@ -757,28 +885,18 @@
                     activeTiers.sort((a, b) => parseFloat(a.price) - parseFloat(b.price));
                     const bestTier = activeTiers[0];
                     const currentPrice = parseFloat(bestTier.price);
-
                     const distanceTiers = race.pricing_tiers.filter(t => t.distance_id === bestTier.distance_id);
                     const maxPrice = Math.max(...distanceTiers.map(t => parseFloat(t.price)));
                     const savings = maxPrice - currentPrice;
 
                     if (savings > 0) {
-                        pricingHtml = `
-                            <div class="card-pricing">
-                                <div>
-                                    <span class="price-now">$${currentPrice}</span>
-                                    <span class="price-was">$${maxPrice}</span>
-                                </div>
-                                <span class="save">SAVE $${savings.toFixed(0)}</span>
-                            </div>`;
+                        pricingHtml = `<div class="card-pricing"><div><span class="price-now">$${currentPrice}</span><span class="price-was">$${maxPrice}</span></div><span class="save">SAVE $${savings.toFixed(0)}</span></div>`;
                     } else {
                         pricingHtml = `<div class="card-pricing"><span class="price-now">$${currentPrice}</span></div>`;
                     }
 
                     if (bestTier.end_date) {
-                        const deadline = new Date(bestTier.end_date);
-                        const diffTime = deadline - today;
-                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                        const diffDays = Math.ceil((new Date(bestTier.end_date) - today) / (1000 * 60 * 60 * 24));
                         if (diffDays > 0 && diffDays <= 30) {
                             timerHtml = `<div style="font-size: 11px; color: #E31837; font-weight: bold; margin-bottom: 5px;"><i class="fas fa-clock"></i> Price increases in ${diffDays} days!</div>`;
                         }
@@ -786,149 +904,103 @@
                 }
             }
 
-            // Fallback to base_price if no tiers found
-            if (!pricingHtml && distances.length > 0) {
-                const validDistances = distances.filter(d => parseFloat(d.base_price) > 0);
-                if (validDistances.length > 0) {
-                    // Find cheapest distance
-                    validDistances.sort((a, b) => parseFloat(a.base_price) - parseFloat(b.base_price));
-                    const cheapest = validDistances[0];
-                    const minPrice = parseFloat(cheapest.base_price);
+            const card = document.createElement('div');
+            card.className = 'event-card dynamic-card loading';
+            card.dataset.distance = filterKeywords;
+            card.dataset.raceId = race.id;
+            card.dataset.dateSort = race.race_date;
 
-                    // Use standard_price if available
-                    let originalPrice = minPrice + 15;
-                    if (cheapest.standard_price && parseFloat(cheapest.standard_price) > minPrice) {
-                        originalPrice = parseFloat(cheapest.standard_price);
-                    }
-
-                    pricingHtml = `
-                        <div class="card-pricing">
-                            <div>
-                                <span class="price-now">$${minPrice}</span>
-                                <span class="price-was">$${originalPrice}</span>
-                            </div>
-                            <span class="save">SAVE $${originalPrice - minPrice}</span>
-                        </div>
-                    `;
-                    timerHtml = `<div style="font-size: 11px; color: #E31837; font-weight: bold; margin-bottom: 5px;"><i class="fas fa-bolt"></i> Lock in Early-Bird Price!</div>`;
-                }
-            }
-
-            return `
-                <div class="event-card dynamic-card" data-distance="${filterKeywords}" data-race-id="${race.id}">
-                    <div class="card-img" style="background-image: url('${cardImage}')" onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
-                        <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
-                        ${race.is_featured ? '<span style="position:absolute;top:15px;right:15px;background:gold;color:#333;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;">⭐ FEATURED</span>' : ''}
+            card.innerHTML = `
+                <div class="card-img-container" onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
+                    <img src="${cardImage}" alt="${race.name}" loading="lazy" class="loading" onload="this.classList.remove('loading')">
+                    <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
+                    ${race.is_featured ? '<span style="position:absolute;top:15px;right:15px;background:gold;color:#333;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;">⭐ FEATURED</span>' : ''}
+                </div>
+                <div class="card-body">
+                    <span class="card-date">${formatDate(race.race_date)}</span>
+                    <h3 class="card-title">${race.name || 'New Race'}</h3>
+                    ${timerHtml}
+                    ${pricingHtml}
+                    <div class="card-meta">
+                        <span><i class="fas fa-route"></i> ${distanceText}</span>
+                        <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
                     </div>
-                    <div class="card-body">
-                        <span class="card-date">${formatDate(race.race_date)}</span>
-                        <h3 class="card-title">${race.name || 'New Race'}</h3>
-                        
-                        ${timerHtml}
-                        ${pricingHtml}
-                        
-                        <div class="card-meta">
-                            <span><i class="fas fa-route"></i> ${distanceText}</span>
-                            <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
-                        </div>
-                        <div class="card-actions" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto;">
-                            <button onclick="showRaceDetails('${race.id}')" class="card-cta" style="background: transparent; color: var(--brand-blue); border: 2px solid var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; cursor: pointer;">View Details</button>
-                            ${race.registration_url && race.registration_open
-                    ? `<a href="${race.registration_url}" target="_blank" class="card-cta" style="background: var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; border: none; cursor: pointer;">Register Now</a>`
-                    : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; color: #666; border: none;">Closed</span>`
-                }
-                        </div>
+                    <div class="card-actions" style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: auto;">
+                        <button onclick="showRaceDetails('${race.id}')" class="card-cta" style="background: transparent; color: var(--brand-blue); border: 2px solid var(--brand-blue); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 10px; font-size: 12px; cursor: pointer;">View Details</button>
+                        ${registerButton}
                     </div>
                 </div>
             `;
+
+            setTimeout(() => card.classList.add('fade-in'), 50);
+            return card;
         }
 
-        // Store races globally for detail view
-        let allDbRaces = [];
+        // Render function for event grids
+        function renderRacesToGrids(races, grids) {
+            const visibleRaces = races.filter(r => r.is_visible && r.status === 'active');
+            if (visibleRaces.length === 0) return;
 
-        // Show race details - navigate to detail page
-        function showRaceDetails(raceId) {
-            // Navigate to the race detail page
-            window.location.href = `events/race-detail.html?id=${raceId}`;
-        }
+            // Clear previous content
+            Object.values(grids).forEach(grid => { if (grid) grid.innerHTML = ''; });
 
-        // Get quarter section based on month
-        function getQuarterForMonth(month) {
-            if (month <= 3) return 'January - March';
-            if (month <= 6) return 'April - June';
-            if (month <= 9) return 'July - September';
-            return 'October - December';
+            visibleRaces.forEach(race => {
+                if (!race.race_date) return;
+                const month = new Date(race.race_date + 'T00:00:00').getMonth() + 1;
+                const quarter = month <= 3 ? 'Q1' : month <= 6 ? 'Q2' : month <= 9 ? 'Q3' : 'Q4';
+                if (grids[quarter]) grids[quarter].appendChild(createRaceCard(race));
+            });
+
+            // Sort by date
+            Object.values(grids).forEach(grid => {
+                if (!grid) return;
+                const cards = Array.from(grid.querySelectorAll('.event-card'));
+                cards.sort((a, b) => (a.dataset.dateSort || '').localeCompare(b.dataset.dateSort || ''));
+                cards.forEach(card => grid.appendChild(card));
+            });
         }
 
         // Load races from database
         async function loadDynamicRaces() {
+            const grids = {
+                'Q1': document.querySelector('#q1-section .event-grid'),
+                'Q2': document.querySelector('#q2-section .event-grid'),
+                'Q3': document.querySelector('#q3-section .event-grid'),
+                'Q4': document.querySelector('#q4-section .event-grid')
+            };
+
+            // Show skeletons
+            const skeletonHtml = Array(3).fill(0).map(() => `
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-img"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton skeleton-date"></div>
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-meta"></div>
+                        <div class="skeleton skeleton-btn"></div>
+                    </div>
+                </div>
+            `).join('');
+            Object.values(grids).forEach(grid => { if (grid) grid.innerHTML = skeletonHtml; });
+
+            // 1. Try Cache
+            const cached = localStorage.getItem('why_races_cache');
+            if (cached) {
+                try {
+                    renderRacesToGrids(JSON.parse(cached), grids);
+                } catch (e) { localStorage.removeItem('why_races_cache'); }
+            }
+
+            // 2. Fetch Fresh
             try {
-                console.log('Fetching races...');
                 const response = await fetch('/api/races');
-                if (!response.ok) throw new Error('Failed to load: ' + response.status);
-
-                const races = await response.json();
-                console.log('Races fetched:', races.length);
-
-                // Filter for active and visible
-                const visibleRaces = races.filter(r => r.is_visible && r.status === 'active');
-                console.log('Visible active races:', visibleRaces.length);
-
-                if (visibleRaces.length > 0) {
-                    // Map quarters to specific section IDs
-                    const grids = {
-                        'Q1': document.querySelector('#q1-section .event-grid'),
-                        'Q2': document.querySelector('#q2-section .event-grid'),
-                        'Q3': document.querySelector('#q3-section .event-grid'),
-                        'Q4': document.querySelector('#q4-section .event-grid')
-                    };
-
-                    visibleRaces.forEach(race => {
-                        if (!race.race_date) return;
-
-                        const date = new Date(race.race_date + 'T00:00:00');
-                        const month = date.getMonth() + 1;
-
-                        // Simple quarter logic
-                        let quarter = 'Q4';
-                        if (month <= 3) quarter = 'Q1';
-                        else if (month <= 6) quarter = 'Q2';
-                        else if (month <= 9) quarter = 'Q3';
-
-                        const grid = grids[quarter];
-
-                        if (grid) {
-                            const cardHtml = createRaceCard(race);
-                            const tempDiv = document.createElement('div');
-                            tempDiv.innerHTML = cardHtml.trim();
-                            const card = tempDiv.firstChild;
-                            // Add date for sorting
-                            card.dataset.dateSort = race.race_date;
-                            grid.appendChild(card);
-                        } else {
-                            console.warn('No grid found for quarter:', quarter);
-                        }
-                    });
-
-                    // Sort each grid
-                    Object.values(grids).forEach(grid => {
-                        if (!grid) return;
-                        const cards = Array.from(grid.querySelectorAll('.event-card'));
-                        cards.sort((a, b) => {
-                            const dateA = a.dataset.dateSort || '9999-12-31';
-                            const dateB = b.dataset.dateSort || '9999-12-31';
-                            return dateA.localeCompare(dateB);
-                        });
-                        cards.forEach(card => grid.appendChild(card));
-                    });
-
-                    console.log('Loaded and sorted races successfully');
-                } else {
-                    console.log('No visible active races found in database');
+                if (response.ok) {
+                    const races = await response.json();
+                    localStorage.setItem('why_races_cache', JSON.stringify(races));
+                    renderRacesToGrids(races, grids);
                 }
             } catch (error) {
-                console.error('No dynamic races loaded:', error);
-                // alert('Error loading races: ' + error.message);
+                console.error('API Error:', error);
             }
         }
 
@@ -954,11 +1026,9 @@
 
                         if (filter === 'all' || distances.split(' ').includes(filter)) {
                             card.classList.remove('hidden');
-                            card.style.display = '';
                             visibleCount++;
                         } else {
                             card.classList.add('hidden');
-                            card.style.display = 'none';
                         }
                     });
 
@@ -970,7 +1040,8 @@
                         var grid = section.querySelector('.event-grid');
                         if (grid) {
                             var visibleCards = grid.querySelectorAll('.event-card:not(.hidden)');
-                            section.style.display = visibleCards.length === 0 ? 'none' : '';
+                            if (visibleCards.length === 0) section.classList.add('hidden');
+                            else section.classList.remove('hidden');
                         }
                     });
 
@@ -994,14 +1065,18 @@
             <a href="about.html">About Us</a>
         </div>
         <div class="footer-social">
-            <a href="https://www.facebook.com/whyracingevents/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/why_racing_events/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://x.com/whyracingevents" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener"
+                title="Facebook - Why Racing Events"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
+                title="Instagram - Why Racing Events"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/whyracingevents" target="_blank" rel="noopener"
+                title="X (Twitter) - Why Racing Events"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener"
+                title="YouTube - Why Racing Events"><i class="fab fa-youtube"></i></a>
         </div>
         <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
-        <div style="margin-top: 20px; opacity: 0.5; font-size: 11px;">
-            <a href="admin/races.html" style="color: grey; text-decoration: none;">Staff Portal</a>
+        <div class="staff-portal">
+            <a href="admin/races.html">Staff Portal</a>
         </div>
     </footer>
 

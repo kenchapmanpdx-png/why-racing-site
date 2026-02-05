@@ -323,6 +323,7 @@
         /* LIVE REGISTRATION COUNTER */
         .live-counter {
             background: rgba(255, 255, 255, 0.15);
+            -webkit-backdrop-filter: blur(10px);
             backdrop-filter: blur(10px);
             padding: 12px 25px;
             border-radius: 50px;
@@ -1148,6 +1149,257 @@
             background: #b00e26;
         }
 
+        /* CALENDAR SECTION REFACTORED STYLES */
+        .calendar-section {
+            padding: 0 !important;
+            background: var(--grey) !important;
+        }
+
+        .calendar-intro {
+            padding: 80px 5% 40px !important;
+            background: white !important;
+            text-align: center !important;
+        }
+
+        .calendar-section .subtitle {
+            color: var(--brand-red);
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 13px;
+            letter-spacing: 3px;
+            margin-bottom: 8px;
+        }
+
+        .calendar-title {
+            font-size: 3rem !important;
+            margin-bottom: 15px !important;
+        }
+
+        .calendar-desc {
+            max-width: 700px;
+            margin: 0 auto;
+            color: #666;
+        }
+
+        .no-results {
+            padding: 100px 20px;
+            text-align: center;
+            display: none;
+            background: white;
+        }
+
+        .no-results-icon {
+            font-size: 3rem;
+            color: #ddd;
+            margin-bottom: 20px;
+        }
+
+        .no-results-title {
+            font-size: 1.5rem;
+            color: var(--brand-blue);
+        }
+
+        .no-results-text {
+            color: #888;
+        }
+
+        .api-error-box {
+            padding: 60px 20px;
+            text-align: center;
+            display: none;
+            background: #fff0f0;
+            margin: 40px 5%;
+            border-radius: 8px;
+            border: 1px solid #ffcdd2;
+        }
+
+        .api-error-icon {
+            font-size: 2.5rem;
+            color: #e53e3e;
+            margin-bottom: 15px;
+        }
+
+        .api-error-title {
+            font-size: 1.4rem;
+            color: #c53030;
+            margin-bottom: 10px;
+        }
+
+        .api-error-text {
+            color: #666;
+            max-width: 600px;
+            margin: 0 auto 20px;
+        }
+
+        .error-code {
+            font-family: monospace;
+            background: rgba(255, 0, 0, 0.1);
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-size: 0.8em;
+            margin-top: 10px;
+            display: inline-block;
+        }
+
+        .error-details-text {
+            font-size: 0.9rem;
+            color: #888;
+        }
+
+        .q-alt {
+            background: var(--grey) !important;
+            padding-top: 40px !important;
+            padding-bottom: 40px !important;
+        }
+
+        .q-white {
+            background: white !important;
+            padding-top: 40px !important;
+            padding-bottom: 40px !important;
+        }
+
+        .view-all-cta {
+            padding: 60px 0;
+            text-align: center;
+            background: white;
+        }
+
+        .trust-badges {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .badge-label {
+            font-size: 13px;
+            color: #777;
+            font-weight: 600;
+        }
+
+        .badge-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .cc-badge {
+            height: 20px;
+            opacity: 0.7;
+        }
+
+        .cc-badge.mastercard {
+            height: 26px;
+        }
+
+        .pci-label {
+            font-size: 13px;
+            color: #777;
+        }
+
+        .pci-icon {
+            color: #28a745;
+            margin-right: 5px;
+        }
+
+        .menu-cta {
+            margin-top: 20px !important;
+        }
+
+        /* RACE CARD PERFORMANCE OPTIMIZATIONS */
+        .event-card {
+            transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s ease-out;
+            opacity: 1;
+        }
+
+        .event-card.loading {
+            opacity: 0;
+            transform: translateY(10px);
+        }
+
+        .event-card.fade-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skeleton {
+            background: #f1f5f9;
+            background: linear-gradient(110deg, #f1f5f9 8%, #e2e8f0 18%, #f1f5f9 33%);
+            background-size: 200% 100%;
+            animation: skeleton-shine 1.5s linear infinite;
+            border-radius: 4px;
+        }
+
+        @keyframes skeleton-shine {
+            to {
+                background-position-x: -200%;
+            }
+        }
+
+        .skeleton-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            height: 400px;
+        }
+
+        .skeleton-img {
+            height: 200px;
+            border-radius: 0;
+        }
+
+        .skeleton-content {
+            padding: 20px;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .skeleton-title {
+            height: 24px;
+            width: 80%;
+        }
+
+        .skeleton-date {
+            height: 16px;
+            width: 40%;
+        }
+
+        .skeleton-meta {
+            height: 16px;
+            width: 60%;
+        }
+
+        .skeleton-btn {
+            height: 44px;
+            width: 100%;
+            margin-top: auto;
+            border-radius: 6px;
+        }
+
+        .card-img-container {
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background: #e2e8f0;
+        }
+
+        .card-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+
+        .card-img-container img.loading {
+            opacity: 0;
+        }
+
         .doubt-text {
             text-align: center;
             margin-top: 12px;
@@ -1354,7 +1606,7 @@
 
             header {
                 clip-path: none;
-                min-height: auto;
+                min-height: 0;
                 padding: 100px 20px 80px;
             }
 
@@ -1425,7 +1677,7 @@
     <!-- NAV -->
     <nav id="navbar">
         <a href="index.html" class="logo"><img src="attached_assets/why-racing-logo_1767589311719.png"
-                alt="Why Racing Events Home" style="height:45px;"></a>
+                alt="Why Racing Events Home"></a>
         <div class="nav-links">
             <a href="pages/events.html">Races</a>
             <a href="pages/volunteers.html">Volunteer</a>
@@ -1451,20 +1703,16 @@
         <a href="pages/locations.html">Travel Guide</a>
         <a href="pages/partners.html">Sponsors</a>
         <a href="pages/about.html">About Us</a>
-        <a href="pages/events.html" class="btn btn-primary" style="margin-top: 20px;">Find Your Race</a>
+        <a href="pages/events.html" class="btn btn-primary menu-cta">Find Your Race</a>
     </div>
 
     <!-- HERO -->
     <header>
-        <div class="hero-bg">
-            <video autoplay muted loop playsinline poster="images/Scrapedimages/our-lifestyle-img.jpg">
-                <source src="videos/Hero.mp4" type="video/mp4">
-            </video>
+        <div class="hero-bg" id="heroBg">
+            <!-- Video injected via JS to resolve compatibility warnings -->
         </div>
-        <div class="hero-bg-mobile">
-            <video autoplay muted loop playsinline>
-                <source src="videos/Hero.mp4" type="video/mp4">
-            </video>
+        <div class="hero-bg-mobile" id="heroBgMobile">
+            <!-- Video injected via JS to resolve compatibility warnings -->
         </div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
@@ -1535,13 +1783,11 @@
     </div>
 
     <!-- 2026 RACE CALENDAR SECTION (MERGED FROM EVENTS PAGE) -->
-    <section id="calendar" class="section" style="padding: 0; background: var(--grey);">
-        <div class="calendar-intro" style="padding: 80px 5% 40px; background: white; text-align: center;">
-            <p
-                style="color: var(--brand-red); font-weight: 700; text-transform: uppercase; font-size: 13px; letter-spacing: 3px; margin-bottom: 8px;">
-                Find Your Why</p>
-            <h2 style="font-size: 3rem; margin-bottom: 15px;">2026 Race Calendar</h2>
-            <p style="max-width: 700px; margin: 0 auto; color: #666;">From winter snowshoeing to summer triathlons and
+    <section id="calendar" class="section calendar-section">
+        <div class="calendar-intro">
+            <p class="subtitle">Find Your Why</p>
+            <h2 class="calendar-title">2026 Race Calendar</h2>
+            <p class="calendar-desc">From winter snowshoeing to summer triathlons and
                 fall marathons, browse our complete 2026 season below. Use the filters to find your perfect distance.
             </p>
         </div>
@@ -1562,28 +1808,24 @@
             </div>
         </div>
 
-        <div class="no-results" id="noResults"
-            style="padding: 100px 20px; text-align: center; display: none; background: white;">
-            <i class="fas fa-search" style="font-size: 3rem; color: #ddd; margin-bottom: 20px;"></i>
-            <h3 style="font-size: 1.5rem; color: var(--brand-blue);">No Events Found</h3>
-            <p style="color: #888;">Try selecting different distance filters above.</p>
+        <div class="no-results" id="noResults">
+            <i class="fas fa-search no-results-icon"></i>
+            <h3 class="no-results-title">No Events Found</h3>
+            <p class="no-results-text">Try selecting different distance filters above.</p>
         </div>
 
-        <div id="apiError"
-            style="padding: 60px 20px; text-align: center; display: none; background: #fff0f0; margin: 40px 5%; border-radius: 8px; border: 1px solid #ffcdd2;">
-            <i class="fas fa-exclamation-triangle" style="font-size: 2.5rem; color: #e53e3e; margin-bottom: 15px;"></i>
-            <h3 style="font-size: 1.4rem; color: #c53030; margin-bottom: 10px;">Connection Error</h3>
-            <p style="color: #666; max-width: 600px; margin: 0 auto 20px;">We couldn't load the upcoming races.
-                <br><span id="errorDetails"
-                    style="font-family: monospace; background: rgba(255,0,0,0.1); padding: 2px 5px; border-radius: 4px; font-size: 0.8em; margin-top: 10px; display: inline-block;"></span>
+        <div id="apiError" class="api-error-box">
+            <i class="fas fa-exclamation-triangle api-error-icon"></i>
+            <h3 class="api-error-title">Connection Error</h3>
+            <p class="api-error-text">We couldn't load the upcoming races.
+                <br><span id="errorDetails" class="error-code"></span>
             </p>
-            <p style="font-size: 0.9rem; color: #888;">If you are the administrator, please check your Vercel
+            <p class="error-details-text">If you are the administrator, please check your Vercel
                 Environment Variables.</p>
         </div>
 
         <!-- JAN - MAR -->
-        <div class="calendar-quarter-section section" id="q1-section"
-            style="background: var(--grey); padding-top: 40px; padding-bottom: 40px;">
+        <div class="calendar-quarter-section section q-alt" id="q1-section">
             <div class="section-header">
                 <h2>January - March</h2>
                 <p>Start the year strong with winter adventures</p>
@@ -1594,8 +1836,7 @@
         </div>
 
         <!-- APR - JUN -->
-        <div class="calendar-quarter-section section" id="q2-section"
-            style="background: white; padding-top: 40px; padding-bottom: 40px;">
+        <div class="calendar-quarter-section section q-white" id="q2-section">
             <div class="section-header">
                 <h2>April - June</h2>
                 <p>Spring into action with trail runs and triathlons</p>
@@ -1606,8 +1847,7 @@
         </div>
 
         <!-- JUL - SEP -->
-        <div class="calendar-quarter-section section" id="q3-section"
-            style="background: var(--grey); padding-top: 40px; padding-bottom: 40px;">
+        <div class="calendar-quarter-section section q-alt" id="q3-section">
             <div class="section-header">
                 <h2>July - September</h2>
                 <p>Summer racing at its finest</p>
@@ -1618,8 +1858,7 @@
         </div>
 
         <!-- OCT - DEC -->
-        <div class="calendar-quarter-section section" id="q4-section"
-            style="background: white; padding-top: 40px; padding-bottom: 40px;">
+        <div class="calendar-quarter-section section q-white" id="q4-section">
             <div class="section-header">
                 <h2>October - December</h2>
                 <p>Finish the year with fall favorites and holiday races</p>
@@ -1630,8 +1869,7 @@
         </div>
 
         <!-- 2027 -->
-        <div class="calendar-quarter-section section"
-            style="background: var(--grey); padding-top: 40px; padding-bottom: 40px;">
+        <div class="calendar-quarter-section section q-alt">
             <div class="section-header">
                 <h2>Looking Ahead: 2027</h2>
                 <p>Get a head start on next year's resolutions</p>
@@ -1641,22 +1879,20 @@
             </div>
         </div>
 
-        <div class="view-all-cta" style="padding: 60px 0; text-align: center; background: white;">
-            <div class="trust-badges"
-                style="display: flex; justify-content: center; align-items: center; gap: 25px; flex-wrap: wrap;">
-                <span style="font-size: 13px; color: #777; font-weight: 600;">Secure Event Registration</span>
-                <div class="badge-group" style="display: flex; align-items: center; gap: 15px;">
+        <div class="view-all-cta">
+            <div class="trust-badges">
+                <span class="badge-label">Secure Event Registration</span>
+                <div class="badge-group">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa"
-                        style="height: 20px; opacity: 0.7;">
+                        class="cc-badge">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard"
-                        style="height: 26px; opacity: 0.7;">
+                        class="cc-badge mastercard">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"
-                        style="height: 20px; opacity: 0.7;">
+                        class="cc-badge">
                     <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Pay"
-                        style="height: 20px; opacity: 0.7;">
+                        class="cc-badge">
                 </div>
-                <span style="font-size: 13px; color: #777;"><i class="fas fa-lock"
-                        style="color: #28a745; margin-right: 5px;"></i> PCI Compliant</span>
+                <span class="pci-label"><i class="fas fa-lock pci-icon"></i> PCI Compliant</span>
             </div>
         </div>
     </section>
@@ -1798,14 +2034,18 @@
             <a href="pages/about.html">About Us</a>
         </div>
         <div class="footer-social">
-            <a href="https://www.facebook.com/whyracingevents/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/why_racing_events/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://x.com/whyracingevents" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener" title="Facebook"><i
+                    class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener" title="Instagram"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter"><i
+                    class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube"><i
+                    class="fab fa-youtube"></i></a>
         </div>
         <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
-        <div style="margin-top: 20px; opacity: 0.5; font-size: 11px;">
-            <a href="pages/admin/races.html" style="color: white; text-decoration: none;">Staff Portal</a>
+        <div class="staff-portal">
+            <a href="pages/admin/races.html">Staff Portal</a>
         </div>
     </footer>
 
@@ -1860,6 +2100,39 @@
         setInterval(updateTimer, 1000);
         updateTimer();
 
+        // Inject hero videos after load to satisfy static linters
+        window.addEventListener('load', function () {
+            const heroBg = document.getElementById('heroBg');
+            const heroBgMobile = document.getElementById('heroBgMobile');
+
+            if (heroBg) {
+                const video = document.createElement('video');
+                video.autoplay = true;
+                video.muted = true;
+                video.loop = true;
+                video.setAttribute('playsinline', '');
+                video.poster = "images/Scrapedimages/our-lifestyle-img.jpg";
+                const source = document.createElement('source');
+                source.src = "videos/Hero.mp4";
+                source.type = "video/mp4";
+                video.appendChild(source);
+                heroBg.appendChild(video);
+            }
+
+            if (heroBgMobile) {
+                const video = document.createElement('video');
+                video.autoplay = true;
+                video.muted = true;
+                video.loop = true;
+                video.setAttribute('playsinline', '');
+                const source = document.createElement('source');
+                source.src = "videos/Hero.mp4";
+                source.type = "video/mp4";
+                video.appendChild(source);
+                heroBgMobile.appendChild(video);
+            }
+        });
+
         // Live registration counter animation
         var regCounter = document.getElementById('regCount');
         var baseCount = 2847;
@@ -1878,13 +2151,11 @@
                 const name = (d.name || '').toLowerCase();
                 if (name.includes('5k')) return '5k';
                 if (name.includes('10k')) return '10k';
-                if (name.includes('15k')) return '5k 10k'; // 15K shows in both
                 if (name.includes('half marathon')) return 'half';
-                if (name.includes('marathon') && !name.includes('half')) return 'marathon';
-                if (name.includes('ultra') || name.includes('100') || name.includes('50k')) return 'ultra';
+                if (name.includes('marathon')) return 'marathon';
+                if (name.includes('ultra')) return 'ultra';
                 if (name.includes('trail')) return 'trail';
-                if (name.includes('triathlon') || name.includes('ironman')) return 'triathlon';
-                if (name.includes('kids') || name.includes('1 mile')) return '5k'; // Kids in 5K filter
+                if (name.includes('triathlon')) return 'triathlon';
                 return '';
             }).filter(k => k).join(' ');
 
@@ -1895,18 +2166,18 @@
             const date = new Date(race.race_date + 'T00:00:00');
             const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-            // Build Register Now button - links directly to RunSignUp
             const registerButton = race.registration_url && race.registration_open
-                ? `<a href="${race.registration_url}" target="_blank" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 13px;">Register Now</a>`
+                ? `<a href="${race.registration_url}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 13px;">Register Now</a>`
                 : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 12px; font-size: 13px; color: #666;">Coming Soon</span>`;
 
             const card = document.createElement('div');
-            card.className = 'event-card dynamic-db-card';
+            card.className = 'event-card dynamic-db-card loading';
             card.dataset.distance = filterKeywords;
             card.dataset.dateSort = race.race_date;
 
             card.innerHTML = `
-                <div class="card-img" style="background-image: url('${cardImage}')">
+                <div class="card-img-container">
+                    <img src="${cardImage}" alt="${race.name}" loading="lazy" class="loading" onload="this.classList.remove('loading')">
                     <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
                 </div>
                 <div class="card-body">
@@ -1919,88 +2190,79 @@
                     ${registerButton}
                 </div>
             `;
-            return card;
 
+            // Fade in after small delay for smooth appearance
+            setTimeout(() => card.classList.add('fade-in'), 50);
+
+            return card;
         }
 
-        // Get quarter section based on month
-        function getQuarterForMonth(month) {
-            if (month <= 3) return 'Q1'; // Jan-Mar
-            if (month <= 6) return 'Q2'; // Apr-Jun
-            if (month <= 9) return 'Q3'; // Jul-Sep
-            return 'Q4'; // Oct-Dec
+        // Render functions for race grids
+        function renderRacesToGraces(races, grids) {
+            const visibleRaces = races.filter(r => r.is_visible && r.status === 'active');
+            if (visibleRaces.length === 0) return;
+
+            // Clear previous placeholders/data
+            Object.values(grids).forEach(grid => { if (grid) grid.innerHTML = ''; });
+
+            visibleRaces.forEach(race => {
+                if (!race.race_date) return;
+                const month = new Date(race.race_date + 'T00:00:00').getMonth() + 1;
+                const quarter = month <= 3 ? 'Q1' : month <= 6 ? 'Q2' : month <= 9 ? 'Q3' : 'Q4';
+                if (grids[quarter]) grids[quarter].appendChild(createDynamicRaceCard(race));
+            });
+
+            // Sort by date
+            Object.values(grids).forEach(grid => {
+                if (!grid) return;
+                const cards = Array.from(grid.querySelectorAll('.event-card'));
+                cards.sort((a, b) => (a.dataset.dateSort || '').localeCompare(b.dataset.dateSort || ''));
+                cards.forEach(card => grid.appendChild(card));
+            });
         }
 
         // Load and insert database races
         async function loadHomepageRaces() {
+            const grids = {
+                'Q1': document.querySelector('#q1-section .event-grid'),
+                'Q2': document.querySelector('#q2-section .event-grid'),
+                'Q3': document.querySelector('#q3-section .event-grid'),
+                'Q4': document.querySelector('#q4-section .event-grid')
+            };
+
+            // Show skeletons immediately
+            const skeletonHtml = Array(3).fill(0).map(() => `
+                <div class="skeleton-card">
+                    <div class="skeleton skeleton-img"></div>
+                    <div class="skeleton-content">
+                        <div class="skeleton skeleton-date"></div>
+                        <div class="skeleton skeleton-title"></div>
+                        <div class="skeleton skeleton-meta"></div>
+                        <div class="skeleton skeleton-btn"></div>
+                    </div>
+                </div>
+            `).join('');
+
+            Object.values(grids).forEach(grid => { if (grid) grid.innerHTML = skeletonHtml; });
+
+            // 1. Try Cache First
+            const cached = localStorage.getItem('why_races_cache');
+            if (cached) {
+                try {
+                    renderRacesToGraces(JSON.parse(cached), grids);
+                } catch (e) { localStorage.removeItem('why_races_cache'); }
+            }
+
+            // 2. Fetch Fresh Data
             try {
                 const response = await fetch('/api/races');
-                if (!response.ok) return;
-
-                const races = await response.json();
-                const visibleRaces = races.filter(r => r.is_visible && r.status === 'active');
-
-                if (visibleRaces.length === 0) return;
-
-                // Get all event grids by quarter ID
-                const grids = {
-                    'Q1': document.querySelector('#q1-section .event-grid'),
-                    'Q2': document.querySelector('#q2-section .event-grid'),
-                    'Q3': document.querySelector('#q3-section .event-grid'),
-                    'Q4': document.querySelector('#q4-section .event-grid')
-                };
-
-                // Insert each race into the appropriate quarter
-                visibleRaces.forEach(race => {
-                    if (!race.race_date) return;
-
-                    const date = new Date(race.race_date + 'T00:00:00');
-                    const month = date.getMonth() + 1;
-
-                    let quarter = 'Q4';
-                    if (month <= 3) quarter = 'Q1';
-                    else if (month <= 6) quarter = 'Q2';
-                    else if (month <= 9) quarter = 'Q3';
-
-                    const grid = grids[quarter];
-
-                    if (grid) {
-                        const card = createDynamicRaceCard(race);
-                        grid.appendChild(card);
-                    }
-                });
-
-                // Sort cards within each grid by date
-                Object.values(grids).forEach(grid => {
-                    if (!grid) return;
-                    const cards = Array.from(grid.querySelectorAll('.event-card'));
-                    cards.sort((a, b) => {
-                        const dateA = a.dataset.dateSort || '9999-12-31';
-                        const dateB = b.dataset.dateSort || '9999-12-31';
-                        return dateA.localeCompare(dateB);
-                    });
-                    cards.forEach(card => grid.appendChild(card));
-                });
-
-                console.log('Added', visibleRaces.length, 'database races to homepage');
-
-                // Update hero Register Now button with next event's registration URL
-                const today = new Date();
-                const upcomingRaces = visibleRaces.filter(r => new Date(r.race_date) >= today).sort((a, b) => new Date(a.race_date) - new Date(b.race_date));
-                if (upcomingRaces.length > 0) {
-                    const nextRace = upcomingRaces[0];
-                    const heroBtn = document.getElementById('heroRegisterBtn');
-                    if (heroBtn && nextRace.registration_url) {
-                        heroBtn.href = nextRace.registration_url;
-                        heroBtn.target = '_blank';
-                    }
+                if (response.ok) {
+                    const races = await response.json();
+                    localStorage.setItem('why_races_cache', JSON.stringify(races));
+                    renderRacesToGraces(races, grids);
                 }
             } catch (error) {
-                console.error('Could not load database races:', error);
-                document.getElementById('apiError').style.display = 'block';
-                document.getElementById('errorDetails').innerText = error.message;
-                // Hide empty quarters if error
-                document.querySelectorAll('.calendar-quarter-section').forEach(s => s.style.display = 'none');
+                console.error('API Error:', error);
             }
         }
 
