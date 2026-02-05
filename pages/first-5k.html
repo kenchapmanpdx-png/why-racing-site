@@ -69,7 +69,6 @@
 
         html {
             scroll-behavior: smooth;
-            -webkit-text-size-adjust: 100%;
         }
 
         body {
@@ -112,8 +111,8 @@
             align-items: center;
             z-index: 1000;
             background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(20px);
             -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px);
             border-bottom: 1px solid rgba(0, 0, 0, 0.06);
         }
 
@@ -341,6 +340,11 @@
         .section-header {
             text-align: center;
             margin-bottom: 32px;
+        }
+
+        .section-header.left-aligned {
+            text-align: left;
+            margin-bottom: 20px;
         }
 
         .section-label {
@@ -1695,7 +1699,7 @@
             </div>
 
             <div class="expect-content">
-                <div class="section-header" style="text-align: left; margin-bottom: 20px;">
+                <div class="section-header left-aligned">
                     <div class="section-label">Race Day</div>
                     <h2 class="section-title">What To Expect</h2>
                 </div>

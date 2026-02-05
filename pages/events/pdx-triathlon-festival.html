@@ -257,6 +257,24 @@
             animation-delay: 5s;
         }
 
+        /* Clean up inline styles */
+        .event-details h3 {
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .color-bike {
+            color: var(--bike-orange);
+        }
+
+        .color-run {
+            color: var(--run-green);
+        }
+
+        .color-swim {
+            color: var(--swim-blue);
+        }
+
         @keyframes floatIcon {
 
             0%,
@@ -756,6 +774,7 @@
             padding: 30px;
             border-radius: 12px;
             text-align: center;
+            -webkit-backdrop-filter: blur(5px);
             backdrop-filter: blur(5px);
         }
 
@@ -1004,7 +1023,8 @@
             <div class="event-location">
                 <i class="fas fa-map-marker-alt"></i> Portland, OR
             </div>
-            <a href="#register" class="hero-cta">🏊🚴🏃 Join the Festival</a>
+            <a href="#register" class="hero-cta" title="Register for PDX Triathlon Festival">🏊🚴🏃 Join the
+                Festival</a>
         </div>
     </div>
 
@@ -1049,7 +1069,7 @@
                 community spirit. With distances for every level—including our popular Kids Tri—this is the perfect
                 event for the whole family!</p>
 
-            <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--bike-orange);">🏅 Choose Your Challenge</h3>
+            <h3 class="color-bike">🏅 Choose Your Challenge</h3>
             <div class="distances">
                 <span class="distance-tag swim">🏊 Sprint Tri</span>
                 <span class="distance-tag bike">🚴 Olympic</span>
@@ -1073,7 +1093,7 @@
                 </div>
             </div>
 
-            <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--run-green);">🎁 What's Included</h3>
+            <h3 class="color-run">🎁 What's Included</h3>
             <ul>
                 <li><i class="fas fa-medal"></i> Custom finisher medal with tri-color ribbon</li>
                 <li><i class="fas fa-tshirt"></i> Premium tri-blend technical shirt</li>
@@ -1085,7 +1105,7 @@
                 <li><i class="fas fa-heart"></i> Portion of proceeds to local youth athletics</li>
             </ul>
 
-            <h3 style="margin-top: 30px; margin-bottom: 15px; color: var(--swim-blue);">📅 Festival Schedule</h3>
+            <h3 class="color-swim">📅 Festival Schedule</h3>
             <ul>
                 <li><i class="fas fa-calendar"></i> <strong>Saturday, June 6:</strong></li>
                 <li><i class="fas fa-clock"></i> 10:00 AM - 6:00 PM: Expo & Packet Pickup</li>
@@ -1233,7 +1253,8 @@
             </iframe>
         </div>
         <div class="video-cta">
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i> Watch More
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener"><i
+                    class="fab fa-youtube"></i> Watch More
                 Videos</a>
         </div>
     </section>

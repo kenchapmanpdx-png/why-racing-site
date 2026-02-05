@@ -858,7 +858,7 @@
         .thumbnail-upload {
             max-width: 250px;
             aspect-ratio: 1;
-            min-height: auto;
+            min-height: 0;
         }
 
         .upload-placeholder {
@@ -911,6 +911,184 @@
             border-color: var(--brand-red);
             background: var(--brand-grey);
         }
+
+        .flex-center-gap-15 {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .flex-gap-15-center {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .view-site-link {
+            color: var(--brand-red);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .admin-logo-small {
+            height: 50px;
+        }
+
+        .help-text {
+            color: #888;
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* Helper classes for refactoring */
+        .color-slate {
+            color: #94a3b8;
+        }
+
+        .color-ccc {
+            color: #ccc;
+        }
+
+        .color-888 {
+            color: #888;
+        }
+
+        .color-red-danger {
+            color: #ef4444;
+        }
+
+        .fw-700 {
+            font-weight: 700;
+        }
+
+        .fw-800 {
+            font-weight: 800;
+        }
+
+        .ls-2px {
+            letter-spacing: 2px;
+        }
+
+        .fs-40px {
+            font-size: 40px;
+        }
+
+        .fs-12px {
+            font-size: 12px;
+        }
+
+        .fs-3-5rem {
+            font-size: 3.5rem;
+        }
+
+        .w-100 {
+            width: 100%;
+        }
+
+        .break-all {
+            word-break: break-all;
+        }
+
+        .mt-5 {
+            margin-top: 5px !important;
+        }
+
+        .mt-10 {
+            margin-top: 10px !important;
+        }
+
+        .mt-15 {
+            margin-top: 15px !important;
+        }
+
+        .mt-20 {
+            margin-top: 20px !important;
+        }
+
+        .mt-30 {
+            margin-top: 30px !important;
+        }
+
+        .mt-40 {
+            margin-top: 40px !important;
+        }
+
+        .mb-15 {
+            margin-bottom: 15px !important;
+        }
+
+        .mb-16 {
+            margin-bottom: 16px !important;
+        }
+
+        .mb-40 {
+            margin-bottom: 40px !important;
+        }
+
+        .pt-30 {
+            padding-top: 30px !important;
+        }
+
+        .full-width-select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 6px;
+            background: #333;
+            color: white;
+        }
+
+        .carousel-slots-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .preview-contain-pad {
+            object-fit: contain;
+            padding: 10px;
+        }
+
+        .danger-border-top {
+            border-top: 2px solid #ef4444;
+        }
+
+        .danger-confirm-box {
+            background: rgba(239, 68, 68, 0.1);
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #ef4444;
+        }
+
+        .danger-confirm-text {
+            color: #ef4444;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .btn-danger-outline {
+            background: transparent;
+            color: #ef4444;
+            border: 1px solid #ef4444;
+        }
+
+        .btn-danger-solid {
+            background: #ef4444;
+            color: white;
+            border: none;
+            font-weight: 800;
+        }
+
+        .flex-centered-gap-8 {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .display-none {
+            display: none !important;
+        }
     </style>
 </head>
 
@@ -919,7 +1097,8 @@
     <!-- Password Gate -->
     <div class="password-gate" id="passwordGate">
         <div class="password-box">
-            <img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Logo" class="logo-placeholder">
+            <img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Logo"
+                class="logo-placeholder">
             <h1>Race Admin Panel</h1>
             <p>Enter password to access the dashboard</p>
             <input type="password" id="passwordInput" placeholder="Password"
@@ -932,15 +1111,13 @@
     <!-- Admin Dashboard -->
     <div class="admin-dashboard" id="adminDashboard">
         <header class="admin-header">
-            <div style="display: flex; align-items: center; gap: 15px;">
-                <img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Logo" style="height: 50px;">
+            <div class="flex-center-gap-15">
+                <img src="../../attached_assets/why-racing-logo_1767589311719.png" alt="Why Racing Logo"
+                    class="admin-logo-small">
                 <h1>Events Admin</h1>
             </div>
-            <div style="display: flex; gap: 15px; align-items: center;">
-                <a href="../../index.html"
-                    style="color: var(--brand-red); text-decoration: none; font-weight: 600; font-size: 13px;">← View
-                    Live
-                    Site</a>
+            <div class="flex-gap-15-center">
+                <a href="../../index.html" class="view-site-link">← View Live Site</a>
                 <button class="logout-btn" onclick="logout()">Logout</button>
             </div>
         </header>
@@ -1047,21 +1224,21 @@
                             <label for="logoUrl">Race Logo URL</label>
                             <input type="url" id="logoUrl" name="logoUrl"
                                 placeholder="https://your-storage.com/logo.png">
-                            <small style="color: #888; display: block; margin-top: 4px;">URL to the race logo image
+                            <small class="help-text">URL to the race logo image
                                 (displayed on race cards)</small>
                         </div>
                         <div class="form-group full-width">
                             <label for="heroImageUrl">Hero Image URL</label>
                             <input type="url" id="heroImageUrl" name="heroImageUrl"
                                 placeholder="https://your-storage.com/hero-image.jpg">
-                            <small style="color: #888; display: block; margin-top: 4px;">Main photo for the race
+                            <small class="help-text">Main photo for the race
                                 card</small>
                         </div>
                         <div class="form-group full-width">
                             <label for="registrationUrl">Registration URL (RunSignUp) *</label>
                             <input type="url" id="registrationUrl" name="registrationUrl"
                                 placeholder="https://runsignup.com/Race/WA/Vancouver/YourRaceName">
-                            <small style="color: #888; display: block; margin-top: 4px;">Paste the full RunSignUp URL
+                            <small class="help-text">Paste the full RunSignUp URL
                                 where
                                 participants can register</small>
                         </div>
@@ -1076,7 +1253,7 @@
                             <div>
                                 <label>Distance Type</label>
                                 <select name="distanceName[]" onchange="autoFillDistance(this)"
-                                    style="width: 100%; padding: 10px; border: 1px solid #444; border-radius: 6px; background: #333; color: white;">
+                                    class="full-width-select">
                                     <option value="">-- Select Distance --</option>
                                     <option value="5K">5K</option>
                                     <option value="10K">10K</option>
@@ -1242,7 +1419,7 @@
                         <button type="button" class="add-btn" onclick="addBeneficiary()">+ Add Beneficiary</button>
                     </div>
 
-                    <div class="repeater-container" style="margin-top: 30px;">
+                    <div class="repeater-container mt-30">
                         <h3>🤝 Sponsors</h3>
                         <div id="sponsorList" class="repeater-list">
                             <!-- Populated by JS -->
@@ -1304,7 +1481,7 @@
                             <span>Transition Area</span>
                         </label>
                     </div>
-                    <div class="form-grid" style="margin-top: 20px;">
+                    <div class="form-grid mt-20">
                         <div class="form-group full-width">
                             <label for="shirtSizes">T-Shirt Sizes Available</label>
                             <div class="checkbox-group">
@@ -1425,10 +1602,10 @@
                                     <p>Click to upload or drag & drop</p>
                                     <small>PNG, JPG, WebP up to 10MB</small>
                                 </div>
-                                <img id="heroPreview" class="image-preview" style="display: none;">
+                                <img id="heroPreview" class="image-preview display-none">
                             </div>
-                            <button type="button" class="clear-image-btn" onclick="clearImage('hero')"
-                                style="display: none;" id="heroClearBtn">✕ Remove Image</button>
+                            <button type="button" class="clear-image-btn display-none" onclick="clearImage('hero')"
+                                id="heroClearBtn">✕ Remove Image</button>
                         </div>
                     </div>
 
@@ -1439,16 +1616,14 @@
                             empty, the hero
                             background image above will be used.</p>
                         <div class="form-group full-width">
-                            <div id="carouselSlots"
-                                style="display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 15px;">
+                            <div id="carouselSlots" class="carousel-slots-grid">
                                 <!-- Carousel slots will be added here -->
                             </div>
-                            <button type="button" class="btn btn-secondary"
-                                onclick="document.getElementById('bulkCarouselInput').click()"
-                                style="margin-top: 15px;">
+                            <button type="button" class="btn btn-secondary mt-15"
+                                onclick="document.getElementById('bulkCarouselInput').click()">
                                 <span>➕</span> Add Carousel Photos
                             </button>
-                            <input type="file" id="bulkCarouselInput" multiple accept="image/*" style="display: none;"
+                            <input type="file" id="bulkCarouselInput" multiple accept="image/*" class="display-none"
                                 onchange="handleBulkCarouselUpload(this)">
 
                         </div>
@@ -1468,10 +1643,10 @@
                                     <p>Click to upload</p>
                                     <small>Square image</small>
                                 </div>
-                                <img id="thumbnailPreview" class="image-preview" style="display: none;">
+                                <img id="thumbnailPreview" class="image-preview display-none">
                             </div>
-                            <button type="button" class="clear-image-btn" onclick="clearImage('thumbnail')"
-                                style="display: none;" id="thumbnailClearBtn">✕ Remove</button>
+                            <button type="button" class="clear-image-btn display-none" onclick="clearImage('thumbnail')"
+                                id="thumbnailClearBtn">✕ Remove</button>
                         </div>
                     </div>
 
@@ -1481,8 +1656,7 @@
                         <div class="form-grid">
                             <div class="form-group">
                                 <label for="logoImage">Race Logo</label>
-                                <div class="image-upload-area" id="logoUploadArea"
-                                    style="min-height: 120px; max-width: 250px;"
+                                <div class="image-upload-area thumbnail-upload" id="logoUploadArea"
                                     onclick="document.getElementById('logoImage').click()">
                                     <input type="file" id="logoImage" name="logoImage" accept="image/*"
                                         onchange="previewImage(this, 'logoPreview')" hidden>
@@ -1490,14 +1664,12 @@
                                         <span>🎨</span>
                                         <p>Click to upload logo</p>
                                     </div>
-                                    <img id="logoPreview" class="image-preview"
-                                        style="display: none; object-fit: contain; padding: 10px;">
+                                    <img id="logoPreview" class="image-preview display-none preview-contain">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="instructionsPdf">Race Instructions (PDF)</label>
-                                <div class="image-upload-area" id="pdfUploadArea"
-                                    style="min-height: 120px; max-width: 250px;"
+                                <div class="image-upload-area thumbnail-upload" id="pdfUploadArea"
                                     onclick="document.getElementById('instructionsPdf').click()">
                                     <input type="file" id="instructionsPdf" name="instructionsPdf" accept=".pdf"
                                         onchange="previewPDF(this)" hidden>
@@ -1505,24 +1677,22 @@
                                         <span>📄</span>
                                         <p>Click to upload PDF instructions</p>
                                     </div>
-                                    <div id="pdfPreview" style="display: none; padding: 10px; text-align: center;">
-                                        <span style="font-size: 40px;">PDF</span>
-                                        <p id="pdfFilename"
-                                            style="font-size: 12px; margin-top: 5px; word-break: break-all;"></p>
+                                    <div id="pdfPreview" class="display-none preview-contain-pad text-center">
+                                        <span class="fs-40px">PDF</span>
+                                        <p id="pdfFilename" class="fs-12px mt-5 break-all"></p>
                                     </div>
                                 </div>
-                                <button type="button" class="clear-image-btn" id="pdfClearBtn" onclick="clearPDF()"
-                                    style="display: none;">✕ Remove PDF</button>
+                                <button type="button" class="clear-image-btn display-none" id="pdfClearBtn"
+                                    onclick="clearPDF()">✕ Remove PDF</button>
                             </div>
                             <div class="form-group full-width">
                                 <label>Race Gallery</label>
-                                <p class="media-hint" style="margin-bottom: 15px;">Add photos to showcase your race.
+                                <p class="media-hint mb-15">Add photos to showcase your race.
                                     Each slot can pick from a different folder.</p>
                                 <div id="gallerySlots">
                                     <!-- Gallery slots will be added here -->
                                 </div>
-                                <button type="button" class="btn btn-secondary" onclick="addGallerySlot()"
-                                    style="margin-top: 10px;">
+                                <button type="button" class="btn btn-secondary mt-10" onclick="addGallerySlot()">
                                     <span>➕</span> Add Another Image
                                 </button>
                             </div>
@@ -1533,7 +1703,7 @@
                 <!-- AI Theme Generator -->
                 <div class="form-section ai-theme-section">
                     <h2>✨ AI Theme Generator</h2>
-                    <p style="color: #94a3b8; margin-bottom: 16px;">Describe how you want this race page to look and
+                    <p class="color-slate mb-16">Describe how you want this race page to look and
                         feel. Our AI will generate a custom theme.</p>
                     <div class="form-group full-width ai-prompt-area">
                         <label for="themePrompt">Theme Description</label>
@@ -1550,7 +1720,7 @@
                         <div class="color-swatches">
                             <div class="color-swatch-group">
                                 <label>🎨 Primary Color Selector</label>
-                                <div style="display: flex; gap: 8px; align-items: center;">
+                                <div class="flex-centered-gap-8">
                                     <input type="color" id="primaryPicker" oninput="syncColor('primary', 'picker')">
                                     <input type="text" id="primaryColor" name="primaryColor" value="#E31837"
                                         onchange="syncColor('primary', 'text')" placeholder="#hex">
@@ -1558,7 +1728,7 @@
                             </div>
                             <div class="color-swatch-group">
                                 <label>🎨 Secondary Color Selector</label>
-                                <div style="display: flex; gap: 8px; align-items: center;">
+                                <div class="flex-centered-gap-8">
                                     <input type="color" id="secondaryPicker" oninput="syncColor('secondary', 'picker')">
                                     <input type="text" id="secondaryColor" name="secondaryColor" value="#0ea5e9"
                                         onchange="syncColor('secondary', 'text')" placeholder="#hex">
@@ -1566,7 +1736,7 @@
                             </div>
                             <div class="color-swatch-group">
                                 <label>🎨 Accent Color Selector</label>
-                                <div style="display: flex; gap: 8px; align-items: center;">
+                                <div class="flex-centered-gap-8">
                                     <input type="color" id="accentPicker" oninput="syncColor('accent', 'picker')">
                                     <input type="text" id="accentColor" name="accentColor" value="#22c55e"
                                         onchange="syncColor('accent', 'text')" placeholder="#hex">
@@ -1574,7 +1744,7 @@
                             </div>
                             <div class="color-swatch-group">
                                 <label>🎨 Background Color Selector</label>
-                                <div style="display: flex; gap: 8px; align-items: center;">
+                                <div class="flex-centered-gap-8">
                                     <input type="color" id="backgroundPicker"
                                         oninput="syncColor('background', 'picker')">
                                     <input type="text" id="backgroundColor" name="backgroundColor" value="#0a0a0a"
@@ -1608,7 +1778,7 @@
                 <!-- Form Actions -->
                 <div class="form-actions">
                     <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear Form</button>
-                    <button type="button" class="btn btn-secondary" id="viewLiveBtn" style="display: none;"
+                    <button type="button" class="btn btn-secondary display-none" id="viewLiveBtn"
                         onclick="window.open('../events/race-detail.html?id=' + document.getElementById('raceForm').dataset.editingId, '_blank')">View
                         Live</button>
                     <button type="button" class="btn btn-secondary" onclick="saveDraft()">Save as Draft</button>
@@ -1616,30 +1786,24 @@
                 </div>
 
                 <!-- Delete Section (only visible when editing) -->
-                <div id="deleteSection"
-                    style="display: none; margin-top: 40px; padding-top: 30px; border-top: 2px solid #ef4444;">
-                    <h4 style="color: #ef4444; margin-bottom: 15px;">⚠️ Danger Zone</h4>
-                    <p style="color: #94a3b8; margin-bottom: 15px;">Permanently delete this race and all associated
+                <div id="deleteSection" class="display-none mt-40 pt-30 danger-border-top">
+                    <h4 class="color-red-danger mb-15">⚠️ Danger Zone</h4>
+                    <p class="color-slate mb-15">Permanently delete this race and all associated
                         data. This action cannot be undone.</p>
 
                     <!-- Step 1: Initial Button -->
                     <div id="deleteStep1">
-                        <button type="button" class="btn"
-                            style="background: transparent; color: #ef4444; border: 1px solid #ef4444;"
-                            onclick="showDeleteConfirm()">
+                        <button type="button" class="btn btn-danger-outline" onclick="showDeleteConfirm()">
                             🗑️ Delete This Race
                         </button>
                     </div>
 
                     <!-- Step 2: Confirmation Buttons -->
-                    <div id="deleteStep2"
-                        style="display: none; background: rgba(239, 68, 68, 0.1); padding: 20px; border-radius: 8px; border: 1px solid #ef4444;">
-                        <p style="color: #ef4444; font-weight: 700; margin-bottom: 15px;">Are you absolutely sure? This
+                    <div id="deleteStep2" class="display-none danger-confirm-box">
+                        <p class="danger-confirm-text">Are you absolutely sure? This
                             cannot be undone.</p>
-                        <div style="display: flex; gap: 15px; align-items: center;">
-                            <button type="button" class="btn"
-                                style="background: #ef4444; color: white; border: none; font-weight: 800;"
-                                onclick="finalDeleteRace()">
+                        <div class="flex-centered-gap-8">
+                            <button type="button" class="btn btn-danger-solid" onclick="finalDeleteRace()">
                                 YES, DELETE PERMANENTLY
                             </button>
                             <button type="button" class="btn btn-secondary"

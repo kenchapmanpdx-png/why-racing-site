@@ -292,6 +292,7 @@
             background: rgba(255, 255, 255, 0.05);
             padding: 40px 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
+            -webkit-backdrop-filter: blur(5px);
             backdrop-filter: blur(5px);
             transition: 0.3s;
         }
@@ -500,6 +501,59 @@
                 margin-top: -80px;
             }
         }
+
+        /* Cleaning up inline styles */
+        .audience-text {
+            color: #666;
+        }
+
+        .active-img {
+            width: 100%;
+            box-shadow: 20px 20px 0px var(--brand-black);
+            filter: contrast(1.1);
+        }
+
+        .advantage-header {
+            max-width: 800px;
+        }
+
+        .high-pre {
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .fs-3rem {
+            font-size: 3rem;
+        }
+
+        .section-title-sub {
+            font-size: 2rem;
+            border-bottom: 2px solid #ddd;
+            padding-bottom: 20px;
+        }
+
+        .fs-2rem {
+            font-size: 2rem;
+        }
+
+        .cta-pre {
+            display: block;
+            color: #888;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: 2px;
+        }
+
+        .cta-title {
+            font-size: 3.5rem;
+            margin-bottom: 40px;
+            color: var(--brand-black);
+        }
+
+        .portal-header {
+            color: #ccc;
+            letter-spacing: 2px;
+        }
     </style>
 </head>
 
@@ -535,11 +589,11 @@
         <a href="locations.html">Travel Guide</a>
         <a href="partners.html">Sponsors</a>
         <a href="about.html">About Us</a>
-        <a href="events.html" class="nav-btn" style="margin-top: 20px;">Find Your Race</a>
+        <a href="events.html" class="nav-btn mt-20">Find Your Race</a>
     </div>
 
     <div class="hero-wrapper">
-        <div class="container" style="text-align: center;">
+        <div class="container text-center">
             <span class="hero-pre">PACIFIC NORTHWEST DOMINANCE</span>
             <h1 class="hero-title">
                 <span>WHY RACING</span>
@@ -577,7 +631,7 @@
         <div class="container audience-split">
             <div>
                 <h2 class="section-title">A HIGH-VALUE <br><span>AUDIENCE</span></h2>
-                <p style="font-size: 1.1rem; color: #666;">
+                <p class="small-text audience-text">
                     Our athletes aren't just active—they're decision-makers. Research shows that runner identity
                     directly predicts purchase intention. When they connect with brands that support their passions,
                     they don't just notice—they buy.
@@ -587,8 +641,7 @@
                 </div>
             </div>
             <div>
-                <img src="../images/action/spring-classic-1.jpg"
-                    style="width: 100%; box-shadow: 20px 20px 0px var(--brand-black); filter: contrast(1.1);"
+                <img src="../images/action/spring-classic-1.jpg" class="active-img"
                     alt="Active Why Racing event participants in Portland" loading="lazy">
             </div>
         </div>
@@ -596,10 +649,10 @@
 
     <section class="advantage-section">
         <div class="container">
-            <div style="text-align: center; max-width: 800px; margin: 0 auto;">
-                <span style="color: var(--brand-red); font-weight: 700; letter-spacing: 2px;">THE COMPETITIVE
+            <div class="text-center mx-auto advantage-header">
+                <span class="brand-red-text high-pre">THE COMPETITIVE
                     EDGE</span>
-                <h2 style="font-size: 3rem; margin-top: 10px;">WHY PARTNER WITH US?</h2>
+                <h2 class="fs-3rem mt-10">WHY PARTNER WITH US?</h2>
             </div>
             <div class="advantage-grid">
                 <div class="advantage-card">
@@ -623,7 +676,7 @@
 
     <section class="section-pad">
         <div class="container">
-            <h2 class="section-title" style="text-align: center;">DRIVE MEASURABLE <span>RESULTS</span></h2>
+            <h2 class="section-title text-center">DRIVE MEASURABLE <span>RESULTS</span></h2>
 
             <div class="offer-grid">
                 <div class="offer-col">
@@ -669,7 +722,7 @@
     </section>
 
     <div class="container">
-        <h2 class="section-title" style="font-size: 2rem; border-bottom: 2px solid #ddd; padding-bottom: 20px;">TRUSTED
+        <h2 class="section-title section-title-sub">TRUSTED
             BY THE COMMUNITY</h2>
         <div class="quote-grid">
             <div class="quote-card">
@@ -692,7 +745,7 @@
 
     <section class="faq-section">
         <div class="container">
-            <h2 class="section-title" style="font-size: 2rem;">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
+            <h2 class="section-title fs-2rem">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
             <div class="faq-grid">
                 <div class="faq-item">
                     <h5>Can we sponsor specific events?</h5>
@@ -720,21 +773,19 @@
 
     <section class="cta-footer" id="partner-next-steps">
         <div class="container">
-            <span
-                style="display: block; color: #888; font-weight: 700; margin-bottom: 20px; letter-spacing: 2px;">INVENTORY
+            <span class="cta-pre">INVENTORY
                 IS LIMITED FOR 2026</span>
-            <h2 style="font-size: 3.5rem; margin-bottom: 40px; color: var(--brand-black);">SECURE YOUR <span
-                    style="color: var(--brand-red);">CATEGORY</span></h2>
+            <h2 class="cta-title">SECURE YOUR <span class="brand-red-text">CATEGORY</span></h2>
 
             <a href="mailto:jess@whyracingevents.com" class="btn-race">
                 <span>EMAIL JESS FOR A STRATEGY CALL</span>
             </a>
 
             <div class="form-portal">
-                <h4 style="color: #ccc; letter-spacing: 2px;">DIRECT APPLICATION PORTALS</h4>
+                <h4 class="portal-header">DIRECT APPLICATION PORTALS</h4>
                 <div class="form-grid">
                     <a href="https://docs.google.com/forms/d/1F7JstuNB1VxfeRCqRCoYerrTDWk_9n3WLVSBoptge9E/viewform?usp=sf_link"
-                        target="_blank" class="form-btn">
+                        target="_blank" rel="noopener" class="form-btn">
                         <div class="form-btn-content">
                             <h5>Sponsorship Inquiry</h5>
                             <p>Apply Now</p>
@@ -742,7 +793,7 @@
                         <i class="fas fa-handshake"></i>
                     </a>
                     <a href="https://docs.google.com/forms/d/1DmsTqpZO0rUcVzXBsH9u5eEVp60vTFLFYZlaIhl64Aw/viewform?usp=sf_link"
-                        target="_blank" class="form-btn">
+                        target="_blank" rel="noopener" class="form-btn">
                         <div class="form-btn-content">
                             <h5>Event Vendor</h5>
                             <p>Apply Now</p>
@@ -750,7 +801,7 @@
                         <i class="fas fa-store"></i>
                     </a>
                     <a href="https://docs.google.com/forms/d/1GKysh5q1QnxXmi-AwPnAlSwOuMUSI38tLfaQ8sGJGqs/viewform?usp=sf_link"
-                        target="_blank" class="form-btn">
+                        target="_blank" rel="noopener" class="form-btn">
                         <div class="form-btn-content">
                             <h5>In-Kind Sponsorship</h5>
                             <p>Submit Request</p>
@@ -758,7 +809,7 @@
                         <i class="fas fa-gift"></i>
                     </a>
                     <a href="https://docs.google.com/forms/d/1-hVIWvjkfkcIRUPS7WHPLmDKea1V9161sCjq_4j0pxY/viewform?usp=sf_link"
-                        target="_blank" class="form-btn">
+                        target="_blank" rel="noopener" class="form-btn">
                         <div class="form-btn-content">
                             <h5>Corporate Wellness</h5>
                             <p>Team Programs</p>
@@ -783,14 +834,18 @@
             <a href="about.html">About Us</a>
         </div>
         <div class="footer-social">
-            <a href="https://www.facebook.com/whyracingevents/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/why_racing_events/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://x.com/whyracingevents" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener" title="Facebook"><i
+                    class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener" title="Instagram"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter"><i
+                    class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube"><i
+                    class="fab fa-youtube"></i></a>
         </div>
         <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
-        <div style="margin-top: 20px; opacity: 0.5; font-size: 11px;">
-            <a href="admin/races.html" style="color: grey; text-decoration: none;">Staff Portal</a>
+        <div class="staff-portal-footer">
+            <a href="admin/races.html" class="staff-portal-link">Staff Portal</a>
         </div>
     </footer>
 
