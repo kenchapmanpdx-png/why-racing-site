@@ -2046,7 +2046,6 @@
             card.innerHTML = `
                 <div class="card-img-container" onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
                     <img src="${cardImage}" alt="${race.name}" loading="lazy" class="loading" onload="this.classList.remove('loading')">
-                    <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
                 </div>
                 <div class="card-body" style="display: flex; flex-direction: column; height: auto;">
                     <div onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">

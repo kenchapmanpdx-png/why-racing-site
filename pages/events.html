@@ -917,7 +917,6 @@
             card.innerHTML = `
                 <div class="card-img-container" onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
                     <img src="${cardImage}" alt="${race.name}" loading="lazy" class="loading" onload="this.classList.remove('loading')">
-                    <span class="card-tag">${typeLabels[raceType] || 'New'}</span>
                     ${race.is_featured ? '<span style="position:absolute;top:15px;right:15px;background:gold;color:#333;padding:4px 10px;border-radius:4px;font-size:10px;font-weight:700;">⭐ FEATURED</span>' : ''}
                 </div>
                 <div class="card-body" style="display: flex; flex-direction: column; height: auto;">
