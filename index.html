@@ -1228,19 +1228,21 @@
             margin-right: 5px;
         }
 
-        .menu-cta {
-            margin-top: 20px !important;
-        }
-
         /* RACE CARD PERFORMANCE OPTIMIZATIONS */
         .event-card {
-            transition: transform 0.3s, box-shadow 0.3s, opacity 0.5s ease-out;
-            opacity: 1;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            position: relative;
+            border: 1px solid #eee;
+            will-change: transform, opacity;
         }
 
         .event-card.loading {
             opacity: 0;
-            transform: translateY(10px);
+            transform: translateY(20px);
         }
 
         .event-card.fade-in {
@@ -1253,7 +1255,6 @@
             background: linear-gradient(110deg, #f1f5f9 8%, #e2e8f0 18%, #f1f5f9 33%);
             background-size: 200% 100%;
             animation: skeleton-shine 1.5s linear infinite;
-            border-radius: 4px;
         }
 
         @keyframes skeleton-shine {
@@ -2012,7 +2013,7 @@
         setInterval(updateRegCount, 15000);
 
         // Create race card HTML for database races
-        function createDynamicRaceCard(race) {
+        function createDynamicRaceCard(race, index = 0) {
             const distances = race.race_distances || [];
             const distanceText = distances.map(d => d.name || d.distance_value).join(' / ') || 'Details TBA';
             const filterKeywords = distances.map(d => {
@@ -2028,9 +2029,6 @@
             }).filter(k => k).join(' ');
 
             const cardImage = race.thumbnail_url || race.hero_image_url || 'images/action/hagg-lake-run.jpg';
-            const raceType = race.race_type || 'run';
-            const typeLabels = { run: 'Road Race', running: 'Road Race', trail: 'Trail Run', triathlon: 'Triathlon', ultra: 'Ultra', fun_run: 'Fun Run', kids: 'Kids Race' };
-
             const date = new Date(race.race_date + 'T00:00:00');
             const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -2042,10 +2040,12 @@
             card.className = 'event-card dynamic-db-card loading';
             card.dataset.distance = filterKeywords;
             card.dataset.dateSort = race.race_date;
+            // Set staggered delay
+            card.style.transitionDelay = `${index * 0.05}s`;
 
             card.innerHTML = `
-                <div class="card-img-container" onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
-                    <img src="${cardImage}" alt="${race.name}" loading="lazy" class="loading" onload="this.classList.remove('loading')" style="${race.name.includes('Bigfoot') ? 'object-position: center 25%' : ''}">
+                <div class="card-img-container skeleton" onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
+                    <img src="${cardImage}" alt="${race.name}" loading="lazy" class="loading" onload="this.classList.remove('loading'); this.parentElement.classList.remove('skeleton')" style="${race.name.includes('Bigfoot') ? 'object-position: center 25%' : ''}">
                 </div>
                 <div class="card-body" style="display: flex; flex-direction: column; height: auto;">
                     <div onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
@@ -2062,8 +2062,9 @@
                 </div>
             `;
 
-            // Fade in after small delay for smooth appearance
-            setTimeout(() => card.classList.add('fade-in'), 50);
+            requestAnimationFrame(() => {
+                setTimeout(() => card.classList.add('fade-in'), 10);
+            });
 
             return card;
         }
@@ -2073,22 +2074,36 @@
             const visibleRaces = races.filter(r => r.is_visible && r.status === 'active');
             if (visibleRaces.length === 0) return;
 
-            // Clear previous placeholders/data
-            Object.values(grids).forEach(grid => { if (grid) grid.innerHTML = ''; });
+            // Pre-sort races once
+            visibleRaces.sort((a, b) => (a.race_date || '').localeCompare(b.race_date || ''));
+
+            // Clear previous and prepare fragments
+            const fragments = {};
+            Object.keys(grids).forEach(key => {
+                if (grids[key]) {
+                    grids[key].innerHTML = '';
+                    fragments[key] = document.createDocumentFragment();
+                }
+            });
+
+            // Counters for staggered delay per section
+            const counters = { 'Q1': 0, 'Q2': 0, 'Q3': 0, 'Q4': 0 };
 
             visibleRaces.forEach(race => {
                 if (!race.race_date) return;
                 const month = new Date(race.race_date + 'T00:00:00').getMonth() + 1;
                 const quarter = month <= 3 ? 'Q1' : month <= 6 ? 'Q2' : month <= 9 ? 'Q3' : 'Q4';
-                if (grids[quarter]) grids[quarter].appendChild(createDynamicRaceCard(race));
+
+                if (fragments[quarter]) {
+                    fragments[quarter].appendChild(createDynamicRaceCard(race, counters[quarter]++));
+                }
             });
 
-            // Sort by date
-            Object.values(grids).forEach(grid => {
-                if (!grid) return;
-                const cards = Array.from(grid.querySelectorAll('.event-card'));
-                cards.sort((a, b) => (a.dataset.dateSort || '').localeCompare(b.dataset.dateSort || ''));
-                cards.forEach(card => grid.appendChild(card));
+            // Batch append fragments to DOM
+            Object.keys(grids).forEach(key => {
+                if (grids[key] && fragments[key]) {
+                    grids[key].appendChild(fragments[key]);
+                }
             });
         }
 
