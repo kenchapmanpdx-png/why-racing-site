@@ -650,11 +650,19 @@
         }
 
         .card-logo {
-            height: 40px;
-            max-width: 120px;
+            height: 60px;
+            max-width: 180px;
             object-fit: contain;
-            margin-bottom: 8px;
-            opacity: 0.9;
+        }
+
+        .card-meta-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            margin-bottom: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #eee;
         }
 
         .event-card:hover {
@@ -2066,15 +2074,17 @@
                 </div>
                 <div class="card-body">
                     <div onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
-                        ${logoHtml}
                         <span class="card-date">${dateStr}</span>
                         <h3 class="card-title">${race.name || 'New Race'}</h3>
                     </div>
                     <div style="margin-top: auto;">
                         <div onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
-                            <div class="card-meta">
-                                <span><i class="fas fa-route"></i> ${distanceText}</span>
-                                <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
+                            <div class="card-meta-row">
+                                <div class="card-meta" style="margin-bottom: 0; padding-top: 0; border-top: none;">
+                                    <span><i class="fas fa-route"></i> ${distanceText}</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
+                                </div>
+                                ${logoHtml}
                             </div>
                         </div>
                         <div style="padding-top: 10px;">
