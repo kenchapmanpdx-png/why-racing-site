@@ -6,48 +6,60 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About Us | Why Racing Events</title>
     <meta name="description"
-        content="Why Racing Events produces endurance events across the Pacific Northwest. Learn about our mission, meet the team, and discover what sets us apart.">
+        content="Learn more about Why Racing Events, a family-owned race production company based in the Pacific Northwest since 2010. Discover our mission and the team behind the events.">
+    <meta name="keywords"
+        content="About Why Racing, Race Production, PNW Team, Event Management, Why Racing Events History">
 
-    <link rel="canonical" href="https://whyracingevents.com/about" />
-    <link rel="icon" type="image/png" href="../attached_assets/why-racing-logo_1767589311719.png">
+    <link rel="canonical" href="https://whyracingevents.com/pages/about.html" />
+    <link rel="icon" type="image/png" href="../attached_assets/logo-2026.png">
 
-    <meta property="og:title" content="About Why Racing Events | Premier Running Event Production">
-    <meta property="og:description" content="Producing world-class running events throughout the Pacific Northwest.">
-    <meta property="og:image" content="https://whyracingevents.com/images/share-image.jpg">
+    <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://whyracingevents.com/pages/about.html">
+    <meta property="og:title" content="About Us | Why Racing Events">
+    <meta property="og:description"
+        content="The team behind the PNW's most supportive racing community. Meet Why Racing.">
+    <meta property="og:image" content="https://whyracingevents.com/attached_assets/logo-2026.png">
 
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://whyracingevents.com/pages/about.html">
+    <meta property="twitter:title" content="About Us | Why Racing Events">
+    <meta property="twitter:description"
+        content="The team behind the PNW's most supportive racing community. Meet Why Racing.">
+    <meta property="twitter:image"
+        content="https://whyracingevents.com/attached_assets/logo-2026.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "AboutPage",
+      "mainEntity": {
+        "@type": "Organization",
+        "name": "Why Racing Events",
+        "url": "https://whyracingevents.com",
+        "logo": "https://whyracingevents.com/attached_assets/logo-2026.png"
+      }
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@400;500;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/brand.css">
 
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "Organization",
-      "name": "Why Racing Events",
-      "url": "https://whyracingevents.com",
-      "logo": "https://whyracingevents.com/logo.png",
-      "description": "Premier race production company in the Pacific Northwest.",
-      "founder": {
-        "@type": "Person",
-        "name": "Kenny Chapman"
-      }
-    }
-    </script>
-
     <style>
+        /* --- BRANDING VARIABLES --- */
         :root {
             --brand-red: #E31837;
-            --brand-red-dark: #b8132c;
-            --brand-black: #0a0a0a;
             --brand-blue: #000000;
+            --dark: #0a0a0a;
             --light: #ffffff;
-            --grey: #f8fafc;
-            --border: #e2e8f0;
+            --grey: #f4f4f4;
+            --glass: rgba(0, 0, 0, 0.95);
         }
 
         * {
@@ -59,8 +71,8 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--light);
-            color: #334155;
-            line-height: 1.7;
+            color: #333;
+            line-height: 1.6;
             overflow-x: hidden;
         }
 
@@ -70,9 +82,8 @@
         h4 {
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
-            margin: 0;
-            line-height: 1.2;
-            letter-spacing: 0.5px;
+            letter-spacing: 1px;
+            color: var(--brand-blue);
         }
 
         a {
@@ -81,174 +92,85 @@
             transition: 0.3s;
         }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 20px;
+        ul {
+            list-style: none;
         }
 
-        /* --- ANIMATED HERO --- */
-        .page-hero {
-            position: relative;
-            padding: 200px 5% 180px;
-            color: white;
-            text-align: center;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
-            overflow: hidden;
+        /* --- BUTTONS --- */
+        .btn {
+            padding: 14px 32px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-radius: 4px;
+            display: inline-block;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: none;
+            font-size: 14px;
         }
 
-        .hero-bg {
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            z-index: 0;
-        }
-
-        .hero-bg::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(circle at 25% 75%, rgba(227, 24, 55, 0.25) 0%, transparent 50%),
-                radial-gradient(circle at 75% 25%, rgba(227, 24, 55, 0.2) 0%, transparent 40%);
-            animation: pulseGradient 8s ease-in-out infinite;
-        }
-
-        @keyframes pulseGradient {
-
-            0%,
-            100% {
-                opacity: 1;
-                transform: scale(1);
-            }
-
-            50% {
-                opacity: 0.8;
-                transform: scale(1.05);
-            }
-        }
-
-        /* Floating orbs */
-        .hero-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.4;
-            animation: floatOrb 20s ease-in-out infinite;
-        }
-
-        .hero-orb-1 {
-            width: 400px;
-            height: 400px;
+        .btn-primary {
             background: var(--brand-red);
-            top: -150px;
-            right: -100px;
-            animation-delay: 0s;
+            color: white;
+            box-shadow: 0 4px 15px rgba(227, 24, 55, 0.3);
         }
 
-        .hero-orb-2 {
-            width: 250px;
-            height: 250px;
-            background: #ff6b6b;
-            bottom: 0;
-            left: -80px;
-            animation-delay: -7s;
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #b00e26;
+            box-shadow: 0 8px 25px rgba(227, 24, 55, 0.5);
         }
 
-        .hero-orb-3 {
-            width: 180px;
-            height: 180px;
-            background: #ffffff;
-            top: 40%;
-            left: 25%;
-            opacity: 0.08;
-            animation-delay: -14s;
+        .nav-links a:hover {
+            color: var(--brand-red);
         }
 
-        @keyframes floatOrb {
-
-            0%,
-            100% {
-                transform: translate(0, 0) rotate(0deg);
-            }
-
-            33% {
-                transform: translate(40px, -40px) rotate(120deg);
-            }
-
-            66% {
-                transform: translate(-30px, 30px) rotate(240deg);
-            }
-        }
-
-        .hero-content {
+        /* --- HERO SECTION --- */
+        .page-hero {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%),
+                url('../images/homepage/community.png');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            padding: 200px 5% 120px;
+            text-align: center;
+            color: white;
+            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
             position: relative;
             z-index: 1;
         }
 
-        .tagline-badge {
-            display: inline-block;
-            background: var(--brand-red);
-            color: white;
-            padding: 8px 24px;
-            border-radius: 50px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            margin-bottom: 25px;
-            animation: fadeSlideUp 1s ease-out;
-        }
-
         .page-hero h1 {
-            font-size: clamp(3rem, 7vw, 5.5rem);
-            font-weight: 700;
+            font-size: 4.5rem;
             margin-bottom: 20px;
             color: white;
-            animation: fadeSlideUp 1s ease-out 0.1s both;
+            font-style: italic;
         }
 
-        .page-hero h1 span {
-            color: var(--brand-red);
-            text-shadow: 0 0 40px rgba(227, 24, 55, 0.5);
-        }
-
-        .hero-subtitle {
-            font-size: 1.2rem;
+        .page-hero p {
+            font-size: 1.4rem;
+            opacity: 0.9;
             max-width: 700px;
             margin: 0 auto;
-            color: rgba(255, 255, 255, 0.8);
-            font-weight: 400;
-            animation: fadeSlideUp 1s ease-out 0.2s both;
-        }
-
-        @keyframes fadeSlideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            font-weight: 300;
         }
 
         /* --- STATS SECTION --- */
-        .stats-wrapper {
-            background: white;
-            margin-top: -100px;
+        .stats-section {
+            padding: 0 5% 80px;
+            margin-top: -60px;
             position: relative;
             z-index: 10;
-            padding-bottom: 80px;
         }
 
         .stats-container {
             background: white;
-            max-width: 1100px;
+            max-width: 1200px;
             margin: 0 auto;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
-            padding: 50px 40px;
+            border-radius: 12px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            padding: 50px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 30px;
@@ -256,38 +178,88 @@
 
         .stat-item {
             text-align: center;
-            padding: 20px;
-            border-radius: 12px;
-            transition: all 0.3s ease;
+            border-right: 1px solid #eee;
         }
 
-        .stat-item:hover {
-            background: var(--grey);
-            transform: translateY(-5px);
+        .stat-item:last-child {
+            border-right: none;
         }
 
         .stat-number {
             font-family: 'Oswald', sans-serif;
             font-size: 3.5rem;
             font-weight: 700;
-            color: var(--brand-red);
+            color: var(--brand-blue);
             display: block;
             line-height: 1;
             margin-bottom: 10px;
         }
 
         .stat-label {
-            font-size: 0.85rem;
-            font-weight: 700;
+            font-size: 13px;
             text-transform: uppercase;
-            color: #64748b;
+            font-weight: 700;
+            color: #888;
             letter-spacing: 1px;
         }
 
-        /* --- SECTIONS --- */
-        section {
-            padding: 100px 5%;
+        /* --- MISSION SECTION --- */
+        .mission-section {
+            padding: 120px 5%;
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .mission-image-wrapper {
             position: relative;
+        }
+
+        .mission-image-wrapper::before {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: -20px;
+            width: 100%;
+            height: 100%;
+            border: 4px solid var(--brand-red);
+            border-radius: 12px;
+            z-index: 0;
+        }
+
+        .mission-image img {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 20px 20px 60px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .mission-content h2 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        .mission-content blockquote {
+            border-left: 4px solid var(--brand-red);
+            padding-left: 25px;
+            margin: 30px 0;
+            font-style: italic;
+            font-size: 1.25rem;
+            color: var(--brand-blue);
+            font-weight: 600;
+        }
+
+        /* --- TEAM SECTION --- */
+        .team-section {
+            background: var(--grey);
+            padding: 100px 5%;
         }
 
         .section-header {
@@ -296,367 +268,169 @@
         }
 
         .section-header h2 {
-            font-size: 2.5rem;
-            margin-bottom: 16px;
-            color: var(--brand-black);
+            font-size: 3rem;
         }
 
-        .section-header h2 span {
-            color: var(--brand-red);
-        }
-
-        .section-header p {
-            color: #64748b;
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* --- MISSION SECTION --- */
-        .mission-section {
-            background: var(--grey);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .mission-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-
-        .mission-text h2 {
-            font-size: 2.5rem;
-            margin-bottom: 25px;
-            color: var(--brand-black);
-        }
-
-        .mission-text p {
-            color: #64748b;
-            margin-bottom: 20px;
-        }
-
-        .founder-quote {
-            background: var(--brand-black);
-            color: white;
-            padding: 30px;
-            border-left: 8px solid var(--brand-red);
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.3rem;
-            margin-top: 30px;
-            letter-spacing: 0.5px;
-            border-radius: 0 16px 16px 0;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-        }
-
-        .founder-quote cite {
-            display: block;
-            margin-top: 15px;
-            font-size: 0.9rem;
-            font-style: normal;
-            color: var(--brand-red);
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .mission-img-wrap {
-            position: relative;
-        }
-
-        .mission-img-wrap img {
-            width: 100%;
-            border-radius: 20px;
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
-            transition: transform 0.5s ease;
-        }
-
-        .mission-img-wrap img:hover {
-            transform: scale(1.02) rotate(1deg);
-        }
-
-        /* --- TEAM SECTION --- */
         .team-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 60px;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .team-card {
             background: white;
-            border-radius: 20px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
             overflow: hidden;
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.06);
-            border: 1px solid var(--border);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-        }
-
-        .team-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 5px;
-            background: linear-gradient(90deg, var(--brand-red), #ff6b6b, var(--brand-red));
-            background-size: 200% 100%;
-            transform: scaleX(0);
-            transform-origin: left;
-            transition: transform 0.4s ease;
-            z-index: 10;
-        }
-
-        .team-card:hover::before {
-            transform: scaleX(1);
-            animation: gradientSlide 2s linear infinite;
-        }
-
-        @keyframes gradientSlide {
-            0% {
-                background-position: 0% 50%;
-            }
-
-            100% {
-                background-position: 200% 50%;
-            }
+            transition: transform 0.3s;
         }
 
         .team-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
         }
 
         .team-photo {
-            height: 280px;
-            background-size: cover;
-            background-position: center top;
-            position: relative;
-            transition: transform 0.5s ease;
+            height: 320px;
+            overflow: hidden;
         }
 
-        .team-card:hover .team-photo {
-            transform: scale(1.05);
-        }
-
-        .team-photo::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
+        .team-photo img {
             width: 100%;
-            height: 50%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            height: 100%;
+            object-fit: cover;
+            object-position: center top;
+            transition: 0.5s;
+        }
+
+        .team-card:hover .team-photo img {
+            transform: scale(1.05);
         }
 
         .team-info {
             padding: 30px;
-            text-align: center;
-        }
-
-        .team-info h3 {
-            font-size: 1.5rem;
-            color: var(--brand-black);
-            margin-bottom: 5px;
         }
 
         .team-role {
             color: var(--brand-red);
             font-weight: 700;
-            text-transform: uppercase;
             font-size: 0.8rem;
-            letter-spacing: 2px;
+            text-transform: uppercase;
             margin-bottom: 15px;
+            display: block;
         }
 
-        .team-info p {
-            color: #64748b;
-            font-size: 0.95rem;
+        .expand-btn {
+            background: none;
+            border: none;
+            color: var(--brand-blue);
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 10px;
+        }
+
+        .team-why-full {
+            max-height: 0;
+            overflow: hidden;
+            transition: 0.4s ease;
+            opacity: 0;
+        }
+
+        .team-why-full.expanded {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 15px;
         }
 
         /* --- VALUES SECTION --- */
         .values-section {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-            color: white;
-            padding: 120px 5%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .values-section::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 800px;
-            height: 800px;
-            background: radial-gradient(circle, rgba(227, 24, 55, 0.1) 0%, transparent 50%);
+            padding: 100px 5%;
+            background: white;
         }
 
         .values-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 30px;
-            margin-top: 60px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .value-card {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 40px 25px;
             text-align: center;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 16px;
-            transition: all 0.4s ease;
+            padding: 40px;
+            border: 1px solid #eee;
+            border-radius: 12px;
+            transition: 0.3s;
         }
 
         .value-card:hover {
-            background: var(--brand-red);
             border-color: var(--brand-red);
-            transform: translateY(-8px);
-            box-shadow: 0 25px 50px rgba(227, 24, 55, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
         }
 
         .value-card i {
             font-size: 2.5rem;
             color: var(--brand-red);
             margin-bottom: 20px;
-            transition: color 0.3s ease;
         }
 
-        .value-card:hover i {
-            color: white;
-        }
-
-        .value-card h4 {
-            font-size: 1.2rem;
-            margin-bottom: 12px;
-            color: white;
-        }
-
-        .value-card p {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.9rem;
-        }
-
-        .value-card:hover p {
-            color: rgba(255, 255, 255, 0.95);
-        }
-
-        /* --- CHARITY LOGOS --- */
+        /* --- CHARITY LOGO SECTION --- */
         .charity-section {
-            background: var(--grey);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
-        }
-
-        .charity-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .charity-logo {
-            height: 80px;
-            width: auto;
-            filter: grayscale(100%);
-            opacity: 0.6;
-            transition: all 0.3s ease;
-        }
-
-        .charity-logo:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-            transform: scale(1.1);
-        }
-
-        /* --- CTA SECTION --- */
-        .cta-section {
+            background: var(--brand-blue);
+            color: white;
             text-align: center;
             padding: 100px 5%;
         }
 
-        .cta-section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
+        .charity-logos {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+            margin-top: 50px;
+            opacity: 0.7;
         }
 
-        .cta-section p {
-            color: #64748b;
-            max-width: 600px;
-            margin: 0 auto 40px;
-        }
-
-        .btn-cta {
-            display: inline-block;
-            background: var(--brand-red);
-            color: white;
-            padding: 20px 50px;
+        .charity-logo-placeholder {
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 15px 30px;
             border-radius: 50px;
-            font-family: 'Oswald', sans-serif;
-            text-transform: uppercase;
             font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 2px;
-            transition: all 0.3s ease;
-            box-shadow: 0 15px 30px rgba(227, 24, 55, 0.3);
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 1px;
         }
 
-        .btn-cta:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(227, 24, 55, 0.4);
-            background: var(--brand-red-dark);
+        .footer-social a:hover {
+            color: var(--brand-red);
         }
 
-        /* --- SCROLL REVEAL --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            .page-hero {
-                padding: 160px 5% 140px;
-            }
-
             .page-hero h1 {
                 font-size: 3rem;
             }
 
-            .stats-container,
-            .mission-grid,
-            .values-grid {
-                grid-template-columns: 1fr;
-            }
-
             .stats-container {
                 grid-template-columns: 1fr 1fr;
+                gap: 40px;
             }
 
-            .values-grid {
-                grid-template-columns: 1fr 1fr;
+            .stat-item {
+                border-right: none;
             }
 
             .mission-grid {
-                gap: 40px;
+                grid-template-columns: 1fr;
             }
-        }
 
-        @media (max-width: 600px) {
+            .team-grid {
+                grid-template-columns: 1fr;
+            }
 
-            .stats-container,
             .values-grid {
                 grid-template-columns: 1fr;
             }
@@ -667,7 +441,7 @@
 <body>
 
     <nav id="navbar">
-        <a href="../index.html" class="logo"><img src="../attached_assets/why-racing-logo_1767589311719.png"
+        <a href="../index.html" class="logo"><img src="../attached_assets/logo-2026.png"
                 alt="Why Racing Events Home"></a>
         <div class="nav-links">
             <a href="../index.html">Home</a>
@@ -696,98 +470,218 @@
         <a href="locations.html">Travel Guide</a>
         <a href="partners.html">Sponsors</a>
         <a href="about.html">About Us</a>
-        <a href="events.html" class="nav-btn mt-20">Find Your Race</a>
+        <a href="events.html" class="nav-btn" style="margin-top: 20px;">Find Your Race</a>
     </div>
 
-    <header class="page-hero">
-        <div class="hero-bg">
-            <div class="hero-orb hero-orb-1"></div>
-            <div class="hero-orb hero-orb-2"></div>
-            <div class="hero-orb hero-orb-3"></div>
-        </div>
-        <div class="hero-content">
-            <span class="tagline-badge">SINCE 2017</span>
-            <h1>Making Races <span>Matter</span></h1>
-            <p class="hero-subtitle">We don't just produce events. We create finish-line moments that change lives, fuel
-                charities, and bring communities together.</p>
-        </div>
-    </header>
+    <section class="page-hero">
+        <h1>THE STORY OF <br><span style="color: var(--brand-red);">WHY.</span></h1>
+        <p>A community built on fitness, family, and fun—raising millions for causes that matter.</p>
+    </section>
 
-    <div class="stats-wrapper">
+    <section class="stats-section" id="stats-section">
         <div class="stats-container">
-            <div class="stat-item reveal">
-                <span class="stat-number" data-count="100">0</span>
-                <span class="stat-label">Events Produced</span>
+            <div class="stat-item">
+                <span class="stat-number" data-target="3000000">$0</span>
+                <span class="stat-label">Donated to Charity</span>
             </div>
-            <div class="stat-item reveal" style="transition-delay: 0.1s;">
-                <span class="stat-number">$3M+</span>
-                <span class="stat-label">Raised for Charity</span>
+            <div class="stat-item">
+                <span class="stat-number" data-target="50000">0</span>
+                <span class="stat-label">Athletes Served</span>
             </div>
-            <div class="stat-item reveal" style="transition-delay: 0.2s;">
-                <span class="stat-number" data-count="50000">0</span>
-                <span class="stat-label">Finish Line Crosses</span>
+            <div class="stat-item">
+                <span class="stat-number" data-target="21">0</span>
+                <span class="stat-label">Annual Events</span>
             </div>
-            <div class="stat-item reveal" style="transition-delay: 0.3s;">
-                <span class="stat-number">2</span>
-                <span class="stat-label">States Served</span>
-            </div>
-        </div>
-    </div>
-
-    <section class="mission-section">
-        <div class="container mission-grid">
-            <div class="mission-text reveal">
-                <h2>Our Mission</h2>
-                <p>Why Racing Events is more than a race company. We're a movement dedicated to giving everyone—from
-                    first-time 5K runners to seasoned marathoners—the opportunity to discover their "why" through
-                    athletic achievement.</p>
-                <p>Every event we produce is designed with purpose: to challenge, to inspire, and to give back. A
-                    portion of every registration supports local charities, making each mile you run a contribution to
-                    something greater.</p>
-                <blockquote class="founder-quote">
-                    "The finish line is just the beginning. What you discover about yourself on the course—that's what
-                    lasts."
-                    <cite>— Kenny Chapman, Founder</cite>
-                </blockquote>
-            </div>
-            <div class="mission-img-wrap reveal" style="transition-delay: 0.2s;">
-                <img src="../images/homepage/community.png" alt="Why Racing Community Event" loading="lazy">
+            <div class="stat-item">
+                <span class="stat-number" data-target="15">0</span>
+                <span class="stat-label">Years Running</span>
             </div>
         </div>
     </section>
 
-    <section>
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>Meet the <span>Team</span></h2>
-                <p>The people behind every start line, aid station, and finish line cheer.</p>
+    <section class="mission-section">
+        <div class="mission-grid">
+            <div class="mission-image-wrapper">
+                <div class="mission-image">
+                    <img src="../images/Scrapedimages/our-lifestyle-img.jpg" alt="Why Racing Community">
+                </div>
             </div>
-            <div class="team-grid">
-                <div class="team-card reveal" style="transition-delay: 0.1s;">
-                    <div class="team-photo" style="background-image: url('../images/staff/kenny-chapman.jpg');"></div>
-                    <div class="team-info">
-                        <h3>Kenny Chapman</h3>
-                        <p class="team-role">Founder & Race Director</p>
-                        <p>Ultrarunner, community builder, and the driving force behind Why Racing's growth across the
-                            Pacific Northwest.</p>
+            <div class="mission-content">
+                <h2>What's Your <span style="color: var(--brand-red);">WHY?</span></h2>
+                <p>Some of us race to get faster and stronger. Some to get healthy and fit. Some to lose weight. Others
+                    just to get to the finish line.</p>
+                <p>Some of us race because of how it makes us feel. Some to have fun and hang with our friends. Some
+                    race to give back to an important local charity.</p>
+                <blockquote>
+                    "Regardless of your WHY, we are all united on a mission to improve our own health while improving
+                    the lives of those in need."
+                </blockquote>
+                <p>That's the philosophy behind Why Racing Events. Since 2010, we've been bringing the Pacific Northwest
+                    community together through endurance events that celebrate every athlete—from first-timers to
+                    seasoned competitors.</p>
+            </div>
+        </div>
+    </section>
+
+    <section class="team-section">
+        <div class="section-header">
+            <h2>Meet The Team</h2>
+            <p>The passionate people behind every finish line.</p>
+        </div>
+
+        <div class="team-grid">
+            <!-- Karissa & Rod Schoene -->
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/Scrapedimages/m-2.jpg" alt="Karissa & Rod Schoene">
+                </div>
+                <div class="team-info">
+                    <h3>Karissa & Rod Schoene</h3>
+                    <span class="team-role">Owners & Race Directors</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>Our WHY:</strong> To keep up with our kids; To teach our kids to be good humans; To
+                        enjoy all life has to offer...
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">We approach each Why Racing Event as a challenge
+                            to give our athletes an experience that they can’t wait to tell their friends and family
+                            about and they can’t wait to come back and do it again! With the amazing Why Racing Event
+                            team, it is my goal to make sure our athletes feel the WHY LOVE that we all provide.</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Having grown up in the Northwest, we are
+                            entrenched in this community allowing me the ability to provide an experience that our
+                            athletes have come to expect from Why Racing Events. We love to be part of a team that
+                            strives to provide the best racing experience for our athletes.</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">It is a family affair. We can’t do this without
+                            our family around us. From our kids, to my family and friends who have volun-TOLDED, to our
+                            sponsors, vendors, volunteers and athletes, our “WHY” is because we love the people!</p>
+                        <div style="margin-top: 15px;">
+                            <a href="mailto:Karissa@whyracingevents.com"
+                                style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700;">Karissa@whyracingevents.com</a><br>
+                            <a href="mailto:Rod@whyracingevents.com"
+                                style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700;">Rod@whyracingevents.com</a>
+                        </div>
                     </div>
                 </div>
-                <div class="team-card reveal" style="transition-delay: 0.2s;">
-                    <div class="team-photo" style="background-image: url('../images/staff/jess-chapman.jpg');"></div>
-                    <div class="team-info">
-                        <h3>Jess Chapman</h3>
-                        <p class="team-role">Operations Director</p>
-                        <p>The logistics mastermind ensuring every event runs like clockwork—from permits to
-                            port-a-potties.</p>
+            </div>
+
+            <!-- Brock Schoene -->
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/team/brock-schoene.png" alt="Brock Schoene">
+                </div>
+                <div class="team-info">
+                    <h3>Brock Schoene</h3>
+                    <span class="team-role">Race Director</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> To better myself by taking care of my body and mind through running.
+                        The more opportunities I have to clear the air...
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">I grew up at WHY Racing Events and love the
+                            atmosphere of our event venues. I am so excited to be part of making the athlete experience
+                            as amazing as possible. WHY provides so many opportunities to connect with our community,
+                            supporting local beneficiaries at each event, I take pride in connecting our local
+                            volunteers to our athletes.</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">My goal is to assist our volunteers so they can
+                            be the best support crew ever and have so much fun that they want to volunteer at our events
+                            all the time.</p>
+                        <a href="mailto:Brock@whyracingevents.com"
+                            style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700; display: block; margin-top: 10px;">Brock@whyracingevents.com</a>
                     </div>
                 </div>
-                <div class="team-card reveal" style="transition-delay: 0.3s;">
-                    <div class="team-photo" style="background-image: url('../images/staff/team-volunteers.jpg');"></div>
-                    <div class="team-info">
-                        <h3>Our Volunteer Army</h3>
-                        <p class="team-role">The Heart of Every Event</p>
-                        <p>Hundreds of dedicated volunteers who show up rain or shine to make magic happen on race day.
+            </div>
+
+            <!-- Richard Jessup -->
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/Scrapedimages/Richard-Photo-Pipeline-1a-rotated.jpg" alt="Richard Jessup">
+                </div>
+                <div class="team-info">
+                    <h3>Richard Jessup</h3>
+                    <span class="team-role">Operations Director</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> To make my family proud by creating long lasting events that contribute
+                        to people’s happiness and wellness.
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">I grew up in San Diego, CA where I learned to
+                            love the ocean and an active lifestyle. I started working triathlons and running races in
+                            the late 1980’s and immediately fell in love with the industry. I’ve worked for many race
+                            companies throughout my career and found a home with Why Racing Events in 2015.</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">Two of my five daughters (Sydney & Chloe) also
+                            work at Why Racing Events. When I’m not working events you can find me at home in Arizona by
+                            the pool, on a road trip to the beach or exploring life with my family.</p>
+                        <a href="mailto:Richard@whyracingevents.com"
+                            style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700; display: block; margin-top: 10px;">Richard@whyracingevents.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Marla Stone -->
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/Scrapedimages/marla.jpg" alt="Marla Stone" style="object-position: 0% 35%;">
+                </div>
+                <div class="team-info">
+                    <h3>Marla Stone</h3>
+                    <span class="team-role">Volunteer Coordinator</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> To encourage others to test their limits and to enjoy what every day
+                        has to offer. To be an example...
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">I began trail running in my 30’s and drifted to
+                            triathlons when I “grew up.” My love for being in the outdoors in a variety of conditions
+                            and sports culminated in beginning to work for WHY racing events. My joy is to assist in
+                            creating the best event experience for athletes of all skill levels.</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">It is not always winning the race but completion
+                            or improving racing times from prior events. WHY Racing strives to provide an amazing racing
+                            experience while simultaneously raising money and awareness for our beneficiaries’ causes.
+                            The WHY Family is a reality – we care about you, the athlete, and the community around you.
                         </p>
+                        <a href="mailto:Marla@whyracingevents.com"
+                            style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700; display: block; margin-top: 10px;">Marla@whyracingevents.com</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jim Mitts -->
+            <div class="team-card">
+                <div class="team-photo">
+                    <img src="../images/team/jim-mitts.jpg" alt="Jim Mitts">
+                </div>
+                <div class="team-info">
+                    <h3>Jim Mitts</h3>
+                    <span class="team-role">Swim Course Manager</span>
+                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                        <strong>My WHY:</strong> To have fun while being involved in the running community.
+                    </p>
+                    <button class="expand-btn" onclick="toggleExpand(this)">
+                        Read full story <i class="fas fa-chevron-down"></i>
+                    </button>
+                    <div class="team-why-full">
+                        <p style="margin-top: 10px; font-size: 0.9rem;">I have always been involved in running. It
+                            started in grade school when I participated in AAU Junior Olympics and continued through
+                            High school. I also participated in various indoor and outdoor sports throughout my adult
+                            life.</p>
+                        <p style="margin-top: 10px; font-size: 0.9rem;">I got more involved in road races and found Why
+                            Racing Events to be a great race experience and eventually started working with them in
+                            2021. I truly love seeing race participants competing but especially in our multi sport
+                            events.</p>
+                        <a href="mailto:jlmitts55@gmail.com"
+                            style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700; display: block; margin-top: 10px;">jlmitts55@gmail.com</a>
                     </div>
                 </div>
             </div>
@@ -795,59 +689,62 @@
     </section>
 
     <section class="values-section">
-        <div class="container">
-            <div class="section-header reveal">
-                <span style="color: var(--brand-red); font-weight: 700; letter-spacing: 2px;">WHAT DRIVES US</span>
-                <h2 style="color: white; margin-top: 10px;">Our Core Values</h2>
+        <div class="values-grid">
+            <div class="value-card">
+                <i class="fas fa-heartbeat"></i>
+                <h3>Fitness</h3>
+                <p>We believe in the transformative power of movement. Every event is designed to help you become your
+                    best self.</p>
             </div>
-            <div class="values-grid">
-                <div class="value-card reveal" style="transition-delay: 0.1s;">
-                    <i class="fas fa-heart"></i>
-                    <h4>Community First</h4>
-                    <p>Every decision starts with "How does this serve our runners and community?"</p>
-                </div>
-                <div class="value-card reveal" style="transition-delay: 0.2s;">
-                    <i class="fas fa-hand-holding-heart"></i>
-                    <h4>Give Back</h4>
-                    <p>Racing is our vehicle for change. Charity is woven into our DNA.</p>
-                </div>
-                <div class="value-card reveal" style="transition-delay: 0.3s;">
-                    <i class="fas fa-medal"></i>
-                    <h4>Excellence</h4>
-                    <p>From timing chips to course design, we sweat the details so you don't have to.</p>
-                </div>
-                <div class="value-card reveal" style="transition-delay: 0.4s;">
-                    <i class="fas fa-users"></i>
-                    <h4>Inclusivity</h4>
-                    <p>Fast or slow, first-timer or veteran—everyone belongs at our start line.</p>
-                </div>
+            <div class="value-card">
+                <i class="fas fa-users"></i>
+                <h3>Family</h3>
+                <p>Racing is better together. We create events where families train, compete, and celebrate as one.</p>
+            </div>
+            <div class="value-card">
+                <i class="fas fa-smile-beam"></i>
+                <h3>Fun</h3>
+                <p>From costume contests to live bands to epic after-parties—we make every finish line a celebration.
+                </p>
             </div>
         </div>
     </section>
 
     <section class="charity-section">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>Proud Charity <span>Partners</span></h2>
-                <p>A portion of every registration supports these incredible organizations.</p>
-            </div>
-            <div class="charity-grid reveal">
-                <img src="../images/charities/cff.png" alt="Cystic Fibrosis Foundation" class="charity-logo">
-                <img src="../images/charities/trevor.png" alt="The Trevor Project" class="charity-logo">
-                <img src="../images/charities/humane-society.png" alt="Humane Society" class="charity-logo">
-                <img src="../images/charities/special-olympics.png" alt="Special Olympics" class="charity-logo">
-                <img src="../images/charities/hhh.png" alt="Helping Hands for Haiti" class="charity-logo">
-            </div>
+        <h2 style="font-size: 3rem; color: white;">Making a Difference</h2>
+        <p style="opacity: 0.9; max-width: 600px; margin: 0 auto;">We don't just run. We raise. Every registration
+            supports local causes, ensuring our community grows stronger together.</p>
+
+        <div class="charity-logos">
+            <div class="charity-logo-placeholder">NW BATTLE BUDDIES</div>
+            <div class="charity-logo-placeholder">POLICE ACTIVITIES LEAGUE</div>
+            <div class="charity-logo-placeholder">AINSLEY'S ANGELS</div>
+            <div class="charity-logo-placeholder">VANCOUVER PUBLIC SCHOOLS</div>
+        </div>
+
+        <div style="margin-top: 50px;">
+            <a href="events.html" class="btn btn-primary" style="background: white; color: var(--brand-red);">Join The
+                Movement</a>
         </div>
     </section>
 
-    <section class="cta-section">
-        <div class="container reveal">
-            <h2>Find Your Why</h2>
-            <p>Join thousands of runners who've discovered their purpose on the course. Your finish line is waiting.</p>
-            <a href="events.html" class="btn-cta">Explore Upcoming Races</a>
+    <div class="sponsor-ticker">
+        <div class="sponsor-ticker-label">Proud Partners</div>
+        <div class="sponsor-track">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
+            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
+            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
+            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
+            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
+            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
         </div>
-    </section>
+    </div>
 
     <footer>
         <div class="footer-brand">WHY <span>RACING</span></div>
@@ -862,69 +759,83 @@
             <a href="about.html">About Us</a>
         </div>
         <div class="footer-social">
-            <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener" title="Facebook"><i
-                    class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener" title="Instagram"><i
-                    class="fab fa-instagram"></i></a>
-            <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter"><i
-                    class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube"><i
-                    class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/whyracingevents" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i></a>
         </div>
         <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
-        <div class="staff-portal-footer">
-            <a href="admin/races.html" class="staff-portal-link">Staff Portal</a>
+        <div style="margin-top: 20px; opacity: 0.5; font-size: 11px;">
+            <a href="admin/races.html" style="color: grey; text-decoration: none;">Staff Portal</a>
         </div>
     </footer>
 
     <script src="../assets/js/nav.js"></script>
+
     <script>
-        // Scroll Reveal Animation
-        const revealElements = document.querySelectorAll('.reveal');
+        // --- MOBILE MENU TOGGLE ---
+        function toggleMobileMenu() {
+            const hamburger = document.querySelector('.hamburger');
+            const mobileMenu = document.getElementById('mobileMenu');
+            hamburger.classList.toggle('active');
+            mobileMenu.classList.toggle('active');
+            document.body.style.overflow = mobileMenu.classList.contains('active') ? 'hidden' : '';
+        }
 
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    revealObserver.unobserve(entry.target);
-                }
+        // --- 1. EXPANDABLE TEAM CARDS ---
+        function toggleExpand(btn) {
+            const fullContent = btn.nextElementSibling;
+            const isExpanded = fullContent.classList.contains('expanded');
+
+            fullContent.classList.toggle('expanded');
+
+            btn.innerHTML = isExpanded
+                ? 'Read full story <i class="fas fa-chevron-down"></i>'
+                : 'Read less <i class="fas fa-chevron-up"></i>';
+        }
+
+        // --- 2. ANIMATED NUMBER COUNTERS ---
+        const counters = document.querySelectorAll('.stat-number');
+        const speed = 200;
+
+        const animateCounters = () => {
+            counters.forEach(counter => {
+                const updateCount = () => {
+                    const target = +counter.getAttribute('data-target');
+                    const count = +counter.innerText.replace(/,/g, '').replace(/\$/g, '').replace(/\+/g, '');
+
+                    const inc = target / speed;
+
+                    if (count < target) {
+                        let prefix = counter.getAttribute('data-target') === '3000000' ? '$' : '';
+                        let suffix = counter.getAttribute('data-target') === '3000000' || counter.getAttribute('data-target') === '50000' ? '+' : '';
+
+                        counter.innerText = prefix + Math.ceil(count + inc).toLocaleString() + suffix;
+                        setTimeout(updateCount, 20);
+                    } else {
+                        let prefix = counter.getAttribute('data-target') === '3000000' ? '$' : '';
+                        let suffix = counter.getAttribute('data-target') === '3000000' || counter.getAttribute('data-target') === '50000' ? '+' : '';
+                        counter.innerText = prefix + target.toLocaleString() + suffix;
+                    }
+                };
+                updateCount();
             });
-        }, {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
+        }
+
+        // --- 3. TRIGGER ANIMATION ON SCROLL ---
+        let scrolled = false;
+        window.addEventListener('scroll', () => {
+            const section = document.getElementById('stats-section');
+            if (section) {
+                const sectionPos = section.getBoundingClientRect().top;
+                const screenPos = window.innerHeight / 1.3;
+
+                if (sectionPos < screenPos && !scrolled) {
+                    animateCounters();
+                    scrolled = true;
+                }
+            }
         });
-
-        revealElements.forEach(el => revealObserver.observe(el));
-
-        // Counter Animation
-        const counters = document.querySelectorAll('.stat-number[data-count]');
-
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const counter = entry.target;
-                    const target = parseInt(counter.getAttribute('data-count'));
-                    const duration = 2000;
-                    const increment = target / (duration / 16);
-                    let current = 0;
-
-                    const updateCounter = () => {
-                        current += increment;
-                        if (current < target) {
-                            counter.textContent = Math.ceil(current).toLocaleString();
-                            requestAnimationFrame(updateCounter);
-                        } else {
-                            counter.textContent = target.toLocaleString() + '+';
-                        }
-                    };
-
-                    updateCounter();
-                    counterObserver.unobserve(counter);
-                }
-            });
-        }, { threshold: 0.5 });
-
-        counters.forEach(counter => counterObserver.observe(counter));
     </script>
 </body>
 
