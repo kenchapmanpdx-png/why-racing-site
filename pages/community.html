@@ -54,10 +54,12 @@
     <style>
         :root {
             --brand-red: #E31837;
+            --brand-red-dark: #b8132c;
             --brand-blue: #000000;
             --dark: #0a0a0a;
             --light: #ffffff;
-            --grey: #f4f4f4;
+            --grey: #f8fafc;
+            --border: #e2e8f0;
         }
 
         * {
@@ -69,8 +71,9 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--light);
-            color: #333;
-            line-height: 1.6;
+            color: #334155;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
 
         h1,
@@ -89,36 +92,143 @@
             transition: 0.3s;
         }
 
-        .btn-primary:hover {
-            background: #b00e26;
-            transform: translateY(-2px);
-        }
-
-        /* --- HERO --- */
+        /* --- ANIMATED HERO --- */
         .hero {
-            padding: 160px 5% 100px;
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('../images/action/community-hero.jpg') center/cover;
+            position: relative;
+            padding: 180px 5% 120px;
             color: white;
             text-align: center;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            z-index: 0;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 70%, rgba(227, 24, 55, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(227, 24, 55, 0.2) 0%, transparent 40%);
+            animation: pulseGradient 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGradient {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Floating orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 350px;
+            height: 350px;
+            background: var(--brand-red);
+            top: -150px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 250px;
+            height: 250px;
+            background: #ff6b6b;
+            bottom: -50px;
+            right: -50px;
+            animation-delay: -7s;
+        }
+
+        .hero-orb-3 {
+            width: 180px;
+            height: 180px;
+            background: #ffffff;
+            top: 40%;
+            right: 20%;
+            opacity: 0.08;
+            animation-delay: -14s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(40px, -40px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) rotate(240deg);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
             color: white;
-            font-size: 3.5rem;
-            margin-bottom: 20px;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            margin-bottom: 24px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            animation: fadeSlideUp 1s ease-out;
         }
 
         .hero p {
             font-size: 1.25rem;
-            max-width: 800px;
+            max-width: 750px;
             margin: 0 auto;
             opacity: 0.9;
+            font-weight: 300;
+            animation: fadeSlideUp 1s ease-out 0.2s both;
+        }
+
+        .brand-red-text {
+            color: var(--brand-red);
+            text-shadow: 0 0 30px rgba(227, 24, 55, 0.5);
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* --- SECTIONS --- */
         section {
-            padding: 80px 5%;
+            padding: 100px 5%;
+            position: relative;
         }
 
         .container {
@@ -126,58 +236,375 @@
             margin: 0 auto;
         }
 
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- FEATURE CARDS --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 40px;
         }
 
         .card {
             background: white;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            border-left: 5px solid var(--brand-red);
+            padding: 48px 40px;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid var(--border);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--brand-red), #ff6b6b, var(--brand-red));
+            background-size: 200% 100%;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            border-color: transparent;
+        }
+
+        .card:hover::before {
+            transform: scaleX(1);
+            animation: gradientSlide 2s linear infinite;
+        }
+
+        @keyframes gradientSlide {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
+        }
+
+        .card-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, rgba(227, 24, 55, 0.1), rgba(227, 24, 55, 0.05));
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover .card-icon {
+            background: linear-gradient(135deg, var(--brand-red), #ff6b6b);
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        .card-icon i {
+            font-size: 1.8rem;
+            color: var(--brand-red);
+            transition: color 0.3s ease;
+        }
+
+        .card:hover .card-icon i {
+            color: white;
         }
 
         .card h3 {
-            margin-bottom: 15px;
             font-size: 1.5rem;
+            margin-bottom: 16px;
         }
 
+        .card p {
+            color: #64748b;
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .btn-card {
+            display: inline-block;
+            background: transparent;
+            color: var(--brand-red);
+            padding: 12px 24px;
+            border: 2px solid var(--brand-red);
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-card:hover {
+            background: var(--brand-red);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(227, 24, 55, 0.2);
+        }
+
+        /* --- COMMUNITY HIGHLIGHTS --- */
         .community-highlights {
             background: var(--grey);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .community-highlights::before {
+            content: '';
+            position: absolute;
+            top: -30%;
+            left: -10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(227, 24, 55, 0.05) 0%, transparent 70%);
+            pointer-events: none;
         }
 
         .highlight-box {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 80px;
             align-items: center;
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
-        .highlight-box:nth-child(even) {
+        .highlight-box:last-child {
+            margin-bottom: 0;
+        }
+
+        .highlight-box.reverse {
             direction: rtl;
         }
 
-        .highlight-box:nth-child(even) .text {
+        .highlight-box.reverse>* {
             direction: ltr;
         }
 
-        .highlight-box img {
-            width: 100%;
-            border-radius: 12px;
+        .highlight-image {
+            position: relative;
         }
 
+        .highlight-image img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+            transition: transform 0.5s ease;
+        }
+
+        .highlight-image:hover img {
+            transform: scale(1.02);
+        }
+
+        .highlight-image::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: -20px;
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--brand-red), #ff6b6b);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .highlight-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .highlight-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--brand-red);
+            border-radius: 2px;
+        }
+
+        .highlight-text p {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+
+        /* --- TESTIMONIALS --- */
+        .testimonials-section {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .testimonials-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(227, 24, 55, 0.1) 0%, transparent 50%);
+        }
+
+        .testimonials-section .section-header h2 {
+            color: white;
+        }
+
+        .testimonials-section .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.4s ease;
+        }
+
+        .testimonial-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-8px);
+            border-color: rgba(227, 24, 55, 0.3);
+        }
+
+        .testimonial-card .avatar-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 20px;
+            border: 3px solid var(--brand-red);
+            box-shadow: 0 0 20px rgba(227, 24, 55, 0.3);
+        }
+
+        .testimonial-card p {
+            color: rgba(255, 255, 255, 0.85);
+            font-style: italic;
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card h4 {
+            color: var(--brand-red);
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            text-align: center;
+            position: relative;
+        }
+
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        .cta-section p {
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-size: 1.1rem;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: var(--brand-red);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(227, 24, 55, 0.3);
+        }
+
+        .btn-cta:hover {
+            background: var(--brand-red-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(227, 24, 55, 0.4);
+        }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
+            .hero {
+                padding: 140px 5% 100px;
+            }
+
             .hero h1 {
                 font-size: 2.5rem;
             }
 
             .highlight-box {
                 grid-template-columns: 1fr;
-                gap: 30px;
+                gap: 40px;
+            }
+
+            .highlight-box.reverse {
+                direction: ltr;
+            }
+
+            .card {
+                padding: 36px 28px;
             }
         }
     </style>
@@ -218,28 +645,43 @@
         <a href="events.html" class="nav-btn mt-20">Find Your Race</a>
     </div>
 
-
     <header class="hero">
-        <h1>Stronger <span class="brand-red-text">Together.</span></h1>
-        <p>Whether you're looking for a training partner, a corporate team challenge, or professional coaching, the
-            Why
-            Racing community is here to lift you up.</p>
+        <div class="hero-bg">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Stronger <span class="brand-red-text">Together.</span></h1>
+            <p>Whether you're looking for a training partner, a corporate team challenge, or professional coaching, the
+                Why Racing community is here to lift you up.</p>
+        </div>
     </header>
 
     <section>
         <div class="container">
+            <div class="section-header reveal">
+                <h2>Join the Movement</h2>
+                <p>Racing is more rewarding when you're part of something bigger. Find your tribe.</p>
+            </div>
             <div class="grid">
-                <div class="card">
+                <div class="card reveal" style="transition-delay: 0.1s;">
+                    <div class="card-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
                     <h3>Create a Team</h3>
                     <p>Race with your coworkers, your running club, or your best friends. Teams of 10+ get exclusive
                         discounts and a dedicated space in the athlete village.</p>
-                    <a href="#" class="btn btn-primary mt-20">Register a Team</a>
+                    <a href="#" class="btn-card">Register a Team</a>
                 </div>
-                <div class="card">
+                <div class="card reveal" style="transition-delay: 0.2s;">
+                    <div class="card-icon">
+                        <i class="fas fa-stopwatch"></i>
+                    </div>
                     <h3>Get Coached</h3>
                     <p>Don't just train—train smart. We partner with the best coaches in the PNW to provide custom
                         training plans for every distance from 5K to Ironman.</p>
-                    <a href="#" class="btn btn-primary mt-20">Find a Coach</a>
+                    <a href="#" class="btn-card">Find a Coach</a>
                 </div>
             </div>
         </div>
@@ -248,24 +690,26 @@
     <section class="community-highlights">
         <div class="container">
             <div class="highlight-box">
-                <img src="../images/action/training-group.jpg" alt="Training Group">
-                <div class="text">
+                <div class="highlight-image reveal">
+                    <img src="../images/action/training-group.jpg" alt="Training Group">
+                </div>
+                <div class="highlight-text reveal" style="transition-delay: 0.2s;">
                     <h2>Training & Social Runs</h2>
-                    <p>We host regular social runs and training clinics throughout the year. It's a great way to
-                        meet
+                    <p>We host regular social runs and training clinics throughout the year. It's a great way to meet
                         fellow athletes, scope out course segments, and get expert tips from our leads.</p>
-                    <p class="mt-20">Check our social media for the latest meet-up times and locations!
-                    </p>
+                    <p>Check our social media for the latest meet-up times and locations!</p>
                 </div>
             </div>
 
-            <div class="highlight-box">
-                <img src="../images/action/corporate-team.jpg" alt="Corporate Team">
-                <div class="text">
+            <div class="highlight-box reverse">
+                <div class="highlight-image reveal">
+                    <img src="../images/action/corporate-team.jpg" alt="Corporate Team">
+                </div>
+                <div class="highlight-text reveal" style="transition-delay: 0.2s;">
                     <h2>Corporate Wellness</h2>
                     <p>Boost morale and promote health within your organization. Our Corporate Team program makes it
                         easy for companies to sponsor employee entries and compete for the Corporate Cup.</p>
-                    <p class="mt-20">Healthy employees are happy employees.</p>
+                    <p>Healthy employees are happy employees.</p>
                 </div>
             </div>
         </div>
@@ -273,43 +717,44 @@
 
     <section class="testimonials-section">
         <div class="container">
-            <div class="section-header text-center mb-60">
+            <div class="section-header reveal">
                 <h2>What Athletes Are Saying</h2>
                 <p>Real stories from the Why Racing community.</p>
             </div>
             <div class="testimonial-grid">
-                <div class="testimonial-card brand-card-white text-center">
+                <div class="testimonial-card reveal" style="transition-delay: 0.1s;">
                     <img src="../images/Scrapedimages/Jenni-cropped.jpg" alt="Jenni" class="avatar-circle">
-                    <p class="italic-text small-text mb-15">"Why Racing events are
-                        the
-                        highlight of my year. The atmosphere is so supportive, whether you're finishing first or
-                        last!"
-                    </p>
-                    <h4 class="testimonial-author">Jenni</h4>
+                    <p>"Why Racing events are the highlight of my year. The atmosphere is so supportive, whether you're
+                        finishing first or last!"</p>
+                    <h4>Jenni</h4>
                 </div>
-                <div class="testimonial-card brand-card-white text-center">
+                <div class="testimonial-card reveal" style="transition-delay: 0.2s;">
                     <img src="../images/Scrapedimages/Brian-Jones-IMAGE.jpg" alt="Brian Jones" class="avatar-circle">
-                    <p class="italic-text small-text mb-15">"The technical shirts
-                        and
-                        medals are always top-notch, but it's the friendly volunteers that keep me coming back."</p>
-                    <h4 class="testimonial-author">Brian Jones</h4>
+                    <p>"The technical shirts and medals are always top-notch, but it's the friendly volunteers that keep
+                        me coming back."</p>
+                    <h4>Brian Jones</h4>
                 </div>
-                <div class="testimonial-card brand-card-white text-center">
+                <div class="testimonial-card reveal" style="transition-delay: 0.3s;">
                     <img src="../images/Scrapedimages/rebecca-cady-age30.jpg" alt="Rebecca Cady" class="avatar-circle">
-                    <p class="italic-text small-text mb-15">"I did my first
-                        triathlon
-                        with Why Racing and now I'm hooked! Their beginner clinics made all the difference."</p>
-                    <h4 class="testimonial-author">Rebecca Cady</h4>
+                    <p>"I did my first triathlon with Why Racing and now I'm hooked! Their beginner clinics made all the
+                        difference."</p>
+                    <h4>Rebecca Cady</h4>
                 </div>
-                <div class="testimonial-card brand-card-white text-center">
+                <div class="testimonial-card reveal" style="transition-delay: 0.4s;">
                     <img src="../images/Scrapedimages/Noland-Hoshino.jpg" alt="Noland Hoshino" class="avatar-circle">
-                    <p class="italic-text small-text mb-15">"Being part of the Why
-                        community has changed my life. I've found my tribe and reached goals I never thought
-                        possible."
-                    </p>
-                    <h4 class="testimonial-author">Noland Hoshino</h4>
+                    <p>"Being part of the Why community has changed my life. I've found my tribe and reached goals I
+                        never thought possible."</p>
+                    <h4>Noland Hoshino</h4>
                 </div>
             </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container reveal">
+            <h2>Ready to Find Your Tribe?</h2>
+            <p>Join thousands of athletes who train, race, and celebrate together. Your next PR is waiting.</p>
+            <a href="events.html" class="btn-cta">Explore Races</a>
         </div>
     </section>
 
@@ -342,6 +787,24 @@
     </footer>
 
     <script src="../assets/js/nav.js"></script>
+    <script>
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
 </body>
 
 </html>
