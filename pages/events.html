@@ -532,6 +532,14 @@
             will-change: transform, opacity;
         }
 
+        .card-logo {
+            height: 40px;
+            max-width: 120px;
+            object-fit: contain;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
         .event-card.loading {
             opacity: 0;
             transform: translateY(20px);
@@ -912,6 +920,11 @@
                 }
             }
 
+            const logoPath = race.logo_url ? '../' + race.logo_url : '';
+            const logoHtml = logoPath
+                ? `<img src="${logoPath}" alt="${race.name} logo" class="card-logo" loading="lazy">`
+                : '';
+
             const card = document.createElement('div');
             card.className = 'event-card dynamic-card loading';
             card.dataset.distance = filterKeywords;
@@ -927,6 +940,7 @@
                 </div>
                 <div class="card-body" style="flex: 1; display: flex; flex-direction: column;">
                     <div onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
+                        ${logoHtml}
                         <span class="card-date">${formatDate(race.race_date)}</span>
                         <h3 class="card-title">${race.name || 'New Race'}</h3>
                         ${timerHtml}

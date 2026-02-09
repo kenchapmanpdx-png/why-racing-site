@@ -58,6 +58,7 @@ module.exports = async (req, res) => {
                 registration_open,
                 hero_image_url,
                 thumbnail_url,
+                logo_url,
                 is_visible,
                 status,
                 race_distances (

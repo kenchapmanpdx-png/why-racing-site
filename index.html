@@ -649,6 +649,14 @@
             flex-direction: column;
         }
 
+        .card-logo {
+            height: 40px;
+            max-width: 120px;
+            object-fit: contain;
+            margin-bottom: 8px;
+            opacity: 0.9;
+        }
+
         .event-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -2041,6 +2049,10 @@
                 ? `<a href="${race.registration_url}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; font-weight: 800; width: 100%; border-radius: 6px;">Register Now</a>`
                 : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; color: #666; width: 100%; border-radius: 6px;">Coming Soon</span>`;
 
+            const logoHtml = race.logo_url
+                ? `<img src="${race.logo_url}" alt="${race.name} logo" class="card-logo" loading="lazy">`
+                : '';
+
             const card = document.createElement('div');
             card.className = 'event-card dynamic-db-card loading';
             card.dataset.distance = filterKeywords;
@@ -2054,6 +2066,7 @@
                 </div>
                 <div class="card-body">
                     <div onclick="showRaceDetails('${race.id}')" style="cursor: pointer;">
+                        ${logoHtml}
                         <span class="card-date">${dateStr}</span>
                         <h3 class="card-title">${race.name || 'New Race'}</h3>
                     </div>
