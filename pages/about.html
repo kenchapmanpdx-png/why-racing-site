@@ -27,8 +27,7 @@
     <meta property="twitter:title" content="About Us | Why Racing Events">
     <meta property="twitter:description"
         content="The team behind the PNW's most supportive racing community. Meet Why Racing.">
-    <meta property="twitter:image"
-        content="https://whyracingevents.com/attached_assets/logo-2026.png">
+    <meta property="twitter:image" content="https://whyracingevents.com/attached_assets/logo-2026.png">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -55,11 +54,12 @@
         /* --- BRANDING VARIABLES --- */
         :root {
             --brand-red: #E31837;
+            --brand-red-dark: #b8132c;
             --brand-blue: #000000;
             --dark: #0a0a0a;
             --light: #ffffff;
             --grey: #f4f4f4;
-            --glass: rgba(0, 0, 0, 0.95);
+            --border: #e2e8f0;
         }
 
         * {
@@ -126,34 +126,138 @@
             color: var(--brand-red);
         }
 
-        /* --- HERO SECTION --- */
-        .page-hero {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9) 0%, rgba(10, 10, 10, 0.95) 100%),
-                url('../images/homepage/community.png');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
+        /* --- ANIMATED HERO --- */
+        .hero {
+            position: relative;
             padding: 200px 5% 120px;
             text-align: center;
             color: white;
             clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            z-index: 0;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(227, 24, 55, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(227, 24, 55, 0.2) 0%, transparent 40%);
+            animation: pulseGradient 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGradient {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Floating orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 350px;
+            height: 350px;
+            background: var(--brand-red);
+            top: -100px;
+            right: -80px;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 200px;
+            height: 200px;
+            background: #ff6b6b;
+            bottom: 20px;
+            left: -50px;
+            animation-delay: -7s;
+        }
+
+        .hero-orb-3 {
+            width: 150px;
+            height: 150px;
+            background: #ffffff;
+            top: 40%;
+            left: 30%;
+            opacity: 0.08;
+            animation-delay: -14s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+        }
+
+        .hero-content {
             position: relative;
             z-index: 1;
         }
 
-        .page-hero h1 {
-            font-size: 4.5rem;
+        .hero h1 {
+            font-size: clamp(3rem, 6vw, 4.5rem);
             margin-bottom: 20px;
             color: white;
             font-style: italic;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            animation: fadeSlideUp 1s ease-out;
         }
 
-        .page-hero p {
+        .hero p {
             font-size: 1.4rem;
             opacity: 0.9;
             max-width: 700px;
             margin: 0 auto;
             font-weight: 300;
+            animation: fadeSlideUp 1s ease-out 0.2s both;
+        }
+
+        .brand-red-text {
+            color: var(--brand-red);
+            text-shadow: 0 0 30px rgba(227, 24, 55, 0.5);
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* --- STATS SECTION --- */
@@ -168,8 +272,8 @@
             background: white;
             max-width: 1200px;
             margin: 0 auto;
-            border-radius: 12px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.12);
             padding: 50px;
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -271,6 +375,12 @@
             font-size: 3rem;
         }
 
+        .section-header p {
+            color: #64748b;
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
         .team-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -281,14 +391,48 @@
 
         .team-card {
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
             overflow: hidden;
-            transition: transform 0.3s;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .team-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--brand-red), #ff6b6b, var(--brand-red));
+            background-size: 200% 100%;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: 10;
         }
 
         .team-card:hover {
-            transform: translateY(-10px);
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            border-color: transparent;
+        }
+
+        .team-card:hover::before {
+            transform: scaleX(1);
+            animation: gradientSlide 2s linear infinite;
+        }
+
+        @keyframes gradientSlide {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
         }
 
         .team-photo {
@@ -301,7 +445,7 @@
             height: 100%;
             object-fit: cover;
             object-position: center top;
-            transition: 0.5s;
+            transition: transform 0.5s ease;
         }
 
         .team-card:hover .team-photo img {
@@ -331,6 +475,11 @@
             align-items: center;
             gap: 5px;
             margin-top: 10px;
+            transition: color 0.3s;
+        }
+
+        .expand-btn:hover {
+            color: var(--brand-red);
         }
 
         .team-why-full {
@@ -364,27 +513,47 @@
             text-align: center;
             padding: 40px;
             border: 1px solid #eee;
-            border-radius: 12px;
-            transition: 0.3s;
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            background: white;
         }
 
         .value-card:hover {
             border-color: var(--brand-red);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 15px 40px rgba(227, 24, 55, 0.1);
+            transform: translateY(-8px);
         }
 
         .value-card i {
             font-size: 2.5rem;
             color: var(--brand-red);
             margin-bottom: 20px;
+            transition: transform 0.3s;
+        }
+
+        .value-card:hover i {
+            transform: scale(1.15);
         }
 
         /* --- CHARITY LOGO SECTION --- */
         .charity-section {
-            background: var(--brand-blue);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
             color: white;
             text-align: center;
             padding: 100px 5%;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .charity-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(227, 24, 55, 0.12) 0%, transparent 60%);
         }
 
         .charity-logos {
@@ -394,6 +563,8 @@
             gap: 30px;
             margin-top: 50px;
             opacity: 0.7;
+            position: relative;
+            z-index: 1;
         }
 
         .charity-logo-placeholder {
@@ -403,14 +574,36 @@
             font-weight: 700;
             font-family: 'Oswald', sans-serif;
             letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        .charity-logo-placeholder:hover {
+            border-color: var(--brand-red);
+            background: rgba(227, 24, 55, 0.1);
         }
 
         .footer-social a:hover {
             color: var(--brand-red);
         }
 
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
         @media (max-width: 900px) {
-            .page-hero h1 {
+            .hero {
+                padding: 160px 5% 100px;
+            }
+
+            .hero h1 {
                 font-size: 3rem;
             }
 
@@ -473,10 +666,17 @@
         <a href="events.html" class="nav-btn" style="margin-top: 20px;">Find Your Race</a>
     </div>
 
-    <section class="page-hero">
-        <h1>THE STORY OF <br><span style="color: var(--brand-red);">WHY.</span></h1>
-        <p>A community built on fitness, family, and fun—raising millions for causes that matter.</p>
-    </section>
+    <header class="hero">
+        <div class="hero-bg">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
+        </div>
+        <div class="hero-content">
+            <h1>THE STORY OF <br><span class="brand-red-text">WHY.</span></h1>
+            <p>A community built on fitness, family, and fun—raising millions for causes that matter.</p>
+        </div>
+    </header>
 
     <section class="stats-section" id="stats-section">
         <div class="stats-container">
@@ -499,7 +699,7 @@
         </div>
     </section>
 
-    <section class="mission-section">
+    <section class="mission-section reveal">
         <div class="mission-grid">
             <div class="mission-image-wrapper">
                 <div class="mission-image">
@@ -524,14 +724,14 @@
     </section>
 
     <section class="team-section">
-        <div class="section-header">
+        <div class="section-header reveal">
             <h2>Meet The Team</h2>
             <p>The passionate people behind every finish line.</p>
         </div>
 
         <div class="team-grid">
             <!-- Karissa & Rod Schoene -->
-            <div class="team-card">
+            <div class="team-card reveal" style="transition-delay: 0.1s;">
                 <div class="team-photo">
                     <img src="../images/Scrapedimages/m-2.jpg" alt="Karissa & Rod Schoene">
                 </div>
@@ -568,7 +768,7 @@
             </div>
 
             <!-- Brock Schoene -->
-            <div class="team-card">
+            <div class="team-card reveal" style="transition-delay: 0.2s;">
                 <div class="team-photo">
                     <img src="../images/team/brock-schoene.png" alt="Brock Schoene">
                 </div>
@@ -598,7 +798,7 @@
             </div>
 
             <!-- Richard Jessup -->
-            <div class="team-card">
+            <div class="team-card reveal" style="transition-delay: 0.3s;">
                 <div class="team-photo">
                     <img src="../images/Scrapedimages/Richard-Photo-Pipeline-1a-rotated.jpg" alt="Richard Jessup">
                 </div>
@@ -627,7 +827,7 @@
             </div>
 
             <!-- Marla Stone -->
-            <div class="team-card">
+            <div class="team-card reveal" style="transition-delay: 0.1s;">
                 <div class="team-photo">
                     <img src="../images/Scrapedimages/marla.jpg" alt="Marla Stone" style="object-position: 0% 35%;">
                 </div>
@@ -658,7 +858,7 @@
             </div>
 
             <!-- Jim Mitts -->
-            <div class="team-card">
+            <div class="team-card reveal" style="transition-delay: 0.2s;">
                 <div class="team-photo">
                     <img src="../images/team/jim-mitts.jpg" alt="Jim Mitts">
                 </div>
@@ -688,7 +888,7 @@
         </div>
     </section>
 
-    <section class="values-section">
+    <section class="values-section reveal">
         <div class="values-grid">
             <div class="value-card">
                 <i class="fas fa-heartbeat"></i>
@@ -710,7 +910,7 @@
         </div>
     </section>
 
-    <section class="charity-section">
+    <section class="charity-section reveal">
         <h2 style="font-size: 3rem; color: white;">Making a Difference</h2>
         <p style="opacity: 0.9; max-width: 600px; margin: 0 auto;">We don't just run. We raise. Every registration
             supports local causes, ensuring our community grows stronger together.</p>
@@ -836,6 +1036,17 @@
                 }
             }
         });
+
+        // --- 4. SCROLL REVEAL OBSERVER ---
+        const revealElements = document.querySelectorAll('.reveal');
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, { threshold: 0.15 });
+        revealElements.forEach(el => revealObserver.observe(el));
     </script>
 </body>
 
