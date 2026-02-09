@@ -54,10 +54,12 @@
     <style>
         :root {
             --brand-red: #E31837;
+            --brand-red-dark: #b8132c;
             --brand-blue: #000000;
             --dark: #0a0a0a;
             --light: #ffffff;
-            --grey: #f4f4f4;
+            --grey: #f8fafc;
+            --border: #e2e8f0;
         }
 
         * {
@@ -69,8 +71,9 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--light);
-            color: #333;
-            line-height: 1.6;
+            color: #334155;
+            line-height: 1.7;
+            overflow-x: hidden;
         }
 
         h1,
@@ -89,43 +92,162 @@
             transition: 0.3s;
         }
 
-        .btn-primary:hover {
-            background: #b00e26;
-            transform: translateY(-2px);
-        }
-
-        /* --- HERO --- */
+        /* --- ANIMATED HERO --- */
         .hero {
-            padding: 160px 4% 100px;
-            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('../images/action/location-hero.jpg') center/cover;
+            position: relative;
+            padding: 180px 5% 120px;
             color: white;
             text-align: center;
-            clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            clip-path: polygon(0 0, 100% 0, 100% 88%, 0 100%);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            z-index: 0;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 20% 80%, rgba(227, 24, 55, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(227, 24, 55, 0.2) 0%, transparent 40%);
+            animation: pulseGradient 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGradient {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Floating orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 350px;
+            height: 350px;
+            background: var(--brand-red);
+            top: -100px;
+            right: -80px;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 200px;
+            height: 200px;
+            background: #ff6b6b;
+            bottom: 20px;
+            left: -50px;
+            animation-delay: -7s;
+        }
+
+        .hero-orb-3 {
+            width: 150px;
+            height: 150px;
+            background: #ffffff;
+            top: 40%;
+            left: 30%;
+            opacity: 0.08;
+            animation-delay: -14s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(30px, -30px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-20px, 20px) rotate(240deg);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
         }
 
         .hero h1 {
             color: white;
-            font-size: 4rem;
-            margin-bottom: 20px;
-            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            margin-bottom: 24px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            animation: fadeSlideUp 1s ease-out;
         }
 
         .hero p {
-            font-size: 1.4rem;
-            max-width: 900px;
+            font-size: 1.2rem;
+            max-width: 750px;
             margin: 0 auto;
-            opacity: 1;
-            font-weight: 400;
+            opacity: 0.9;
+            font-weight: 300;
+            animation: fadeSlideUp 1s ease-out 0.2s both;
+        }
+
+        .brand-red-text {
+            color: var(--brand-red);
+            text-shadow: 0 0 30px rgba(227, 24, 55, 0.5);
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         /* --- LOCATION GRID --- */
         .location-section {
-            padding: 80px 4%;
+            padding: 100px 5%;
         }
 
         .container {
             max-width: 1200px;
             margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .section-header p {
+            color: #64748b;
+            font-size: 1.1rem;
         }
 
         .location-grid {
@@ -136,16 +258,48 @@
 
         .location-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            transition: 0.4s;
-            border: 1px solid #eee;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid var(--border);
+            position: relative;
+        }
+
+        .location-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 5px;
+            background: linear-gradient(90deg, var(--brand-red), #ff6b6b, var(--brand-red));
+            background-size: 200% 100%;
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            z-index: 10;
         }
 
         .location-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+            transform: translateY(-12px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
+            border-color: transparent;
+        }
+
+        .location-card:hover::before {
+            transform: scaleX(1);
+            animation: gradientSlide 2s linear infinite;
+        }
+
+        @keyframes gradientSlide {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            100% {
+                background-position: 200% 50%;
+            }
         }
 
         .loc-img {
@@ -153,6 +307,11 @@
             background-size: cover;
             background-position: center;
             position: relative;
+            transition: transform 0.5s ease;
+        }
+
+        .location-card:hover .loc-img {
+            transform: scale(1.05);
         }
 
         .loc-img::after {
@@ -161,8 +320,8 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            height: 50%;
-            background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent);
+            height: 60%;
+            background: linear-gradient(to top, rgba(0, 0, 0, 0.8), transparent);
         }
 
         .bg-vancouver {
@@ -217,6 +376,7 @@
             font-family: 'Oswald', sans-serif;
             font-size: 1.8rem;
             z-index: 1;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
         }
 
         .loc-content {
@@ -228,6 +388,11 @@
             margin-bottom: 15px;
             font-size: 0.9rem;
             letter-spacing: 2px;
+        }
+
+        .loc-content>p {
+            color: #64748b;
+            margin-bottom: 20px;
         }
 
         .guide-grid {
@@ -244,6 +409,7 @@
             display: flex;
             align-items: center;
             gap: 8px;
+            font-size: 0.85rem;
         }
 
         .guide-box i {
@@ -252,7 +418,7 @@
 
         .guide-box ul {
             list-style: none;
-            color: #666;
+            color: #64748b;
             font-size: 0.85rem;
         }
 
@@ -260,9 +426,86 @@
             margin-bottom: 5px;
         }
 
+        /* --- CTA SECTION --- */
+        .cta-section {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            padding: 100px 5%;
+        }
+
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(227, 24, 55, 0.15) 0%, transparent 60%);
+        }
+
+        .cta-section h2 {
+            color: white;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-section p {
+            max-width: 600px;
+            margin: 0 auto 30px;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: var(--brand-red);
+            color: white;
+            padding: 18px 40px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 1;
+            box-shadow: 0 10px 30px rgba(227, 24, 55, 0.3);
+        }
+
+        .btn-cta:hover {
+            background: var(--brand-red-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(227, 24, 55, 0.4);
+        }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
+            .hero {
+                padding: 140px 5% 100px;
+            }
+
             .hero h1 {
-                font-size: 2.8rem;
+                font-size: 2.5rem;
             }
 
             .location-grid {
@@ -308,18 +551,30 @@
     </div>
 
     <header class="hero">
-        <h1>Race, Stay, <span class="brand-red-text">Explore.</span></h1>
-        <p>Turn your race into a getaway. We've scouted the best of the Pacific Northwest so you can focus on the finish
-            line and enjoy the journey.</p>
+        <div class="hero-bg">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
+        </div>
+        <div class="hero-content">
+            <h1>Race, Stay, <span class="brand-red-text">Explore.</span></h1>
+            <p>Turn your race into a getaway. We've scouted the best of the Pacific Northwest so you can focus on the
+                finish
+                line and enjoy the journey.</p>
+        </div>
     </header>
 
     <section class="location-section">
         <div class="container">
+            <div class="section-header reveal">
+                <h2>Destination Racing</h2>
+                <p>From coastal adventures to mountain trails, discover the perfect race weekend.</p>
+            </div>
             <div class="location-grid">
 
                 <!-- WASHINGTON STATE -->
                 <!-- VANCOUVER, WA -->
-                <div class="location-card">
+                <div class="location-card reveal" style="transition-delay: 0.1s;">
                     <div class="loc-img bg-vancouver">
                         <div class="loc-name">Vancouver, WA</div>
                     </div>
@@ -358,8 +613,6 @@
                                     <li>Appletree Marathon</li>
                                     <li>Couve Clover Run</li>
                                     <li>Spring Classic</li>
-                                    <li>Columbia River Tri</li>
-                                    <li>Girlfriends Run</li>
                                 </ul>
                             </div>
                         </div>
@@ -367,7 +620,7 @@
                 </div>
 
                 <!-- WASHOUGAL, WA -->
-                <div class="location-card">
+                <div class="location-card reveal" style="transition-delay: 0.2s;">
                     <div class="loc-img bg-washougal">
                         <div class="loc-name">Washougal, WA</div>
                     </div>
@@ -412,7 +665,7 @@
                 </div>
 
                 <!-- LONG BEACH, WA -->
-                <div class="location-card">
+                <div class="location-card reveal" style="transition-delay: 0.3s;">
                     <div class="loc-img bg-long-beach">
                         <div class="loc-name">Long Beach, WA</div>
                     </div>
@@ -449,7 +702,6 @@
                                 <ul>
                                     <li>Pacific Coast Tri</li>
                                     <li>Sand & Surf Run</li>
-                                    <li>Pacific Coast Running Festival</li>
                                 </ul>
                             </div>
                         </div>
@@ -457,15 +709,14 @@
                 </div>
 
                 <!-- YACOLT, WA -->
-                <div class="location-card">
+                <div class="location-card reveal" style="transition-delay: 0.1s;">
                     <div class="loc-img bg-yacolt">
                         <div class="loc-name">Yacolt, WA</div>
                     </div>
                     <div class="loc-content">
                         <h4>Wilderness Trails</h4>
                         <p>Deep forest trails and rugged terrain. Home to some of the most challenging trail events in
-                            the
-                            PNW.</p>
+                            the PNW.</p>
                         <div class="guide-grid">
                             <div class="guide-box">
                                 <h5><i class="fas fa-hotel"></i> Stay</h5>
@@ -494,8 +745,8 @@
                             <div class="guide-box">
                                 <h5><i class="fas fa-running"></i> Events</h5>
                                 <ul>
-                                    <li>Bigfoot 5K/10K (Bivouac)</li>
-                                    <li>Hellz Bellz (Bivouac)</li>
+                                    <li>Bigfoot 5K/10K</li>
+                                    <li>Hellz Bellz</li>
                                 </ul>
                             </div>
                         </div>
@@ -504,7 +755,7 @@
 
                 <!-- OREGON STATE -->
                 <!-- BEND, OR -->
-                <div class="location-card">
+                <div class="location-card reveal" style="transition-delay: 0.2s;">
                     <div class="loc-img bg-bend">
                         <div class="loc-name">Bend, OR</div>
                     </div>
@@ -540,7 +791,7 @@
                             <div class="guide-box">
                                 <h5><i class="fas fa-running"></i> Events</h5>
                                 <ul>
-                                    <li>Pacific Crest (Why Racing)</li>
+                                    <li>Pacific Crest</li>
                                 </ul>
                             </div>
                         </div>
@@ -548,15 +799,14 @@
                 </div>
 
                 <!-- GOVERNMENT CAMP, OR -->
-                <div class="location-card">
+                <div class="location-card reveal" style="transition-delay: 0.3s;">
                     <div class="loc-img bg-mt-hood">
                         <div class="loc-name">Government Camp, OR</div>
                     </div>
                     <div class="loc-content">
                         <h4>Mountain Village</h4>
                         <p>A charming alpine village at the base of Mt. Hood. Winter wonderland and summer trail
-                            paradise.
-                        </p>
+                            paradise.</p>
                         <div class="guide-grid">
                             <div class="guide-box">
                                 <h5><i class="fas fa-hotel"></i> Stay</h5>
@@ -594,7 +844,7 @@
                 </div>
 
                 <!-- MAUPIN, OR -->
-                <div class="location-card">
+                <div class="location-card reveal" style="transition-delay: 0.1s;">
                     <div class="loc-img bg-maupin">
                         <div class="loc-name">Maupin, OR</div>
                     </div>
@@ -630,7 +880,7 @@
                             <div class="guide-box">
                                 <h5><i class="fas fa-running"></i> Events</h5>
                                 <ul>
-                                    <li>Maupin Daze (X-Dog)</li>
+                                    <li>Maupin Daze</li>
                                 </ul>
                             </div>
                         </div>
@@ -638,9 +888,9 @@
                 </div>
 
                 <!-- SILVER FALLS, OR -->
-                <div class="location-card">
+                <div class="location-card reveal" style="transition-delay: 0.2s;">
                     <div class="loc-img bg-silver-falls">
-                        <div class="loc-name">Silver Falls / Sublimity, OR</div>
+                        <div class="loc-name">Silver Falls, OR</div>
                     </div>
                     <div class="loc-content">
                         <h4>Waterfall Wonderland</h4>
@@ -681,16 +931,15 @@
                     </div>
                 </div>
 
-                <!-- VERNONIA / STUB STEWART, OR -->
-                <div class="location-card">
+                <!-- VERNONIA, OR -->
+                <div class="location-card reveal" style="transition-delay: 0.3s;">
                     <div class="loc-img bg-vernonia">
-                        <div class="loc-name">Vernonia / Stub Stewart, OR</div>
+                        <div class="loc-name">Vernonia, OR</div>
                     </div>
                     <div class="loc-content">
                         <h4>Forest & Rails</h4>
                         <p>Historic timber town with the Banks-Vernonia Trail and Stub Stewart State Park's mountain
-                            biking
-                            trails.</p>
+                            biking trails.</p>
                         <div class="guide-grid">
                             <div class="guide-box">
                                 <h5><i class="fas fa-hotel"></i> Stay</h5>
@@ -726,16 +975,15 @@
                     </div>
                 </div>
 
-                <!-- ASTORIA / FORT STEVENS, OR -->
-                <div class="location-card">
+                <!-- ASTORIA, OR -->
+                <div class="location-card reveal" style="transition-delay: 0.1s;">
                     <div class="loc-img bg-astoria">
-                        <div class="loc-name">Astoria / Fort Stevens, OR</div>
+                        <div class="loc-name">Astoria, OR</div>
                     </div>
                     <div class="loc-content">
                         <h4>Historic Coast</h4>
                         <p>Where the Columbia meets the Pacific. Historic charm, shipwrecks, and stunning coastal
-                            trails.
-                        </p>
+                            trails.</p>
                         <div class="guide-grid">
                             <div class="guide-box">
                                 <h5><i class="fas fa-hotel"></i> Stay</h5>
@@ -771,10 +1019,10 @@
                     </div>
                 </div>
 
-                <!-- FAIRVIEW / BLUE LAKE, OR -->
-                <div class="location-card">
+                <!-- FAIRVIEW, OR -->
+                <div class="location-card reveal" style="transition-delay: 0.2s;">
                     <div class="loc-img bg-fairview">
-                        <div class="loc-name">Fairview / Blue Lake, OR</div>
+                        <div class="loc-name">Fairview, OR</div>
                     </div>
                     <div class="loc-content">
                         <h4>Urban Oasis</h4>
@@ -799,15 +1047,15 @@
                             <div class="guide-box">
                                 <h5><i class="fas fa-camera"></i> Explore</h5>
                                 <ul>
-                                    <li>Blue Lake Park</li>
-                                    <li>Multnomah Falls</li>
+                                    <li>Blue Lake Regional Park</li>
                                     <li>Columbia Gorge Outlets</li>
+                                    <li>Historic Troutdale</li>
                                 </ul>
                             </div>
                             <div class="guide-box">
                                 <h5><i class="fas fa-running"></i> Events</h5>
                                 <ul>
-                                    <li>PDX Tri (Why Racing)</li>
+                                    <li>Various Events</li>
                                 </ul>
                             </div>
                         </div>
@@ -815,6 +1063,14 @@
                 </div>
 
             </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container reveal">
+            <h2>Ready for Adventure?</h2>
+            <p>Pick your destination, book your stay, and let us handle the rest. Your next race weekend awaits.</p>
+            <a href="events.html" class="btn-cta">Find Your Race</a>
         </div>
     </section>
 
@@ -847,6 +1103,24 @@
     </footer>
 
     <script src="../assets/js/nav.js"></script>
+    <script>
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
 </body>
 
 </html>

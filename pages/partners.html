@@ -11,6 +11,7 @@
         content="Reach 50,000+ affluent, active consumers in the PNW. Why Racing Events offers premier marathon, triathlon, and 5K sponsorship packages with measurable ROI.">
 
     <link rel="canonical" href="https://whyracingevents.com/partners" />
+    <link rel="icon" type="image/png" href="../attached_assets/why-racing-logo_1767589311719.png">
 
     <meta property="og:title" content="Partner With Why Racing Events | Premier PNW Sponsorships">
     <meta property="og:description"
@@ -21,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
-        href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;800&family=Oswald:wght@400;600;700&display=swap"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@400;600;700&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="../assets/css/brand.css">
@@ -38,52 +39,34 @@
         "email": "jess@whyracingevents.com",
         "contactType": "sponsorship",
         "areaServed": ["US-WA", "US-OR"]
-      },
-      "sameAs": [
-        "https://www.facebook.com/whyracingevents/",
-        "https://www.instagram.com/why_racing_events/"
-      ]
-    }
-    </script>
-
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [{
-        "@type": "Question",
-        "name": "What sponsorship opportunities are available?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "We offer experiential activations (booths), digital visibility, category exclusivity, and corporate team wellness programs across our 21 annual events."
-        }
-      }, {
-        "@type": "Question",
-        "name": "What is the demographic of Why Racing participants?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Our audience is 79% college-educated with an average household income of $112,000, primarily located in Washington and Oregon."
-        }
-      }]
+      }
     }
     </script>
 
     <style>
         :root {
             --brand-red: #E31837;
+            --brand-red-dark: #b8132c;
             --brand-black: #0a0a0a;
             --brand-dark: #121212;
             --text-grey: #b0b0b0;
+            --light: #ffffff;
+            --grey: #f8fafc;
+            --border: #e2e8f0;
         }
 
-        /* --- GLOBAL RESET & TEXTURE --- */
-        body {
-            font-family: 'Montserrat', sans-serif;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light);
+            color: #334155;
+            line-height: 1.7;
             overflow-x: hidden;
-            color: var(--brand-dark);
-            background-color: #f8f8f8;
-            line-height: 1.6;
         }
 
         h1,
@@ -93,76 +76,141 @@
             font-family: 'Oswald', sans-serif;
             text-transform: uppercase;
             margin: 0;
-            line-height: 1;
+            line-height: 1.2;
             letter-spacing: 0.5px;
         }
 
-        /* Texture overlay for visual depth */
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.03'/%3E%3C/svg%3E");
-            pointer-events: none;
-            z-index: 9999;
+        a {
+            text-decoration: none;
+            color: inherit;
+            transition: 0.3s;
         }
 
         .container {
-            max-width: 1240px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
+        }
+
+        /* --- ANIMATED HERO --- */
+        .hero {
             position: relative;
-            z-index: 2;
-        }
-
-        .section-pad {
-            padding: 120px 0;
-        }
-
-        .mobile-menu a {
+            padding: 200px 5% 180px;
             color: white;
-            font-size: 1.5rem;
-            text-decoration: none;
-            text-transform: uppercase;
-            font-family: 'Oswald', sans-serif;
-        }
-
-        /* --- HERO --- */
-        .hero-wrapper {
-            position: relative;
-            background-color: var(--brand-black);
-            background: linear-gradient(180deg, rgba(10, 10, 10, 0.8) 0%, rgba(10, 10, 10, 0.95) 100%), url('../images/action/spring-classic-1.jpg');
-            background-size: cover;
-            background-position: center;
-            color: white;
-            padding: 180px 0 260px;
+            text-align: center;
             clip-path: polygon(0 0, 100% 0, 100% 90%, 0 100%);
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            z-index: 0;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 30% 70%, rgba(227, 24, 55, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 70% 30%, rgba(227, 24, 55, 0.2) 0%, transparent 40%);
+            animation: pulseGradient 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGradient {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Floating orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 400px;
+            height: 400px;
+            background: var(--brand-red);
+            top: -150px;
+            left: -100px;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 300px;
+            height: 300px;
+            background: #ff6b6b;
+            bottom: -50px;
+            right: -80px;
+            animation-delay: -7s;
+        }
+
+        .hero-orb-3 {
+            width: 200px;
+            height: 200px;
+            background: #ffffff;
+            top: 30%;
+            right: 20%;
+            opacity: 0.08;
+            animation-delay: -14s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(40px, -40px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-30px, 30px) rotate(240deg);
+            }
+        }
+
+        .hero-content {
+            position: relative;
             z-index: 1;
         }
 
         .hero-pre {
             color: var(--brand-red);
-            font-family: 'Montserrat', sans-serif;
             font-weight: 800;
             letter-spacing: 4px;
             font-size: 0.85rem;
             margin-bottom: 25px;
             display: block;
             text-shadow: 0 2px 10px rgba(227, 24, 55, 0.4);
+            animation: fadeSlideUp 1s ease-out;
         }
 
-        .hero-title {
-            font-size: clamp(3.5rem, 8vw, 6.5rem);
+        .hero h1 {
+            font-size: clamp(3rem, 7vw, 5.5rem);
             font-weight: 700;
             margin-bottom: 20px;
             color: white;
-            font-style: italic;
+            animation: fadeSlideUp 1s ease-out 0.1s both;
         }
 
-        .hero-title span {
+        .hero h1 span {
             color: transparent;
             -webkit-text-stroke: 2px white;
             display: block;
@@ -170,57 +218,73 @@
         }
 
         .hero-sub {
-            font-size: 1.25rem;
+            font-size: 1.2rem;
             max-width: 650px;
             margin: 0 auto;
-            color: var(--text-grey);
+            color: rgba(255, 255, 255, 0.8);
             font-weight: 400;
             border-left: 4px solid var(--brand-red);
             padding-left: 20px;
             text-align: left;
             display: inline-block;
+            animation: fadeSlideUp 1s ease-out 0.2s both;
         }
 
-        /* --- STATS --- */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- STATS DECK --- */
         .stats-deck {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            margin-top: -160px;
+            margin-top: -100px;
             position: relative;
             z-index: 10;
-            margin-bottom: 100px;
+            margin-bottom: 80px;
         }
 
         .stat-card {
             background: white;
-            padding: 35px 20px;
+            padding: 40px 25px;
             text-align: center;
             position: relative;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-            transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid rgba(0, 0, 0, 0.05);
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.15);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
         }
 
-        .stat-card::after {
+        .stat-card::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 4px;
-            background: var(--brand-red);
+            background: linear-gradient(90deg, var(--brand-red), #ff6b6b);
             transform: scaleX(0);
-            transition: transform 0.3s ease;
+            transition: transform 0.4s ease;
             transform-origin: left;
         }
 
-        .stat-card:hover::after {
+        .stat-card:hover::before {
             transform: scaleX(1);
         }
 
         .stat-card:hover {
             transform: translateY(-10px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
         }
 
         .stat-num {
@@ -230,18 +294,46 @@
             font-weight: 700;
             color: var(--brand-black);
             line-height: 1;
-            margin-bottom: 5px;
+            margin-bottom: 8px;
         }
 
         .stat-label {
             font-size: 0.75rem;
             font-weight: 700;
             text-transform: uppercase;
-            color: #888;
+            color: #64748b;
             letter-spacing: 1px;
         }
 
-        /* --- CONTENT --- */
+        /* --- SECTIONS --- */
+        section {
+            padding: 100px 5%;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            color: var(--brand-black);
+        }
+
+        .section-header h2 span {
+            color: var(--brand-red);
+        }
+
+        .section-header p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* --- AUDIENCE SPLIT --- */
         .audience-split {
             display: grid;
             grid-template-columns: 1.1fr 0.9fr;
@@ -249,87 +341,149 @@
             align-items: center;
         }
 
-        .section-title {
-            font-size: 3rem;
-            font-weight: 700;
-            margin-bottom: 25px;
-            color: var(--brand-black);
+        .audience-text h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            position: relative;
         }
 
-        .section-title span {
-            color: var(--brand-red);
+        .audience-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: var(--brand-red);
+            border-radius: 2px;
+        }
+
+        .audience-text p {
+            color: #64748b;
+            margin-bottom: 20px;
         }
 
         .insight-quote {
-            background: var(--brand-black);
+            background: linear-gradient(135deg, var(--brand-black), #1a1a2e);
             color: white;
             padding: 30px;
             border-left: 8px solid var(--brand-red);
             font-family: 'Oswald', sans-serif;
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin: 30px 0;
             letter-spacing: 0.5px;
-            box-shadow: 20px 20px 0px rgba(0, 0, 0, 0.1);
+            border-radius: 0 12px 12px 0;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
         }
 
-        /* --- DARK SECTION --- */
+        .active-img {
+            width: 100%;
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
+            transition: transform 0.5s ease;
+        }
+
+        .active-img:hover {
+            transform: scale(1.02) rotate(1deg);
+        }
+
+        /* --- ADVANTAGE SECTION --- */
         .advantage-section {
-            background-color: var(--brand-black);
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
             color: white;
-            padding: 140px 0;
+            padding: 120px 5%;
             clip-path: polygon(0 5%, 100% 0, 100% 100%, 0 100%);
-            margin-top: 60px;
+            margin-top: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .advantage-section::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 800px;
+            height: 800px;
+            background: radial-gradient(circle, rgba(227, 24, 55, 0.1) 0%, transparent 50%);
         }
 
         .advantage-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-top: 60px;
+        }
+
+        .advantage-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 40px 30px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            transition: all 0.4s ease;
+        }
+
+        .advantage-card:hover {
+            background: var(--brand-red);
+            border-color: var(--brand-red);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(227, 24, 55, 0.3);
+        }
+
+        .advantage-card h4 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: white;
+        }
+
+        .advantage-card i {
+            color: var(--brand-red);
+            transition: color 0.3s ease;
+        }
+
+        .advantage-card:hover i {
+            color: white;
+        }
+
+        .advantage-card p {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.95rem;
+        }
+
+        .advantage-card:hover p {
+            color: rgba(255, 255, 255, 0.95);
+        }
+
+        /* --- OFFERS SECTION --- */
+        .offer-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 40px;
             margin-top: 60px;
         }
 
-        .advantage-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 40px 30px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            -webkit-backdrop-filter: blur(5px);
-            backdrop-filter: blur(5px);
-            transition: 0.3s;
+        .offer-col {
+            background: white;
+            padding: 40px;
+            border-radius: 20px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.05);
+            transition: all 0.4s ease;
         }
 
-        .advantage-card:hover {
-            background: var(--brand-red);
-            border-color: var(--brand-red);
-            transform: translateY(-5px);
-        }
-
-        .advantage-card h4 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .advantage-card p {
-            color: #ccc;
-            font-size: 0.95rem;
-        }
-
-        .advantage-card:hover p {
-            color: white;
-        }
-
-        /* --- OFFERS --- */
-        .offer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 60px;
-            margin-top: 60px;
+        .offer-col:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.1);
         }
 
         .offer-col h3 {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: var(--brand-black);
             margin-bottom: 30px;
             display: flex;
@@ -339,11 +493,11 @@
 
         .offer-col h3::before {
             content: '';
-            width: 8px;
+            width: 6px;
             height: 30px;
             background: var(--brand-red);
             display: block;
-            transform: skewX(-20deg);
+            border-radius: 3px;
         }
 
         .check-item {
@@ -354,24 +508,31 @@
 
         .check-item i {
             color: var(--brand-red);
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             margin-top: 4px;
         }
 
         .check-item strong {
             display: block;
             font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             color: var(--brand-black);
             letter-spacing: 0.5px;
+            margin-bottom: 4px;
         }
 
         .check-item span {
             font-size: 0.9rem;
-            color: #666;
+            color: #64748b;
         }
 
-        /* --- QUOTES --- */
+        /* --- QUOTES SECTION --- */
+        .quote-section {
+            background: var(--grey);
+            border-top: 1px solid var(--border);
+            border-bottom: 1px solid var(--border);
+        }
+
         .quote-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -382,16 +543,24 @@
         .quote-card {
             background: white;
             padding: 40px;
+            border-radius: 20px;
             border-top: 5px solid var(--brand-black);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.06);
             font-style: italic;
             position: relative;
+            transition: all 0.4s ease;
+        }
+
+        .quote-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border-top-color: var(--brand-red);
         }
 
         .quote-card::before {
-            content: '“';
+            content: '"';
             font-family: serif;
-            font-size: 6rem;
+            font-size: 5rem;
             color: #f0f0f0;
             position: absolute;
             top: 10px;
@@ -404,6 +573,7 @@
             z-index: 1;
             color: #444;
             font-weight: 500;
+            line-height: 1.8;
         }
 
         .quote-author {
@@ -414,215 +584,94 @@
             color: var(--brand-red);
             font-style: normal;
             font-size: 0.9rem;
+            letter-spacing: 1px;
         }
 
-        /* --- FAQ SECTION (For NLP/SEO) --- */
-        .faq-section {
-            background: #f0f0f0;
-            padding: 80px 0;
-        }
-
-        .faq-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 40px;
-            margin-top: 40px;
-        }
-
-        .faq-item h5 {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-            color: var(--brand-black);
-        }
-
-        .faq-item p {
-            font-size: 0.9rem;
-            color: #555;
-        }
-
-        .form-btn:hover {
-            border-color: var(--brand-red);
-            transform: translateX(5px);
-        }
-
-        footer {
-            background: #111;
-            color: #666;
-            padding: 60px 5%;
+        /* --- CTA SECTION --- */
+        .cta-section {
             text-align: center;
-            position: relative;
-            z-index: 2;
+            padding: 100px 5%;
         }
 
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .footer-links a {
-            color: #888;
-            text-decoration: none;
-            font-size: 0.9rem;
-        }
-
-        .footer-social {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .footer-social a {
-            color: #666;
-            font-size: 1.5rem;
-        }
-
-        @media (max-width: 900px) {
-
-            .stats-deck,
-            .audience-split,
-            .advantage-grid,
-            .quote-grid,
-            .offer-grid,
-            .form-grid,
-            .faq-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .hero-title {
-                font-size: 3.5rem;
-            }
-
-            .stats-deck {
-                margin-top: -80px;
-            }
-        }
-
-        /* Cleaning up inline styles */
-        .audience-text {
-            color: #666;
-        }
-
-        .active-img {
-            width: 100%;
-            box-shadow: 20px 20px 0px var(--brand-black);
-            filter: contrast(1.1);
-        }
-
-        .advantage-header {
-            max-width: 800px;
-        }
-
-        .high-pre {
-            font-weight: 700;
-            letter-spacing: 2px;
-        }
-
-        .fs-3rem {
-            font-size: 3rem;
-        }
-
-        .section-title-sub {
-            font-size: 2rem;
-            border-bottom: 2px solid #ddd;
-            padding-bottom: 20px;
-        }
-
-        .fs-2rem {
-            font-size: 2rem;
-        }
-
-        .cta-pre {
-            display: block;
-            color: #888;
-            font-weight: 700;
+        .cta-section h2 {
+            font-size: 2.5rem;
             margin-bottom: 20px;
-            letter-spacing: 2px;
         }
 
-        .cta-title {
-            font-size: 3.5rem;
-            margin-bottom: 40px;
-            color: var(--brand-black);
+        .cta-section p {
+            color: #64748b;
+            max-width: 600px;
+            margin: 0 auto 40px;
         }
 
-        .portal-header {
-            color: #ccc;
-            letter-spacing: 2px;
-            margin-bottom: 30px;
-            text-align: center;
-        }
-
-        /* --- CTA FOOTER & FORMS --- */
-        .cta-footer {
-            padding: 100px 0;
-            background: #fff;
-            text-align: center;
-            border-top: 1px solid #eee;
-        }
-
-        .btn-race {
+        .btn-cta {
             display: inline-block;
             background: var(--brand-red);
             color: white;
-            padding: 20px 40px;
+            padding: 20px 50px;
+            border-radius: 50px;
             font-family: 'Oswald', sans-serif;
-            font-size: 1.1rem;
             text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1.1rem;
             letter-spacing: 2px;
-            text-decoration: none;
-            transition: 0.3s;
-            box-shadow: 0 10px 20px rgba(227, 24, 55, 0.2);
-            margin-bottom: 60px;
+            transition: all 0.3s ease;
+            box-shadow: 0 15px 30px rgba(227, 24, 55, 0.3);
         }
 
-        .btn-race:hover {
+        .btn-cta:hover {
             transform: translateY(-3px);
-            box-shadow: 0 15px 30px rgba(227, 24, 55, 0.3);
-            background: #000;
+            box-shadow: 0 20px 40px rgba(227, 24, 55, 0.4);
+            background: var(--brand-red-dark);
         }
 
         .form-portal {
-            margin-top: 40px;
+            margin-top: 60px;
             padding-top: 60px;
-            border-top: 1px solid #eee;
+            border-top: 1px solid var(--border);
+        }
+
+        .portal-header {
+            color: #64748b;
+            letter-spacing: 2px;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 0.85rem;
         }
 
         .form-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            margin-top: 30px;
+            max-width: 900px;
+            margin: 0 auto;
         }
 
         .form-btn {
-            background: #f8f8f8;
+            background: var(--grey);
             padding: 30px;
             display: flex;
             align-items: center;
             justify-content: space-between;
             text-decoration: none;
             color: inherit;
-            border: 1px solid #eee;
-            transition: 0.3s;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            transition: all 0.4s ease;
         }
 
         .form-btn:hover {
             background: white;
             border-color: var(--brand-red);
             transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.08);
         }
 
         .form-btn i {
             font-size: 1.5rem;
             color: var(--brand-red);
             opacity: 0.5;
-            transition: 0.3s;
+            transition: all 0.3s;
         }
 
         .form-btn:hover i {
@@ -637,12 +686,48 @@
         }
 
         .form-btn p {
-            font-size: 0.85rem;
+            font-size: 0.8rem;
             color: var(--brand-red);
             font-weight: 700;
             text-transform: uppercase;
             margin: 0;
             letter-spacing: 1px;
+        }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 900px) {
+            .hero {
+                padding: 160px 5% 140px;
+            }
+
+            .hero h1 {
+                font-size: 3rem;
+            }
+
+            .stats-deck,
+            .audience-split,
+            .advantage-grid,
+            .quote-grid,
+            .offer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-deck {
+                grid-template-columns: 1fr 1fr;
+                margin-top: -60px;
+            }
         }
     </style>
 </head>
@@ -682,10 +767,15 @@
         <a href="events.html" class="nav-btn mt-20">Find Your Race</a>
     </div>
 
-    <div class="hero-wrapper">
-        <div class="container text-center">
+    <header class="hero">
+        <div class="hero-bg">
+            <div class="hero-orb hero-orb-1"></div>
+            <div class="hero-orb hero-orb-2"></div>
+            <div class="hero-orb hero-orb-3"></div>
+        </div>
+        <div class="hero-content">
             <span class="hero-pre">PACIFIC NORTHWEST DOMINANCE</span>
-            <h1 class="hero-title">
+            <h1>
                 <span>WHY RACING</span>
                 EVENTS
             </h1>
@@ -694,43 +784,41 @@
                 audience.
             </div>
         </div>
-    </div>
+    </header>
 
     <div class="container">
         <div class="stats-deck">
-            <div class="stat-card">
+            <div class="stat-card reveal" style="transition-delay: 0.1s;">
                 <span class="stat-num">50k+</span>
                 <span class="stat-label">Active Participants</span>
             </div>
-            <div class="stat-card">
+            <div class="stat-card reveal" style="transition-delay: 0.2s;">
                 <span class="stat-num">21</span>
                 <span class="stat-label">Regional Events</span>
             </div>
-            <div class="stat-card">
+            <div class="stat-card reveal" style="transition-delay: 0.3s;">
                 <span class="stat-num">$112k</span>
                 <span class="stat-label">Avg. Household Income</span>
             </div>
-            <div class="stat-card">
+            <div class="stat-card reveal" style="transition-delay: 0.4s;">
                 <span class="stat-num">79%</span>
                 <span class="stat-label">College Educated</span>
             </div>
         </div>
     </div>
 
-    <section class="section-pad">
+    <section>
         <div class="container audience-split">
-            <div>
-                <h2 class="section-title">A HIGH-VALUE <br><span>AUDIENCE</span></h2>
-                <p class="small-text audience-text">
-                    Our athletes aren't just active—they're decision-makers. Research shows that runner identity
+            <div class="audience-text reveal">
+                <h2>A High-Value <br><span style="color: var(--brand-red);">Audience</span></h2>
+                <p>Our athletes aren't just active—they're decision-makers. Research shows that runner identity
                     directly predicts purchase intention. When they connect with brands that support their passions,
-                    they don't just notice—they buy.
-                </p>
+                    they don't just notice—they buy.</p>
                 <div class="insight-quote">
                     "SPONSORS AREN'T BUYING LOGO PLACEMENT. THEY ARE BUYING ACCESS TO AN EMOTIONALLY ENGAGED COMMUNITY."
                 </div>
             </div>
-            <div>
+            <div class="reveal" style="transition-delay: 0.2s;">
                 <img src="../images/action/spring-classic-1.jpg" class="active-img"
                     alt="Active Why Racing event participants in Portland" loading="lazy">
             </div>
@@ -739,24 +827,24 @@
 
     <section class="advantage-section">
         <div class="container">
-            <div class="text-center mx-auto advantage-header">
-                <span class="brand-red-text high-pre">THE COMPETITIVE
+            <div class="section-header reveal">
+                <span style="color: var(--brand-red); font-weight: 700; letter-spacing: 2px;">THE COMPETITIVE
                     EDGE</span>
-                <h2 class="fs-3rem mt-10">WHY PARTNER WITH US?</h2>
+                <h2 style="color: white; margin-top: 10px;">Why Partner With Us?</h2>
             </div>
             <div class="advantage-grid">
-                <div class="advantage-card">
-                    <h4><i class="fas fa-shield-alt" aria-hidden="true"></i> CATEGORY PROTECTION</h4>
+                <div class="advantage-card reveal" style="transition-delay: 0.1s;">
+                    <h4><i class="fas fa-shield-alt"></i> Category Protection</h4>
                     <p>We don't clutter the course. We offer category exclusivity so your competitor isn't standing next
                         to you at the finish line.</p>
                 </div>
-                <div class="advantage-card">
-                    <h4><i class="fas fa-calendar-alt" aria-hidden="true"></i> YEAR-ROUND SCALE</h4>
+                <div class="advantage-card reveal" style="transition-delay: 0.2s;">
+                    <h4><i class="fas fa-calendar-alt"></i> Year-Round Scale</h4>
                     <p>With 21 events, we offer a full-year marketing calendar with a single contract. Stop negotiating
                         20 tiny deals.</p>
                 </div>
-                <div class="advantage-card">
-                    <h4><i class="fas fa-bullseye" aria-hidden="true"></i> PROVEN LOYALTY</h4>
+                <div class="advantage-card reveal" style="transition-delay: 0.3s;">
+                    <h4><i class="fas fa-bullseye"></i> Proven Loyalty</h4>
                     <p>Our athletes return year after year. Partnering with us builds long-term equity with a community
                         that trusts our endorsements.</p>
                 </div>
@@ -764,147 +852,110 @@
         </div>
     </section>
 
-    <section class="section-pad">
+    <section>
         <div class="container">
-            <h2 class="section-title text-center">DRIVE MEASURABLE <span>RESULTS</span></h2>
-
+            <div class="section-header reveal">
+                <h2>Drive Measurable <span>Results</span></h2>
+            </div>
             <div class="offer-grid">
-                <div class="offer-col">
-                    <h3>CUSTOMER ACQUISITION</h3>
+                <div class="offer-col reveal" style="transition-delay: 0.1s;">
+                    <h3>Customer Acquisition</h3>
                     <div class="check-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <i class="fas fa-check-circle"></i>
                         <div><strong>Face-to-Face Product Trial</strong><span>Get your product in hands at Expo booths &
                                 Aid Stations.</span></div>
                     </div>
                     <div class="check-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <i class="fas fa-check-circle"></i>
                         <div><strong>Direct Lead Generation</strong><span>Digital opt-ins and contest data
                                 capture.</span></div>
                     </div>
                 </div>
-                <div class="offer-col">
-                    <h3>BRAND EQUITY</h3>
+                <div class="offer-col reveal" style="transition-delay: 0.2s;">
+                    <h3>Brand Equity</h3>
                     <div class="check-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <i class="fas fa-check-circle"></i>
                         <div><strong>High-Frequency Recall</strong><span>Repeated exposure during peak emotional
                                 moments.</span></div>
                     </div>
                     <div class="check-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
+                        <i class="fas fa-check-circle"></i>
                         <div><strong>Category Ownership</strong><span>Be the exclusive partner in your industry.</span>
                         </div>
                     </div>
                 </div>
-                <div class="offer-col">
-                    <h3>CORPORATE IMPACT</h3>
+                <div class="offer-col reveal" style="transition-delay: 0.3s;">
+                    <h3>Corporate Impact</h3>
                     <div class="check-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
-                        <div><strong>Employee Wellness</strong><span>Turn-key team registration programs.</span></div>
+                        <i class="fas fa-check-circle"></i>
+                        <div><strong>Employee Wellness</strong><span>Discounted team entries & branded team
+                                tents.</span></div>
                     </div>
                     <div class="check-item">
-                        <i class="fas fa-check-circle" aria-hidden="true"></i>
-                        <div><strong>VIP Client Hosting</strong><span>Premium race-day experiences for key
-                                accounts.</span></div>
+                        <i class="fas fa-check-circle"></i>
+                        <div><strong>CSR Storytelling</strong><span>Align with our charity partners for authentic
+                                impact.</span></div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <div class="container">
-        <h2 class="section-title section-title-sub">TRUSTED
-            BY THE COMMUNITY</h2>
-        <div class="quote-grid">
-            <div class="quote-card">
-                <p class="quote-text">WhyRacing consistently delivers the gold standard. They make every runner feel
-                    like an elite athlete.</p>
-                <span class="quote-author">— SPRING CLASSIC FINISHER</span>
-            </div>
-            <div class="quote-card">
-                <p class="quote-text">The best race-day swag and post-party scene in Washington! The community energy is
-                    unmatched.</p>
-                <span class="quote-author">— COUVE CLOVER PARTICIPANT</span>
-            </div>
-            <div class="quote-card">
-                <p class="quote-text">Stunning courses and world-class support. It's why I come back every single year.
-                </p>
-                <span class="quote-author">— APPLETREE MARATHON RUNNER</span>
-            </div>
-        </div>
-    </div>
-
-    <section class="faq-section">
+    <section class="quote-section">
         <div class="container">
-            <h2 class="section-title fs-2rem">FREQUENTLY ASKED <span>QUESTIONS</span></h2>
-            <div class="faq-grid">
-                <div class="faq-item">
-                    <h5>Can we sponsor specific events?</h5>
-                    <p>Yes. While year-round partnerships offer the best scale, you can target specific demographics via
-                        events like the Appletree Marathon or Couve Clover Run.</p>
+            <div class="section-header reveal">
+                <h2>What Partners <span>Say</span></h2>
+            </div>
+            <div class="quote-grid">
+                <div class="quote-card reveal" style="transition-delay: 0.1s;">
+                    <p class="quote-text">"The quality of the events and the professionalism of the Why Racing team
+                        makes this an easy partnership to renew year after year."</p>
+                    <span class="quote-author">— Regional Sponsor</span>
                 </div>
-                <div class="faq-item">
-                    <h5>Do you offer category exclusivity?</h5>
-                    <p>Yes. We offer category protection for major partners, ensuring your brand is the sole voice in
-                        your industry on race day.</p>
+                <div class="quote-card reveal" style="transition-delay: 0.2s;">
+                    <p class="quote-text">"Our ROI from event sponsorships has been fantastic. The audience is engaged
+                        and genuinely interested in our products."</p>
+                    <span class="quote-author">— Healthcare Partner</span>
                 </div>
-                <div class="faq-item">
-                    <h5>How do corporate teams register?</h5>
-                    <p>We build a custom registration portal for your employees. You get a single invoice and a report
-                        on participation metrics.</p>
-                </div>
-                <div class="faq-item">
-                    <h5>What is the lead time for sponsorship?</h5>
-                    <p>For major activations involving apparel branding, we recommend finalizing agreements 6 months
-                        prior to the event.</p>
+                <div class="quote-card reveal" style="transition-delay: 0.3s;">
+                    <p class="quote-text">"Best decision we made was partnering with Why Racing. Our team employees look
+                        forward to every event."</p>
+                    <span class="quote-author">— Corporate Wellness Director</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <section class="cta-footer" id="partner-next-steps">
-        <div class="container">
-            <span class="cta-pre">INVENTORY
-                IS LIMITED FOR 2026</span>
-            <h2 class="cta-title">SECURE YOUR <span class="brand-red-text">CATEGORY</span></h2>
-
-            <a href="mailto:jess@whyracingevents.com" class="btn-race">
-                <span>EMAIL JESS FOR A STRATEGY CALL</span>
-            </a>
+    <section class="cta-section">
+        <div class="container reveal">
+            <h2>Ready to Partner?</h2>
+            <p>Let's create something extraordinary together. Join the region's premier race production company and
+                reach your ideal audience.</p>
+            <a href="mailto:jess@whyracingevents.com" class="btn-cta">Start the Conversation</a>
 
             <div class="form-portal">
-                <h4 class="portal-header">DIRECT APPLICATION PORTALS</h4>
+                <p class="portal-header">QUICK ACCESS FORMS</p>
                 <div class="form-grid">
-                    <a href="https://docs.google.com/forms/d/1F7JstuNB1VxfeRCqRCoYerrTDWk_9n3WLVSBoptge9E/viewform?usp=sf_link"
-                        target="_blank" rel="noopener" class="form-btn">
-                        <div class="form-btn-content">
+                    <a href="https://forms.gle/sponsorship" class="form-btn">
+                        <div>
                             <h5>Sponsorship Inquiry</h5>
-                            <p>Apply Now</p>
+                            <p>Get Started →</p>
                         </div>
                         <i class="fas fa-handshake"></i>
                     </a>
-                    <a href="https://docs.google.com/forms/d/1DmsTqpZO0rUcVzXBsH9u5eEVp60vTFLFYZlaIhl64Aw/viewform?usp=sf_link"
-                        target="_blank" rel="noopener" class="form-btn">
-                        <div class="form-btn-content">
-                            <h5>Event Vendor</h5>
-                            <p>Apply Now</p>
+                    <a href="https://forms.gle/vendor" class="form-btn">
+                        <div>
+                            <h5>Vendor Application</h5>
+                            <p>Apply Now →</p>
                         </div>
                         <i class="fas fa-store"></i>
                     </a>
-                    <a href="https://docs.google.com/forms/d/1GKysh5q1QnxXmi-AwPnAlSwOuMUSI38tLfaQ8sGJGqs/viewform?usp=sf_link"
-                        target="_blank" rel="noopener" class="form-btn">
-                        <div class="form-btn-content">
-                            <h5>In-Kind Sponsorship</h5>
-                            <p>Submit Request</p>
+                    <a href="https://forms.gle/corporate" class="form-btn">
+                        <div>
+                            <h5>Corporate Teams</h5>
+                            <p>Learn More →</p>
                         </div>
-                        <i class="fas fa-gift"></i>
-                    </a>
-                    <a href="https://docs.google.com/forms/d/1-hVIWvjkfkcIRUPS7WHPLmDKea1V9161sCjq_4j0pxY/viewform?usp=sf_link"
-                        target="_blank" rel="noopener" class="form-btn">
-                        <div class="form-btn-content">
-                            <h5>Corporate Wellness</h5>
-                            <p>Team Programs</p>
-                        </div>
-                        <i class="fas fa-heartbeat"></i>
+                        <i class="fas fa-users"></i>
                     </a>
                 </div>
             </div>
@@ -940,6 +991,24 @@
     </footer>
 
     <script src="../assets/js/nav.js"></script>
+    <script>
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
 </body>
 
 </html>
