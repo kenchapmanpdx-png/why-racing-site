@@ -270,8 +270,8 @@
 
         .grey-bg {
             background: var(--grey);
-            border-top: 2px solid rgba(26, 39, 68, 0.08);
-            border-bottom: 2px solid rgba(26, 39, 68, 0.08);
+            border-top: 3px solid rgba(26, 39, 68, 0.15);
+            border-bottom: 3px solid rgba(26, 39, 68, 0.15);
             position: relative;
             overflow: hidden;
         }
@@ -305,10 +305,10 @@
         .section-header h2::after {
             content: '';
             display: block;
-            width: 60px;
-            height: 3px;
+            width: 80px;
+            height: 4px;
             background: linear-gradient(90deg, var(--brand-red), var(--brand-navy));
-            margin: 14px auto 0;
+            margin: 16px auto 0;
             border-radius: 2px;
         }
 
@@ -342,23 +342,21 @@
             top: 0;
             left: 0;
             width: 100%;
-            height: 5px;
+            height: 4px;
             background: linear-gradient(90deg, var(--brand-navy), var(--brand-red), var(--brand-navy));
-            background-size: 200% 100%;
-            transform: scaleX(0);
+            transform: scaleX(1);
             transform-origin: left;
-            transition: transform 0.4s ease;
+            transition: height 0.4s ease;
         }
 
         .benefit-card:hover {
             transform: translateY(-12px);
-            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
-            border-color: rgba(26, 39, 68, 0.15);
+            box-shadow: 0 30px 60px rgba(26, 39, 68, 0.15);
+            border-color: rgba(26, 39, 68, 0.2);
         }
 
         .benefit-card:hover::before {
-            transform: scaleX(1);
-            animation: gradientSlide 2s linear infinite;
+            height: 5px;
         }
 
         @keyframes gradientSlide {
@@ -374,7 +372,8 @@
         .benefit-card .icon-circle {
             width: 80px;
             height: 80px;
-            background: linear-gradient(135deg, rgba(227, 24, 55, 0.1), rgba(227, 24, 55, 0.05));
+            background: linear-gradient(135deg, rgba(26, 39, 68, 0.1), rgba(227, 24, 55, 0.08));
+            border: 2px solid rgba(26, 39, 68, 0.12);
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -384,7 +383,8 @@
         }
 
         .benefit-card:hover .icon-circle {
-            background: linear-gradient(135deg, var(--brand-red), #ff6b6b);
+            background: linear-gradient(135deg, var(--brand-navy), var(--brand-red));
+            border-color: transparent;
             transform: scale(1.1) rotate(10deg);
         }
 
@@ -418,6 +418,7 @@
             text-align: center;
             transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
             border: 1px solid var(--border);
+            border-left: 4px solid var(--brand-navy);
             position: relative;
             overflow: hidden;
         }
