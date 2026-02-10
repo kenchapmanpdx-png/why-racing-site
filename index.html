@@ -1262,49 +1262,6 @@
             margin: 0 3px;
         }
 
-        /* STICKY BAR */
-        .sticky-bar {
-            position: fixed;
-            bottom: -100px;
-            left: 0;
-            width: 100%;
-            background: white;
-            padding: 15px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 999;
-            transition: bottom 0.5s;
-            box-shadow: 0 -5px 20px rgba(0, 0, 0, 0.15);
-            border-top: 4px solid var(--brand-red);
-        }
-
-        .sticky-bar.visible {
-            bottom: 0;
-        }
-
-        .sticky-info {
-            font-size: 12px;
-            color: #666;
-        }
-
-        .sticky-info strong {
-            display: block;
-            font-size: 16px;
-            color: var(--brand-blue);
-        }
-
-        .countdown {
-            font-family: 'Oswald', sans-serif;
-            font-size: 1.6rem;
-            color: var(--brand-blue);
-            font-weight: 700;
-        }
-
-        .countdown span {
-            color: var(--brand-red);
-        }
-
         /* FOOTER */
         footer {
             background: #111;
@@ -1489,13 +1446,6 @@
 
             .nav-btn {
                 display: none;
-            }
-
-            .sticky-bar {
-                flex-direction: column;
-                gap: 12px;
-                text-align: center;
-                padding: 15px;
             }
 
             .hero-event-card {
@@ -1840,18 +1790,6 @@
         </div>
     </footer>
 
-    <!-- STICKY BAR -->
-    <div id="stickyBar" class="sticky-bar">
-        <div class="sticky-info">
-            <span>Next Price Increase</span>
-            <strong>RESOLUTION RUN 2026</strong>
-        </div>
-        <div class="countdown">
-            <span id="days">02</span>d <span id="hours">14</span>h <span id="mins">33</span>m <span id="secs">12</span>s
-        </div>
-        <a href="pages/events/resolution-run.html" class="btn btn-primary">Lock In Price</a>
-    </div>
-
     <script>
         // Mobile menu toggle
         function toggleMobileMenu() {
@@ -1869,31 +1807,10 @@
         // Nav scroll effect
         window.addEventListener('scroll', function () {
             var nav = document.getElementById('navbar');
-            var sticky = document.getElementById('stickyBar');
 
             if (window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
-
-            if (window.scrollY > 500) sticky.classList.add('visible');
-            else sticky.classList.remove('visible');
         });
-
-        // Countdown timer
-        var end = Date.now() + (2 * 24 * 60 * 60 * 1000) + (14 * 60 * 60 * 1000) + (33 * 60 * 1000);
-        function updateTimer() {
-            var diff = end - Date.now();
-            if (diff < 0) diff = 0;
-            var d = Math.floor(diff / 86400000);
-            var h = Math.floor((diff % 86400000) / 3600000);
-            var m = Math.floor((diff % 3600000) / 60000);
-            var s = Math.floor((diff % 60000) / 1000);
-            document.getElementById('days').innerText = d < 10 ? '0' + d : d;
-            document.getElementById('hours').innerText = h < 10 ? '0' + h : h;
-            document.getElementById('mins').innerText = m < 10 ? '0' + m : m;
-            document.getElementById('secs').innerText = s < 10 ? '0' + s : s;
-        }
-        setInterval(updateTimer, 1000);
-        updateTimer();
 
         // Inject hero videos after load to satisfy static linters
         window.addEventListener('load', function () {
