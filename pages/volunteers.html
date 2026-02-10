@@ -55,6 +55,7 @@
             --brand-red: #E31837;
             --brand-red-dark: #b8132c;
             --brand-blue: #000000;
+            --brand-navy: #1a2744;
             --dark: #0a0a0a;
             --light: #ffffff;
             --grey: #f8fafc;
@@ -269,8 +270,8 @@
 
         .grey-bg {
             background: var(--grey);
-            border-top: 1px solid var(--border);
-            border-bottom: 1px solid var(--border);
+            border-top: 2px solid rgba(26, 39, 68, 0.08);
+            border-bottom: 2px solid rgba(26, 39, 68, 0.08);
             position: relative;
             overflow: hidden;
         }
@@ -299,6 +300,16 @@
         .section-header h2 {
             font-size: 2.5rem;
             margin-bottom: 16px;
+        }
+
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--brand-red), var(--brand-navy));
+            margin: 14px auto 0;
+            border-radius: 2px;
         }
 
         .section-header p {
@@ -332,7 +343,7 @@
             left: 0;
             width: 100%;
             height: 5px;
-            background: linear-gradient(90deg, var(--brand-red), #ff6b6b, var(--brand-red));
+            background: linear-gradient(90deg, var(--brand-navy), var(--brand-red), var(--brand-navy));
             background-size: 200% 100%;
             transform: scaleX(0);
             transform-origin: left;
@@ -342,7 +353,7 @@
         .benefit-card:hover {
             transform: translateY(-12px);
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.12);
-            border-color: transparent;
+            border-color: rgba(26, 39, 68, 0.15);
         }
 
         .benefit-card:hover::before {
@@ -418,7 +429,7 @@
             left: 0;
             width: 100%;
             height: 4px;
-            background: linear-gradient(90deg, var(--brand-red), #ff6b6b);
+            background: linear-gradient(90deg, var(--brand-navy), var(--brand-red), var(--brand-navy));
             transform: scaleX(0);
             transform-origin: center;
             transition: transform 0.4s ease;
@@ -426,8 +437,8 @@
 
         .role-card:hover {
             transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border-color: rgba(227, 24, 55, 0.2);
+            box-shadow: 0 20px 40px rgba(26, 39, 68, 0.12);
+            border-color: rgba(26, 39, 68, 0.2);
         }
 
         .role-card:hover::after {
@@ -448,7 +459,7 @@
 
         /* --- FORM SECTION --- */
         .form-section {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            background: linear-gradient(135deg, #0a0a0a 0%, var(--brand-navy) 100%);
             position: relative;
             overflow: hidden;
         }
