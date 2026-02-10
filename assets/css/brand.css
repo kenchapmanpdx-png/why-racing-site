@@ -496,19 +496,19 @@ section[style*="background: var(--brand-blue)"] .price-was {
 
 @media (max-width: 1200px) {
     .hero-collage {
-        grid-template-columns: repeat(12, 1fr);
+        grid-template-columns: repeat(10, 1fr);
     }
 }
 
 @media (max-width: 768px) {
     .hero-collage {
-        grid-template-columns: repeat(10, 1fr);
+        grid-template-columns: repeat(8, 1fr);
     }
 }
 
 @media (max-width: 480px) {
     .hero-collage {
-        grid-template-columns: repeat(8, 1fr);
+        grid-template-columns: repeat(6, 1fr);
     }
 }
 
