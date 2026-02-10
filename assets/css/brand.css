@@ -439,13 +439,49 @@ section[style*="background: var(--brand-blue)"] .price-was {
     filter: grayscale(20%);
     transition: filter 0.5s ease, transform 0.5s ease;
     will-change: filter, transform;
+    animation: collage-shimmer 15s infinite ease-in-out;
+}
+
+/* Organic Shimmer Variance */
+.hero-collage img:nth-child(3n) {
+    animation-duration: 13s;
+    animation-delay: -2s;
+}
+
+.hero-collage img:nth-child(5n) {
+    animation-duration: 17s;
+    animation-delay: -5s;
+}
+
+.hero-collage img:nth-child(7n) {
+    animation-duration: 19s;
+    animation-delay: -3s;
+}
+
+.hero-collage img:nth-child(11n) {
+    animation-duration: 23s;
+    animation-delay: -7s;
+}
+
+@keyframes collage-shimmer {
+
+    0%,
+    100% {
+        transform: scale(1);
+        filter: grayscale(20%) brightness(1);
+    }
+
+    50% {
+        transform: scale(1.03);
+        filter: grayscale(10%) brightness(1.1);
+    }
 }
 
 .hero-collage img:hover {
-    filter: grayscale(0%);
-    transform: scale(1.1);
-    /* Slightly more scale for smaller images */
+    filter: grayscale(0%) brightness(1.2) !important;
+    transform: scale(1.1) !important;
     z-index: 2;
+    animation-play-state: paused;
 }
 
 .hero-overlay {
