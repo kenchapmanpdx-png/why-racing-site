@@ -577,17 +577,17 @@
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero {
-                padding: 120px 5% 50px;
+                padding: 110px 5% 35px;
             }
 
             .hero h1 {
-                font-size: 2rem;
-                margin-bottom: 14px;
+                font-size: 1.8rem;
+                margin-bottom: 10px;
             }
 
             .hero p {
-                font-size: 0.95rem;
-                line-height: 1.6;
+                font-size: 0.88rem;
+                line-height: 1.5;
             }
 
             .hero-orb {
@@ -595,67 +595,71 @@
             }
 
             .commitment-bar {
-                padding: 18px 5%;
+                padding: 14px 5%;
             }
 
             .commitment-bar p {
-                font-size: 0.9rem;
-                line-height: 1.5;
+                font-size: 0.82rem;
+                line-height: 1.4;
             }
 
+            /* Collapse section headers into tight single-line */
             section {
-                padding: 40px 4%;
+                padding: 28px 4%;
             }
 
             .section-header {
-                margin-bottom: 24px;
+                margin-bottom: 14px;
             }
 
             .section-header .category-icon {
-                font-size: 2rem;
-                margin-bottom: 8px;
+                font-size: 1.3rem;
+                margin-bottom: 0;
+                display: inline;
+                vertical-align: middle;
+                margin-right: 6px;
             }
 
             .section-header h2 {
-                font-size: 1.6rem;
-                margin-bottom: 10px;
+                font-size: 1.2rem;
+                margin-bottom: 0;
+                display: inline;
+                vertical-align: middle;
             }
 
             .section-header h2::after {
-                width: 50px;
-                height: 3px;
-                margin-top: 10px;
+                display: none;
             }
 
             .section-header p {
-                font-size: 0.9rem;
+                display: none;
             }
 
             .resource-grid {
                 grid-template-columns: 1fr;
-                gap: 12px;
+                gap: 8px;
             }
 
             .resource-card {
-                padding: 16px 14px;
-                border-radius: 12px;
-                gap: 14px;
+                padding: 12px;
+                border-radius: 10px;
+                gap: 12px;
             }
 
             .resource-card .card-icon {
-                width: 42px;
-                height: 42px;
-                min-width: 42px;
-                font-size: 1.1rem;
+                width: 38px;
+                height: 38px;
+                min-width: 38px;
+                font-size: 1rem;
             }
 
             .card-content h4 {
-                font-size: 0.95rem;
-                margin-bottom: 3px;
+                font-size: 0.88rem;
+                margin-bottom: 2px;
             }
 
             .card-content .card-link {
-                font-size: 0.75rem;
+                font-size: 0.7rem;
                 letter-spacing: 0.5px;
             }
 
@@ -664,71 +668,105 @@
             }
 
             .cta-section {
-                padding: 45px 5%;
+                padding: 35px 5%;
+            }
+
+            .cta-section h2 {
+                font-size: 1.4rem;
             }
 
             .cta-section p {
-                font-size: 0.95rem;
-                margin-bottom: 20px;
+                font-size: 0.88rem;
+                margin-bottom: 16px;
             }
 
             .btn-cta {
-                padding: 13px 30px;
-                font-size: 0.95rem;
+                padding: 12px 28px;
+                font-size: 0.9rem;
             }
         }
 
         @media (max-width: 480px) {
             .hero {
-                padding: 110px 4% 40px;
+                padding: 100px 4% 25px;
             }
 
             .hero h1 {
-                font-size: 1.7rem;
+                font-size: 1.5rem;
             }
 
             .hero p {
-                font-size: 0.85rem;
+                font-size: 0.8rem;
+                line-height: 1.4;
+            }
+
+            .commitment-bar {
+                padding: 10px 4%;
             }
 
             .commitment-bar p {
-                font-size: 0.82rem;
+                font-size: 0.78rem;
             }
 
             section {
-                padding: 30px 4%;
+                padding: 20px 3%;
             }
 
             .section-header {
-                margin-bottom: 18px;
+                margin-bottom: 10px;
+            }
+
+            .section-header .category-icon {
+                font-size: 1.1rem;
             }
 
             .section-header h2 {
-                font-size: 1.35rem;
+                font-size: 1.05rem;
             }
 
             .resource-grid {
-                gap: 10px;
+                gap: 6px;
             }
 
             .resource-card {
-                padding: 14px 12px;
-                gap: 12px;
+                padding: 10px;
+                gap: 10px;
+                border-radius: 8px;
             }
 
             .resource-card .card-icon {
-                width: 36px;
-                height: 36px;
-                min-width: 36px;
-                font-size: 0.95rem;
+                width: 32px;
+                height: 32px;
+                min-width: 32px;
+                font-size: 0.85rem;
+                border-width: 1px;
             }
 
             .card-content h4 {
-                font-size: 0.88rem;
+                font-size: 0.82rem;
+            }
+
+            .card-content .card-link {
+                font-size: 0.65rem;
             }
 
             .cta-section {
-                padding: 35px 4%;
+                padding: 25px 4%;
+            }
+
+            .cta-section h2 {
+                font-size: 1.2rem;
+                margin-bottom: 10px;
+            }
+
+            .cta-section p {
+                font-size: 0.8rem;
+                margin-bottom: 14px;
+            }
+
+            .btn-cta {
+                padding: 10px 24px;
+                font-size: 0.85rem;
             }
         }
     </style>
