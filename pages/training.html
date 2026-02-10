@@ -577,20 +577,158 @@
         /* --- RESPONSIVE --- */
         @media (max-width: 768px) {
             .hero {
-                padding: 140px 5% 80px;
+                padding: 120px 5% 50px;
             }
 
             .hero h1 {
-                font-size: 2.5rem;
+                font-size: 2rem;
+                margin-bottom: 14px;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+                line-height: 1.6;
+            }
+
+            .hero-orb {
+                display: none;
+            }
+
+            .commitment-bar {
+                padding: 18px 5%;
+            }
+
+            .commitment-bar p {
+                font-size: 0.9rem;
+                line-height: 1.5;
+            }
+
+            section {
+                padding: 40px 4%;
+            }
+
+            .section-header {
+                margin-bottom: 24px;
+            }
+
+            .section-header .category-icon {
+                font-size: 2rem;
+                margin-bottom: 8px;
+            }
+
+            .section-header h2 {
+                font-size: 1.6rem;
+                margin-bottom: 10px;
+            }
+
+            .section-header h2::after {
+                width: 50px;
+                height: 3px;
+                margin-top: 10px;
+            }
+
+            .section-header p {
+                font-size: 0.9rem;
             }
 
             .resource-grid {
                 grid-template-columns: 1fr;
+                gap: 12px;
             }
 
             .resource-card {
-                flex-direction: column;
-                text-align: center;
+                padding: 16px 14px;
+                border-radius: 12px;
+                gap: 14px;
+            }
+
+            .resource-card .card-icon {
+                width: 42px;
+                height: 42px;
+                min-width: 42px;
+                font-size: 1.1rem;
+            }
+
+            .card-content h4 {
+                font-size: 0.95rem;
+                margin-bottom: 3px;
+            }
+
+            .card-content .card-link {
+                font-size: 0.75rem;
+                letter-spacing: 0.5px;
+            }
+
+            .no-link-label {
+                font-size: 0.7rem;
+            }
+
+            .cta-section {
+                padding: 45px 5%;
+            }
+
+            .cta-section p {
+                font-size: 0.95rem;
+                margin-bottom: 20px;
+            }
+
+            .btn-cta {
+                padding: 13px 30px;
+                font-size: 0.95rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero {
+                padding: 110px 4% 40px;
+            }
+
+            .hero h1 {
+                font-size: 1.7rem;
+            }
+
+            .hero p {
+                font-size: 0.85rem;
+            }
+
+            .commitment-bar p {
+                font-size: 0.82rem;
+            }
+
+            section {
+                padding: 30px 4%;
+            }
+
+            .section-header {
+                margin-bottom: 18px;
+            }
+
+            .section-header h2 {
+                font-size: 1.35rem;
+            }
+
+            .resource-grid {
+                gap: 10px;
+            }
+
+            .resource-card {
+                padding: 14px 12px;
+                gap: 12px;
+            }
+
+            .resource-card .card-icon {
+                width: 36px;
+                height: 36px;
+                min-width: 36px;
+                font-size: 0.95rem;
+            }
+
+            .card-content h4 {
+                font-size: 0.88rem;
+            }
+
+            .cta-section {
+                padding: 35px 4%;
             }
         }
     </style>
