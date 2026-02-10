@@ -1563,6 +1563,65 @@
 
             .event-grid {
                 gap: 15px;
+                grid-template-columns: 1fr;
+            }
+
+            /* Compact horizontal race cards on mobile */
+            .event-card {
+                flex-direction: row;
+                max-height: 140px;
+            }
+
+            .event-card .card-img {
+                width: 120px;
+                min-width: 120px;
+                height: 100%;
+            }
+
+            .event-card .card-body {
+                padding: 12px 15px;
+            }
+
+            .event-card .card-title {
+                font-size: 1.1rem;
+                margin-bottom: 6px;
+            }
+
+            .event-card .card-date {
+                margin-bottom: 4px;
+                font-size: 11px;
+            }
+
+            .event-card .card-meta {
+                margin-bottom: 8px;
+                padding-top: 8px;
+                gap: 10px;
+            }
+
+            .event-card .card-meta span {
+                font-size: 11px;
+            }
+
+            .event-card .card-pricing {
+                padding: 6px 8px;
+                margin-bottom: 8px;
+            }
+
+            .event-card .card-pricing .price-now {
+                font-size: 1.1rem;
+            }
+
+            .event-card .card-cta {
+                padding: 8px;
+                font-size: 11px;
+            }
+
+            .event-card .card-meta-row {
+                display: none;
+            }
+
+            .event-card .card-scarcity {
+                display: none;
             }
 
             .hero-event-card {
@@ -1824,33 +1883,7 @@
             </div>
         </div>
 
-        <!-- 2027 -->
-        <div class="calendar-quarter-section section q-alt">
-            <div class="section-header">
-                <h2>Looking Ahead: 2027</h2>
-                <p>Get a head start on next year's resolutions</p>
-            </div>
-            <div class="event-grid">
-                <!-- Dynamically loaded from DB -->
-            </div>
-        </div>
 
-        <div class="view-all-cta">
-            <div class="trust-badges">
-                <span class="badge-label">Secure Event Registration</span>
-                <div class="badge-group">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa"
-                        class="cc-badge">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard"
-                        class="cc-badge mastercard">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/b/b5/PayPal.svg" alt="PayPal"
-                        class="cc-badge">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg" alt="Apple Pay"
-                        class="cc-badge">
-                </div>
-                <span class="pci-label"><i class="fas fa-lock pci-icon"></i> PCI Compliant</span>
-            </div>
-        </div>
     </section>
 
     <!-- TESTIMONIALS SECTION -->
