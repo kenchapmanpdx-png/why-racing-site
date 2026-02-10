@@ -406,6 +406,14 @@ section[style*="background: var(--brand-blue)"] .price-was {
     flex-shrink: 0;
 }
 
+/* Specific overrides for smaller logos to improve legibility */
+.sponsor-track img[alt="PeaceHealth"],
+.sponsor-track img[alt="Foot Traffic"],
+.sponsor-track img[alt="PepsiCo"] {
+    height: 75px;
+    /* ~20% larger */
+}
+
 @keyframes sponsorScroll {
     0% {
         transform: translateX(0);
