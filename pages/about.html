@@ -598,6 +598,95 @@
             transform: translateY(0);
         }
 
+        /* --- UTILITY CLASSES --- */
+        .delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        .team-bio-text {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 10px;
+        }
+
+        .team-bio-full-text {
+            margin-top: 10px;
+            font-size: 0.9rem;
+        }
+
+        .team-email {
+            color: var(--brand-red);
+            font-size: 0.85rem;
+            font-weight: 700;
+            display: block;
+            margin-top: 10px;
+        }
+
+        .team-email-block {
+            margin-top: 15px;
+        }
+
+        .brand-red-text {
+            color: var(--brand-red);
+        }
+
+        .charity-section h2 {
+            font-size: 3rem;
+            color: white;
+            position: relative;
+            z-index: 1;
+        }
+
+        .charity-section>p {
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .charity-cta {
+            margin-top: 50px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn-charity {
+            background: white;
+            color: var(--brand-red);
+        }
+
+        .mobile-nav-cta {
+            margin-top: 20px;
+        }
+
+        .staff-portal-footer {
+            margin-top: 20px;
+            opacity: 0.5;
+            font-size: 11px;
+        }
+
+        .staff-portal-link {
+            color: grey;
+            text-decoration: none;
+        }
+
+        .marla-photo {
+            object-position: 0% 35%;
+        }
+
         @media (max-width: 900px) {
             .hero {
                 padding: 160px 5% 100px;
@@ -663,7 +752,7 @@
         <a href="locations.html">Travel Guide</a>
         <a href="partners.html">Sponsors</a>
         <a href="about.html">About Us</a>
-        <a href="events.html" class="nav-btn" style="margin-top: 20px;">Find Your Race</a>
+        <a href="events.html" class="nav-btn mobile-nav-cta">Find Your Race</a>
     </div>
 
     <header class="hero">
@@ -707,7 +796,7 @@
                 </div>
             </div>
             <div class="mission-content">
-                <h2>What's Your <span style="color: var(--brand-red);">WHY?</span></h2>
+                <h2>What's Your <span class="brand-red-text">WHY?</span></h2>
                 <p>Some of us race to get faster and stronger. Some to get healthy and fit. Some to lose weight. Others
                     just to get to the finish line.</p>
                 <p>Some of us race because of how it makes us feel. Some to have fun and hang with our friends. Some
@@ -731,14 +820,14 @@
 
         <div class="team-grid">
             <!-- Karissa & Rod Schoene -->
-            <div class="team-card reveal" style="transition-delay: 0.1s;">
+            <div class="team-card reveal delay-1">
                 <div class="team-photo">
                     <img src="../images/Scrapedimages/m-2.jpg" alt="Karissa & Rod Schoene">
                 </div>
                 <div class="team-info">
                     <h3>Karissa & Rod Schoene</h3>
                     <span class="team-role">Owners & Race Directors</span>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                    <p class="team-bio-text">
                         <strong>Our WHY:</strong> To keep up with our kids; To teach our kids to be good humans; To
                         enjoy all life has to offer...
                     </p>
@@ -746,36 +835,35 @@
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">We approach each Why Racing Event as a challenge
+                        <p class="team-bio-full-text">We approach each Why Racing Event as a challenge
                             to give our athletes an experience that they can’t wait to tell their friends and family
                             about and they can’t wait to come back and do it again! With the amazing Why Racing Event
                             team, it is my goal to make sure our athletes feel the WHY LOVE that we all provide.</p>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">Having grown up in the Northwest, we are
+                        <p class="team-bio-full-text">Having grown up in the Northwest, we are
                             entrenched in this community allowing me the ability to provide an experience that our
                             athletes have come to expect from Why Racing Events. We love to be part of a team that
                             strives to provide the best racing experience for our athletes.</p>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">It is a family affair. We can’t do this without
+                        <p class="team-bio-full-text">It is a family affair. We can’t do this without
                             our family around us. From our kids, to my family and friends who have volun-TOLDED, to our
                             sponsors, vendors, volunteers and athletes, our “WHY” is because we love the people!</p>
-                        <div style="margin-top: 15px;">
+                        <div class="team-email-block">
                             <a href="mailto:Karissa@whyracingevents.com"
-                                style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700;">Karissa@whyracingevents.com</a><br>
-                            <a href="mailto:Rod@whyracingevents.com"
-                                style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700;">Rod@whyracingevents.com</a>
+                                class="team-email">Karissa@whyracingevents.com</a>
+                            <a href="mailto:Rod@whyracingevents.com" class="team-email">Rod@whyracingevents.com</a>
                         </div>
                     </div>
                 </div>
             </div>
 
             <!-- Brock Schoene -->
-            <div class="team-card reveal" style="transition-delay: 0.2s;">
+            <div class="team-card reveal delay-2">
                 <div class="team-photo">
                     <img src="../images/team/brock-schoene.png" alt="Brock Schoene">
                 </div>
                 <div class="team-info">
                     <h3>Brock Schoene</h3>
                     <span class="team-role">Race Director</span>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                    <p class="team-bio-text">
                         <strong>My WHY:</strong> To better myself by taking care of my body and mind through running.
                         The more opportunities I have to clear the air...
                     </p>
@@ -783,29 +871,28 @@
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">I grew up at WHY Racing Events and love the
+                        <p class="team-bio-full-text">I grew up at WHY Racing Events and love the
                             atmosphere of our event venues. I am so excited to be part of making the athlete experience
                             as amazing as possible. WHY provides so many opportunities to connect with our community,
                             supporting local beneficiaries at each event, I take pride in connecting our local
                             volunteers to our athletes.</p>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">My goal is to assist our volunteers so they can
+                        <p class="team-bio-full-text">My goal is to assist our volunteers so they can
                             be the best support crew ever and have so much fun that they want to volunteer at our events
                             all the time.</p>
-                        <a href="mailto:Brock@whyracingevents.com"
-                            style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700; display: block; margin-top: 10px;">Brock@whyracingevents.com</a>
+                        <a href="mailto:Brock@whyracingevents.com" class="team-email">Brock@whyracingevents.com</a>
                     </div>
                 </div>
             </div>
 
             <!-- Richard Jessup -->
-            <div class="team-card reveal" style="transition-delay: 0.3s;">
+            <div class="team-card reveal delay-3">
                 <div class="team-photo">
                     <img src="../images/Scrapedimages/Richard-Photo-Pipeline-1a-rotated.jpg" alt="Richard Jessup">
                 </div>
                 <div class="team-info">
                     <h3>Richard Jessup</h3>
                     <span class="team-role">Operations Director</span>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                    <p class="team-bio-text">
                         <strong>My WHY:</strong> To make my family proud by creating long lasting events that contribute
                         to people’s happiness and wellness.
                     </p>
@@ -813,28 +900,27 @@
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">I grew up in San Diego, CA where I learned to
+                        <p class="team-bio-full-text">I grew up in San Diego, CA where I learned to
                             love the ocean and an active lifestyle. I started working triathlons and running races in
                             the late 1980’s and immediately fell in love with the industry. I’ve worked for many race
                             companies throughout my career and found a home with Why Racing Events in 2015.</p>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">Two of my five daughters (Sydney & Chloe) also
+                        <p class="team-bio-full-text">Two of my five daughters (Sydney & Chloe) also
                             work at Why Racing Events. When I’m not working events you can find me at home in Arizona by
                             the pool, on a road trip to the beach or exploring life with my family.</p>
-                        <a href="mailto:Richard@whyracingevents.com"
-                            style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700; display: block; margin-top: 10px;">Richard@whyracingevents.com</a>
+                        <a href="mailto:Richard@whyracingevents.com" class="team-email">Richard@whyracingevents.com</a>
                     </div>
                 </div>
             </div>
 
             <!-- Marla Stone -->
-            <div class="team-card reveal" style="transition-delay: 0.1s;">
+            <div class="team-card reveal delay-1">
                 <div class="team-photo">
-                    <img src="../images/Scrapedimages/marla.jpg" alt="Marla Stone" style="object-position: 0% 35%;">
+                    <img src="../images/Scrapedimages/marla.jpg" alt="Marla Stone" class="marla-photo">
                 </div>
                 <div class="team-info">
                     <h3>Marla Stone</h3>
                     <span class="team-role">Volunteer Coordinator</span>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                    <p class="team-bio-text">
                         <strong>My WHY:</strong> To encourage others to test their limits and to enjoy what every day
                         has to offer. To be an example...
                     </p>
@@ -842,46 +928,44 @@
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">I began trail running in my 30’s and drifted to
+                        <p class="team-bio-full-text">I began trail running in my 30’s and drifted to
                             triathlons when I “grew up.” My love for being in the outdoors in a variety of conditions
                             and sports culminated in beginning to work for WHY racing events. My joy is to assist in
                             creating the best event experience for athletes of all skill levels.</p>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">It is not always winning the race but completion
+                        <p class="team-bio-full-text">It is not always winning the race but completion
                             or improving racing times from prior events. WHY Racing strives to provide an amazing racing
                             experience while simultaneously raising money and awareness for our beneficiaries’ causes.
                             The WHY Family is a reality – we care about you, the athlete, and the community around you.
                         </p>
-                        <a href="mailto:Marla@whyracingevents.com"
-                            style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700; display: block; margin-top: 10px;">Marla@whyracingevents.com</a>
+                        <a href="mailto:Marla@whyracingevents.com" class="team-email">Marla@whyracingevents.com</a>
                     </div>
                 </div>
             </div>
 
             <!-- Jim Mitts -->
-            <div class="team-card reveal" style="transition-delay: 0.2s;">
+            <div class="team-card reveal delay-2">
                 <div class="team-photo">
                     <img src="../images/team/jim-mitts.jpg" alt="Jim Mitts">
                 </div>
                 <div class="team-info">
                     <h3>Jim Mitts</h3>
                     <span class="team-role">Swim Course Manager</span>
-                    <p style="font-size: 0.9rem; color: #666; margin-bottom: 10px;">
+                    <p class="team-bio-text">
                         <strong>My WHY:</strong> To have fun while being involved in the running community.
                     </p>
                     <button class="expand-btn" onclick="toggleExpand(this)">
                         Read full story <i class="fas fa-chevron-down"></i>
                     </button>
                     <div class="team-why-full">
-                        <p style="margin-top: 10px; font-size: 0.9rem;">I have always been involved in running. It
+                        <p class="team-bio-full-text">I have always been involved in running. It
                             started in grade school when I participated in AAU Junior Olympics and continued through
                             High school. I also participated in various indoor and outdoor sports throughout my adult
                             life.</p>
-                        <p style="margin-top: 10px; font-size: 0.9rem;">I got more involved in road races and found Why
+                        <p class="team-bio-full-text">I got more involved in road races and found Why
                             Racing Events to be a great race experience and eventually started working with them in
                             2021. I truly love seeing race participants competing but especially in our multi sport
                             events.</p>
-                        <a href="mailto:jlmitts55@gmail.com"
-                            style="color: var(--brand-red); font-size: 0.85rem; font-weight: 700; display: block; margin-top: 10px;">jlmitts55@gmail.com</a>
+                        <a href="mailto:jlmitts55@gmail.com" class="team-email">jlmitts55@gmail.com</a>
                     </div>
                 </div>
             </div>
@@ -911,8 +995,8 @@
     </section>
 
     <section class="charity-section reveal">
-        <h2 style="font-size: 3rem; color: white;">Making a Difference</h2>
-        <p style="opacity: 0.9; max-width: 600px; margin: 0 auto;">We don't just run. We raise. Every registration
+        <h2>Making a Difference</h2>
+        <p>We don't just run. We raise. Every registration
             supports local causes, ensuring our community grows stronger together.</p>
 
         <div class="charity-logos">
@@ -922,8 +1006,8 @@
             <div class="charity-logo-placeholder">VANCOUVER PUBLIC SCHOOLS</div>
         </div>
 
-        <div style="margin-top: 50px;">
-            <a href="events.html" class="btn btn-primary" style="background: white; color: var(--brand-red);">Join The
+        <div class="charity-cta">
+            <a href="events.html" class="btn btn-primary btn-charity">Join The
                 Movement</a>
         </div>
     </section>
@@ -959,14 +1043,18 @@
             <a href="about.html">About Us</a>
         </div>
         <div class="footer-social">
-            <a href="https://www.facebook.com/whyracingevents/" target="_blank"><i class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/why_racing_events/" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://x.com/whyracingevents" target="_blank"><i class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank"><i class="fab fa-youtube"></i></a>
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener"
+                title="Facebook - Why Racing Events"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
+                title="Instagram - Why Racing Events"><i class="fab fa-instagram"></i></a>
+            <a href="https://x.com/whyracingevents" target="_blank" rel="noopener"
+                title="X (Twitter) - Why Racing Events"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener"
+                title="YouTube - Why Racing Events"><i class="fab fa-youtube"></i></a>
         </div>
         <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
-        <div style="margin-top: 20px; opacity: 0.5; font-size: 11px;">
-            <a href="admin/races.html" style="color: grey; text-decoration: none;">Staff Portal</a>
+        <div class="staff-portal-footer">
+            <a href="admin/races.html" class="staff-portal-link">Staff Portal</a>
         </div>
     </footer>
 

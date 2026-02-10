@@ -418,8 +418,8 @@
 
         .advantage-card {
             background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
             padding: 40px 30px;
             border: 1px solid rgba(255, 255, 255, 0.1);
             border-radius: 16px;
@@ -729,6 +729,38 @@
                 margin-top: -60px;
             }
         }
+
+        /* --- UTILITY CLASSES --- */
+        .delay-1 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-2 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-3 {
+            transition-delay: 0.3s;
+        }
+
+        .delay-4 {
+            transition-delay: 0.4s;
+        }
+
+        .brand-red-text {
+            color: var(--brand-red);
+        }
+
+        .competitive-edge-label {
+            color: var(--brand-red);
+            font-weight: 700;
+            letter-spacing: 2px;
+        }
+
+        .advantages-heading {
+            color: white;
+            margin-top: 10px;
+        }
     </style>
 </head>
 
@@ -788,19 +820,19 @@
 
     <div class="container">
         <div class="stats-deck">
-            <div class="stat-card reveal" style="transition-delay: 0.1s;">
+            <div class="stat-card reveal delay-1">
                 <span class="stat-num">50k+</span>
                 <span class="stat-label">Active Participants</span>
             </div>
-            <div class="stat-card reveal" style="transition-delay: 0.2s;">
+            <div class="stat-card reveal delay-2">
                 <span class="stat-num">21</span>
                 <span class="stat-label">Regional Events</span>
             </div>
-            <div class="stat-card reveal" style="transition-delay: 0.3s;">
+            <div class="stat-card reveal delay-3">
                 <span class="stat-num">$112k</span>
                 <span class="stat-label">Avg. Household Income</span>
             </div>
-            <div class="stat-card reveal" style="transition-delay: 0.4s;">
+            <div class="stat-card reveal delay-4">
                 <span class="stat-num">79%</span>
                 <span class="stat-label">College Educated</span>
             </div>
@@ -810,7 +842,7 @@
     <section>
         <div class="container audience-split">
             <div class="audience-text reveal">
-                <h2>A High-Value <br><span style="color: var(--brand-red);">Audience</span></h2>
+                <h2>A High-Value <br><span class="brand-red-text">Audience</span></h2>
                 <p>Our athletes aren't just active—they're decision-makers. Research shows that runner identity
                     directly predicts purchase intention. When they connect with brands that support their passions,
                     they don't just notice—they buy.</p>
@@ -818,7 +850,7 @@
                     "SPONSORS AREN'T BUYING LOGO PLACEMENT. THEY ARE BUYING ACCESS TO AN EMOTIONALLY ENGAGED COMMUNITY."
                 </div>
             </div>
-            <div class="reveal" style="transition-delay: 0.2s;">
+            <div class="reveal delay-2">
                 <img src="../images/action/spring-classic-1.jpg" class="active-img"
                     alt="Active Why Racing event participants in Portland" loading="lazy">
             </div>
@@ -828,22 +860,22 @@
     <section class="advantage-section">
         <div class="container">
             <div class="section-header reveal">
-                <span style="color: var(--brand-red); font-weight: 700; letter-spacing: 2px;">THE COMPETITIVE
+                <span class="competitive-edge-label">THE COMPETITIVE
                     EDGE</span>
-                <h2 style="color: white; margin-top: 10px;">Why Partner With Us?</h2>
+                <h2 class="advantages-heading">Why Partner With Us?</h2>
             </div>
             <div class="advantage-grid">
-                <div class="advantage-card reveal" style="transition-delay: 0.1s;">
+                <div class="advantage-card reveal delay-1">
                     <h4><i class="fas fa-shield-alt"></i> Category Protection</h4>
                     <p>We don't clutter the course. We offer category exclusivity so your competitor isn't standing next
                         to you at the finish line.</p>
                 </div>
-                <div class="advantage-card reveal" style="transition-delay: 0.2s;">
+                <div class="advantage-card reveal delay-2">
                     <h4><i class="fas fa-calendar-alt"></i> Year-Round Scale</h4>
                     <p>With 21 events, we offer a full-year marketing calendar with a single contract. Stop negotiating
                         20 tiny deals.</p>
                 </div>
-                <div class="advantage-card reveal" style="transition-delay: 0.3s;">
+                <div class="advantage-card reveal delay-3">
                     <h4><i class="fas fa-bullseye"></i> Proven Loyalty</h4>
                     <p>Our athletes return year after year. Partnering with us builds long-term equity with a community
                         that trusts our endorsements.</p>
@@ -858,7 +890,7 @@
                 <h2>Drive Measurable <span>Results</span></h2>
             </div>
             <div class="offer-grid">
-                <div class="offer-col reveal" style="transition-delay: 0.1s;">
+                <div class="offer-col reveal delay-1">
                     <h3>Customer Acquisition</h3>
                     <div class="check-item">
                         <i class="fas fa-check-circle"></i>
@@ -871,7 +903,7 @@
                                 capture.</span></div>
                     </div>
                 </div>
-                <div class="offer-col reveal" style="transition-delay: 0.2s;">
+                <div class="offer-col reveal delay-2">
                     <h3>Brand Equity</h3>
                     <div class="check-item">
                         <i class="fas fa-check-circle"></i>
@@ -884,7 +916,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="offer-col reveal" style="transition-delay: 0.3s;">
+                <div class="offer-col reveal delay-3">
                     <h3>Corporate Impact</h3>
                     <div class="check-item">
                         <i class="fas fa-check-circle"></i>
@@ -907,17 +939,17 @@
                 <h2>What Partners <span>Say</span></h2>
             </div>
             <div class="quote-grid">
-                <div class="quote-card reveal" style="transition-delay: 0.1s;">
+                <div class="quote-card reveal delay-1">
                     <p class="quote-text">"The quality of the events and the professionalism of the Why Racing team
                         makes this an easy partnership to renew year after year."</p>
                     <span class="quote-author">— Regional Sponsor</span>
                 </div>
-                <div class="quote-card reveal" style="transition-delay: 0.2s;">
+                <div class="quote-card reveal delay-2">
                     <p class="quote-text">"Our ROI from event sponsorships has been fantastic. The audience is engaged
                         and genuinely interested in our products."</p>
                     <span class="quote-author">— Healthcare Partner</span>
                 </div>
-                <div class="quote-card reveal" style="transition-delay: 0.3s;">
+                <div class="quote-card reveal delay-3">
                     <p class="quote-text">"Best decision we made was partnering with Why Racing. Our team employees look
                         forward to every event."</p>
                     <span class="quote-author">— Corporate Wellness Director</span>
