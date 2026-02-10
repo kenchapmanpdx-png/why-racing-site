@@ -436,9 +436,12 @@ section[style*="background: var(--brand-blue)"] .price-was {
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(100%);
+    filter: grayscale(60%);
     opacity: 0.4;
-    transition: opacity 0.3s ease;
+    transition: all 0.5s ease;
+    animation-name: collage-shimmer;
+    animation-timing-function: ease-in-out;
+    animation-iteration-count: infinite;
 }
 
 /* Organic Shimmer Variance */
@@ -467,12 +470,12 @@ section[style*="background: var(--brand-blue)"] .price-was {
     0%,
     100% {
         transform: scale(1);
-        filter: grayscale(20%) brightness(1);
+        filter: grayscale(60%) brightness(1);
     }
 
     50% {
         transform: scale(1.05);
-        filter: grayscale(10%) brightness(1.2);
+        filter: grayscale(40%) brightness(1.15);
     }
 }
 
