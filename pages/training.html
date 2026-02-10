@@ -1,0 +1,966 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Training Programs | Why Racing Events</title>
+    <meta name="description"
+        content="Training programs, running clubs, cycling clubs, triathlon teams, and personal coaches in the Pacific Northwest to help you prepare for Why Racing Events.">
+    <meta name="keywords"
+        content="Training Programs, Running Clubs, Cycling Clubs, Triathlon Training, Personal Coaches, PNW Running, Why Racing Events">
+
+    <link rel="canonical" href="https://whyracingevents.com/pages/training.html" />
+    <link rel="icon" type="image/png" href="../attached_assets/why-racing-logo_1767589311719.png">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://whyracingevents.com/pages/training.html">
+    <meta property="og:title" content="Training Programs | Why Racing Events">
+    <meta property="og:description"
+        content="Find the perfect training club, coach, or program to prepare for your next Why Racing event.">
+    <meta property="og:image" content="https://whyracingevents.com/attached_assets/why-racing-logo_1767589311719.png">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://whyracingevents.com/pages/training.html">
+    <meta property="twitter:title" content="Training Programs | Why Racing Events">
+    <meta property="twitter:description"
+        content="Find the perfect training club, coach, or program to prepare for your next Why Racing event.">
+    <meta property="twitter:image"
+        content="https://whyracingevents.com/attached_assets/why-racing-logo_1767589311719.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebPage",
+      "name": "Training Programs | Why Racing Events",
+      "description": "Training resources, clubs, and coaching to prepare for Why Racing Events in the Pacific Northwest.",
+      "publisher": {
+        "@type": "Organization",
+        "name": "Why Racing Events"
+      }
+    }
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="../assets/css/brand.css">
+
+    <style>
+        :root {
+            --brand-red: #E31837;
+            --brand-red-dark: #b8132c;
+            --brand-blue: #000000;
+            --brand-navy: #1a2744;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            color: #1a1a2e;
+            background: var(--light);
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* --- ANIMATED HERO --- */
+        .hero {
+            position: relative;
+            padding: 180px 5% 120px;
+            color: white;
+            text-align: center;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, #0a0a0a 0%, var(--brand-navy) 50%, #0a0a0a 100%);
+            z-index: 0;
+        }
+
+        .hero-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background:
+                radial-gradient(circle at 25% 75%, rgba(227, 24, 55, 0.25) 0%, transparent 50%),
+                radial-gradient(circle at 75% 25%, rgba(26, 39, 68, 0.4) 0%, transparent 40%),
+                radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.03) 0%, transparent 30%);
+            animation: pulseGradient 8s ease-in-out infinite;
+        }
+
+        @keyframes pulseGradient {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.8;
+                transform: scale(1.05);
+            }
+        }
+
+        /* Floating orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+            opacity: 0.4;
+            animation: floatOrb 20s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 300px;
+            height: 300px;
+            background: var(--brand-navy);
+            bottom: -100px;
+            left: -50px;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 220px;
+            height: 220px;
+            background: var(--brand-red);
+            top: -50px;
+            right: -30px;
+            animation-delay: -6s;
+        }
+
+        .hero-orb-3 {
+            width: 160px;
+            height: 160px;
+            background: #ffffff;
+            top: 30%;
+            left: 40%;
+            opacity: 0.06;
+            animation-delay: -12s;
+        }
+
+        @keyframes floatOrb {
+
+            0%,
+            100% {
+                transform: translate(0, 0) rotate(0deg);
+            }
+
+            33% {
+                transform: translate(35px, -35px) rotate(120deg);
+            }
+
+            66% {
+                transform: translate(-25px, 25px) rotate(240deg);
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero h1 {
+            color: white;
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
+            margin-bottom: 24px;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+            animation: fadeSlideUp 1s ease-out;
+        }
+
+        .hero h1 span {
+            color: var(--brand-red);
+            text-shadow: 0 0 40px rgba(227, 24, 55, 0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 750px;
+            margin: 0 auto;
+            opacity: 0.95;
+            font-weight: 300;
+            line-height: 1.8;
+            animation: fadeSlideUp 1s ease-out 0.2s both;
+        }
+
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- COMMITMENT BAR --- */
+        .commitment-bar {
+            background: linear-gradient(90deg, var(--brand-red), var(--brand-red-dark));
+            padding: 30px 5%;
+            text-align: center;
+            position: relative;
+        }
+
+        .commitment-bar p {
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 400;
+            max-width: 900px;
+            margin: 0 auto;
+            line-height: 1.7;
+        }
+
+        .commitment-bar i {
+            color: rgba(255, 255, 255, 0.9);
+            margin-right: 8px;
+        }
+
+        /* --- SECTIONS --- */
+        section {
+            padding: 80px 5%;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .section-header h2 {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+        }
+
+        .section-header h2::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--brand-red), var(--brand-navy));
+            margin: 16px auto 0;
+            border-radius: 2px;
+        }
+
+        .section-header p {
+            color: #64748b;
+            font-size: 1.1rem;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .section-header .category-icon {
+            font-size: 3rem;
+            margin-bottom: 16px;
+            display: block;
+        }
+
+        /* Alternating section backgrounds */
+        .section-dark {
+            background: linear-gradient(135deg, #0a0a0a 0%, var(--brand-navy) 100%);
+            color: white;
+        }
+
+        .section-dark .section-header p {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .section-dark .section-header h2 {
+            color: white;
+        }
+
+        .section-grey {
+            background: var(--grey);
+            border-top: 3px solid rgba(26, 39, 68, 0.1);
+            border-bottom: 3px solid rgba(26, 39, 68, 0.1);
+        }
+
+        /* --- RESOURCE CARDS --- */
+        .resource-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 24px;
+        }
+
+        .resource-card {
+            background: white;
+            padding: 28px 24px;
+            border-radius: 16px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+            border: 1px solid var(--border);
+            border-left: 4px solid var(--brand-navy);
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .resource-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--brand-navy), var(--brand-red), var(--brand-navy));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.4s ease;
+            border-radius: 16px 16px 0 0;
+        }
+
+        .resource-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 40px rgba(26, 39, 68, 0.15);
+            border-color: rgba(26, 39, 68, 0.2);
+        }
+
+        .resource-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .resource-card .card-icon {
+            width: 56px;
+            height: 56px;
+            min-width: 56px;
+            background: linear-gradient(135deg, rgba(26, 39, 68, 0.1), rgba(227, 24, 55, 0.08));
+            border: 2px solid rgba(26, 39, 68, 0.12);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            transition: all 0.4s ease;
+        }
+
+        .resource-card:hover .card-icon {
+            background: linear-gradient(135deg, var(--brand-navy), var(--brand-red));
+            border-color: transparent;
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .resource-card .card-icon i {
+            color: var(--brand-red);
+            transition: color 0.3s ease;
+        }
+
+        .resource-card:hover .card-icon i {
+            color: white;
+        }
+
+        .card-content {
+            flex: 1;
+        }
+
+        .card-content h4 {
+            font-size: 1.1rem;
+            margin-bottom: 6px;
+            color: #1a1a2e;
+            transition: color 0.3s ease;
+        }
+
+        .resource-card:hover .card-content h4 {
+            color: var(--brand-red);
+        }
+
+        .card-content .card-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            color: var(--brand-navy);
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .card-content .card-link:hover {
+            color: var(--brand-red);
+            gap: 10px;
+        }
+
+        .card-content .card-link i {
+            font-size: 0.7rem;
+            transition: transform 0.3s ease;
+        }
+
+        .resource-card:hover .card-link i {
+            transform: translateX(4px);
+        }
+
+        /* Dark section cards */
+        .section-dark .resource-card {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-left: 4px solid var(--brand-red);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+        }
+
+        .section-dark .resource-card:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(227, 24, 55, 0.3);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+        }
+
+        .section-dark .card-content h4 {
+            color: white;
+        }
+
+        .section-dark .resource-card:hover .card-content h4 {
+            color: var(--brand-red);
+        }
+
+        .section-dark .card-content .card-link {
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .section-dark .card-content .card-link:hover {
+            color: var(--brand-red);
+        }
+
+        .section-dark .card-icon {
+            background: rgba(227, 24, 55, 0.15);
+            border-color: rgba(227, 24, 55, 0.2);
+        }
+
+        .section-dark .card-icon i {
+            color: var(--brand-red);
+        }
+
+        .no-link-label {
+            color: #94a3b8;
+            font-size: 0.8rem;
+            font-style: italic;
+        }
+
+        /* --- CTA SECTION --- */
+        .cta-section {
+            background: linear-gradient(135deg, var(--brand-navy) 0%, #0a0a0a 40%, var(--brand-navy) 100%);
+            padding: 80px 5%;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-section::before,
+        .cta-section::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: linear-gradient(90deg, var(--brand-navy), var(--brand-red), var(--brand-navy));
+        }
+
+        .cta-section::before {
+            top: 0;
+        }
+
+        .cta-section::after {
+            bottom: 0;
+        }
+
+        .cta-section h2 {
+            font-size: clamp(1.8rem, 4vw, 3rem);
+            color: white;
+            margin-bottom: 20px;
+            line-height: 1.3;
+        }
+
+        .cta-section h2 span {
+            color: var(--brand-red);
+            text-shadow: 0 0 30px rgba(227, 24, 55, 0.5);
+        }
+
+        .cta-section p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.15rem;
+            max-width: 600px;
+            margin: 0 auto 30px;
+            font-weight: 300;
+        }
+
+        .btn-cta {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--brand-red), var(--brand-red-dark));
+            color: white;
+            padding: 16px 40px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1.1rem;
+            letter-spacing: 1px;
+            text-decoration: none;
+            box-shadow: 0 15px 30px rgba(227, 24, 55, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-cta:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(227, 24, 55, 0.5);
+        }
+
+        /* --- SCROLL REVEAL --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .delay-100 {
+            transition-delay: 0.1s;
+        }
+
+        .delay-200 {
+            transition-delay: 0.2s;
+        }
+
+        .delay-300 {
+            transition-delay: 0.3s;
+        }
+
+        .delay-400 {
+            transition-delay: 0.4s;
+        }
+
+        .delay-500 {
+            transition-delay: 0.5s;
+        }
+
+        .delay-600 {
+            transition-delay: 0.6s;
+        }
+
+        /* --- RESPONSIVE --- */
+        @media (max-width: 768px) {
+            .hero {
+                padding: 140px 5% 80px;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .resource-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .resource-card {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="navbar">
+        <a href="../index.html" class="logo"><img src="../attached_assets/why-racing-logo_1767589311719.png"
+                alt="Why Racing Events Home"></a>
+        <div class="nav-links">
+            <a href="../index.html">Home</a>
+            <a href="training.html">Training</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel</a>
+            <a href="partners.html">Sponsors</a>
+            <a href="about.html">About</a>
+        </div>
+        <div class="hamburger" onclick="toggleMobileMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <a href="../index.html#calendar" class="nav-btn">Find My Race</a>
+    </nav>
+
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="../index.html">Home</a>
+        <a href="training.html">Training</a>
+        <a href="volunteers.html">Volunteer</a>
+        <a href="beneficiary.html">Give Back</a>
+        <a href="community.html">Community</a>
+        <a href="locations.html">Travel Guide</a>
+        <a href="partners.html">Sponsors</a>
+        <a href="about.html">About Us</a>
+        <a href="../index.html#calendar" class="nav-btn mt-20">Find Your Race</a>
+    </div>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+        <div class="hero-content">
+            <h1>Training <span>Programs</span></h1>
+            <p>Why Racing Events offers athletes of all abilities, from the elite level to the back of the packers, the
+                chance to successfully train for and complete various types of races including fun runs, triathlons,
+                adventure events and more while raising awareness and funds for important community causes.</p>
+        </div>
+    </header>
+
+    <!-- COMMITMENT BAR -->
+    <div class="commitment-bar">
+        <p><i class="fas fa-trophy"></i> We are 100% committed to providing you with the guidance, support, resources
+            and various types of training programs to help inspire you every step of the way.</p>
+    </div>
+
+    <!-- RUNNING CLUBS -->
+    <section>
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="category-icon">🏃</span>
+                <h2>Running Clubs</h2>
+                <p>Join a local running community and take your training to the next level.</p>
+            </div>
+            <div class="resource-grid">
+                <a href="https://foottraffic.us/" target="_blank" rel="noopener" class="resource-card reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-running"></i></div>
+                    <div class="card-content">
+                        <h4>Foot Traffic University</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/groups/ClarkCountyRunningClub/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-200">
+                    <div class="card-icon"><i class="fas fa-running"></i></div>
+                    <div class="card-content">
+                        <h4>Clark County Running Club</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/groups/VancouverRGC/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-300">
+                    <div class="card-icon"><i class="fas fa-running"></i></div>
+                    <div class="card-content">
+                        <h4>Vancouver Run, Grug & Chug Club</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/orrc1" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-running"></i></div>
+                    <div class="card-content">
+                        <h4>Oregon Road Runners Club</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/groups/355592857824682/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-200">
+                    <div class="card-icon"><i class="fas fa-running"></i></div>
+                    <div class="card-content">
+                        <h4>Eastwind Running & Endurance</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <div class="resource-card reveal delay-300">
+                    <div class="card-icon"><i class="fas fa-running"></i></div>
+                    <div class="card-content">
+                        <h4>North Clark County Run Club</h4>
+                        <span class="no-link-label">Coming soon</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- BIKING CLUBS -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="category-icon">🚴</span>
+                <h2>Biking Clubs</h2>
+                <p>Ride with a crew that pushes you further on every climb.</p>
+            </div>
+            <div class="resource-grid">
+                <a href="https://www.facebook.com/groups/VanBicycleClub/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-bicycle"></i></div>
+                    <div class="card-content">
+                        <h4>Vancouver Bicycle Club</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/ORBicycleRacing" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-200">
+                    <div class="card-icon"><i class="fas fa-bicycle"></i></div>
+                    <div class="card-content">
+                        <h4>Oregon Bicycle Racing Association (OBRA)</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://dialedcyclinglab.com/teams/dc-club/?v=e2ae933451f4" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-300">
+                    <div class="card-icon"><i class="fas fa-bicycle"></i></div>
+                    <div class="card-content">
+                        <h4>Dialed Cycling Lab – Cycling Club</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRIATHLON TRAINING CLUBS -->
+    <section class="section-grey">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="category-icon">🏊</span>
+                <h2>Triathlon Training Clubs</h2>
+                <p>Swim, bike, run — train with the best multi-sport teams in the region.</p>
+            </div>
+            <div class="resource-grid">
+                <a href="https://www.facebook.com/willamettevalleytriclub/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-swimmer"></i></div>
+                    <div class="card-content">
+                        <h4>Willamette Valley Triathlon Club</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="http://www.steelheadcoaching.com/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-200">
+                    <div class="card-icon"><i class="fas fa-swimmer"></i></div>
+                    <div class="card-content">
+                        <h4>Steelhead Coaching and Personal Training</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/pdxtriclub" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-300">
+                    <div class="card-icon"><i class="fas fa-swimmer"></i></div>
+                    <div class="card-content">
+                        <h4>Portland Triathlon Club</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="http://www.o2endurance.com/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-swimmer"></i></div>
+                    <div class="card-content">
+                        <h4>O2 Endurance</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/triteampdx/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-200">
+                    <div class="card-icon"><i class="fas fa-swimmer"></i></div>
+                    <div class="card-content">
+                        <h4>Tri Team PDX</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/dmctri/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-300">
+                    <div class="card-icon"><i class="fas fa-swimmer"></i></div>
+                    <div class="card-content">
+                        <h4>Deschutes Multisport Club, Bend</h4>
+                        <span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="http://www.ameliasarmy.com" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-venus"></i></div>
+                    <div class="card-content">
+                        <h4>Amelia's Army (Triathlon Club for Women)</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://dialedcyclinglab.com/teams/dc-club/?v=e2ae933451f4" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-200">
+                    <div class="card-icon"><i class="fas fa-swimmer"></i></div>
+                    <div class="card-content">
+                        <h4>Dialed Cycling Lab – Cycling Club</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- PERSONAL TRAINING & COACHES -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="section-header reveal">
+                <span class="category-icon">💪</span>
+                <h2>Personal Training & Coaches</h2>
+                <p>One-on-one expertise to help you reach your goals faster.</p>
+            </div>
+            <div class="resource-grid">
+                <a href="http://www.nwpersonaltraining.com/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-dumbbell"></i></div>
+                    <div class="card-content">
+                        <h4>Northwest Personal Training</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="http://www.chrisbaggcoaching.com/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-200">
+                    <div class="card-icon"><i class="fas fa-dumbbell"></i></div>
+                    <div class="card-content">
+                        <h4>Chris Bagg Coaching</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.ameliasarmy.com/juliet" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-300">
+                    <div class="card-icon"><i class="fas fa-user-check"></i></div>
+                    <div class="card-content">
+                        <h4>Juliet Thompson Hochman</h4>
+                        <span class="card-link" style="font-size: 0.75rem;">USAT Certified Coach <i
+                                class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/remy.maguire.5" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-user-check"></i></div>
+                    <div class="card-content">
+                        <h4>Remy Maguire</h4>
+                        <span class="card-link" style="font-size: 0.75rem;">Endurance & Nutrition Coach <i
+                                class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="http://www.athletewise.com/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-200">
+                    <div class="card-icon"><i class="fas fa-dumbbell"></i></div>
+                    <div class="card-content">
+                        <h4>Kraig Erickson — AthleteWise, Bend</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://www.facebook.com/molly.rose.142" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-300">
+                    <div class="card-icon"><i class="fas fa-user-check"></i></div>
+                    <div class="card-content">
+                        <h4>Molly McGarry</h4>
+                        <span class="card-link" style="font-size: 0.75rem;">Ironman Certified Coach <i
+                                class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="http://www.roguetriperformance.com/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-dumbbell"></i></div>
+                    <div class="card-content">
+                        <h4>Rogue Tri Performance</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+                <a href="https://bcendurance.com/" target="_blank" rel="noopener"
+                    class="resource-card reveal delay-200">
+                    <div class="card-icon"><i class="fas fa-dumbbell"></i></div>
+                    <div class="card-content">
+                        <h4>BC Endurance</h4>
+                        <span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container reveal">
+            <h2>Ready to Start <span>Training?</span></h2>
+            <p>Find your next race, set your goal, and let these incredible resources help you crush it.</p>
+            <a href="../index.html#calendar" class="btn-cta">Find Your Race →</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-brand">WHY <span>RACING</span></div>
+        <div class="footer-tagline">"What's your WHY? Find it on the course."</div>
+        <div class="footer-links">
+            <a href="events.html">Races</a>
+            <a href="training.html">Training</a>
+            <a href="volunteers.html">Volunteer</a>
+            <a href="beneficiary.html">Give Back</a>
+            <a href="community.html">Community</a>
+            <a href="locations.html">Travel Guide</a>
+            <a href="partners.html">Sponsors</a>
+            <a href="about.html">About Us</a>
+        </div>
+        <div class="footer-social">
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener" title="Facebook"><i
+                    class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener" title="Instagram"><i
+                    class="fab fa-instagram"></i></a>
+            <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter"><i
+                    class="fab fa-twitter"></i></a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube"><i
+                    class="fab fa-youtube"></i></a>
+        </div>
+        <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
+        <div class="staff-portal-footer">
+            <a href="admin/races.html" class="staff-portal-link">Staff Portal</a>
+        </div>
+    </footer>
+
+    <script src="../assets/js/nav.js"></script>
+    <script>
+        // Scroll Reveal Animation
+        const revealElements = document.querySelectorAll('.reveal');
+
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    revealObserver.unobserve(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        revealElements.forEach(el => revealObserver.observe(el));
+    </script>
+</body>
+
+</html>
