@@ -421,13 +421,14 @@ section[style*="background: var(--brand-blue)"] .price-was {
     position: absolute;
     inset: 0;
     display: grid;
-    grid-template-columns: repeat(10, 1fr);
+    grid-template-columns: repeat(20, 1fr);
+    /* Ultra-high density (20 columns on desktop) */
     grid-auto-rows: 1fr;
-    gap: 2px;
+    gap: 1px;
+    /* Hairline gap for maximum image area */
     z-index: 0;
     overflow: hidden;
     background-color: #0a0a0a;
-    /* Improvement: dark base for loading */
 }
 
 .hero-collage img {
@@ -442,14 +443,15 @@ section[style*="background: var(--brand-blue)"] .price-was {
 
 .hero-collage img:hover {
     filter: grayscale(0%);
-    transform: scale(1.05);
+    transform: scale(1.1);
+    /* Slightly more scale for smaller images */
     z-index: 2;
 }
 
 .hero-overlay {
     position: absolute;
     inset: 0;
-    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(227, 24, 55, 0.45) 100%);
+    background: linear-gradient(135deg, rgba(0, 0, 0, 0.85) 0%, rgba(227, 24, 55, 0.4) 100%);
     z-index: 1;
     pointer-events: none;
     /* Allow hover on images underneath */
@@ -457,19 +459,19 @@ section[style*="background: var(--brand-blue)"] .price-was {
 
 @media (max-width: 1200px) {
     .hero-collage {
-        grid-template-columns: repeat(8, 1fr);
+        grid-template-columns: repeat(12, 1fr);
     }
 }
 
 @media (max-width: 768px) {
     .hero-collage {
-        grid-template-columns: repeat(6, 1fr);
+        grid-template-columns: repeat(10, 1fr);
     }
 }
 
 @media (max-width: 480px) {
     .hero-collage {
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(8, 1fr);
     }
 }
 
