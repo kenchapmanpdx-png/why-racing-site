@@ -245,6 +245,50 @@
             position: relative;
         }
 
+        /* --- SUBTLE FLAG BACKGROUND --- */
+        .flag-bg {
+            overflow: hidden;
+        }
+
+        .flag-bg::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.045;
+            background:
+                /* Blue canton */
+                linear-gradient(to right, #002868 40%, transparent 40%),
+                /* Red and white stripes */
+                repeating-linear-gradient(to bottom,
+                    #BF0A30 0%,
+                    #BF0A30 7.69%,
+                    #ffffff 7.69%,
+                    #ffffff 15.38%);
+            background-size: 100% 100%;
+            pointer-events: none;
+        }
+
+        .flag-bg::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            z-index: 0;
+            opacity: 0.045;
+            pointer-events: none;
+            /* Blue canton overlay - top-left corner only */
+            background: linear-gradient(to bottom,
+                    #002868 53.85%,
+                    transparent 53.85%);
+            /* Only show in left 40% */
+            clip-path: polygon(0 0, 40% 0, 40% 53.85%, 0 53.85%);
+        }
+
+        .flag-bg>* {
+            position: relative;
+            z-index: 1;
+        }
+
         .grey-bg {
             background: var(--grey);
             border-top: 1px solid var(--border);
@@ -1329,7 +1373,7 @@
         </div>
     </header>
 
-    <section>
+    <section class="flag-bg">
         <div class="container">
             <div class="section-header reveal">
                 <h2>Why Volunteer?</h2>
