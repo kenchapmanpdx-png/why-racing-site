@@ -1331,6 +1331,96 @@
             opacity: 0.5;
         }
 
+        /* NEW STICKY BAR STYLES */
+        .sticky-bar {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            background: rgba(255, 255, 255, 0.98);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            padding: 15px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.15);
+            border-top: 3px solid var(--brand-red);
+            transform: translateY(100%);
+            transition: transform 0.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .sticky-bar.visible {
+            transform: translateY(0);
+        }
+
+        .sticky-info {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .sticky-label-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sticky-label {
+            font-size: 10px;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .sticky-race-name {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.25rem;
+            color: var(--brand-blue);
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        .sticky-countdown {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.5rem;
+            color: var(--brand-red);
+            font-weight: 700;
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .sticky-countdown span {
+            color: var(--brand-blue);
+            opacity: 0.8;
+            font-size: 0.9rem;
+            margin-left: -4px;
+        }
+
+        .sticky-btn {
+            background: var(--brand-red);
+            color: white;
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.95rem;
+            letter-spacing: 1px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(227, 24, 55, 0.3);
+        }
+
+        .sticky-btn:hover {
+            background: var(--brand-red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(227, 24, 55, 0.4);
+        }
+
         /* MOBILE MENU */
         .hamburger {
             display: none;
@@ -1395,16 +1485,37 @@
         /* MOBILE */
         @media (max-width: 768px) {
             .hero-content h1 {
-                font-size: 1.8rem;
+                font-size: 2.2rem;
                 white-space: normal;
+                line-height: 1.1;
+            }
+
+            .card-title {
+                font-size: 1.3rem;
+            }
+
+            .card-body {
+                padding: 15px;
             }
 
             .hero-content .hero-tagline {
-                font-size: 1.8rem;
-                letter-spacing: 2px;
-                line-height: 1.1;
-                margin-top: 15px;
-                margin-bottom: 15px;
+                font-size: 2rem;
+            }
+
+            .section {
+                padding: 40px 5%;
+            }
+
+            .section-header {
+                margin-bottom: 30px;
+            }
+
+            .section-header h2 {
+                font-size: 2rem;
+            }
+
+            .section-header p {
+                font-size: 0.95rem;
             }
 
             .hero-proof {
@@ -1448,6 +1559,10 @@
                 display: none;
             }
 
+            .event-grid {
+                gap: 15px;
+            }
+
             .hero-event-card {
                 margin: 20px 10px 0;
             }
@@ -1467,6 +1582,55 @@
 
             .hero-bg-mobile {
                 display: block;
+            }
+
+            /* STICKY BAR MOBILE - ULTRA COMPACT */
+            .sticky-bar {
+                padding: 6px 12px;
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: center;
+                gap: 5px;
+                background: white;
+            }
+
+            .sticky-info {
+                gap: 5px;
+            }
+
+            .sticky-label-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .sticky-label {
+                font-size: 7px;
+                letter-spacing: 0.5px;
+            }
+
+            .sticky-race-name {
+                font-size: 0.75rem;
+                max-width: 100px;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .sticky-countdown {
+                font-size: 0.85rem;
+                gap: 4px;
+            }
+
+            .sticky-countdown span {
+                font-size: 0.7rem;
+            }
+
+            .sticky-btn {
+                padding: 6px 12px;
+                font-size: 0.7rem;
+                border-radius: 4px;
+                white-space: nowrap;
             }
         }
     </style>
@@ -1790,6 +1954,20 @@
         </div>
     </footer>
 
+    <!-- DYNAMIC STICKY BAR -->
+    <div id="stickyBar" class="sticky-bar">
+        <div class="sticky-info">
+            <div class="sticky-label-group">
+                <span class="sticky-label">Next Up</span>
+                <strong class="sticky-race-name" id="stickyRaceName">Loading...</strong>
+            </div>
+        </div>
+        <div class="sticky-countdown" id="stickyCountdown">
+            <!-- Injected by JS -->
+        </div>
+        <a id="stickyRegBtn" href="#" class="btn btn-primary sticky-btn">Register →</a>
+    </div>
+
     <script>
         // Mobile menu toggle
         function toggleMobileMenu() {
@@ -1811,6 +1989,53 @@
             if (window.scrollY > 50) nav.classList.add('scrolled');
             else nav.classList.remove('scrolled');
         });
+
+        function initStickyBar(races) {
+            const visibleRaces = races.filter(r => r.is_visible && r.status === 'active');
+            if (visibleRaces.length === 0) return;
+
+            // Get current date
+            const now = new Date();
+
+            // Find the next upcoming race (first one with date >= now)
+            // Using EOD to include races happening today
+            const upcoming = visibleRaces
+                .filter(r => new Date(r.race_date + 'T23:59:59') >= now)
+                .sort((a, b) => new Date(a.race_date) - new Date(b.race_date))[0];
+
+            if (!upcoming) return;
+
+            const bar = document.getElementById('stickyBar');
+            const nameEl = document.getElementById('stickyRaceName');
+            const countdownEl = document.getElementById('stickyCountdown');
+            const btnEl = document.getElementById('stickyRegBtn');
+
+            nameEl.innerText = upcoming.name.toUpperCase();
+            btnEl.href = upcoming.registration_url || `pages/events/race-detail.html?id=${upcoming.id}`;
+
+            // ALWAYS visible as requested
+            bar.classList.add('visible');
+
+            // Countdown logic
+            const raceDate = new Date(upcoming.race_date + 'T00:00:00');
+
+            function updateStickyCountdown() {
+                const diff = raceDate - Date.now();
+                if (diff < 0) {
+                    countdownEl.innerHTML = "TODAY!";
+                    return;
+                }
+
+                const d = Math.floor(diff / 86400000);
+                const h = Math.floor((diff % 86400000) / 3600000);
+                const m = Math.floor((diff % 3600000) / 60000);
+
+                countdownEl.innerHTML = `${d}<span>d</span> ${h}<span>h</span> ${m}<span>m</span>`;
+            }
+
+            setInterval(updateStickyCountdown, 60000);
+            updateStickyCountdown();
+        }
 
         // Inject hero videos after load to satisfy static linters
         window.addEventListener('load', function () {
@@ -1991,7 +2216,9 @@
             const cached = localStorage.getItem('why_races_cache');
             if (cached) {
                 try {
-                    renderRacesToGraces(JSON.parse(cached), grids);
+                    const races = JSON.parse(cached);
+                    renderRacesToGraces(races, grids);
+                    initStickyBar(races);
                 } catch (e) { localStorage.removeItem('why_races_cache'); }
             }
 
@@ -2002,6 +2229,7 @@
                     const races = await response.json();
                     localStorage.setItem('why_races_cache', JSON.stringify(races));
                     renderRacesToGraces(races, grids);
+                    initStickyBar(races);
                 }
             } catch (error) {
                 console.error('API Error:', error);
