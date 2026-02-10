@@ -421,11 +421,11 @@ section[style*="background: var(--brand-blue)"] .price-was {
     position: absolute;
     inset: 0;
     display: grid;
-    grid-template-columns: repeat(20, 1fr);
-    /* Ultra-high density (20 columns on desktop) */
+    grid-template-columns: repeat(10, 1fr);
+    /* Simplified density (10 columns) */
     grid-auto-rows: 1fr;
-    gap: 1px;
-    /* Hairline gap for maximum image area */
+    gap: 0;
+    /* No gap for seamless look */
     z-index: 0;
     overflow: hidden;
     background-color: #0a0a0a;
@@ -436,10 +436,9 @@ section[style*="background: var(--brand-blue)"] .price-was {
     height: 100%;
     object-fit: cover;
     display: block;
-    filter: grayscale(20%);
-    transition: filter 0.5s ease, transform 0.5s ease;
-    will-change: filter, transform;
-    animation: collage-shimmer 15s infinite ease-in-out;
+    filter: grayscale(100%);
+    opacity: 0.4;
+    transition: opacity 0.3s ease;
 }
 
 /* Organic Shimmer Variance */
