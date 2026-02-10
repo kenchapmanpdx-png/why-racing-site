@@ -248,6 +248,9 @@
         /* --- SUBTLE FLAG BACKGROUND --- */
         .flag-bg {
             overflow: hidden;
+            min-height: 500px;
+            padding-top: 80px;
+            padding-bottom: 80px;
         }
 
         .flag-bg::before {
@@ -255,12 +258,12 @@
             position: absolute;
             inset: 0;
             z-index: 0;
-            opacity: 0.06;
+            opacity: 0.10;
             pointer-events: none;
             background-image: url("../images/flag.svg");
-            background-size: 100% auto;
+            background-size: contain;
             background-repeat: no-repeat;
-            background-position: top center;
+            background-position: center center;
         }
 
         .flag-bg>* {
