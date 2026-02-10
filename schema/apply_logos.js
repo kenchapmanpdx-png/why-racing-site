@@ -8,7 +8,7 @@ const logoMapping = [
     { name: 'Couve Clover Run', logo: '/images/heroes/couve-clover.jpg' },
     { name: 'Girlfriends Half Marathon', logo: '/images/heroes/girlfriends-half.jpg' },
     { name: 'Girlfriends Triathlon', logo: '/images/heroes/girlfriends-tri.png' },
-    { name: 'Hagg Lake Triathlon', logo: '/images/heroes/hagg-lake.jpg' },
+    { name: 'Hagg Lake Triathlon', logo: 'images/logos/hagg-lake-festival.png' },
     { name: 'Pacific Coast Running', logo: '/images/heroes/pacific-coast.jpg' },
     { name: 'Pacific Crest Endurance', logo: '/images/heroes/pacific-crest.jpg' },
     { name: 'PDX Triathlon Festival', logo: '/images/heroes/pdx-triathlon.jpg' },

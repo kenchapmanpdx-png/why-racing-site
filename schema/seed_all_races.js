@@ -215,7 +215,8 @@ const races = [
             race_type: 'ultra',
             registration_url: 'https://ultrasignup.com/register.aspx?did=133015',
             registration_open: true,
-            is_visible: true
+            is_visible: true,
+            logo_url: 'images/logos/Hellz Bellz.png'
         },
         content: {
             edition_number: 4,
@@ -410,7 +411,8 @@ const races = [
             race_type: 'trail',
             registration_url: 'https://ultrasignup.com/register.aspx?did=131748',
             registration_open: true,
-            is_visible: true
+            is_visible: true,
+            logo_url: 'images/logos/Stub Stewart Challenge.png'
         },
         content: {
             tagline: 'Fast and fun loops through Oregon\'s state park gem!',
@@ -591,7 +593,8 @@ const races = [
             race_type: 'triathlon',
             registration_url: 'https://www.trisignup.com/Race/OR/Gaston/HAGGLakeTriathlonMultiSportsFestival',
             registration_open: true,
-            is_visible: true
+            is_visible: true,
+            logo_url: 'images/logos/Hagg Lake.png'
         },
         content: {
             edition_number: 45,

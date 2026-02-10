@@ -24,6 +24,9 @@ const raceLogos = [
     { pattern: "Silver Falls", logo: "images/logos/Silver Falls.png" },
     { pattern: "Spring Classic", logo: "images/logos/Spring Classic.png" },
     { pattern: "White River", logo: "images/logos/White River Snowshoe.png" },
+    { pattern: "Hagg Lake", logo: "images/logos/Hagg Lake.png" },
+    { pattern: "Stub Stewart Trail Challenge", logo: "images/logos/Stub Stewart Challenge.png" },
+    { pattern: "Hellz Bellz", logo: "images/logos/Hellz Bellz.png" },
 ];
 
 async function updateLogos() {
