@@ -517,6 +517,85 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* --- SMART LIST UPGRADE --- */
+        .loc-header-group {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .map-link-btn {
+            font-size: 0.75rem;
+            color: var(--brand-red);
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .smart-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .smart-list li {
+            margin-bottom: 8px;
+            border-bottom: 1px solid #f1f5f9;
+            padding-bottom: 4px;
+        }
+
+        .smart-list li:last-child {
+            border-bottom: none;
+        }
+
+        .smart-list a {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-decoration: none;
+            font-size: 0.9rem;
+            color: #334155;
+        }
+
+        .smart-list a:hover .place-name {
+            color: var(--brand-red);
+        }
+
+        .place-name {
+            font-weight: 600;
+        }
+
+        .place-meta {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            background: #f8fafc;
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .badge-partner {
+            background-color: var(--brand-red);
+            color: white;
+            font-size: 0.65rem;
+            padding: 1px 4px;
+            border-radius: 3px;
+            margin-left: 4px;
+            vertical-align: middle;
+            text-transform: uppercase;
+        }
+
+        .card-action-link {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--brand-blue);
+            letter-spacing: 1px;
+        }
+
+        .card-action-link:hover {
+            color: var(--brand-red);
+            text-decoration: underline;
+        }
     </style>
 </head>
 
@@ -953,6 +1032,109 @@
                                     <li>Spring Classic</li>
                                 </ul>
                             </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- NEW VANCOUVER FORMAT TEST -->
+                <div class="location-card reveal delay-100">
+                    <div class="loc-img bg-vancouver">
+                        <div class="loc-name">Vancouver, WA</div>
+                    </div>
+                    <div class="loc-content">
+                        <div class="loc-header-group">
+                            <h4>The Waterfront Hub</h4>
+                            <a href="#" class="map-link-btn"><i class="fas fa-map-marker-alt"></i> See Map</a>
+                        </div>
+                        <p>Our home base and the center of the PNW racing world. Flat courses and stunning river views.
+                        </p>
+
+                        <div class="guide-grid">
+                            <div class="guide-box">
+                                <h5><i class="fas fa-hotel"></i> Stay</h5>
+                                <ul class="smart-list">
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">Hotel Indigo <span
+                                                    class="badge-partner">Partner</span></span>
+                                            <span class="place-meta">Walk to Start</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">Hilton Vancouver</span>
+                                            <span class="place-meta">Downtown</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">AC Hotel Marriott</span>
+                                            <span class="place-meta">Waterfront</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-utensils"></i> Eat</h5>
+                                <ul class="smart-list">
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">WildFin Grill</span>
+                                            <span class="place-meta">River View</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">The Cove</span>
+                                            <span class="place-meta">Seafood</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">Barlows Public House</span>
+                                            <span class="place-meta">Brewpub</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-camera"></i> Explore</h5>
+                                <ul class="smart-list">
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">Waterfront Park</span>
+                                            <span class="place-meta">Scenic</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">Fort Vancouver</span>
+                                            <span class="place-meta">Historic</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="guide-box">
+                                <h5><i class="fas fa-running"></i> Events</h5>
+                                <ul class="smart-list">
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">Appletree Marathon</span>
+                                            <span class="place-meta">Sept</span>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="#">
+                                            <span class="place-name">Couve Clover Run</span>
+                                            <span class="place-meta">March</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; text-align: right;">
+                            <a href="#" class="card-action-link">Explore Full Guide <i
+                                    class="fas fa-arrow-right"></i></a>
                         </div>
                     </div>
                 </div>
