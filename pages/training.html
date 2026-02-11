@@ -480,6 +480,14 @@
             font-size: 0.75rem;
         }
 
+        .resource-card.card-featured {
+            border-left-color: var(--brand-red);
+        }
+
+        .resource-card.card-featured .card-icon i {
+            color: var(--brand-red);
+        }
+
         /* --- CTA SECTION --- */
         .cta-section {
             background: linear-gradient(135deg, var(--brand-navy) 0%, #0a0a0a 40%, var(--brand-navy) 100%);
@@ -855,9 +863,10 @@
         <div class="hero-content">
             <h1>Training <span>Programs</span></h1>
             <p>Ready to level up? We partner with the best training clubs, coaches, and programs in the Pacific
-                Northwest to help you reach your goals. Once you've found your team, <a href="../index.html#calendar"
-                    class="brand-link brand-link-enhanced">check out our 2026
-                    race calendar</a> and put your training to the test.</p>
+                Northwest to help you reach your goals. Not sure where to start? Check out our <a href="first-5k.html"
+                    class="brand-link brand-link-enhanced">First 5K Beginner Guide</a> or
+                explore our 2026 <a href="../index.html#calendar" class="brand-link brand-link-enhanced">race
+                    calendar</a> to put your training to the test.</p>
         </div>
     </header>
 
@@ -896,6 +905,14 @@
                 <p>Join a local running community and take your training to the next level.</p>
             </div>
             <div class="resource-grid">
+                <!-- FEATURED BEGINNER GUIDE -->
+                <a href="first-5k.html" class="resource-card card-featured reveal delay-100">
+                    <div class="card-icon"><i class="fas fa-star"></i></div>
+                    <div class="card-content">
+                        <h4>Your First 5K Guide</h4>
+                        <span class="card-link">Start Here <i class="fas fa-arrow-right"></i></span>
+                    </div>
+                </a>
                 <a href="https://foottraffic.us/" target="_blank" rel="noopener" class="resource-card reveal delay-100">
                     <div class="card-icon"><i class="fas fa-running"></i></div>
                     <div class="card-content">
