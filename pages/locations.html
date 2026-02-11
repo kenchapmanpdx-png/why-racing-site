@@ -596,6 +596,116 @@
             color: var(--brand-red);
             text-decoration: underline;
         }
+
+        /* --- CITY GUIDE LIST STYLES --- */
+        .guide-grid {
+            display: grid;
+            gap: 30px;
+            /* Spacing between Stay and Eat sections */
+        }
+
+        .smart-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .smart-list li {
+            margin-bottom: 12px;
+        }
+
+        .guide-link {
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            color: #334155;
+            /* Dark grey text */
+            transition: 0.2s;
+        }
+
+        .guide-link:hover {
+            color: var(--brand-red);
+        }
+
+        .place-name {
+            display: block;
+            font-weight: 700;
+            font-size: 0.95rem;
+            line-height: 1.3;
+        }
+
+        .place-note {
+            display: block;
+            font-size: 0.8rem;
+            color: #64748b;
+            /* Lighter grey for notes */
+            margin-top: 2px;
+            font-style: italic;
+        }
+
+        .badge-partner {
+            background-color: var(--brand-red);
+            color: white;
+            font-size: 0.6rem;
+            padding: 1px 5px;
+            border-radius: 3px;
+            vertical-align: middle;
+            margin-left: 5px;
+            font-weight: 600;
+        }
+
+        .map-icon {
+            font-size: 0.8rem;
+            color: #cbd5e1;
+            /* Light grey icon */
+            margin-top: 4px;
+        }
+
+        .guide-link:hover .map-icon {
+            color: var(--brand-red);
+        }
+
+        .card-action-link {
+            font-size: 0.85rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--brand-blue);
+            letter-spacing: 1px;
+            border-bottom: 2px solid transparent;
+            padding-bottom: 2px;
+            transition: 0.3s;
+        }
+
+        .card-action-link:hover {
+            color: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+
+        .city-guide-intro {
+            margin-bottom: 15px;
+        }
+
+        .city-guide-intro p {
+            margin-bottom: 20px;
+        }
+
+        .guide-box-title {
+            color: var(--brand-red);
+            border-bottom: 1px solid #eee;
+            padding-bottom: 5px;
+            margin-bottom: 10px;
+        }
+
+        .city-guide-footer {
+            margin-top: 25px;
+            text-align: center;
+        }
+
+        .smart-list-footer {
+            margin-top: 20px;
+            text-align: right;
+        }
     </style>
 </head>
 
@@ -1132,9 +1242,116 @@
                                 </ul>
                             </div>
                         </div>
-                        <div style="margin-top: 20px; text-align: right;">
+                        <div class="smart-list-footer">
                             <a href="#" class="card-action-link">Explore Full Guide <i
                                     class="fas fa-arrow-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- CITY GUIDE TEST VERSION 2 -->
+                <div class="location-card reveal delay-200">
+                    <div class="loc-img bg-vancouver">
+                        <div class="loc-name">Vancouver, WA</div>
+                    </div>
+                    <div class="loc-content">
+                        <div class="city-guide-intro">
+                            <h4>The Waterfront Hub</h4>
+                            <p>Our home base. A vibrant waterfront district with easy access to all our Vancouver
+                                events.</p>
+                        </div>
+
+                        <div class="guide-grid">
+
+                            <div class="guide-box">
+                                <h5 class="guide-box-title">
+                                    <i class="fas fa-bed"></i> PREFERRED STAYS
+                                </h5>
+                                <ul class="smart-list">
+                                    <li>
+                                        <a href="https://goo.gl/maps/LINK_TO_INDIGO" target="_blank" rel="noopener"
+                                            class="guide-link">
+                                            <div>
+                                                <span class="place-name">Hotel Indigo <span
+                                                        class="badge-partner">PARTNER</span></span>
+                                                <span class="place-note">"Modern waterfront hotel. Great for post-race
+                                                    relaxing."</span>
+                                            </div>
+                                            <i class="fas fa-external-link-alt map-icon"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://goo.gl/maps/LINK_TO_HILTON" target="_blank" rel="noopener"
+                                            class="guide-link">
+                                            <div>
+                                                <span class="place-name">Hilton Vancouver</span>
+                                                <span class="place-note">"Centrally located. Walking distance to Esther
+                                                    Short Park."</span>
+                                            </div>
+                                            <i class="fas fa-external-link-alt map-icon"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://goo.gl/maps/LINK_TO_AC" target="_blank" rel="noopener"
+                                            class="guide-link">
+                                            <div>
+                                                <span class="place-name">AC Hotel Marriott</span>
+                                                <span class="place-note">"New & stylish. Right on the waterfront
+                                                    path."</span>
+                                            </div>
+                                            <i class="fas fa-external-link-alt map-icon"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                            <div class="guide-box">
+                                <h5 class="guide-box-title">
+                                    <i class="fas fa-utensils"></i> FUEL & BREWS
+                                </h5>
+                                <ul class="smart-list">
+                                    <li>
+                                        <a href="https://goo.gl/maps/LINK_TO_WILDFIN" target="_blank" rel="noopener"
+                                            class="guide-link">
+                                            <div>
+                                                <span class="place-name">WildFin American Grill</span>
+                                                <span class="place-note">"Perfect for a celebratory post-race
+                                                    meal."</span>
+                                            </div>
+                                            <i class="fas fa-external-link-alt map-icon"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://goo.gl/maps/LINK_TO_COMPASS" target="_blank" rel="noopener"
+                                            class="guide-link">
+                                            <div>
+                                                <span class="place-name">Compass Coffee</span>
+                                                <span class="place-note">"Opens early. The best roast in town."</span>
+                                            </div>
+                                            <i class="fas fa-external-link-alt map-icon"></i>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="https://goo.gl/maps/LINK_TO_BEACHES" target="_blank" rel="noopener"
+                                            class="guide-link">
+                                            <div>
+                                                <span class="place-name">Beaches Restaurant</span>
+                                                <span class="place-note">"Fun atmosphere with Columbia River
+                                                    views."</span>
+                                            </div>
+                                            <i class="fas fa-external-link-alt map-icon"></i>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+
+                        </div>
+
+                        <div class="city-guide-footer">
+                            <a href="https://www.visitvancouverwa.com/" target="_blank" rel="noopener"
+                                class="card-action-link">
+                                Explore More at Visit Vancouver WA <i class="fas fa-arrow-right"></i>
+                            </a>
                         </div>
                     </div>
                 </div>
