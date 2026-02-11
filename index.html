@@ -1561,67 +1561,114 @@
                 display: none;
             }
 
+            .calendar-intro {
+                padding: 40px 5% 20px !important;
+            }
+
+            .calendar-title {
+                font-size: 2.22rem !important;
+                margin-bottom: 10px !important;
+            }
+
+            .calendar-desc {
+                font-size: 14px;
+                line-height: 1.5;
+            }
+
+            .filter-bar {
+                padding: 15px 5%;
+                top: 70px;
+            }
+
+            .filter-label {
+                font-size: 12px;
+                margin-bottom: 12px;
+            }
+
+            .filter-buttons {
+                gap: 8px;
+            }
+
+            .filter-btn {
+                padding: 8px 15px;
+                font-size: 11px;
+            }
+
             .event-grid {
-                gap: 15px;
+                gap: 25px;
                 grid-template-columns: 1fr;
             }
 
-            /* Compact horizontal race cards on mobile */
+            /* Premium Vertical Mobile Cards */
             .event-card {
-                flex-direction: row;
-                max-height: 140px;
+                flex-direction: column;
+                max-height: none;
+                border: none;
+                box-shadow: 0 12px 35px rgba(0, 0, 0, 0.12);
+                border-radius: 16px;
             }
 
-            .event-card .card-img {
-                width: 120px;
-                min-width: 120px;
-                height: 100%;
+            .event-card .card-img-container {
+                width: 100%;
+                height: 220px;
+                min-width: unset;
+                border-radius: 16px 16px 0 0;
             }
 
             .event-card .card-body {
-                padding: 12px 15px;
+                padding: 20px;
             }
 
             .event-card .card-title {
-                font-size: 1.1rem;
-                margin-bottom: 6px;
+                font-size: 1.5rem;
+                margin-bottom: 12px;
+                line-height: 1.2;
             }
 
             .event-card .card-date {
-                margin-bottom: 4px;
-                font-size: 11px;
-            }
-
-            .event-card .card-meta {
                 margin-bottom: 8px;
-                padding-top: 8px;
-                gap: 10px;
-            }
-
-            .event-card .card-meta span {
-                font-size: 11px;
-            }
-
-            .event-card .card-pricing {
-                padding: 6px 8px;
-                margin-bottom: 8px;
-            }
-
-            .event-card .card-pricing .price-now {
-                font-size: 1.1rem;
-            }
-
-            .event-card .card-cta {
-                padding: 8px;
-                font-size: 11px;
+                font-size: 12px;
+                letter-spacing: 1px;
+                color: var(--brand-red);
             }
 
             .event-card .card-meta-row {
-                display: none;
+                display: flex !important;
+                /* Restore on mobile */
+                justify-content: space-between;
+                align-items: center;
+                margin-top: 15px;
+                padding-top: 15px;
+                border-top: 1px solid #f1f5f9;
+            }
+
+            .event-card .card-meta {
+                margin-bottom: 0;
+                padding-top: 0;
+                border-top: none;
+                gap: 15px;
+            }
+
+            .event-card .card-meta span {
+                font-size: 12px;
+                color: #64748b;
+            }
+
+            .event-card .card-pricing {
+                margin-bottom: 15px;
+            }
+
+            .event-card .card-cta {
+                padding: 16px;
+                font-size: 14px;
+                letter-spacing: 1px;
+                border-radius: 8px !important;
+                box-shadow: 0 4px 15px rgba(227, 24, 55, 0.2);
             }
 
             .event-card .card-scarcity {
-                display: none;
+                display: block !important;
+                margin-bottom: 15px;
             }
 
             .hero-event-card {
@@ -2141,8 +2188,11 @@
             const date = new Date(race.race_date + 'T00:00:00');
             const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
+            const regUrl = race.registration_url || '#';
+            const infoUrl = race.instructions_pdf_url || race.registration_url || '#';
+
             const registerButton = race.registration_url && race.registration_open
-                ? `<a href="${race.registration_url}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; font-weight: 800; width: 100%; border-radius: 6px;">Register Now</a>`
+                ? `<a href="${regUrl}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; font-weight: 800; width: 100%; border-radius: 6px;">Register Now</a>`
                 : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; color: #666; width: 100%; border-radius: 6px;">Coming Soon</span>`;
 
             const logoHtml = race.logo_url
@@ -2157,16 +2207,16 @@
             card.style.transitionDelay = `${index * 0.05}s`;
 
             card.innerHTML = `
-                <div class="card-img-container skeleton" onclick="showRaceDetails('${race.registration_url}')" style="cursor: pointer;">
+                <div class="card-img-container skeleton" onclick="showRaceDetails('${infoUrl}')" style="cursor: pointer;">
                     <img src="${cardImage}" alt="${race.name}" loading="lazy" class="loading" onload="this.classList.remove('loading'); this.parentElement.classList.remove('skeleton')" style="${race.name.includes('Bigfoot') ? 'object-position: center 25%' : ''}">
                 </div>
                 <div class="card-body">
-                    <div onclick="showRaceDetails('${race.registration_url}')" style="cursor: pointer;">
+                    <div onclick="showRaceDetails('${infoUrl}')" style="cursor: pointer;">
                         <span class="card-date">${dateStr}</span>
                         <h3 class="card-title">${race.name || 'New Race'}</h3>
                     </div>
                     <div style="margin-top: auto;">
-                        <div onclick="showRaceDetails('${race.registration_url}')" style="cursor: pointer;">
+                        <div onclick="showRaceDetails('${infoUrl}')" style="cursor: pointer;">
                             <div class="card-meta-row">
                                 <div class="card-meta" style="margin-bottom: 0; padding-top: 0; border-top: none;">
                                     <span><i class="fas fa-route"></i> ${distanceText}</span>
