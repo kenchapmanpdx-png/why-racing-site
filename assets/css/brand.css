@@ -100,6 +100,14 @@ nav {
     font-size: 12px;
 }
 
+/* --- UTILITIES --- */
+.brand-link-enhanced {
+    color: var(--brand-red) !important;
+    font-weight: 600 !important;
+    text-decoration: underline !important;
+}
+
+
 /* MOBILE MENU STYLES */
 .hamburger {
     display: none;
