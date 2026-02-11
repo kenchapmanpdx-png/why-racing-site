@@ -382,7 +382,7 @@ section[style*="background: var(--brand-blue)"] .price-was {
 /* --- SPONSOR TICKER --- */
 .sponsor-ticker {
     background: white;
-    padding: 40px 0;
+    padding: 20px 0;
     overflow: hidden;
     white-space: nowrap;
     border-top: 1px solid #eee;
@@ -397,7 +397,7 @@ section[style*="background: var(--brand-blue)"] .price-was {
     color: #888;
     text-transform: uppercase;
     letter-spacing: 2.5px;
-    margin-bottom: 25px;
+    margin-bottom: 15px;
 }
 
 .sponsor-track {
