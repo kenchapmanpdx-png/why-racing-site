@@ -1481,6 +1481,26 @@
             });
         }, { threshold: 0.15 });
         revealElements.forEach(el => revealObserver.observe(el));
+
+        // --- 5. SEQUENTIAL COLLAGE REVEAL ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const collageImgs = Array.from(document.querySelectorAll('.hero-collage img'));
+
+            // Randomize array to make the reveal feel more organic
+            const shuffledImgs = collageImgs.sort(() => Math.random() - 0.5);
+
+            shuffledImgs.forEach((img, index) => {
+                // Staggered reveal based on index
+                setTimeout(() => {
+                    img.classList.add('revealed');
+
+                    // Add shimmer class after the reveal transition completes
+                    setTimeout(() => {
+                        img.classList.add('shimmering');
+                    }, 1200);
+                }, index * 25); // 25ms delay between each image for a fluid wave effect
+            });
+        });
     </script>
 </body>
 
