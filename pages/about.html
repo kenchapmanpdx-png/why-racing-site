@@ -469,134 +469,6 @@
             transform: scale(1.15);
         }
 
-        /* --- CHARITY LOGO SECTION --- */
-        .charity-section {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-            color: white;
-            text-align: center;
-            padding: 100px 5%;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .charity-section::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(227, 24, 55, 0.12) 0%, transparent 60%);
-        }
-
-        .charity-logos {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 40px;
-            margin-top: 60px;
-            position: relative;
-            z-index: 1;
-        }
-
-        .charity-link {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px 40px;
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            width: 250px;
-            height: 140px;
-            -webkit-backdrop-filter: blur(10px);
-            backdrop-filter: blur(10px);
-        }
-
-        .charity-link:hover {
-            transform: translateY(-8px);
-            background: rgba(255, 255, 255, 0.15);
-            border-color: var(--brand-red);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), 0 0 30px rgba(227, 24, 55, 0.3);
-        }
-
-        .charity-logo-img {
-            max-width: 100%;
-            max-height: 100px;
-            object-fit: contain;
-            transition: all 0.4s ease;
-        }
-
-        .footer-social a:hover {
-            color: var(--brand-red);
-        }
-
-        /* --- SCROLL REVEAL --- */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-
-        /* --- UTILITY CLASSES --- */
-        .delay-1 {
-            transition-delay: 0.1s;
-        }
-
-        .delay-2 {
-            transition-delay: 0.2s;
-        }
-
-        .delay-3 {
-            transition-delay: 0.3s;
-        }
-
-        .delay-4 {
-            transition-delay: 0.4s;
-        }
-
-        .team-bio-text {
-            font-size: 0.9rem;
-            color: #666;
-            margin-bottom: 10px;
-        }
-
-        .team-bio-full-text {
-            margin-top: 10px;
-            font-size: 0.9rem;
-        }
-
-        .team-email {
-            color: var(--brand-red);
-            font-size: 0.85rem;
-            font-weight: 700;
-            display: block;
-            margin-top: 10px;
-        }
-
-        .team-email-block {
-            margin-top: 15px;
-        }
-
-        .brand-red-text {
-            color: var(--brand-red);
-        }
-
-        .charity-section h2 {
-            font-size: 3rem;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
 
         .charity-section>p {
             opacity: 0.9;
@@ -960,37 +832,12 @@
         </div>
     </section>
 
-    <section class="charity-section">
+    <section class="charity-section reveal">
         <h2>Making a Difference</h2>
-        <p>We don't just run. We raise. Every registration
-            supports local causes, ensuring our community grows stronger together.</p>
-
-        <div class="charity-logos">
-            <a href="https://northwestbattlebuddies.org/" target="_blank" rel="noopener" class="charity-link"
-                title="NW Battle Buddies">
-                <img src="../images/logos/nw_battle_buddies_logo.png" alt="NW Battle Buddies Logo"
-                    class="charity-logo-img">
-            </a>
-            <a href="https://palofswwa.org/" target="_blank" rel="noopener" class="charity-link"
-                title="Police Activities League of SW Washington">
-                <img src="../images/logos/pal_swwa_logo.png" alt="Police Activities League Logo"
-                    class="charity-logo-img">
-            </a>
-            <a href="https://ainsleysangels.org/" target="_blank" rel="noopener" class="charity-link"
-                title="Ainsley's Angels of America">
-                <img src="../images/logos/ainsleys_angels_logo.png" alt="Ainsley's Angels Logo"
-                    class="charity-logo-img">
-            </a>
-            <a href="https://vansd.org/" target="_blank" rel="noopener" class="charity-link"
-                title="Vancouver Public Schools">
-                <img src="../images/logos/vancouver_public_schools_logo.png" alt="Vancouver Public Schools Logo"
-                    class="charity-logo-img">
-            </a>
-        </div>
-
+        <p>We are proud to partner with local non-profits across the Northwest, raising millions to support our
+            community. Join us in racing with a purpose.</p>
         <div class="charity-cta">
-            <a href="../index.html#calendar" class="btn btn-primary btn-charity">Join The
-                Movement</a>
+            <a href="beneficiary.html" class="btn btn-primary">See Our Impact</a>
         </div>
     </section>
 

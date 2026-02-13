@@ -362,89 +362,7 @@
             line-height: 1.8;
         }
 
-        /* --- CHARITY LOGOS SECTION --- */
-        .charity-section h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 16px;
-        }
-
-        .charity-section>.container>p {
-            text-align: center;
-            color: #64748b;
-            margin-bottom: 50px;
-        }
-
-        .charity-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 30px;
-        }
-
-        .charity-logo {
-            background: white;
-            padding: 30px;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 140px;
-            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .charity-logo::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(227, 24, 55, 0.05), transparent);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .charity-logo:hover {
-            transform: translateY(-8px) scale(1.02);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            border-color: var(--brand-red);
-        }
-
-        .charity-logo:hover::before {
-            opacity: 1;
-        }
-
-        .charity-logo img {
-            max-width: 100%;
-            max-height: 80px;
-            filter: grayscale(1);
-            transition: filter 0.4s ease;
-        }
-
-        .charity-logo:hover img {
-            filter: grayscale(0);
-        }
-
         /* --- CTA SECTION --- */
-        .cta-section {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
-            text-align: center;
-            color: white;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(227, 24, 55, 0.15) 0%, transparent 60%);
-        }
-
         .cta-section h2 {
             color: white;
             font-size: 2.5rem;
@@ -657,22 +575,75 @@
 
     <section class="charity-section">
         <div class="container">
-            <h2 class="reveal">Who We Support</h2>
-            <p class="reveal delay-100">Proud partners making a difference across the Pacific
-                Northwest.</p>
-            <div class="charity-grid">
-                <div class="charity-logo reveal delay-100"><img src="../images/charity/pink-lemonade.png"
-                        alt="Pink Lemonade Project"></div>
-                <div class="charity-logo reveal delay-150"><img src="../images/charity/clark-county-food-bank.png"
-                        alt="Clark County Food Bank"></div>
-                <div class="charity-logo reveal delay-200"><img src="../images/charity/schools-foundation.png"
-                        alt="Schools Foundation"></div>
-                <div class="charity-logo reveal delay-250"><img src="../images/charity/autism-society.png"
-                        alt="Autism Society"></div>
-                <div class="charity-logo reveal delay-300"><img src="../images/charity/humane-society.png"
-                        alt="Humane Society"></div>
-                <div class="charity-logo reveal delay-350"><img src="../images/charity/special-olympics.png"
-                        alt="Special Olympics"></div>
+            <h2 class="reveal">Making a Difference</h2>
+            <p class="reveal delay-100">Every Why Racing registration supports local causes, ensuring our community
+                grows stronger together. Proudly partnering with non-profits across the Pacific Northwest.</p>
+
+            <div class="charity-logos reveal delay-200">
+                <!-- Row 1 -->
+                <a href="https://northwestbattlebuddies.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="NW Battle Buddies">
+                    <img src="../images/logos/beneficiaries/nw_battle_buddies_logo.png" alt="NW Battle Buddies"
+                        class="charity-logo-img">
+                </a>
+                <a href="https://palofswwa.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Police Activities League of SW Washington">
+                    <img src="../images/logos/beneficiaries/pal_swwa_logo.png" alt="PAL SWWA" class="charity-logo-img">
+                </a>
+                <a href="https://ainsleysangels.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Ainsley's Angels of America">
+                    <img src="../images/logos/beneficiaries/ainsleys_angels_logo.png" alt="Ainsley's Angels"
+                        class="charity-logo-img">
+                </a>
+                <a href="https://vansd.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Vancouver Public Schools">
+                    <img src="../images/logos/beneficiaries/vancouver_public_schools_logo.png"
+                        alt="Vancouver Public Schools" class="charity-logo-img">
+                </a>
+
+                <!-- Row 2 -->
+                <a href="https://pinklemonadeproject.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Pink Lemonade Project">
+                    <img src="../images/logos/beneficiaries/Pink Lemonade Project.png" alt="Pink Lemonade Project"
+                        class="charity-logo-img">
+                </a>
+                <a href="https://clarkcountyfoodbank.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Clark County Food Bank">
+                    <img src="../images/logos/beneficiaries/Clark County Food Bank.png" alt="Clark County Food Bank"
+                        class="charity-logo-img">
+                </a>
+                <a href="https://southwesthumane.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Humane Society for Southwest Washington">
+                    <img src="../images/logos/beneficiaries/Humane Society.png" alt="Humane Society"
+                        class="charity-logo-img">
+                </a>
+                <a href="https://autismsocietyoregon.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Autism Society of Oregon">
+                    <img src="../images/logos/beneficiaries/Autism Society.png" alt="Autism Society"
+                        class="charity-logo-img">
+                </a>
+
+                <!-- Row 3 -->
+                <a href="https://www.wta.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Washington Trails Association">
+                    <img src="../images/logos/beneficiaries/Washington Trails Association.png"
+                        alt="Washington Trails Association" class="charity-logo-img">
+                </a>
+                <a href="https://washougalschoolsfoundation.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Washougal Schools Foundation">
+                    <img src="../images/logos/beneficiaries/washougal_schools_foundation_logo.png"
+                        alt="Washougal Schools Foundation" class="charity-logo-img">
+                </a>
+                <a href="https://foundationvps.org/" target="_blank" rel="noopener" class="charity-link"
+                    title="Foundation for Vancouver Public Schools">
+                    <img src="../images/logos/beneficiaries/Foundation Vancouver Public Schools.png"
+                        alt="Foundation for VPS" class="charity-logo-img">
+                </a>
+                <a href="https://whyracingevents.com/community" target="_blank" rel="noopener" class="charity-link"
+                    title="WHY Community">
+                    <img src="../images/logos/beneficiaries/WHY-COMMUNITY-WHITE.png" alt="WHY Community"
+                        class="charity-logo-img">
+                </a>
             </div>
         </div>
     </section>
