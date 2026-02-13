@@ -741,7 +741,7 @@
                 if (entry.isIntersecting) {
                     const counter = entry.target;
                     const target = parseInt(counter.dataset.target);
-                    const duration = 2000;
+                    const duration = 1500; // Slightly faster animation
                     const step = target / (duration / 16);
                     let current = 0;
 
@@ -759,7 +759,9 @@
                     counterObserver.unobserve(counter);
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.2 });
+
+        counters.forEach(counter => counterObserver.observe(counter));
 
     </script>
     <script src="../assets/js/collage.js"></script>
