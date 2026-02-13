@@ -1058,35 +1058,75 @@
     </section>
 
     <footer>
-        <div class="footer-brand">WHY <span>RACING</span></div>
-        <div class="footer-tagline">"What's your WHY? Find it on the course."</div>
-        <div class="footer-links">
-            <a href="../index.html#calendar">Races</a>
-            <a href="training.html">Training</a>
-            <a href="volunteers.html">Volunteer</a>
-            <a href="beneficiary.html">Give Back</a>
-            <a href="community.html">Community</a>
-            <a href="locations.html">Travel</a>
-            <a href="partners.html">Sponsors</a>
-            <a href="about.html">About</a>
+        <div class="footer-container">
+            <!-- Brand Section -->
+            <div class="footer-brand-section">
+                <div class="footer-brand">WHY <span>RACING</span></div>
+                <div class="footer-tagline">"What's your WHY? Find it on the course."</div>
+                <div class="footer-social-links">
+                    <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener"
+                        title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
+                        title="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter"><i
+                            class="fab fa-twitter"></i></a>
+                    <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube"><i
+                            class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+
+            <!-- Links Section -->
+            <div class="footer-links-section">
+                <h4>Quick Links</h4>
+                <div class="footer-links-grid">
+                    <a href="../index.html#calendar">Races</a>
+                    <a href="training.html">Training</a>
+                    <a href="volunteers.html">Volunteer</a>
+                    <a href="beneficiary.html">Give Back</a>
+                    <a href="community.html">Community</a>
+                    <a href="locations.html">Travel</a>
+                    <a href="partners.html">Sponsors</a>
+                    <a href="about.html">About</a>
+                </div>
+            </div>
+
+            <!-- Newsletter Section -->
+            <div class="footer-newsletter-section">
+                <h4>Join the Movement</h4>
+                <div class="newsletter-spot">
+                    <p>Get race updates, training tips, and exclusive early-bird registration alerts.</p>
+                    <form id="email-signup-form">
+                        <input type="hidden" name="source" value="training-page">
+                        <div aria-hidden="true" class="honeypot">
+                            <label for="website">Website</label>
+                            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                        </div>
+                        <div class="newsletter-signup-row">
+                            <input type="text" name="firstName" placeholder="First Name" required
+                                class="newsletter-input">
+                            <input type="text" name="lastName" placeholder="Last Name" required
+                                class="newsletter-input">
+                        </div>
+                        <input type="email" name="email" placeholder="Email Address" required class="newsletter-input"
+                            style="margin-bottom: 10px;">
+                        <button type="submit" class="btn newsletter-submit">KEEP ME POSTED! <i
+                                class="fas fa-arrow-right"></i></button>
+                        <div id="signup-status" class="status-message" style="margin-top: 10px; font-size: 14px;"></div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="footer-social">
-            <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener" title="Facebook"><i
-                    class="fab fa-facebook-f"></i></a>
-            <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener" title="Instagram"><i
-                    class="fab fa-instagram"></i></a>
-            <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter"><i
-                    class="fab fa-twitter"></i></a>
-            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube"><i
-                    class="fab fa-youtube"></i></a>
-        </div>
-        <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
-        <div class="staff-portal-footer">
-            <a href="admin/races.html" class="staff-portal-link">Staff Portal</a>
+
+        <div class="footer-bottom">
+            <div class="footer-copy">© 2025 Why Racing Events Inc. • La Center, WA • (360) 314-4682</div>
+            <div class="staff-portal-footer">
+                <a href="admin/races.html" class="staff-portal-link">Staff Portal</a>
+            </div>
         </div>
     </footer>
 
     <script src="../assets/js/nav.js"></script>
+    <script src="../assets/js/signup-form.js"></script>
     <script>
         // Scroll Reveal Animation
         const revealElements = document.querySelectorAll('.reveal');
