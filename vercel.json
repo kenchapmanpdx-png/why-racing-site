@@ -5,5 +5,11 @@
             "source": "/api/(.*)",
             "destination": "/api/index.js"
         }
+    ],
+    "crons": [
+        {
+            "path": "/api/cron/export-signups",
+            "schedule": "0 16 * * 1"
+        }
     ]
 }

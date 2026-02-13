@@ -1773,9 +1773,9 @@
         <a href="pages/volunteers.html">Volunteer</a>
         <a href="pages/beneficiary.html">Give Back</a>
         <a href="pages/community.html">Community</a>
-        <a href="pages/locations.html">Travel Guide</a>
+        <a href="pages/locations.html">Travel</a>
         <a href="pages/partners.html">Sponsors</a>
-        <a href="pages/about.html">About Us</a>
+        <a href="pages/about.html">About</a>
         <a href="#calendar" class="btn btn-primary menu-cta">Find Your Race</a>
     </div>
 
@@ -2006,19 +2006,54 @@
 
 
 
+    <!-- EMAIL SIGNUP SECTION -->
+    <section class="section signup-section">
+        <div class="signup-content">
+            <h2 class="signup-title">Stay in the Loop</h2>
+            <p class="signup-description">Get race updates, training tips, and exclusive early-bird registration alerts.
+            </p>
+
+            <form id="email-signup-form" class="space-y-3">
+                <input type="hidden" name="source" value="homepage">
+
+                <!-- Honeypot -->
+                <div aria-hidden="true" class="honeypot">
+                    <label for="website">Website</label>
+                    <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                </div>
+
+                <div class="signup-form-row">
+                    <div>
+                        <input type="text" name="firstName" placeholder="First Name" required class="signup-input">
+                    </div>
+                    <div>
+                        <input type="text" name="lastName" placeholder="Last Name" required class="signup-input">
+                    </div>
+                </div>
+
+                <div class="signup-input-group">
+                    <input type="email" name="email" placeholder="Email Address" required class="signup-input">
+                </div>
+
+                <button type="submit" class="btn btn-primary signup-submit">Keep Me Posted! →</button>
+                <div id="signup-status" class="status-message"></div>
+            </form>
+        </div>
+    </section>
+
     <!-- FOOTER -->
     <footer>
         <div class="footer-brand">WHY <span>RACING</span></div>
         <div class="footer-tagline">"What's your WHY? Find it on the course."</div>
         <div class="footer-links">
-            <a href="pages/events.html">Races</a>
+            <a href="#calendar">Races</a>
             <a href="pages/training.html">Training</a>
             <a href="pages/volunteers.html">Volunteer</a>
             <a href="pages/beneficiary.html">Give Back</a>
             <a href="pages/community.html">Community</a>
-            <a href="pages/locations.html">Travel Guide</a>
+            <a href="pages/locations.html">Travel</a>
             <a href="pages/partners.html">Sponsors</a>
-            <a href="pages/about.html">About Us</a>
+            <a href="pages/about.html">About</a>
         </div>
         <div class="footer-social">
             <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener" title="Facebook"><i
@@ -2461,6 +2496,7 @@
         ReactDOM.createRoot(document.getElementById('chatbot-root')).render(<WhyRacingChatbot />);
     </script>
 
+    <script src="assets/js/signup-form.js"></script>
 </body>
 
 </html>

@@ -7,6 +7,7 @@ const { formidable } = require('formidable');
 const fs = require('fs');
 const fetch = require('node-fetch');
 const rateLimit = require('express-rate-limit');
+const { ServerClient } = require('postmark');
 
 // === Environment Validation ===
 const requiredEnvVars = ['NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
@@ -1423,6 +1424,165 @@ async function applyGlobalPricing(raceId, dists, pricingConfig, supabase) {
     await supabase.from('pricing_tiers').insert(tiers);
   }
 }
+
+// ==========================================
+// EMAIL SIGNUP & EXPORT SYSTEM
+// ==========================================
+
+const postmark = process.env.POSTMARK_API_TOKEN ? new ServerClient(process.env.POSTMARK_API_TOKEN) : null;
+const EMAIL_REGEX = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+// Prevent CSV injection
+function sanitizeCSVCell(value) {
+  if (!value) return '';
+  const trimmed = String(value).trim();
+  if (/^[=+\-@\t\r]/.test(trimmed)) {
+    return `'${trimmed}`;
+  }
+  return trimmed.replace(/"/g, '""');
+}
+
+// 1. Capture Signup
+app.post('/api/signup', async (req, res) => {
+  try {
+    const { email, firstName, lastName, source, website } = req.body;
+
+    // Honeypot bot detection
+    if (website) {
+      console.log('Bot detected via honeypot');
+      return res.json({ success: true });
+    }
+
+    // Validation
+    if (!email || !EMAIL_REGEX.test(email)) {
+      return res.status(400).json({ error: 'Please enter a valid email address' });
+    }
+
+    // Sanitize
+    const cleanEmail = email.toLowerCase().trim().slice(0, 254);
+    const cleanFirst = firstName?.trim().slice(0, 100) || null;
+    const cleanLast = lastName?.trim().slice(0, 100) || null;
+    const cleanSource = (source || 'website').slice(0, 50);
+
+    // Upsert to Supabase
+    const { error } = await supabase
+      .from('email_signups')
+      .upsert(
+        {
+          email: cleanEmail,
+          first_name: cleanFirst,
+          last_name: cleanLast,
+          source: cleanSource,
+        },
+        { onConflict: 'email' }
+      );
+
+    if (error) {
+      console.error('Signup insert error:', error);
+      return res.status(500).json({ error: 'Failed to save signup' });
+    }
+
+    return res.json({ success: true });
+  } catch (err) {
+    console.error('Signup API error:', err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// 2. Cron Job — Export & Email CSV
+app.get('/api/cron/export-signups', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+
+  if (!postmark) {
+    console.error('Postmark client not initialized (missing token)');
+    return res.status(500).json({ error: 'Postmark configuration missing' });
+  }
+
+  try {
+    const snapshotTime = new Date().toISOString();
+
+    // Fetch unexported signups
+    const { data: signups, error: fetchError } = await supabase
+      .from('email_signups')
+      .select('email, first_name, last_name, source, created_at')
+      .eq('exported', false)
+      .lte('created_at', snapshotTime)
+      .order('created_at', { ascending: true });
+
+    if (fetchError) {
+      console.error('Fetch error:', fetchError);
+      return res.status(500).json({ error: 'Failed to fetch signups' });
+    }
+
+    if (!signups || signups.length === 0) {
+      return res.json({ message: 'No new signups', count: 0 });
+    }
+
+    // Generate CSV
+    const csvHeader = 'Email,First Name,Last Name,Source,Signed Up';
+    const csvRows = signups.map((s) => {
+      const createdAt = new Date(s.created_at).toLocaleDateString('en-US');
+      return [
+        sanitizeCSVCell(s.email),
+        sanitizeCSVCell(s.first_name || ''),
+        sanitizeCSVCell(s.last_name || ''),
+        sanitizeCSVCell(s.source || ''),
+        createdAt,
+      ]
+        .map((cell) => `"${cell}"`)
+        .join(',');
+    });
+    const csvContent = [csvHeader, ...csvRows].join('\n');
+
+    // Safety check for size
+    const csvSizeBytes = Buffer.byteLength(csvContent, 'utf8');
+    if (csvSizeBytes > 9 * 1024 * 1024) {
+      await postmark.sendEmail({
+        From: process.env.SIGNUP_EXPORT_FROM,
+        To: process.env.SIGNUP_EXPORT_RECIPIENT,
+        Subject: `⚠️ Signup Export Too Large — ${signups.length} signups`,
+        TextBody: `The weekly signup export has ${signups.length} new signups and the CSV is too large to email. Please export manually from Supabase.`,
+      });
+      return res.status(400).json({ error: 'CSV too large to email', count: signups.length });
+    }
+
+    // Email CSV
+    const today = new Date().toLocaleDateString('en-US');
+    await postmark.sendEmail({
+      From: process.env.SIGNUP_EXPORT_FROM,
+      To: process.env.SIGNUP_EXPORT_RECIPIENT,
+      Subject: `New Email Signups — ${today} (${signups.length} new)`,
+      TextBody: `Attached is a CSV with ${signups.length} new email signup(s) since the last export.\n\nHave a great day!`,
+      Attachments: [
+        {
+          Name: `email-signups-${new Date().toISOString().split('T')[0]}.csv`,
+          Content: Buffer.from(csvContent).toString('base64'),
+          ContentType: 'text/csv',
+        },
+      ],
+    });
+
+    // Mark as exported
+    const { error: updateError } = await supabase
+      .from('email_signups')
+      .update({
+        exported: true,
+        exported_at: new Date().toISOString(),
+      })
+      .eq('exported', false)
+      .lte('created_at', snapshotTime);
+
+    if (updateError) console.error('Update error:', updateError);
+
+    return res.json({ success: true, count: signups.length });
+  } catch (err) {
+    console.error('Export cron error:', err);
+    return res.status(500).json({ error: 'Export failed' });
+  }
+});
 
 // Export for Vercel
 module.exports = app;
