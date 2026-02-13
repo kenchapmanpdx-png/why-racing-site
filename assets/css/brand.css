@@ -958,6 +958,27 @@ footer {
     transition: all 0.4s ease;
 }
 
+.placeholder-logo {
+    width: 80px;
+    height: 80px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    color: var(--brand-red);
+    font-size: 1.2rem;
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    margin-bottom: 5px;
+}
+
+.charity-icon {
+    font-size: 40px;
+    color: var(--brand-red);
+    margin-bottom: 10px;
+}
+
 .charity-label {
     font-size: 0.8rem;
     font-weight: 600;
