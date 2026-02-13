@@ -739,8 +739,8 @@ footer {
     border: 1px solid rgba(255, 255, 255, 0.08);
     padding: 25px;
     border-radius: 12px;
-    backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px);
 }
 
 .newsletter-spot p {
@@ -790,6 +790,15 @@ footer {
 .newsletter-submit:hover {
     background: #b00e26;
     transform: translateY(-2px);
+}
+
+.newsletter-email-input {
+    margin-bottom: 10px;
+}
+
+.newsletter-status-message {
+    margin-top: 10px;
+    font-size: 14px;
 }
 
 .footer-bottom {
