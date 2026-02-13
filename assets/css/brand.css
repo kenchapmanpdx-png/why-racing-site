@@ -959,3 +959,24 @@ footer {
     position: relative;
     z-index: 1;
 }
+
+/* --- ANIMATION UTILITIES (GLOBAL) --- */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.delay-100 { transition-delay: 0.1s; }
+.delay-150 { transition-delay: 0.15s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-250 { transition-delay: 0.25s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-350 { transition-delay: 0.35s; }
+.delay-400 { transition-delay: 0.4s; }
+
