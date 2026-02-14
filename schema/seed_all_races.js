@@ -63,8 +63,8 @@ const races = [
             { name: 'Virtual 5K Run/Walk', distance_value: 5, distance_unit: 'km', sort_order: 3 }
         ],
         beneficiaries: [
-            { organization_name: 'La Center High School Volleyball Program', description: 'Student athletics support', is_primary: true, sort_order: 1 },
-            { organization_name: 'La Center High School Track & Field Program', description: 'Student athletics support', is_primary: false, sort_order: 2 }
+            { organization_name: 'La Center High School Volleyball Program', description: 'Student athletics support', is_primary: true, sort_order: 1, website_url: 'https://www.lacenterschools.org/' },
+            { organization_name: 'La Center High School Track & Field Program', description: 'Student athletics support', is_primary: false, sort_order: 2, website_url: 'https://www.lacenterschools.org/' }
         ],
         policies: [
             { policy_type: 'post_race_meal', policy_text: 'All-you-can-eat pancake and sausage breakfast - $10 donation benefits La Center High School Volleyball program' }
@@ -234,7 +234,7 @@ const races = [
             { name: 'Purgatory Trail Marathon', distance_value: 26.2, distance_unit: 'miles', description: 'Out & back utilizing the Bells Mtn Trail with roughly 6,000\' of ascent', sort_order: 2 }
         ],
         beneficiaries: [
-            { organization_name: 'Washington Trail Association', description: '$5 from each registration donated', is_primary: true, sort_order: 1 }
+            { organization_name: 'Washington Trail Association', description: '$5 from each registration donated', is_primary: true, sort_order: 1, website_url: 'https://www.wta.org/' }
         ],
         amenities: [
             { amenity_type: 'aid_station', location_description: 'Yacolt Burn Aid Station - Mile 10-14', notes: 'Major aid station with drop bag access' },
@@ -346,9 +346,9 @@ const races = [
             { location_name: 'Expo area', address: '550 Waterfront Way', city: 'Vancouver', state: 'WA', zip: '98660', pickup_date: '2026-03-22', start_time: '07:00:00', end_time: '09:00:00', is_race_day: true, sort_order: 2 }
         ],
         beneficiaries: [
-            { organization_name: 'Foundation for Vancouver Public Schools', description: 'Established in 1988 to support Vancouver Public Schools', is_primary: true, sort_order: 1 },
-            { organization_name: 'Evergreen School District Foundation', description: 'Partners with community to bridge the basic needs gap', is_primary: false, sort_order: 2 },
-            { organization_name: 'WHY COMMUNITY', description: 'Provides at-risk populations opportunity to cross the finish line', is_primary: false, sort_order: 3 }
+            { organization_name: 'Foundation for Vancouver Public Schools', description: 'Established in 1988 to support Vancouver Public Schools', is_primary: true, sort_order: 1, website_url: 'https://foundationvps.org/' },
+            { organization_name: 'Evergreen School District Foundation', description: 'Partners with community to bridge the basic needs gap', is_primary: false, sort_order: 2, website_url: 'https://www.evergreenschooldistrictfoundation.com/' },
+            { organization_name: 'WHY COMMUNITY', description: 'Provides at-risk populations opportunity to cross the finish line', is_primary: false, sort_order: 3, website_url: 'https://whyracingevents.com/community' }
         ],
         themed_content: {
             theme_name: 'St. Patrick\'s Day',
@@ -471,7 +471,7 @@ const races = [
             { location_name: 'Vancouver Lake Regional Park', city: 'Vancouver', state: 'WA', pickup_date: '2026-04-26', start_time: '06:30:00', end_time: '10:45:00', is_race_day: true, sort_order: 2 }
         ],
         beneficiaries: [
-            { organization_name: 'Ainsley\'s Angels of America', description: 'Ensures everyone can experience endurance events and builds awareness about America\'s special needs community', is_primary: true, sort_order: 1 }
+            { organization_name: 'Ainsley\'s Angels of America', description: 'Ensures everyone can experience endurance events and builds awareness about America\'s special needs community', is_primary: true, sort_order: 1, website_url: 'https://ainsleysangels.org/' }
         ],
         multisport_details: {
             usat_sanctioned: true,
@@ -518,7 +518,7 @@ const races = [
             { distance_name: 'Half Marathon', gender: 'female', record_holder_name: 'Haley Fisher', finish_time: '1:30:20', record_year: 2021 }
         ],
         beneficiaries: [
-            { organization_name: 'Northwest Battle Buddies', description: 'Empowering combat veterans with PTSD by partnering them with professionally trained service dogs at no charge', is_primary: true, sort_order: 1 }
+            { organization_name: 'Northwest Battle Buddies', description: 'Empowering combat veterans with PTSD by partnering them with professionally trained service dogs at no charge', is_primary: true, sort_order: 1, website_url: 'https://northwestbattlebuddies.org/' }
         ],
         special_categories: [
             { category_name: 'Veterans/Active Military', pricing_rule: 'free', eligibility_description: 'Email registration@whyracingevents.com with Military service details for comp code', sort_order: 1 },
@@ -748,7 +748,7 @@ const races = [
             { location_name: 'Officers Row', address: '1101 Officers Row', city: 'Vancouver', state: 'WA', pickup_date: '2026-08-30', start_time: '06:00:00', end_time: '08:00:00', is_race_day: true, sort_order: 3 }
         ],
         beneficiaries: [
-            { organization_name: 'Friends of Fort Vancouver National Historic Site', description: '$1 from each registration supports the national park', is_primary: true, sort_order: 1 }
+            { organization_name: 'Friends of Fort Vancouver National Historic Site', description: '$1 from each registration supports the national park', is_primary: true, sort_order: 1, website_url: 'https://friendsfortvancouver.org/' }
         ],
         policies: [
             { policy_type: 'beast_medal', policy_text: 'Race both Saturday and Sunday for BEAST medal' }
@@ -796,7 +796,7 @@ const races = [
             { distance_name: 'Sand Marathon', gender: 'male', record_holder_name: 'Isaac Lopez', finish_time: '3:34:01', record_year: 2024 }
         ],
         beneficiaries: [
-            { organization_name: 'South Pacific County Humane Society', description: 'Promotes compassionate care, spay/neuter and placement of cats and dogs', is_primary: true, sort_order: 1 }
+            { organization_name: 'South Pacific County Humane Society', description: 'Promotes compassionate care, spay/neuter and placement of cats and dogs', is_primary: true, sort_order: 1, website_url: 'https://beachpets.com/' }
         ],
         policies: [
             { policy_type: 'beast_medal', policy_text: 'Do 2+ events over weekend for special BEAST medal' }
@@ -834,7 +834,7 @@ const races = [
             { name: '6K', distance_value: 6, distance_unit: 'km', sort_order: 3 }
         ],
         beneficiaries: [
-            { organization_name: 'Pink Lemonade Project', description: 'Brings essential services to those currently fighting breast cancer', is_primary: true, sort_order: 1 }
+            { organization_name: 'Pink Lemonade Project', description: 'Brings essential services to those currently fighting breast cancer', is_primary: true, sort_order: 1, website_url: 'https://pinklemonadeproject.org/' }
         ],
         themed_content: {
             theme_name: 'Breast Cancer Awareness',
