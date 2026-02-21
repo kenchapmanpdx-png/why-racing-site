@@ -1,5 +1,5 @@
 -- =============================================
--- Why Racing Events - Standard FAQ Templates
+-- WHY RACING EVENTS - Standard FAQ Templates
 -- Run AFTER race_content_schema.sql
 -- =============================================
 

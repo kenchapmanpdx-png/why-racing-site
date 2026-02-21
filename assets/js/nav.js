@@ -1,4 +1,4 @@
-/* Why Racing Events - Unified Navigation Script */
+/* WHY RACING EVENTS - Unified Navigation Script */
 
 function toggleMobileMenu() {
     const hamburger = document.querySelector('.hamburger');

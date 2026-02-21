@@ -1,5 +1,5 @@
 /**
- * Why Racing Email Signup Form Logic
+ * WHY RACING EVENTS Email Signup Form Logic
  */
 document.addEventListener('DOMContentLoaded', () => {
     const signupForm = document.getElementById('email-signup-form');

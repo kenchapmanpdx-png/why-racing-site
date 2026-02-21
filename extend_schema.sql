@@ -1,5 +1,5 @@
 -- =============================================
--- Why Racing Events - Extended Schema
+-- WHY RACING EVENTS - Extended Schema
 -- Run this SQL in your Supabase SQL Editor
 -- Adds columns for course details, what's included, etc.
 -- =============================================

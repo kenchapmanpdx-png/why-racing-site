@@ -1,5 +1,5 @@
 -- =============================================
--- Why Racing Events - Extended Race Content Schema
+-- WHY RACING EVENTS - Extended Race Content Schema
 -- Run this SQL in your Supabase SQL Editor
 -- =============================================
 
@@ -179,7 +179,7 @@ CREATE TABLE IF NOT EXISTS race_accommodations (
     hotel_name VARCHAR(255) NOT NULL,
     website_url TEXT,
     discount_code VARCHAR(100),
-    discount_description TEXT,                 -- "15% off when you mention Why Racing"
+    discount_description TEXT,                 -- "15% off when you mention WHY RACING EVENTS"
     distance_from_venue TEXT,                  -- "5 minutes from Start/Finish"
     sort_order INTEGER DEFAULT 0
 );

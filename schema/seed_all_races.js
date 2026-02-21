@@ -11,14 +11,14 @@ const supabase = createClient(
     process.env.SUPABASE_SERVICE_ROLE_KEY
 );
 
-// Standard policies for all WHY Racing events
+// Standard policies for all WHY RACING EVENTS
 const standardPolicies = [
     { policy_type: 'headphone_policy', policy_text: 'One ear-bud only, keep volume low so you can hear course marshal instructions.' },
     { policy_type: 'dog_policy', policy_text: 'Only Service Dogs allowed on course, must start at end of race.' },
     { policy_type: 'stroller_policy', policy_text: 'Allowed but must start at end of race after all other participants.' },
     { policy_type: 'bag_check', policy_text: 'Yes, label bag with name and bib number.' },
     { policy_type: 'refund_policy', policy_text: 'No refunds issued (no exceptions).' },
-    { policy_type: 'deferral_policy', policy_text: '$20 fee, can defer up to 10 days before event to next year or another Why Racing Event.' },
+    { policy_type: 'deferral_policy', policy_text: '$20 fee, can defer up to 10 days before event to next year or another WHY RACING EVENTS.' },
     { policy_type: 'transfer_policy', policy_text: '$20 fee, can transfer to another participant up to 10 days before event.' }
 ];
 
@@ -625,7 +625,7 @@ const races = [
         },
         policies: [
             { policy_type: 'camping', policy_text: 'Tent camping only (NO vehicle camping). Friday/Saturday nights. $15 one night, $25 two nights.' },
-            { policy_type: 'beast_medal', policy_text: 'Race on Saturday AND Sunday to earn the coveted WHY Racing BEAST MEDAL' }
+            { policy_type: 'beast_medal', policy_text: 'Race on Saturday AND Sunday to earn the coveted WHY RACING EVENTS BEAST MEDAL' }
         ],
         include_standard_policies: true,
         include_age_groups: true

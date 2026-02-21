@@ -17,7 +17,7 @@ const standardFaqs = [
     },
     {
         question: "What happens if it rains?",
-        answer: "Why Racing events are rain or shine! We only delay or cancel for extreme safety hazards like lightning, high winds, or dangerous air quality."
+        answer: "WHY RACING EVENTS are rain or shine! We only delay or cancel for extreme safety hazards like lightning, high winds, or dangerous air quality."
     },
     {
         question: "Can I swap my t-shirt size?",

@@ -31,7 +31,7 @@ const raceDescriptions = {
 
     'Spring Classic Duathlon, Half Marathon, 10K & 5K': 'For more than 40 years, the Spring Classic has been a cornerstone of PNW running. Originally the first road race in the Pacific Northwest, this historic event now offers multiple distances including a duathlon option. Run through the beautiful streets of Vancouver along Officer\'s Row and the Columbia River.',
 
-    'Hagg Lake Triathlon & Trail Festival': 'Why Racing Events and Henry Hagg Lake come together for an amazing triathlon and trail running festival. This is the perfect race for first-timers to Olympic distance veterans. The calm lake waters, scenic bike course through rolling farmland, and flat run make this an ideal early season race.',
+    'Hagg Lake Triathlon & Trail Festival': 'WHY RACING EVENTS and Henry Hagg Lake come together for an amazing triathlon and trail running festival. This is the perfect race for first-timers to Olympic distance veterans. The calm lake waters, scenic bike course through rolling farmland, and flat run make this an ideal early season race.',
 
     'Girlfriends All-Women\'s Triathlon & Fitness Festival': 'An all-female, beginner-friendly triathlon designed to empower women of all fitness levels. Whether you\'re a first-timer or an experienced athlete, this supportive environment celebrates friendship, fitness, and fun. Bring your girlfriends!',
 

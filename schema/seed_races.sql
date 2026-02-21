@@ -1,5 +1,5 @@
 -- =============================================
--- Why Racing Events - Race Data Seed
+-- WHY RACING EVENTS - Race Data Seed
 -- Run this in Supabase SQL Editor
 -- Generated: 2026-01-25
 -- =============================================
@@ -50,7 +50,7 @@ SELECT id, 'La Center High School Track & Field Program', 'Student athletics sup
 INSERT INTO race_policies (race_id, policy_type, policy_text)
 SELECT id, 'refund_policy', 'No refunds issued (no exceptions)' FROM races WHERE name = 'Resolution Run' LIMIT 1;
 INSERT INTO race_policies (race_id, policy_type, policy_text)
-SELECT id, 'deferral_policy', 'Can defer to next year''s event or another Why Racing Event within the year. $20 deferral fee. Must request up to 10 days before the event.' FROM races WHERE name = 'Resolution Run' LIMIT 1;
+SELECT id, 'deferral_policy', 'Can defer to next year''s event or another WHY RACING EVENTS within the year. $20 deferral fee. Must request up to 10 days before the event.' FROM races WHERE name = 'Resolution Run' LIMIT 1;
 INSERT INTO race_policies (race_id, policy_type, policy_text)
 SELECT id, 'transfer_policy', 'Can transfer registration to another participant up to 10 days before the event.' FROM races WHERE name = 'Resolution Run' LIMIT 1;
 

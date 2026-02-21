@@ -1,5 +1,5 @@
 -- =============================================
--- Why Racing Events - Schema Update (Safe Re-run)
+-- WHY RACING EVENTS - Schema Update (Safe Re-run)
 -- Run this SQL in your Supabase SQL Editor
 -- Handles existing tables and policies gracefully
 -- =============================================

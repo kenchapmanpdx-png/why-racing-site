@@ -49,7 +49,7 @@ const races = [
         ],
         policies: [
             { policy_type: 'refund_policy', policy_text: 'No refunds issued (no exceptions)' },
-            { policy_type: 'deferral_policy', policy_text: 'Can defer to next year\'s event or another Why Racing Event within the year. $20 deferral fee. Must request up to 10 days before the event.' },
+            { policy_type: 'deferral_policy', policy_text: 'Can defer to next year\'s event or another WHY RACING EVENTS within the year. $20 deferral fee. Must request up to 10 days before the event.' },
             { policy_type: 'transfer_policy', policy_text: 'Can transfer registration to another participant up to 10 days before the event.' }
         ]
     },

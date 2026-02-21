@@ -1,5 +1,5 @@
 -- =============================================
--- Why Racing Events - Logistic Updates
+-- WHY RACING EVENTS - Logistic Updates
 -- Run this in Supabase SQL Editor
 -- =============================================
 

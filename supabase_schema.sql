@@ -1,5 +1,5 @@
 -- =============================================
--- Why Racing Events - Database Schema
+-- WHY RACING EVENTS - Database Schema
 -- Run this SQL in your Supabase SQL Editor
 -- =============================================
 
@@ -105,5 +105,5 @@ CREATE TRIGGER update_races_updated_at
     EXECUTE FUNCTION update_updated_at_column();
 
 -- =============================================
--- DONE! Your database is ready for Why Racing Events Admin Dashboard
+-- DONE! Your database is ready for WHY RACING EVENTS Admin Dashboard
 -- =============================================

@@ -153,11 +153,11 @@ archivePastRaces();
 
 
 const FULL_EVENT_DATA = `
-# Why Racing Events - Complete Event Information
+# WHY RACING EVENTS - Complete Event Information
 
 ## COMPANY OVERVIEW
 
-**Company Name:** Why Racing Events Inc.
+**Company Name:** WHY RACING EVENTS Inc.
 **Tagline:** "What's Your WHY?"
 **Address:** 210 E. Fourth St, Suite B, La Center, WA 98629
 **Phone:** (360) 314-4682
@@ -170,7 +170,7 @@ const FULL_EVENT_DATA = `
 - Twitter: @WhyRacingEvents
 - Hashtag: #WhyRacing
 
-**Mission:** Why Racing Events Inc. offers athletes of all abilities, from the elite level to the back of the packers, the chance to successfully train for and complete various types of races including fun runs, triathlons, adventure events and more while raising awareness and funds for important community causes.
+**Mission:** WHY RACING EVENTS Inc. offers athletes of all abilities, from the elite level to the back of the packers, the chance to successfully train for and complete various types of races including fun runs, triathlons, adventure events and more while raising awareness and funds for important community causes.
 
 **Core Values:** Fitness, Family, and Fun
 
@@ -566,7 +566,7 @@ A: Aid stations approximately every 2 miles for running. Carry own hydration for
 **Phone:** (360) 314-4682
 
 **Office Address:**
-Why Racing Events Inc.
+WHY RACING EVENTS Inc.
 210 E. Fourth St, Suite B
 La Center, WA 98629
 
@@ -580,7 +580,7 @@ La Center, WA 98629
 - **McCord's Vancouver Toyota** - Vehicle Partner
 `;
 
-const SYSTEM_PROMPT = `You are a friendly, knowledgeable assistant for Why Racing Events, a Pacific Northwest race company that has raised over $3 million for charity. Use the following comprehensive event data to answer questions accurately and enthusiastically.
+const SYSTEM_PROMPT = `You are a friendly, knowledgeable assistant for WHY RACING EVENTS, a Pacific Northwest race company that has raised over $3 million for charity. Use the following comprehensive event data to answer questions accurately and enthusiastically.
 
 ${FULL_EVENT_DATA}
 
@@ -1377,7 +1377,7 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
 // For local development
 if (require.main === module) {
   app.listen(PORT, '0.0.0.0', () => {
-    console.log(`Why Racing Events server running on port ${PORT}`);
+    console.log(`WHY RACING EVENTS server running on port ${PORT}`);
   });
 }
 

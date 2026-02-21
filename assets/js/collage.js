@@ -1,5 +1,5 @@
 /**
- * Why Racing Events - Centralized Hero Collage Script
+ * WHY RACING EVENTS - Centralized Hero Collage Script
  * Dynamically populates and animates the hero collage across all interior pages.
  */
 
