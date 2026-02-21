@@ -35,3 +35,7 @@ __pycache__/
 *.venv
 venv/
 env/
+
+# Backup and archive files (should not be tracked)
+*.bak
+*.zip

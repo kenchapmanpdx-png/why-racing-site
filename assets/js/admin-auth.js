@@ -1,18 +1,7 @@
 // assets/js/admin-auth.js
-const ADMIN_SECRET = 'why2026';
 
 /**
- * Hash password using Web Crypto API
- */
-async function hashPassword(password) {
-    const msgUint8 = new TextEncoder().encode(password);
-    const hashBuffer = await crypto.subtle.digest('SHA-256', msgUint8);
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-}
-
-/**
- * Check if the user is authenticated in this session
+ * Check if the user is authenticated in this session.
  * @param {boolean} redirectIfNotAuth Automatically redirect to login page
  */
 function checkAuth(redirectIfNotAuth = true) {
@@ -24,18 +13,32 @@ function checkAuth(redirectIfNotAuth = true) {
 }
 
 /**
- * Attempt to login with password
- * @param {string} password 
+ * Attempt to login by validating the password server-side.
+ * On success, the server returns the bearer token which is stored in sessionStorage.
+ * The password and token are never hardcoded in client source.
+ * @param {string} password
  * @returns {Promise<boolean>} Success status
  */
 async function login(password) {
-    const hash = await hashPassword(password);
-    if (hash === 'e154f8961d7b8f85ee4403ce17bf1459ce360f7082af54cd09676f40c40759c0') {
+    try {
+        const response = await fetch('/api/admin/login', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ password })
+        });
+
+        if (!response.ok) return false;
+
+        const { token } = await response.json();
+        if (!token) return false;
+
         sessionStorage.setItem('adminAuth', 'true');
-        sessionStorage.setItem('ADMIN_SECRET', ADMIN_SECRET);
+        sessionStorage.setItem('ADMIN_SECRET', token);
         return true;
+    } catch (err) {
+        console.error('Login error:', err);
+        return false;
     }
-    return false;
 }
 
 /**
@@ -48,4 +51,4 @@ function logout() {
     window.location.reload();
 }
 
-export { checkAuth, login, logout, ADMIN_SECRET };
+export { checkAuth, login, logout };

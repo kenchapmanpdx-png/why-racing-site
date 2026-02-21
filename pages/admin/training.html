@@ -93,7 +93,7 @@
     </div>
 
     <script type="module">
-        import { checkAuth, login, ADMIN_SECRET } from '../../assets/js/admin-auth.js';
+        import { checkAuth, login } from '../../assets/js/admin-auth.js';
         import { renderAdminNav } from '../../assets/js/admin-nav.js';
 
         async function init() {
@@ -130,7 +130,7 @@
             list.innerHTML = '<p>Loading clubs from database...</p>';
             try {
                 const response = await fetch('/api/training-clubs', {
-                    headers: { 'Authorization': `Bearer ${ADMIN_SECRET}` }
+                    headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
                 });
 
                 if (!response.ok) throw new Error('Failed to fetch clubs');
@@ -188,7 +188,7 @@
                     method: method,
                     headers: {
                         'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${ADMIN_SECRET}`
+                        'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}`
                     },
                     body: JSON.stringify(clubData)
                 });
@@ -230,7 +230,7 @@
             try {
                 const response = await fetch(`/api/training-clubs/${id}`, {
                     method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${ADMIN_SECRET}` }
+                    headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
                 });
 
                 if (response.ok) {

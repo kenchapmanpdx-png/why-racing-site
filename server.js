@@ -2,12 +2,23 @@ require('dotenv').config({ path: '.env.local' });
 require('dotenv').config(); // Also load standard .env if present
 const express = require('express');
 const path = require('path');
+const crypto = require('crypto');
 const { createClient } = require('@supabase/supabase-js');
 const { formidable } = require('formidable');
 const fs = require('fs');
 const fetch = require('node-fetch');
 const rateLimit = require('express-rate-limit');
 const { ServerClient } = require('postmark');
+
+// Chatbot model — update here when upgrading model versions
+const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
+
+// Allowed image MIME types for uploads (no SVG — can contain embedded JS)
+const ALLOWED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
+
+// UUID validation
+const UUID_REGEX = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+function isValidUUID(id) { return UUID_REGEX.test(id); }
 
 // === Environment Validation ===
 const requiredEnvVars = ['NEXT_PUBLIC_SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY'];
@@ -80,7 +91,7 @@ const chatLimiter = rateLimit({
   message: { error: 'Chat rate limit reached. Please wait a moment.' }
 });
 
-app.use(express.json());
+app.use(express.json({ limit: '50kb' }));
 app.use(express.static('.'));
 
 // Apply rate limiting to API routes
@@ -148,8 +159,11 @@ async function archivePastRaces() {
   }
 }
 
-// Run archive check on startup
-archivePastRaces();
+// Run archive check on startup only for traditional (non-serverless) deployments.
+// On Vercel, use the /api/cron/archive-races endpoint instead.
+if (require.main === module) {
+  archivePastRaces();
+}
 
 
 const FULL_EVENT_DATA = `
@@ -620,7 +634,7 @@ app.post('/api/chat', async (req, res) => {
         'anthropic-version': '2023-06-01'
       },
       body: JSON.stringify({
-        model: 'claude-sonnet-4-20250514',
+        model: CLAUDE_MODEL,
         max_tokens: 1000,
         system: SYSTEM_PROMPT,
         messages
@@ -652,13 +666,40 @@ app.post('/api/chat', async (req, res) => {
 
 // Auth middleware for admin routes
 const adminAuth = (req, res, next) => {
+  if (!process.env.ADMIN_SECRET) {
+    return res.status(503).json({ error: 'Admin access not configured on this server' });
+  }
   const authHeader = req.headers.authorization;
-  const expectedAuth = `Bearer ${process.env.ADMIN_SECRET}`;
-  if (authHeader !== expectedAuth) {
+  const expected = `Bearer ${process.env.ADMIN_SECRET}`;
+  // Use timing-safe comparison to prevent timing attacks
+  if (
+    !authHeader ||
+    authHeader.length !== expected.length ||
+    !crypto.timingSafeEqual(Buffer.from(authHeader), Buffer.from(expected))
+  ) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
   next();
 };
+
+// Admin login — validates password server-side and returns the bearer token.
+// The secret is never exposed in client-side source code.
+app.post('/api/admin/login', (req, res) => {
+  if (!process.env.ADMIN_SECRET) {
+    return res.status(503).json({ error: 'Admin access not configured on this server' });
+  }
+  const { password } = req.body;
+  if (!password || typeof password !== 'string') {
+    return res.status(400).json({ error: 'Password required' });
+  }
+  // Timing-safe comparison
+  const passwordBuf = Buffer.from(password);
+  const secretBuf = Buffer.from(process.env.ADMIN_SECRET);
+  if (passwordBuf.length !== secretBuf.length || !crypto.timingSafeEqual(passwordBuf, secretBuf)) {
+    return res.status(401).json({ error: 'Invalid password' });
+  }
+  return res.status(200).json({ token: process.env.ADMIN_SECRET });
+});
 
 // 1. AI Theme Generation
 app.post('/api/generate-theme', async (req, res) => {
@@ -767,7 +808,7 @@ app.get('/api/races/all', adminAuth, async (req, res) => {
   return res.status(200).json(data || []);
 });
 
-// Get public races
+// Get public races (active and visible only)
 app.get('/api/races', async (req, res) => {
   const { data, error } = await supabase
     .from('races')
@@ -776,18 +817,22 @@ app.get('/api/races', async (req, res) => {
       race_distances (*),
       pricing_tiers (*)
     `)
+    .eq('status', 'active')
+    .eq('is_visible', true)
     .order('race_date', { ascending: true });
 
   if (error) {
     console.error('Supabase Error (GET /api/races):', error);
     return res.status(500).json({ error: error.message });
   }
-  return res.status(200).json(data);
+  return res.status(200).json(data || []);
 });
 
 // Get single race (basic)
 app.get('/api/races/:id', async (req, res) => {
   const { id } = req.params;
+  if (!isValidUUID(id)) return res.status(400).json({ error: 'Invalid race ID' });
+
   const { data, error } = await supabase
     .from('races')
     .select(`
@@ -799,6 +844,7 @@ app.get('/api/races/:id', async (req, res) => {
     .single();
 
   if (error) {
+    if (error.code === 'PGRST116') return res.status(404).json({ error: 'Race not found' });
     console.error(`Supabase Error (GET /api/races/${id}):`, error);
     return res.status(500).json({ error: error.message });
   }
@@ -808,6 +854,7 @@ app.get('/api/races/:id', async (req, res) => {
 // Get FULL race details (for race detail page)
 app.get('/api/races/:id/full', async (req, res) => {
   const { id } = req.params;
+  if (!isValidUUID(id)) return res.status(400).json({ error: 'Invalid race ID' });
 
   try {
     // Fetch race with all related content in parallel
@@ -971,6 +1018,7 @@ app.post('/api/races', adminAuth, async (req, res) => {
 // Update race
 app.put('/api/races/:id', adminAuth, async (req, res) => {
   const { id } = req.params;
+  if (!isValidUUID(id)) return res.status(400).json({ error: 'Invalid race ID' });
   const {
     distances,
     pricing_tiers,
@@ -988,14 +1036,18 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
 
   try {
     // 1. Update race basic info
-    const { error: raceError } = await supabase
+    const { data: updatedRows, error: raceError } = await supabase
       .from('races')
       .update(cleanRaceData)
-      .eq('id', id);
+      .eq('id', id)
+      .select('id');
 
     if (raceError) {
       console.error(`Supabase Error (PUT /api/races/${id}):`, raceError);
       return res.status(500).json({ error: raceError.message });
+    }
+    if (!updatedRows || updatedRows.length === 0) {
+      return res.status(404).json({ error: 'Race not found' });
     }
 
     // 2. Handle distances
@@ -1069,17 +1121,22 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
 // 2.5 Delete Race
 app.delete('/api/races/:id', adminAuth, async (req, res) => {
   const { id } = req.params;
+  if (!isValidUUID(id)) return res.status(400).json({ error: 'Invalid race ID' });
   console.log(`DELETE request for race ID: ${id}`);
 
   try {
-    const { error } = await supabase
+    const { data: deletedRows, error } = await supabase
       .from('races')
       .delete()
-      .eq('id', id);
+      .eq('id', id)
+      .select('id');
 
     if (error) {
       console.error(`Supabase Error (DELETE /api/races/${id}):`, error);
       return res.status(500).json({ error: error.message });
+    }
+    if (!deletedRows || deletedRows.length === 0) {
+      return res.status(404).json({ error: 'Race not found' });
     }
 
     console.log(`Race ${id} deleted successfully`);
@@ -1419,8 +1476,11 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
       const safeFilename = (file.originalFilename || 'image').replace(/[^a-zA-Z0-9.-]/g, '_');
       const fileName = `${raceId}/${type}-${Date.now()}-${randomSuffix}-${safeFilename}`;
 
-      // Determine content type - fallback if missing
-      const contentType = file.mimetype || 'image/png';
+      // Validate and determine content type
+      const contentType = file.mimetype || '';
+      if (!ALLOWED_IMAGE_TYPES.has(contentType)) {
+        return res.status(400).json({ error: 'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.' });
+      }
 
       console.log('Uploading to Supabase Storage:', fileName, 'Size:', fileBuffer.length, 'bytes', 'Type:', contentType);
 
@@ -1505,8 +1565,10 @@ async function applyGlobalPricing(raceId, dists, pricingConfig, supabase) {
   });
 
   if (tiers.length > 0) {
-    await supabase.from('pricing_tiers').delete().eq('race_id', raceId);
-    await supabase.from('pricing_tiers').insert(tiers);
+    const { error: delErr } = await supabase.from('pricing_tiers').delete().eq('race_id', raceId);
+    if (delErr) throw delErr;
+    const { error: insErr } = await supabase.from('pricing_tiers').insert(tiers);
+    if (insErr) throw insErr;
   }
 }
 
@@ -1572,6 +1634,16 @@ app.post('/api/signup', async (req, res) => {
     console.error('Signup API error:', err);
     return res.status(500).json({ error: 'Internal server error' });
   }
+});
+
+// Cron Job — Archive Past Races (runs every night at midnight UTC via Vercel cron)
+app.get('/api/cron/archive-races', async (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  await archivePastRaces();
+  return res.status(200).json({ success: true });
 });
 
 // 2. Cron Job — Export & Email CSV

@@ -282,7 +282,7 @@
     </div>
 
     <script type="module">
-        import { checkAuth, login, ADMIN_SECRET } from '../../assets/js/admin-auth.js';
+        import { checkAuth, login } from '../../assets/js/admin-auth.js';
         import { renderAdminNav } from '../../assets/js/admin-nav.js';
 
         // Specific API endpoints for this page
@@ -334,7 +334,7 @@
 
         async function loadRaces() {
             try {
-                const response = await fetch(RACES_ENDPOINT, {
+                const response = await fetch('/api/races/all', {
                     headers: {
                         'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
                     }
@@ -703,7 +703,7 @@
             try {
                 const url = editingId ? `${RACES_ENDPOINT}/${editingId}` : RACES_ENDPOINT;
                 const method = editingId ? 'PUT' : 'POST';
-                const authSecret = sessionStorage.getItem('ADMIN_SECRET') || ADMIN_SECRET;
+                const authSecret = sessionStorage.getItem('ADMIN_SECRET');
 
                 console.log('Saving race:', { url, method, authSecret: authSecret ? 'present' : 'missing' });
                 console.log('Payload:', payload);

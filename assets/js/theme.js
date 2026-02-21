@@ -118,11 +118,15 @@ class ThemeEngine {
 
         const root = document.documentElement;
 
-        // Helper to convert hex to RGB components
+        // Helper to convert hex to RGB components (handles both #RGB and #RRGGBB)
         const hexToRgb = (hex) => {
-            const r = parseInt(hex.slice(1, 3), 16);
-            const g = parseInt(hex.slice(3, 5), 16);
-            const b = parseInt(hex.slice(5, 7), 16);
+            let normalized = hex.replace(/^#/, '');
+            if (normalized.length === 3) {
+                normalized = normalized.split('').map(c => c + c).join('');
+            }
+            const r = parseInt(normalized.slice(0, 2), 16);
+            const g = parseInt(normalized.slice(2, 4), 16);
+            const b = parseInt(normalized.slice(4, 6), 16);
             return `${r}, ${g}, ${b}`;
         };
 
