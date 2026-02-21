@@ -17,21 +17,21 @@
         <div class="password-box">
             <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS" class="logo-placeholder"
                 style="max-width: 180px; margin-bottom: 24px;">
-            <h1 style="color: var(--brand-dark); font-size: 20px; font-family: Oswald, sans-serif;">ADMIN ACCESS</h1>
-            <p style="color: #94a3b8; margin-bottom: 24px;">Please enter your password to continue.</p>
+            <h1 class="admin-lock-title">ADMIN ACCESS</h1>
+            <p class="admin-lock-desc">Please enter your password to continue.</p>
             <input type="password" id="passwordInput" placeholder="Password"
-                style="width: 100%; padding: 12px; margin-bottom: 16px; border-radius: 8px; border: 2px solid var(--border-color); background: var(--input-bg); color: var(--text-main);"
+                class="admin-lock-input"
                 onkeypress="if(event.key==='Enter') window.checkPassword()">
             <button onclick="window.checkPassword()"
                 style="width: 100%; padding: 12px; background: var(--brand-red); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">ENTER
                 DASHBOARD</button>
-            <p class="password-error" id="passwordError" style="color: #ef4444; margin-top: 12px; display: none;">
+            <p class="password-error admin-lock-error" id="passwordError">
                 Incorrect password.</p>
         </div>
     </div>
 
     <!-- Admin Dashboard -->
-    <div class="admin-dashboard" id="adminDashboard" style="display: none;">
+    <div class="admin-dashboard" id="adminDashboard" class="admin-dashboard">
         <div id="adminNavContainer"></div>
 
         <div id="apiErrorBanner"
@@ -73,9 +73,9 @@
                     <input type="url" id="clubLogo" placeholder="https://...">
                 </div>
                 <div class="form-group full-width">
-                    <div class="checkbox-item" style="display: flex; gap: 8px; align-items: center; cursor: pointer;">
+                    <div class="checkbox-item admin-checkbox-wrap">
                         <input type="checkbox" id="clubActive" checked
-                            style="width: 20px; height: 20px; accent-color: var(--brand-red);">
+                            >
                         <span>Active (Show on website)</span>
                     </div>
                 </div>
@@ -93,9 +93,9 @@
 
         <div class="form-section">
             <h2>Managing Clubs</h2>
-            <p style="color: #94a3b8; font-size: 14px; margin-bottom: 20px;">Use the table below to view and edit
+            <p class="admin-table-desc">Use the table below to view and edit
                 existing clubs.</p>
-            <div id="clubsList" style="display: flex; flex-direction: column; gap: 10px;">
+            <div id="clubsList" class="admin-list-container">
                 <!-- Dynamically populated -->
             </div>
         </div>
@@ -138,9 +138,9 @@
             try {
                 // Future integration point for Supabase fetch. Example:
                 // const { data, error } = await supabase.from('training_clubs').select('*').order('sort_order');
-                list.innerHTML = '<p style="color: #64748b;">No clubs found. Add your first training club above.</p>';
+                list.innerHTML = '<p class="admin-list-empty">No clubs found. Add your first training club above.</p>';
             } catch (error) {
-                list.innerHTML = '<p style="color: #ef4444;">Failed to load clubs. Check server connection.</p>';
+                list.innerHTML = '<p class="admin-list-error">Failed to load clubs. Check server connection.</p>';
                 document.getElementById('apiErrorBanner').style.display = 'block';
             }
         }

@@ -1098,3 +1098,119 @@
     background: var(--brand-red);
     color: white;
 }
+
+/* Additional Admin Auth Login Classes */
+.admin-lock-logo {
+    max-width: 180px;
+    margin-bottom: 24px;
+}
+
+.admin-lock-title {
+    color: var(--brand-dark);
+    font-size: 20px;
+    font-family: Oswald, sans-serif;
+}
+
+.admin-lock-desc {
+    color: #94a3b8;
+    margin-bottom: 24px;
+}
+
+.admin-lock-input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 16px;
+    border-radius: 8px;
+    border: 2px solid var(--border-color);
+    background: var(--input-bg);
+    color: var(--text-main);
+}
+
+.admin-lock-btn {
+    width: 100%;
+    padding: 12px;
+    background: var(--brand-red);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.admin-lock-error {
+    color: #ef4444;
+    margin-top: 12px;
+    display: none;
+}
+
+/* API Banner */
+.api-error-banner {
+    display: none;
+    background: #ef444422;
+    border: 1px solid #ef4444;
+    color: #ef4444;
+    padding: 16px;
+    border-radius: 8px;
+    margin-bottom: 24px;
+}
+
+/* Base form helpers */
+.admin-checkbox-wrap {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.admin-checkbox-wrap input {
+    width: 20px;
+    height: 20px;
+    accent-color: var(--brand-red);
+}
+
+.admin-form-actions {
+    margin-top: 24px;
+    padding-top: 24px;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    gap: 16px;
+    justify-content: flex-end;
+}
+
+.admin-btn-outline {
+    padding: 10px 20px;
+    background: transparent;
+    border: 1px solid #94a3b8;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.admin-btn-solid {
+    padding: 10px 20px;
+    background: var(--brand-red);
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* Table management helpers */
+.admin-table-desc {
+    color: #94a3b8;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+.admin-list-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.admin-list-empty {
+    color: #64748b;
+}
+
+.admin-list-error {
+    color: #ef4444;
+}
