@@ -133,8 +133,8 @@
                         <div class="distance-item">
                             <div>
                                 <label>Distance Type</label>
-                                <select name="distanceName[]" onchange="autoFillDistance(this)"
-                                    class="full-width-select">
+                                <select name="distanceName[]" aria-label="Distance Type"
+                                    onchange="autoFillDistance(this)" class="full-width-select">
                                     <option value="">-- Select Distance --</option>
                                     <option value="5K">5K</option>
                                     <option value="10K">10K</option>
@@ -226,7 +226,8 @@
                                     <p>Click to upload</p>
                                     <small>Square image</small>
                                 </div>
-                                <img id="thumbnailPreview" class="image-preview display-none">
+                                <img id="thumbnailPreview" alt="Race thumbnail preview"
+                                    class="image-preview display-none">
                             </div>
                             <button type="button" class="clear-image-btn display-none" onclick="clearImage('thumbnail')"
                                 id="thumbnailClearBtn">✕ Remove</button>
@@ -477,7 +478,7 @@
             item.innerHTML = `
         <div>
           <label>Distance Type</label>
-          <select name="distanceName[]" onchange="autoFillDistance(this)" class="admin-lock-input">
+          <select name="distanceName[]" aria-label="Distance Type" onchange="autoFillDistance(this)" class="admin-lock-input">
             ${optionsHtml}
           </select>
         </div>

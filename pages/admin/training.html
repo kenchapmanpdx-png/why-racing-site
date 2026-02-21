@@ -15,11 +15,11 @@
     <!-- Password Gate -->
     <div class="password-gate" id="passwordGate">
         <div class="password-box">
-            <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS" class="logo-placeholder admin-lock-logo">
+            <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS"
+                class="logo-placeholder admin-lock-logo">
             <h1 class="admin-lock-title">ADMIN ACCESS</h1>
             <p class="admin-lock-desc">Please enter your password to continue.</p>
-            <input type="password" id="passwordInput" placeholder="Password"
-                class="admin-lock-input"
+            <input type="password" id="passwordInput" placeholder="Password" class="admin-lock-input"
                 onkeypress="if(event.key==='Enter') window.checkPassword()">
             <button onclick="window.checkPassword()" class="admin-lock-btn">ENTER
                 DASHBOARD</button>
@@ -41,11 +41,11 @@
             <div class="form-grid">
                 <input type="hidden" id="clubId">
                 <div class="form-group">
-                    <label>Club Name</label>
+                    <label for="clubName">Club Name</label>
                     <input type="text" id="clubName" placeholder="e.g. Vancouver Run Club">
                 </div>
                 <div class="form-group">
-                    <label>Type</label>
+                    <label for="clubType">Type</label>
                     <select id="clubType">
                         <option value="Running Club">Running Club</option>
                         <option value="Triathlon Club">Triathlon Club</option>
@@ -54,19 +54,19 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Schedule / Meetup Details</label>
+                    <label for="clubSchedule">Schedule / Meetup Details</label>
                     <input type="text" id="clubSchedule" placeholder="e.g. Tuesdays @ 6PM">
                 </div>
                 <div class="form-group full-width">
-                    <label>Website URL</label>
+                    <label for="clubUrl">Website URL</label>
                     <input type="url" id="clubUrl" placeholder="https://...">
                 </div>
                 <div class="form-group full-width">
-                    <label>Description</label>
+                    <label for="clubDescription">Description</label>
                     <textarea id="clubDescription" placeholder="Tell us about the club..."></textarea>
                 </div>
                 <div class="form-group full-width">
-                    <label>Logo URL (Supabase bucket link or external)</label>
+                    <label for="clubLogo">Logo URL (Supabase bucket link or external)</label>
                     <input type="url" id="clubLogo" placeholder="https://...">
                 </div>
                 <div class="form-group full-width">
@@ -77,10 +77,8 @@
                 </div>
             </div>
             <div class="form-actions admin-form-actions">
-                <button class="btn btn-secondary admin-btn-outline"
-                    onclick="window.resetForm()">Clear Form</button>
-                <button class="btn btn-primary admin-btn-solid"
-                    onclick="window.saveClub()">Save Club</button>
+                <button class="btn btn-secondary admin-btn-outline" onclick="window.resetForm()">Clear Form</button>
+                <button class="btn btn-primary admin-btn-solid" onclick="window.saveClub()">Save Club</button>
             </div>
         </div>
 

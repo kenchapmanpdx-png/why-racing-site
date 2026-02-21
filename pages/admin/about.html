@@ -14,11 +14,11 @@
 <body>
     <div class="password-gate" id="passwordGate">
         <div class="password-box">
-            <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS" class="logo-placeholder admin-lock-logo">
+            <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS"
+                class="logo-placeholder admin-lock-logo">
             <h1 class="admin-lock-title">ADMIN ACCESS</h1>
             <p class="admin-lock-desc">Please enter your password to continue.</p>
-            <input type="password" id="passwordInput" placeholder="Password"
-                class="admin-lock-input"
+            <input type="password" id="passwordInput" placeholder="Password" class="admin-lock-input"
                 onkeypress="if(event.key==='Enter') window.checkPassword()">
             <button onclick="window.checkPassword()" class="admin-lock-btn">ENTER
                 DASHBOARD</button>
@@ -39,31 +39,31 @@
             <div class="form-grid">
                 <input type="hidden" id="memberId">
                 <div class="form-group">
-                    <label>Assigned Name</label>
+                    <label for="memName">Assigned Name</label>
                     <input type="text" id="memName" placeholder="e.g. Sherri McMillan">
                 </div>
                 <div class="form-group">
-                    <label>Role / Title</label>
+                    <label for="memRole">Role / Title</label>
                     <input type="text" id="memRole" placeholder="e.g. Founder & CEO">
                 </div>
                 <div class="form-group full-width">
-                    <label>Photo URL</label>
+                    <label for="memPhoto">Photo URL</label>
                     <input type="url" id="memPhoto" placeholder="https://...">
                 </div>
                 <div class="form-group full-width">
-                    <label>Biography</label>
+                    <label for="memBio">Biography</label>
                     <textarea id="memBio" placeholder="General background..."></textarea>
                 </div>
                 <div class="form-group full-width">
-                    <label>"My WHY" Statement</label>
+                    <label for="memWhy">"My WHY" Statement</label>
                     <textarea id="memWhy" placeholder="Personal quote..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Email Address</label>
+                    <label for="memEmail">Email Address</label>
                     <input type="email" id="memEmail" placeholder="e.g. sherri@whyracingevents.com">
                 </div>
                 <div class="form-group">
-                    <label>Phone Number</label>
+                    <label for="memPhone">Phone Number</label>
                     <input type="tel" id="memPhone" placeholder="e.g. (360) 555-5555">
                 </div>
                 <div class="form-group full-width admin-checkbox-spacing">
@@ -74,10 +74,8 @@
                 </div>
             </div>
             <div class="form-actions admin-form-actions">
-                <button class="btn btn-secondary admin-btn-outline"
-                    onclick="window.resetForm()">Clear Form</button>
-                <button class="btn btn-primary admin-btn-solid"
-                    onclick="window.saveMember()">Save Member</button>
+                <button class="btn btn-secondary admin-btn-outline" onclick="window.resetForm()">Clear Form</button>
+                <button class="btn btn-primary admin-btn-solid" onclick="window.saveMember()">Save Member</button>
             </div>
         </div>
 

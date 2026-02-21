@@ -14,11 +14,11 @@
 <body>
     <div class="password-gate" id="passwordGate">
         <div class="password-box">
-            <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS" class="logo-placeholder admin-lock-logo">
+            <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS"
+                class="logo-placeholder admin-lock-logo">
             <h1 class="admin-lock-title">ADMIN ACCESS</h1>
             <p class="admin-lock-desc">Please enter your password to continue.</p>
-            <input type="password" id="passwordInput" placeholder="Password"
-                class="admin-lock-input"
+            <input type="password" id="passwordInput" placeholder="Password" class="admin-lock-input"
                 onkeypress="if(event.key==='Enter') window.checkPassword()">
             <button onclick="window.checkPassword()" class="admin-lock-btn">ENTER
                 DASHBOARD</button>
@@ -39,23 +39,23 @@
             <div class="form-grid">
                 <input type="hidden" id="beneficiaryId">
                 <div class="form-group full-width">
-                    <label>Beneficiary Name</label>
+                    <label for="benName">Beneficiary Name</label>
                     <input type="text" id="benName" placeholder="e.g. Doernbecher Children's Hospital">
                 </div>
                 <div class="form-group">
-                    <label>Logo URL</label>
+                    <label for="benLogo">Logo URL</label>
                     <input type="url" id="benLogo" placeholder="https://...">
                 </div>
                 <div class="form-group">
-                    <label>Website URL</label>
+                    <label for="benUrl">Website URL</label>
                     <input type="url" id="benUrl" placeholder="https://...">
                 </div>
                 <div class="form-group full-width">
-                    <label>Description</label>
+                    <label for="benDesc">Description</label>
                     <textarea id="benDesc" placeholder="Describe the beneficiary role..."></textarea>
                 </div>
                 <div class="form-group">
-                    <label>Total Donated (Optional)</label>
+                    <label for="benDonated">Total Donated (Optional)</label>
                     <input type="text" id="benDonated" placeholder="e.g. $50,000+">
                 </div>
                 <div class="form-group full-width admin-checkbox-spacing">
@@ -66,10 +66,9 @@
                 </div>
             </div>
             <div class="form-actions admin-form-actions">
-                <button class="btn btn-secondary admin-btn-outline"
-                    onclick="window.resetForm()">Clear Form</button>
-                <button class="btn btn-primary admin-btn-solid"
-                    onclick="window.saveBeneficiary()">Save Beneficiary</button>
+                <button class="btn btn-secondary admin-btn-outline" onclick="window.resetForm()">Clear Form</button>
+                <button class="btn btn-primary admin-btn-solid" onclick="window.saveBeneficiary()">Save
+                    Beneficiary</button>
             </div>
         </div>
 
