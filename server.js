@@ -1293,6 +1293,91 @@ app.post('/api/races/:id/seed-standard-content', adminAuth, async (req, res) => 
   }
 });
 
+// --- Standalone Section CRUD ---
+
+// Training Clubs
+app.get('/api/training-clubs', async (req, res) => {
+  const { data, error } = await supabase.from('training_clubs').select('*').order('sort_order', { ascending: true });
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.post('/api/training-clubs', adminAuth, async (req, res) => {
+  const { data, error } = await supabase.from('training_clubs').insert(req.body).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json(data);
+});
+
+app.put('/api/training-clubs/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await supabase.from('training_clubs').update(req.body).eq('id', id).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.delete('/api/training-clubs/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const { error } = await supabase.from('training_clubs').delete().eq('id', id);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+});
+
+// Beneficiaries (Standalone)
+app.get('/api/beneficiaries', async (req, res) => {
+  const { data, error } = await supabase.from('beneficiaries').select('*').order('sort_order', { ascending: true });
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.post('/api/beneficiaries', adminAuth, async (req, res) => {
+  const { data, error } = await supabase.from('beneficiaries').insert(req.body).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json(data);
+});
+
+app.put('/api/beneficiaries/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await supabase.from('beneficiaries').update(req.body).eq('id', id).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.delete('/api/beneficiaries/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const { error } = await supabase.from('beneficiaries').delete().eq('id', id);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+});
+
+// Team Members
+app.get('/api/team-members', async (req, res) => {
+  const { data, error } = await supabase.from('team_members').select('*').order('sort_order', { ascending: true });
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.post('/api/team-members', adminAuth, async (req, res) => {
+  const { data, error } = await supabase.from('team_members').insert(req.body).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json(data);
+});
+
+app.put('/api/team-members/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await supabase.from('team_members').update(req.body).eq('id', id).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.delete('/api/team-members/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const { error } = await supabase.from('team_members').delete().eq('id', id);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+});
+
+// --- End of Standalone Section CRUD ---
+
 // 3. Image Upload
 app.post('/api/races/upload', adminAuth, (req, res) => {
   const form = formidable({

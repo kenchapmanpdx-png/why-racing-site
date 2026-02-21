@@ -123,21 +123,125 @@
             }
         }
 
+        let clubs = [];
+
         async function loadClubs() {
             const list = document.getElementById('clubsList');
             list.innerHTML = '<p>Loading clubs from database...</p>';
             try {
-                // Future integration point for Supabase fetch. Example:
-                // const { data, error } = await supabase.from('training_clubs').select('*').order('sort_order');
-                list.innerHTML = '<p class="admin-list-empty">No clubs found. Add your first training club above.</p>';
+                const response = await fetch('/api/training-clubs', {
+                    headers: { 'Authorization': `Bearer ${ADMIN_SECRET}` }
+                });
+
+                if (!response.ok) throw new Error('Failed to fetch clubs');
+
+                clubs = await response.json();
+                renderClubs();
             } catch (error) {
+                console.error("Load Clubs Error:", error);
                 list.innerHTML = '<p class="admin-list-error">Failed to load clubs. Check server connection.</p>';
                 document.getElementById('apiErrorBanner').style.display = 'block';
             }
         }
 
-        window.saveClub = function () {
-            alert('Supabase insertion requires API integration (Server role). Ensure endpoint exists in server.js');
+        function renderClubs() {
+            const list = document.getElementById('clubsList');
+            if (clubs.length === 0) {
+                list.innerHTML = '<p class="admin-list-empty" style="text-align: center; padding: 40px;">No clubs found. Add your first training club above.</p>';
+                return;
+            }
+
+            list.innerHTML = clubs.map(club => `
+                <div class="race-card">
+                    <div class="race-card-info">
+                        <h3>${club.name}</h3>
+                        <p>${club.type} • ${club.schedule || 'No schedule set'}</p>
+                    </div>
+                    <div class="race-card-status">
+                        <span class="status-badge status-${club.is_active ? 'active' : 'draft'}">${club.is_active ? 'Active' : 'Draft'}</span>
+                        <button class="edit-btn" onclick="editClub('${club.id}')">Edit</button>
+                        <button class="edit-btn btn-danger" onclick="deleteClub('${club.id}')" style="background: #ef4444; margin-left:8px;">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.saveClub = async function () {
+            const clubId = document.getElementById('clubId').value;
+            const clubData = {
+                name: document.getElementById('clubName').value,
+                type: document.getElementById('clubType').value,
+                schedule: document.getElementById('clubSchedule').value,
+                url: document.getElementById('clubUrl').value,
+                description: document.getElementById('clubDescription').value,
+                logo_url: document.getElementById('clubLogo').value,
+                is_active: document.getElementById('clubActive').checked
+            };
+
+            if (!clubData.name) return alert('Club Name is required');
+
+            const method = clubId ? 'PUT' : 'POST';
+            const url = clubId ? `/api/training-clubs/${clubId}` : '/api/training-clubs';
+
+            try {
+                const response = await fetch(url, {
+                    method: method,
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Authorization': `Bearer ${ADMIN_SECRET}`
+                    },
+                    body: JSON.stringify(clubData)
+                });
+
+                if (response.ok) {
+                    alert(`Club ${clubId ? 'updated' : 'added'} successfully!`);
+                    window.resetForm();
+                    await loadClubs();
+                } else {
+                    const err = await response.json();
+                    alert('Error: ' + err.error);
+                }
+            } catch (error) {
+                console.error("Save Error:", error);
+                alert('Connection error. Could not save club.');
+            }
+        };
+
+        window.editClub = function (id) {
+            const club = clubs.find(c => c.id === id);
+            if (!club) return;
+
+            document.getElementById('clubId').value = club.id;
+            document.getElementById('clubName').value = club.name || '';
+            document.getElementById('clubType').value = club.type || 'Running Club';
+            document.getElementById('clubSchedule').value = club.schedule || '';
+            document.getElementById('clubUrl').value = club.url || '';
+            document.getElementById('clubDescription').value = club.description || '';
+            document.getElementById('clubLogo').value = club.logo_url || '';
+            document.getElementById('clubActive').checked = !!club.is_active;
+
+            document.getElementById('formTitle').innerText = 'Edit Training Club';
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        };
+
+        window.deleteClub = async function (id) {
+            if (!confirm('Are you sure you want to delete this club?')) return;
+
+            try {
+                const response = await fetch(`/api/training-clubs/${id}`, {
+                    method: 'DELETE',
+                    headers: { 'Authorization': `Bearer ${ADMIN_SECRET}` }
+                });
+
+                if (response.ok) {
+                    await loadClubs();
+                } else {
+                    alert('Failed to delete club.');
+                }
+            } catch (error) {
+                console.error("Delete Error:", error);
+                alert('Connection error.');
+            }
         };
 
         window.resetForm = function () {
