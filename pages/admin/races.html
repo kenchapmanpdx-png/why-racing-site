@@ -361,7 +361,7 @@
         function renderRaceList() {
             const list = document.getElementById('raceList');
             if (races.length === 0) {
-                list.innerHTML = '<p style="text-align: center; color: #94a3b8; padding: 40px;">No races found. Add your first race!</p>';
+                list.innerHTML = '<p class="admin-table-desc" style="text-align: center; padding: 40px;">No races found. Add your first race!</p>';
                 return;
             }
 
@@ -369,7 +369,7 @@
 
             list.innerHTML = races.map(race => {
                 const isPastDraft = race.status === 'draft' && race.race_date && race.race_date < today;
-                const readyBadge = isPastDraft ? '<span style="background: #f59e0b; color: white; font-size: 10px; padding: 2px 8px; border-radius: 4px; margin-left: 8px;">📅 Ready to Update</span>' : '';
+                const readyBadge = isPastDraft ? '<span class="status-draft" style="font-size: 10px; margin-left: 8px;">📅 Ready to Update</span>' : '';
 
                 return `
         <div class="race-card" style="${isPastDraft ? 'border-left: 3px solid #f59e0b;' : ''}">
@@ -379,7 +379,7 @@
           </div>
           <div class="race-card-status">
             <span class="status-badge status-${race.status}">${race.status}</span>
-            <a href="../events/race-detail.html?id=${race.id}" target="_blank" class="edit-btn" style="text-decoration: none; border-color: #475569; color: #94a3b8;">View Live</a>
+            <a href="../events/race-detail.html?id=${race.id}" target="_blank" class="edit-btn admin-btn-outline">View Live</a>
             <button class="edit-btn" onclick="editRace('${race.id}')">Edit</button>
           </div>
         </div>
@@ -488,7 +488,7 @@
             item.innerHTML = `
         <div>
           <label>Distance Type</label>
-          <select name="distanceName[]" onchange="autoFillDistance(this)" style="width: 100%; padding: 10px; border: 1px solid #444; border-radius: 6px; background: #333; color: white;">
+          <select name="distanceName[]" onchange="autoFillDistance(this)" class="admin-lock-input">
             ${optionsHtml}
           </select>
         </div>
