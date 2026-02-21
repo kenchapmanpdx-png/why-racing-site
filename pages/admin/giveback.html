@@ -14,15 +14,13 @@
 <body>
     <div class="password-gate" id="passwordGate">
         <div class="password-box">
-            <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS" class="logo-placeholder"
-                style="max-width: 180px; margin-bottom: 24px;">
+            <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS" class="logo-placeholder admin-lock-logo">
             <h1 class="admin-lock-title">ADMIN ACCESS</h1>
             <p class="admin-lock-desc">Please enter your password to continue.</p>
             <input type="password" id="passwordInput" placeholder="Password"
                 class="admin-lock-input"
                 onkeypress="if(event.key==='Enter') window.checkPassword()">
-            <button onclick="window.checkPassword()"
-                style="width: 100%; padding: 12px; background: var(--brand-red); color: white; border: none; border-radius: 8px; font-weight: bold; cursor: pointer;">ENTER
+            <button onclick="window.checkPassword()" class="admin-lock-btn">ENTER
                 DASHBOARD</button>
             <p class="password-error admin-lock-error" id="passwordError">
                 Incorrect password.</p>
@@ -32,8 +30,7 @@
     <div class="admin-dashboard" id="adminDashboard" class="admin-dashboard">
         <div id="adminNavContainer"></div>
 
-        <div id="apiErrorBanner"
-            style="display: none; background: #ef444422; border: 1px solid #ef4444; color: #ef4444; padding: 16px; border-radius: 8px; margin-bottom: 24px;">
+        <div id="apiErrorBanner" class="api-error-banner">
             Unable to load data — check your connection or database.
         </div>
 
@@ -63,19 +60,15 @@
                 </div>
                 <div class="form-group full-width admin-checkbox-spacing">
                     <div class="checkbox-item admin-checkbox-wrap">
-                        <input type="checkbox" id="benActive" checked
-                            >
+                        <input type="checkbox" id="benActive" checked title="Active status">
                         <span>Active (Show on website)</span>
                     </div>
                 </div>
             </div>
-            <div class="form-actions"
-                style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-color); display: flex; gap: 16px; justify-content: flex-end;">
-                <button class="btn btn-secondary"
-                    style="padding: 10px 20px; background: transparent; border: 1px solid #94a3b8; border-radius: 6px; cursor: pointer;"
+            <div class="form-actions admin-form-actions">
+                <button class="btn btn-secondary admin-btn-outline"
                     onclick="window.resetForm()">Clear Form</button>
-                <button class="btn btn-primary"
-                    style="padding: 10px 20px; background: var(--brand-red); color: white; border: none; border-radius: 6px; cursor: pointer;"
+                <button class="btn btn-primary admin-btn-solid"
                     onclick="window.saveBeneficiary()">Save Beneficiary</button>
             </div>
         </div>
