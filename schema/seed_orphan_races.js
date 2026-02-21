@@ -109,7 +109,7 @@ const standardPolicies = [
     { policy_type: 'stroller_policy', policy_text: 'Allowed but must start at end of race after all other participants.' },
     { policy_type: 'bag_check', policy_text: 'Yes, label bag with name and bib number.' },
     { policy_type: 'refund_policy', policy_text: 'No refunds issued (no exceptions).' },
-    { policy_type: 'deferral_policy', policy_text: '$20 fee, can defer up to 10 days before event to next year or another WHY RACING EVENTS.' },
+    { policy_type: 'deferral_policy', policy_text: '$20 fee, can defer up to 10 days before event to next year or another WHY RACING EVENT.' },
     { policy_type: 'transfer_policy', policy_text: '$20 fee, can transfer to another participant up to 10 days before event.' }
 ];
 
