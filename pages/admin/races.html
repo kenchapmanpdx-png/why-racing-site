@@ -15,8 +15,7 @@
     <!-- Password Gate -->
     <div class="password-gate" id="passwordGate">
         <div class="password-box">
-            <img src="../../images/logos/new-why-racing-logo.png" alt="WHY RACING EVENTS Logo"
-                class="logo-placeholder">
+            <img src="../../images/logos/new-why-racing-logo.png" alt="WHY RACING EVENTS Logo" class="logo-placeholder">
             <h1>Race Admin Panel</h1>
             <p>Enter password to access the dashboard</p>
             <input type="password" id="passwordInput" placeholder="Password"
@@ -28,17 +27,7 @@
 
     <!-- Admin Dashboard -->
     <div class="admin-dashboard" id="adminDashboard">
-        <header class="admin-header">
-            <div class="flex-center-gap-15">
-                <img src="../../images/logos/new-why-racing-logo.png" alt="WHY RACING EVENTS Logo"
-                    class="admin-logo-small">
-                <h1>Events Admin</h1>
-            </div>
-            <div class="flex-gap-15-center">
-                <a href="../../index.html" class="view-site-link">← View Live Site</a>
-                <button class="logout-btn" onclick="logout()">Logout</button>
-            </div>
-        </header>
+        <div id="adminNavContainer"></div>
 
         <!-- Tabs -->
         <div class="tabs">
@@ -308,7 +297,7 @@
         }
 
         // Attach login to window for the onclick handler
-        window.checkPassword = async function() {
+        window.checkPassword = async function () {
             const input = document.getElementById('passwordInput');
             if (await login(input.value)) {
                 document.getElementById('passwordGate').style.display = 'none';
