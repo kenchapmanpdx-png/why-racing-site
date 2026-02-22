@@ -57,6 +57,11 @@
     <link rel="stylesheet" href="../assets/css/brand.css">
 
     <style>
+        .team-status-message {
+            text-align: center;
+            grid-column: 1 / -1;
+        }
+
         /* --- BRANDING VARIABLES --- */
         :root {
             --brand-red: #E31837;
@@ -657,7 +662,7 @@
 
         <div class="team-grid" id="teamGrid">
             <!-- Dynamically populated by JavaScript -->
-            <p style="text-align: center; grid-column: 1 / -1;">Loading team...</p>
+            <p class="team-status-message">Loading team...</p>
         </div>
     </section>
 
@@ -869,7 +874,7 @@
 
                 const grid = document.getElementById('teamGrid');
                 if (members.length === 0) {
-                    grid.innerHTML = '<p style="text-align: center; grid-column: 1 / -1;">We are updating our team roster. Check back soon!</p>';
+                    grid.innerHTML = '<p class="team-status-message">We are updating our team roster. Check back soon!</p>';
                     return;
                 }
 
@@ -941,7 +946,7 @@
 
             } catch (err) {
                 console.error('Error loading team members:', err);
-                document.getElementById('teamGrid').innerHTML = '<p style="text-align: center; grid-column: 1 / -1;">Failed to load team members. Please try refreshing.</p>';
+                document.getElementById('teamGrid').innerHTML = '<p class="team-status-message">Failed to load team members. Please try refreshing.</p>';
             }
         }
 

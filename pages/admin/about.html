@@ -49,8 +49,8 @@
                 <div class="form-group full-width">
                     <div class="form-group">
                         <label>Photo</label>
-                        <div class="image-upload-area thumbnail-upload" id="photoUploadArea"
-                            onclick="document.getElementById('memPhotoInput').click()" style="margin-top: 5px;">
+                        <div class="image-upload-area thumbnail-upload mt-5" id="photoUploadArea"
+                            onclick="document.getElementById('memPhotoInput').click()">
                             <input type="file" id="memPhotoInput" accept="image/*" onchange="window.previewPhoto(this)"
                                 hidden>
                             <div class="upload-placeholder" id="photoPlaceholder">
@@ -156,7 +156,7 @@
             function renderMembers() {
                 const list = document.getElementById('membersList');
                 if (members.length === 0) {
-                    list.innerHTML = '<p class="admin-list-empty" style="text-align: center; padding: 40px;">No team members found. Add your first member above.</p>';
+                    list.innerHTML = '<p class="admin-list-empty">No team members found. Add your first member above.</p>';
                     return;
                 }
 
@@ -169,7 +169,7 @@
                     <div class="race-card-status">
                         <span class="status-badge status-${member.is_active ? 'active' : 'draft'}">${member.is_active ? 'Active' : 'Draft'}</span>
                         <button class="edit-btn" onclick="editMember('${member.id}')">Edit</button>
-                        <button class="edit-btn btn-danger" onclick="deleteMember('${member.id}')" style="background: #ef4444; margin-left:8px;">Delete</button>
+                        <button class="edit-btn btn-danger-custom" onclick="deleteMember('${member.id}')">Delete</button>
                     </div>
                 </div>
             `).join('');
