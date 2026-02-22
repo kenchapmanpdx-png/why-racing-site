@@ -1433,6 +1433,33 @@ app.delete('/api/team-members/:id', adminAuth, async (req, res) => {
   return res.status(200).json({ success: true });
 });
 
+// Global Sponsors (Partners Page)
+app.get('/api/global-sponsors', async (req, res) => {
+  const { data, error } = await supabase.from('global_sponsors').select('*').order('sort_order', { ascending: true });
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.post('/api/global-sponsors', adminAuth, async (req, res) => {
+  const { data, error } = await supabase.from('global_sponsors').insert(req.body).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(201).json(data);
+});
+
+app.put('/api/global-sponsors/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const { data, error } = await supabase.from('global_sponsors').update(req.body).eq('id', id).select().single();
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json(data);
+});
+
+app.delete('/api/global-sponsors/:id', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  const { error } = await supabase.from('global_sponsors').delete().eq('id', id);
+  if (error) return res.status(500).json({ error: error.message });
+  return res.status(200).json({ success: true });
+});
+
 // --- End of Standalone Section CRUD ---
 
 // 3. Image Upload
@@ -1558,6 +1585,66 @@ app.post('/api/team-members/upload', adminAuth, (req, res) => {
 
       const { data, error } = await supabase.storage
         .from('race-images') // Reusing the same public bucket
+        .upload(fileName, fileBuffer, {
+          contentType: contentType,
+          upsert: true
+        });
+
+      if (error) {
+        return res.status(500).json({ error: 'Storage error: ' + error.message });
+      }
+
+      const { data: urlData } = supabase.storage
+        .from('race-images')
+        .getPublicUrl(fileName);
+
+      return res.status(200).json({ url: urlData.publicUrl });
+    } catch (error) {
+      console.error('Upload error:', error);
+      return res.status(500).json({ error: 'Upload failed: ' + error.message });
+    }
+  });
+});
+
+app.post('/api/global-sponsors/upload', adminAuth, (req, res) => {
+  const form = formidable({
+    multiples: false,
+    maxFileSize: 10 * 1024 * 1024, // 10MB limit
+    allowEmptyFiles: false
+  });
+
+  form.parse(req, async (err, fields, files) => {
+    if (err) {
+      console.error('Form parse error:', err);
+      return res.status(500).json({ error: 'Failed to parse form' });
+    }
+
+    const getSingleValue = (obj, key) => {
+      const val = obj[key];
+      if (Array.isArray(val)) return val[0];
+      return val;
+    };
+
+    const file = getSingleValue(files, 'file');
+    const sponsorId = getSingleValue(fields, 'sponsorId') || 'new';
+
+    if (!file) {
+      return res.status(400).json({ error: 'No file provided' });
+    }
+
+    try {
+      const fileBuffer = fs.readFileSync(file.filepath);
+      const randomSuffix = Math.random().toString(36).substring(2, 8);
+      const safeFilename = (file.originalFilename || 'image').replace(/[^a-zA-Z0-9.-]/g, '_');
+      const fileName = `sponsors/${sponsorId}-${Date.now()}-${randomSuffix}-${safeFilename}`;
+
+      const contentType = file.mimetype || '';
+      if (!ALLOWED_IMAGE_TYPES.has(contentType)) {
+        return res.status(400).json({ error: 'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.' });
+      }
+
+      const { data, error } = await supabase.storage
+        .from('race-images')
         .upload(fileName, fileBuffer, {
           contentType: contentType,
           upsert: true

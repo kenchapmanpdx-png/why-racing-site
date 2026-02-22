@@ -13,6 +13,7 @@ export function renderAdminNav(activePageId) {
                 <a href="training.html" class="tab-btn ${activePageId === 'training' ? 'active' : ''}">Training</a>
                 <a href="giveback.html" class="tab-btn ${activePageId === 'giveback' ? 'active' : ''}">Giveback</a>
                 <a href="about.html" class="tab-btn ${activePageId === 'about' ? 'active' : ''}">About Team</a>
+                <a href="partners.html" class="tab-btn ${activePageId === 'partners' ? 'active' : ''}">Partners</a>
             </div>
             <div class="flex-gap-15-center">
                 <a href="../../index.html" class="view-site-link">← View Live Site</a>
@@ -24,7 +25,7 @@ export function renderAdminNav(activePageId) {
     const navContainer = document.getElementById('adminNavContainer');
     if (navContainer) {
         navContainer.innerHTML = navHTML;
-        
+
         document.getElementById('navLogoutBtn').addEventListener('click', () => {
             logout();
         });

@@ -682,6 +682,74 @@
             color: white;
             margin-top: 10px;
         }
+
+        /* --- CHARITY GRID STYLES FOR SPONSORS --- */
+        .charity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 30px;
+        }
+
+        .charity-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-decoration: none;
+            color: var(--brand-black);
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+            height: 100%;
+        }
+
+        .charity-link:hover {
+            transform: translateY(-5px);
+            border-color: var(--brand-red);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .charity-logo-img {
+            max-width: 160px;
+            max-height: 100px;
+            object-fit: contain;
+            margin-bottom: 20px;
+            transition: transform 0.3s ease;
+            filter: grayscale(100%) opacity(0.8);
+        }
+
+        .charity-link:hover .charity-logo-img {
+            transform: scale(1.05);
+            filter: grayscale(0%) opacity(1);
+        }
+
+        .charity-label {
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-align: center;
+            line-height: 1.3;
+        }
+
+        .sponsors-grid-section {
+            padding-top: 100px;
+            padding-bottom: 80px;
+        }
+
+        .sponsors-grid-title {
+            text-align: center;
+            margin-bottom: 60px;
+            font-size: 2.5rem;
+            color: var(--brand-black);
+        }
+
+        .sponsors-loading {
+            text-align: center;
+            grid-column: 1 / -1;
+            color: var(--brand-red);
+        }
     </style>
 </head>
 
@@ -736,25 +804,16 @@
         </div>
     </header>
 
-    <!-- SPONSOR TICKER -->
-    <div class="sponsor-ticker">
-        <div class="sponsor-ticker-label">Proud Partners</div>
-        <div class="sponsor-track">
-            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
-            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
-            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
-            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
-            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
-            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
-            <!-- Duplicate for infinite scroll -->
-            <img src="../images/sponsors/peacehealth.png" alt="PeaceHealth">
-            <img src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic">
-            <img src="../images/sponsors/pepsi.png" alt="PepsiCo">
-            <img src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota">
-            <img src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training">
-            <img src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete">
+    <!-- SPONSORS GRID (Dynamic) -->
+    <section id="sponsors-grid" class="sponsors-grid-section">
+        <div class="container">
+            <h2 class="sponsors-grid-title">Our <span class="brand-red-text">Partners</span></h2>
+            <div id="dynamicSponsorsList" class="charity-grid">
+                <!-- Filled via JS -->
+                <p class="sponsors-loading">Loading sponsors...</p>
+            </div>
         </div>
-    </div>
+    </section>
 
     <div class="container">
         <div class="stats-deck">
@@ -1019,6 +1078,51 @@
         });
 
         revealElements.forEach(el => revealObserver.observe(el));
+
+        // Load Dynamic Sponsors
+        async function loadSponsors() {
+            const container = document.getElementById('dynamicSponsorsList');
+            try {
+                const res = await fetch('/api/global-sponsors');
+                if (!res.ok) throw new Error('Failed to load');
+                const sponsors = await res.json();
+
+                // Filter active only
+                const activeSponsors = sponsors.filter(s => s.is_active);
+
+                if (activeSponsors.length === 0) {
+                    container.innerHTML = '<p class="brand-red-text" style="text-align:center; grid-column: 1 / -1;">New sponsors coming soon!</p>';
+                    return;
+                }
+
+                container.innerHTML = activeSponsors.map((sp, i) => {
+                    const delayClass = `delay-${(i % 4) + 1}`;
+                    const targetAttr = sp.website_url ? `href="${sp.website_url}" target="_blank" rel="noopener"` : '';
+                    const tag = sp.website_url ? 'a' : 'div';
+
+                    // Format logo URL to be relative to the pages directory if it's a local path
+                    let logoSrc = sp.logo_url;
+                    if (logoSrc && logoSrc.startsWith('images/')) {
+                        logoSrc = '../' + logoSrc;
+                    } else if (logoSrc && logoSrc.startsWith('/images/')) {
+                        logoSrc = '..' + logoSrc;
+                    }
+
+                    return `
+                    <${tag} ${targetAttr} class="charity-link reveal ${delayClass}" title="${sp.name}">
+                        ${logoSrc ? `<img src="${logoSrc}" alt="${sp.name}" class="charity-logo-img">` : ''}
+                        <span class="charity-label">${sp.name}</span>
+                    </${tag}>
+                    `;
+                }).join('');
+
+            } catch (err) {
+                console.error('Error loading sponsors:', err);
+                container.innerHTML = '<p class="brand-red-text" style="text-align:center; grid-column: 1 / -1;">Temporarily unavailable.</p>';
+            }
+        }
+
+        loadSponsors();
     </script>
     <script src="../assets/js/collage.js"></script>
 </body>

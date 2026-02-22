@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Global Sponsors Admin | WHY RACING EVENTS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="../../assets/css/admin-global.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="password-gate" id="passwordGate">
+        <div class="password-box">
+            <img src="../../images/logos/New%20Why%20Racing%20Logo.png" alt="WHY RACING EVENTS"
+                class="logo-placeholder admin-lock-logo">
+            <h1 class="admin-lock-title">ADMIN ACCESS</h1>
+            <p class="admin-lock-desc">Please enter your password to continue.</p>
+            <input type="password" id="passwordInput" placeholder="Password" class="admin-lock-input"
+                onkeypress="if(event.key==='Enter') window.checkPassword()">
+            <button onclick="window.checkPassword()" class="admin-lock-btn">ENTER
+                DASHBOARD</button>
+            <p class="password-error admin-lock-error" id="passwordError">
+                Incorrect password.</p>
+        </div>
+    </div>
+
+    <div class="admin-dashboard" id="adminDashboard" class="admin-dashboard">
+        <div id="adminNavContainer"></div>
+
+        <div id="apiErrorBanner" class="api-error-banner">
+            Unable to load data — check your connection or database.
+        </div>
+
+        <div class="form-section">
+            <h2 id="formTitle">Add Sponsor</h2>
+            <div class="form-grid">
+                <input type="hidden" id="sponsorId">
+                <div class="form-group">
+                    <label for="spName">Sponsor Name</label>
+                    <input type="text" id="spName" placeholder="e.g. PeaceHealth">
+                </div>
+                <div class="form-group">
+                    <label for="spUrl">Website URL</label>
+                    <input type="text" id="spUrl" placeholder="https://...">
+                </div>
+                <div class="form-group full-width">
+                    <div class="form-group">
+                        <label>Photo</label>
+                        <div class="image-upload-area thumbnail-upload mt-5" id="photoUploadArea"
+                            onclick="document.getElementById('spLogoInput').click()">
+                            <input type="file" id="spLogoInput" accept="image/*" onchange="window.previewPhoto(this)"
+                                hidden>
+                            <div class="upload-placeholder" id="photoPlaceholder">
+                                <span>📁</span>
+                                <p>Click to upload logo</p>
+                            </div>
+                            <img id="photoPreview" alt="Sponsor logo preview" class="image-preview display-none">
+                        </div>
+                        <button type="button" class="clear-image-btn display-none" onclick="window.clearPhoto()"
+                            id="photoClearBtn">✕ Remove</button>
+                        <!-- Hidden field to store existing URL when editing without uploading a new one -->
+                        <input type="hidden" id="spLogoUrl">
+                    </div>
+                    <div class="form-group">
+                        <label for="spSort">Sort Order</label>
+                        <input type="number" id="spSort" placeholder="e.g. 10 (lower is first)" value="0">
+                    </div>
+                    <div class="form-group full-width admin-checkbox-spacing">
+                        <div class="checkbox-item admin-checkbox-wrap">
+                            <input type="checkbox" id="spActive" checked title="Active status">
+                            <span>Active (Show on website)</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-actions admin-form-actions">
+                    <button class="btn btn-secondary admin-btn-outline" onclick="window.resetForm()">Clear Form</button>
+                    <button class="btn btn-primary admin-btn-solid" onclick="window.saveSponsor()">Save Sponsor</button>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h2>Managing Sponsors</h2>
+                <div id="sponsorsList" class="admin-list-container">
+                    <!-- Dynamically populated -->
+                </div>
+            </div>
+        </div>
+
+        <script type="module">
+            import { checkAuth, login } from '../../assets/js/admin-auth.js';
+            import { renderAdminNav } from '../../assets/js/admin-nav.js';
+
+            async function init() {
+                try {
+                    if (checkAuth(false)) {
+                        document.getElementById('passwordGate').style.display = 'none';
+                        document.getElementById('adminDashboard').style.display = 'block';
+                        renderAdminNav('partners');
+                        await loadSponsors();
+                    }
+
+                    window.checkPassword = async function () {
+                        const input = document.getElementById('passwordInput');
+                        if (await login(input.value)) {
+                            document.getElementById('passwordGate').style.display = 'none';
+                            document.getElementById('adminDashboard').style.display = 'block';
+                            renderAdminNav('partners');
+                            await loadSponsors();
+                        } else {
+                            document.getElementById('passwordError').style.display = 'block';
+                            input.value = '';
+                        }
+                    };
+                } catch (err) {
+                    console.error("Initialization Error:", err);
+                    document.getElementById('apiErrorBanner').style.display = 'block';
+                }
+            }
+
+            let sponsors = [];
+
+            async function loadSponsors() {
+                const list = document.getElementById('sponsorsList');
+                list.innerHTML = '<p>Loading sponsors from database...</p>';
+                try {
+                    const response = await fetch('/api/global-sponsors', {
+                        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
+                    });
+
+                    if (!response.ok) throw new Error('Failed to fetch sponsors');
+
+                    sponsors = await response.json();
+                    renderSponsors();
+                } catch (error) {
+                    console.error("Load Sponsors Error:", error);
+                    list.innerHTML = '<p class="admin-list-error">Failed to load sponsors. Check server connection.</p>';
+                    document.getElementById('apiErrorBanner').style.display = 'block';
+                }
+            }
+
+            function renderSponsors() {
+                const list = document.getElementById('sponsorsList');
+                if (sponsors.length === 0) {
+                    list.innerHTML = '<p class="admin-list-empty">No sponsors found. Add your first sponsor above.</p>';
+                    return;
+                }
+
+                list.innerHTML = sponsors.map(sp => `
+                <div class="race-card">
+                    <div class="race-card-info">
+                        <h3>${sp.name}</h3>
+                        <p>${sp.website_url || 'No URL'}</p>
+                    </div>
+                    <div class="race-card-status">
+                         ${sp.logo_url ? `<img src="${sp.logo_url.startsWith('http') ? sp.logo_url : '../../' + sp.logo_url}" alt="logo" style="width: 40px; height: 40px; object-fit: contain; margin-right: 15px;">` : ''}
+                        <span class="status-badge status-${sp.is_active ? 'active' : 'draft'}">${sp.is_active ? 'Active' : 'Draft'}</span>
+                        <button class="edit-btn" onclick="editSponsor('${sp.id}')">Edit</button>
+                        <button class="edit-btn btn-danger-custom" onclick="deleteSponsor('${sp.id}')">Delete</button>
+                    </div>
+                </div>
+            `).join('');
+            }
+
+            window.saveSponsor = async function () {
+                const sponsorId = document.getElementById('sponsorId').value || 'new';
+                const photoInput = document.getElementById('spLogoInput');
+                let photoUrl = document.getElementById('spLogoUrl').value;
+
+                // Handle Image Upload First
+                const photoFile = photoInput.files[0];
+                if (photoFile) {
+                    try {
+                        const uploadFormData = new FormData();
+                        uploadFormData.append('file', photoFile);
+                        uploadFormData.append('type', 'logo');
+                        uploadFormData.append('sponsorId', sponsorId);
+
+                        const uploadRes = await fetch('/api/global-sponsors/upload', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}`
+                            },
+                            body: uploadFormData
+                        });
+
+                        if (uploadRes.ok) {
+                            const uploadData = await uploadRes.json();
+                            photoUrl = uploadData.url;
+                        } else {
+                            const errorText = await uploadRes.text();
+                            return alert('Logo upload failed: ' + errorText);
+                        }
+                    } catch (err) {
+                        console.error('Logo upload error:', err);
+                        return alert('Logo upload error: ' + err.message);
+                    }
+                }
+
+                const sponsorData = {
+                    name: document.getElementById('spName').value,
+                    website_url: document.getElementById('spUrl').value,
+                    logo_url: photoUrl,
+                    sort_order: parseInt(document.getElementById('spSort').value || 0),
+                    is_active: document.getElementById('spActive').checked
+                };
+
+                if (!sponsorData.name) return alert('Sponsor Name is required');
+
+                const method = sponsorId !== 'new' ? 'PUT' : 'POST';
+                const url = sponsorId !== 'new' ? `/api/global-sponsors/${sponsorId}` : '/api/global-sponsors';
+
+                try {
+                    const response = await fetch(url, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}`
+                        },
+                        body: JSON.stringify(sponsorData)
+                    });
+
+                    if (response.ok) {
+                        alert(`Sponsor ${sponsorId ? 'updated' : 'added'} successfully!`);
+                        window.resetForm();
+                        await loadSponsors();
+                    } else {
+                        const err = await response.json();
+                        alert('Error: ' + err.error);
+                    }
+                } catch (error) {
+                    console.error("Save Error:", error);
+                    alert('Connection error. Could not save sponsor.');
+                }
+            };
+
+            window.editSponsor = function (id) {
+                const sponsor = sponsors.find(s => s.id === id);
+                if (!sponsor) return;
+
+                document.getElementById('sponsorId').value = sponsor.id;
+                document.getElementById('spName').value = sponsor.name || '';
+                document.getElementById('spUrl').value = sponsor.website_url || '';
+                document.getElementById('spSort').value = sponsor.sort_order || 0;
+                document.getElementById('spActive').checked = !!sponsor.is_active;
+
+                // Photo handling
+                document.getElementById('spLogoUrl').value = sponsor.logo_url || '';
+                document.getElementById('spLogoInput').value = ''; // Clear file input
+                if (sponsor.logo_url) {
+                    document.getElementById('photoPreview').src = sponsor.logo_url.startsWith('images') ? `../../${sponsor.logo_url}` : sponsor.logo_url;
+                    document.getElementById('photoPreview').style.display = 'block';
+                    document.getElementById('photoPlaceholder').style.display = 'none';
+                    document.getElementById('photoUploadArea').classList.add('has-image');
+                    document.getElementById('photoClearBtn').style.display = 'inline-block';
+                } else {
+                    window.clearPhoto();
+                }
+
+                document.getElementById('formTitle').innerText = 'Edit Sponsor';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
+
+            window.deleteSponsor = async function (id) {
+                if (!confirm('Are you sure you want to delete this sponsor?')) return;
+
+                try {
+                    const response = await fetch(`/api/global-sponsors/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
+                    });
+
+                    if (response.ok) {
+                        await loadSponsors();
+                    } else {
+                        alert('Failed to delete sponsor.');
+                    }
+                } catch (error) {
+                    console.error("Delete Error:", error);
+                    alert('Connection error.');
+                }
+            };
+
+            window.resetForm = function () {
+                document.getElementById('sponsorId').value = '';
+                document.getElementById('spName').value = '';
+                document.getElementById('spUrl').value = '';
+                document.getElementById('spSort').value = '0';
+                document.getElementById('spActive').checked = true;
+                document.getElementById('formTitle').innerText = 'Add Sponsor';
+                window.clearPhoto();
+            };
+
+            window.previewPhoto = function (input) {
+                const preview = document.getElementById('photoPreview');
+                const placeholder = document.getElementById('photoPlaceholder');
+                const uploadArea = document.getElementById('photoUploadArea');
+                const clearBtn = document.getElementById('photoClearBtn');
+
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                        placeholder.style.display = 'none';
+                        uploadArea.classList.add('has-image');
+                        clearBtn.style.display = 'inline-block';
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            };
+
+            window.clearPhoto = function () {
+                document.getElementById('spLogoInput').value = '';
+                document.getElementById('spLogoUrl').value = '';
+                document.getElementById('photoPreview').src = '';
+                document.getElementById('photoPreview').style.display = 'none';
+                document.getElementById('photoPlaceholder').style.display = 'flex';
+                document.getElementById('photoUploadArea').classList.remove('has-image');
+                document.getElementById('photoClearBtn').style.display = 'none';
+            };
+
+            init();
+        </script>
+</body>
+
+</html>
