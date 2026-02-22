@@ -70,6 +70,8 @@ nav {
 
 .logo img {
     height: 45px;
+    transform: scale(2.5);
+    transform-origin: left center;
     filter: invert(1) brightness(2);
 }
 
