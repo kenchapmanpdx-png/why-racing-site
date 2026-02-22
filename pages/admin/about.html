@@ -47,106 +47,120 @@
                     <input type="text" id="memRole" placeholder="e.g. Founder & CEO">
                 </div>
                 <div class="form-group full-width">
-                    <label for="memPhoto">Photo URL</label>
-                    <input type="url" id="memPhoto" placeholder="https://...">
-                </div>
-                <div class="form-group full-width">
-                    <label for="memBio">Biography</label>
-                    <textarea id="memBio" placeholder="General background..."></textarea>
-                </div>
-                <div class="form-group full-width">
-                    <label for="memWhy">"My WHY" Statement</label>
-                    <textarea id="memWhy" placeholder="Personal quote..."></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="memEmail">Email Address</label>
-                    <input type="email" id="memEmail" placeholder="e.g. sherri@whyracingevents.com">
-                </div>
-                <div class="form-group">
-                    <label for="memPhone">Phone Number</label>
-                    <input type="tel" id="memPhone" placeholder="e.g. (360) 555-5555">
-                </div>
-                <div class="form-group full-width admin-checkbox-spacing">
-                    <div class="checkbox-item admin-checkbox-wrap">
-                        <input type="checkbox" id="memActive" checked title="Active status">
-                        <span>Active (Show on website)</span>
+                    <div class="form-group">
+                        <label>Photo</label>
+                        <div class="image-upload-area thumbnail-upload" id="photoUploadArea"
+                            onclick="document.getElementById('memPhotoInput').click()" style="margin-top: 5px;">
+                            <input type="file" id="memPhotoInput" accept="image/*" onchange="window.previewPhoto(this)"
+                                hidden>
+                            <div class="upload-placeholder" id="photoPlaceholder">
+                                <span>📁</span>
+                                <p>Click to upload</p>
+                            </div>
+                            <img id="photoPreview" alt="Member photo preview" class="image-preview display-none">
+                        </div>
+                        <button type="button" class="clear-image-btn display-none" onclick="window.clearPhoto()"
+                            id="photoClearBtn">✕ Remove</button>
+                        <!-- Hidden field to store existing URL when editing without uploading a new one -->
+                        <input type="hidden" id="memPhotoUrl">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="memBio">Biography</label>
+                        <textarea id="memBio" placeholder="General background..."></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="memWhy">"My WHY" Statement</label>
+                        <textarea id="memWhy" placeholder="Personal quote..."></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="memEmail">Email Address</label>
+                        <input type="email" id="memEmail" placeholder="e.g. sherri@whyracingevents.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="memPhone">Phone Number</label>
+                        <input type="tel" id="memPhone" placeholder="e.g. (360) 555-5555">
+                    </div>
+                    <div class="form-group full-width admin-checkbox-spacing">
+                        <div class="checkbox-item admin-checkbox-wrap">
+                            <input type="checkbox" id="memActive" checked title="Active status">
+                            <span>Active (Show on website)</span>
+                        </div>
                     </div>
                 </div>
+                <div class="form-actions admin-form-actions">
+                    <button class="btn btn-secondary admin-btn-outline" onclick="window.resetForm()">Clear Form</button>
+                    <button class="btn btn-primary admin-btn-solid" onclick="window.saveMember()">Save Member</button>
+                </div>
             </div>
-            <div class="form-actions admin-form-actions">
-                <button class="btn btn-secondary admin-btn-outline" onclick="window.resetForm()">Clear Form</button>
-                <button class="btn btn-primary admin-btn-solid" onclick="window.saveMember()">Save Member</button>
+
+            <div class="form-section">
+                <h2>Managing Team</h2>
+                <div id="membersList" class="admin-list-container">
+                    <!-- Dynamically populated -->
+                </div>
             </div>
         </div>
 
-        <div class="form-section">
-            <h2>Managing Team</h2>
-            <div id="membersList" class="admin-list-container">
-                <!-- Dynamically populated -->
-            </div>
-        </div>
-    </div>
+        <script type="module">
+            import { checkAuth, login } from '../../assets/js/admin-auth.js';
+            import { renderAdminNav } from '../../assets/js/admin-nav.js';
 
-    <script type="module">
-        import { checkAuth, login } from '../../assets/js/admin-auth.js';
-        import { renderAdminNav } from '../../assets/js/admin-nav.js';
-
-        async function init() {
-            try {
-                if (checkAuth(false)) {
-                    document.getElementById('passwordGate').style.display = 'none';
-                    document.getElementById('adminDashboard').style.display = 'block';
-                    renderAdminNav('about');
-                    await loadMembers();
-                }
-
-                window.checkPassword = async function () {
-                    const input = document.getElementById('passwordInput');
-                    if (await login(input.value)) {
+            async function init() {
+                try {
+                    if (checkAuth(false)) {
                         document.getElementById('passwordGate').style.display = 'none';
                         document.getElementById('adminDashboard').style.display = 'block';
                         renderAdminNav('about');
                         await loadMembers();
-                    } else {
-                        document.getElementById('passwordError').style.display = 'block';
-                        input.value = '';
                     }
-                };
-            } catch (err) {
-                console.error("Initialization Error:", err);
-                document.getElementById('apiErrorBanner').style.display = 'block';
-            }
-        }
 
-        let members = [];
-
-        async function loadMembers() {
-            const list = document.getElementById('membersList');
-            list.innerHTML = '<p>Loading team members from database...</p>';
-            try {
-                const response = await fetch('/api/team-members', {
-                    headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
-                });
-
-                if (!response.ok) throw new Error('Failed to fetch members');
-
-                members = await response.json();
-                renderMembers();
-            } catch (error) {
-                console.error("Load Members Error:", error);
-                list.innerHTML = '<p class="admin-list-error">Failed to load members. Check server connection.</p>';
-                document.getElementById('apiErrorBanner').style.display = 'block';
-            }
-        }
-
-        function renderMembers() {
-            const list = document.getElementById('membersList');
-            if (members.length === 0) {
-                list.innerHTML = '<p class="admin-list-empty" style="text-align: center; padding: 40px;">No team members found. Add your first member above.</p>';
-                return;
+                    window.checkPassword = async function () {
+                        const input = document.getElementById('passwordInput');
+                        if (await login(input.value)) {
+                            document.getElementById('passwordGate').style.display = 'none';
+                            document.getElementById('adminDashboard').style.display = 'block';
+                            renderAdminNav('about');
+                            await loadMembers();
+                        } else {
+                            document.getElementById('passwordError').style.display = 'block';
+                            input.value = '';
+                        }
+                    };
+                } catch (err) {
+                    console.error("Initialization Error:", err);
+                    document.getElementById('apiErrorBanner').style.display = 'block';
+                }
             }
 
-            list.innerHTML = members.map(member => `
+            let members = [];
+
+            async function loadMembers() {
+                const list = document.getElementById('membersList');
+                list.innerHTML = '<p>Loading team members from database...</p>';
+                try {
+                    const response = await fetch('/api/team-members', {
+                        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
+                    });
+
+                    if (!response.ok) throw new Error('Failed to fetch members');
+
+                    members = await response.json();
+                    renderMembers();
+                } catch (error) {
+                    console.error("Load Members Error:", error);
+                    list.innerHTML = '<p class="admin-list-error">Failed to load members. Check server connection.</p>';
+                    document.getElementById('apiErrorBanner').style.display = 'block';
+                }
+            }
+
+            function renderMembers() {
+                const list = document.getElementById('membersList');
+                if (members.length === 0) {
+                    list.innerHTML = '<p class="admin-list-empty" style="text-align: center; padding: 40px;">No team members found. Add your first member above.</p>';
+                    return;
+                }
+
+                list.innerHTML = members.map(member => `
                 <div class="race-card">
                     <div class="race-card-info">
                         <h3>${member.name}</h3>
@@ -159,103 +173,177 @@
                     </div>
                 </div>
             `).join('');
-        }
+            }
 
-        window.saveMember = async function () {
-            const memberId = document.getElementById('memberId').value;
-            const memberData = {
-                name: document.getElementById('memName').value,
-                role: document.getElementById('memRole').value,
-                photo_url: document.getElementById('memPhoto').value,
-                bio: document.getElementById('memBio').value,
-                my_why: document.getElementById('memWhy').value,
-                email: document.getElementById('memEmail').value,
-                phone: document.getElementById('memPhone').value,
-                is_active: document.getElementById('memActive').checked
+            window.saveMember = async function () {
+                const memberId = document.getElementById('memberId').value || 'new';
+                const photoInput = document.getElementById('memPhotoInput');
+                let photoUrl = document.getElementById('memPhotoUrl').value;
+
+                // Handle Image Upload First
+                const photoFile = photoInput.files[0];
+                if (photoFile) {
+                    try {
+                        const uploadFormData = new FormData();
+                        uploadFormData.append('file', photoFile);
+                        uploadFormData.append('type', 'photo');
+                        uploadFormData.append('memberId', memberId);
+
+                        const uploadRes = await fetch('/api/team-members/upload', {
+                            method: 'POST',
+                            headers: {
+                                'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}`
+                            },
+                            body: uploadFormData
+                        });
+
+                        if (uploadRes.ok) {
+                            const uploadData = await uploadRes.json();
+                            photoUrl = uploadData.url;
+                        } else {
+                            const errorText = await uploadRes.text();
+                            return alert('Photo upload failed: ' + errorText);
+                        }
+                    } catch (err) {
+                        console.error('Photo upload error:', err);
+                        return alert('Photo upload error: ' + err.message);
+                    }
+                }
+
+                const memberData = {
+                    name: document.getElementById('memName').value,
+                    role: document.getElementById('memRole').value,
+                    photo_url: photoUrl,
+                    bio: document.getElementById('memBio').value,
+                    my_why: document.getElementById('memWhy').value,
+                    email: document.getElementById('memEmail').value,
+                    phone: document.getElementById('memPhone').value,
+                    is_active: document.getElementById('memActive').checked
+                };
+
+                if (!memberData.name) return alert('Assigned Name is required');
+
+                const method = memberId !== 'new' ? 'PUT' : 'POST';
+                const url = memberId !== 'new' ? `/api/team-members/${memberId}` : '/api/team-members';
+
+                try {
+                    const response = await fetch(url, {
+                        method: method,
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}`
+                        },
+                        body: JSON.stringify(memberData)
+                    });
+
+                    if (response.ok) {
+                        alert(`Team member ${memberId ? 'updated' : 'added'} successfully!`);
+                        window.resetForm();
+                        await loadMembers();
+                    } else {
+                        const err = await response.json();
+                        alert('Error: ' + err.error);
+                    }
+                } catch (error) {
+                    console.error("Save Error:", error);
+                    alert('Connection error. Could not save member.');
+                }
             };
 
-            if (!memberData.name) return alert('Assigned Name is required');
+            window.editMember = function (id) {
+                const member = members.find(m => m.id === id);
+                if (!member) return;
 
-            const method = memberId ? 'PUT' : 'POST';
-            const url = memberId ? `/api/team-members/${memberId}` : '/api/team-members';
+                document.getElementById('memberId').value = member.id;
+                document.getElementById('memName').value = member.name || '';
+                document.getElementById('memRole').value = member.role || '';
+                document.getElementById('memBio').value = member.bio || '';
+                document.getElementById('memWhy').value = member.my_why || '';
+                document.getElementById('memEmail').value = member.email || '';
+                document.getElementById('memPhone').value = member.phone || '';
+                document.getElementById('memActive').checked = !!member.is_active;
 
-            try {
-                const response = await fetch(url, {
-                    method: method,
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}`
-                    },
-                    body: JSON.stringify(memberData)
-                });
-
-                if (response.ok) {
-                    alert(`Team member ${memberId ? 'updated' : 'added'} successfully!`);
-                    window.resetForm();
-                    await loadMembers();
+                // Photo handling
+                document.getElementById('memPhotoUrl').value = member.photo_url || '';
+                document.getElementById('memPhotoInput').value = ''; // Clear file input
+                if (member.photo_url) {
+                    document.getElementById('photoPreview').src = member.photo_url;
+                    document.getElementById('photoPreview').style.display = 'block';
+                    document.getElementById('photoPlaceholder').style.display = 'none';
+                    document.getElementById('photoUploadArea').classList.add('has-image');
+                    document.getElementById('photoClearBtn').style.display = 'inline-block';
                 } else {
-                    const err = await response.json();
-                    alert('Error: ' + err.error);
+                    window.clearPhoto();
                 }
-            } catch (error) {
-                console.error("Save Error:", error);
-                alert('Connection error. Could not save member.');
-            }
-        };
 
-        window.editMember = function (id) {
-            const member = members.find(m => m.id === id);
-            if (!member) return;
+                document.getElementById('formTitle').innerText = 'Edit Team Member';
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            };
 
-            document.getElementById('memberId').value = member.id;
-            document.getElementById('memName').value = member.name || '';
-            document.getElementById('memRole').value = member.role || '';
-            document.getElementById('memPhoto').value = member.photo_url || '';
-            document.getElementById('memBio').value = member.bio || '';
-            document.getElementById('memWhy').value = member.my_why || '';
-            document.getElementById('memEmail').value = member.email || '';
-            document.getElementById('memPhone').value = member.phone || '';
-            document.getElementById('memActive').checked = !!member.is_active;
+            window.deleteMember = async function (id) {
+                if (!confirm('Are you sure you want to delete this member?')) return;
 
-            document.getElementById('formTitle').innerText = 'Edit Team Member';
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        };
+                try {
+                    const response = await fetch(`/api/team-members/${id}`, {
+                        method: 'DELETE',
+                        headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
+                    });
 
-        window.deleteMember = async function (id) {
-            if (!confirm('Are you sure you want to delete this member?')) return;
-
-            try {
-                const response = await fetch(`/api/team-members/${id}`, {
-                    method: 'DELETE',
-                    headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
-                });
-
-                if (response.ok) {
-                    await loadMembers();
-                } else {
-                    alert('Failed to delete member.');
+                    if (response.ok) {
+                        await loadMembers();
+                    } else {
+                        alert('Failed to delete member.');
+                    }
+                } catch (error) {
+                    console.error("Delete Error:", error);
+                    alert('Connection error.');
                 }
-            } catch (error) {
-                console.error("Delete Error:", error);
-                alert('Connection error.');
-            }
-        };
+            };
 
-        window.resetForm = function () {
-            document.getElementById('memberId').value = '';
-            document.getElementById('memName').value = '';
-            document.getElementById('memRole').value = '';
-            document.getElementById('memPhoto').value = '';
-            document.getElementById('memBio').value = '';
-            document.getElementById('memWhy').value = '';
-            document.getElementById('memEmail').value = '';
-            document.getElementById('memPhone').value = '';
-            document.getElementById('memActive').checked = true;
-            document.getElementById('formTitle').innerText = 'Add Team Member';
-        };
+            window.resetForm = function () {
+                document.getElementById('memberId').value = '';
+                document.getElementById('memName').value = '';
+                document.getElementById('memRole').value = '';
+                document.getElementById('memBio').value = '';
+                document.getElementById('memWhy').value = '';
+                document.getElementById('memEmail').value = '';
+                document.getElementById('memPhone').value = '';
+                document.getElementById('memActive').checked = true;
+                document.getElementById('formTitle').innerText = 'Add Team Member';
+                window.clearPhoto();
+            };
 
-        init();
-    </script>
+            window.previewPhoto = function (input) {
+                const preview = document.getElementById('photoPreview');
+                const placeholder = document.getElementById('photoPlaceholder');
+                const uploadArea = document.getElementById('photoUploadArea');
+                const clearBtn = document.getElementById('photoClearBtn');
+
+                if (input.files && input.files[0]) {
+                    const reader = new FileReader();
+                    reader.onload = function (e) {
+                        preview.src = e.target.result;
+                        preview.style.display = 'block';
+                        placeholder.style.display = 'none';
+                        uploadArea.classList.add('has-image');
+                        clearBtn.style.display = 'inline-block';
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            };
+
+            window.clearPhoto = function () {
+                document.getElementById('memPhotoInput').value = '';
+                document.getElementById('memPhotoUrl').value = '';
+                document.getElementById('photoPreview').src = '';
+                document.getElementById('photoPreview').style.display = 'none';
+                document.getElementById('photoPlaceholder').style.display = 'flex';
+                document.getElementById('photoUploadArea').classList.remove('has-image');
+                document.getElementById('photoClearBtn').style.display = 'none';
+            };
+
+            init();
+        </script>
 </body>
 
 </html>
