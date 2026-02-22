@@ -686,8 +686,8 @@
         /* --- CHARITY GRID STYLES FOR SPONSORS --- */
         .charity-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 30px;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 20px;
         }
 
         .charity-link {
@@ -698,7 +698,7 @@
             background: white;
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 30px 20px;
+            padding: 20px 15px;
             text-decoration: none;
             color: var(--brand-black);
             transition: all 0.3s ease;
@@ -713,17 +713,15 @@
         }
 
         .charity-logo-img {
-            max-width: 160px;
-            max-height: 100px;
+            max-width: 140px;
+            max-height: 80px;
             object-fit: contain;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             transition: transform 0.3s ease;
-            filter: grayscale(100%) opacity(0.8);
         }
 
         .charity-link:hover .charity-logo-img {
             transform: scale(1.05);
-            filter: grayscale(0%) opacity(1);
         }
 
         .charity-label {
