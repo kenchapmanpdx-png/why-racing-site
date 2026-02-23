@@ -712,12 +712,26 @@
             box-shadow: 0 10px 15px -5px rgba(0, 0, 0, 0.1), 0 5px 5px -5px rgba(0, 0, 0, 0.04);
         }
 
+        .charity-logo-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            margin-bottom: 5px;
+        }
+
         .charity-logo-img {
             max-width: 140px;
             max-height: 70px;
             object-fit: contain;
-            margin-bottom: 3px;
             transition: transform 0.3s ease;
+        }
+
+        /* Increase first three logos by 20% */
+        .charity-grid> :nth-child(-n+3) .charity-logo-img {
+            max-width: 168px;
+            max-height: 84px;
         }
 
         .charity-link:hover .charity-logo-img {
@@ -1108,7 +1122,9 @@
 
                     return `
                     <${tag} ${targetAttr} class="charity-link ${delayClass}" title="${sp.name}">
-                        ${logoSrc ? `<img src="${logoSrc}" alt="${sp.name}" class="charity-logo-img">` : ''}
+                        <div class="charity-logo-wrapper">
+                            ${logoSrc ? `<img src="${logoSrc}" alt="${sp.name}" class="charity-logo-img">` : ''}
+                        </div>
                         <span class="charity-label">${sp.name}</span>
                     </${tag}>
                     `;
