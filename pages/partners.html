@@ -691,14 +691,15 @@
         }
 
         .charity-link {
-            display: flex;
-            flex-direction: column;
+            display: grid;
+            grid-template-rows: 1fr auto;
             align-items: center;
-            justify-content: center;
+            justify-items: center;
             background: white;
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 5px 15px;
+            padding: 15px;
+            /* Restored slight unified padding for the box */
             text-decoration: none;
             color: var(--brand-black);
             transition: all 0.3s ease;
@@ -713,12 +714,13 @@
         }
 
         .charity-logo-wrapper {
-            flex: 1;
             display: flex;
             align-items: center;
             justify-content: center;
             width: 100%;
-            margin-bottom: 5px;
+            height: 100%;
+            margin-bottom: 10px;
+            /* Space between the logo and the label below it */
         }
 
         .charity-logo-img {
