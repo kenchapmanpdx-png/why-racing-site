@@ -9,6 +9,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="../../assets/css/admin-global.css" rel="stylesheet">
+    <script src="../../assets/js/nav.js"></script>
 </head>
 
 <body>
@@ -159,7 +160,7 @@
             const benData = {
                 name: document.getElementById('benName').value,
                 logo_url: document.getElementById('benLogo').value,
-                website_url: document.getElementById('benUrl').value,
+                website_url: window.formatExternalUrl(document.getElementById('benUrl').value),
                 description: document.getElementById('benDesc').value,
                 total_donated: document.getElementById('benDonated').value,
                 is_active: document.getElementById('benActive').checked

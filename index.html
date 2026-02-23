@@ -2123,8 +2123,9 @@
         }
 
         function showRaceDetails(registrationUrl) {
-            if (registrationUrl && registrationUrl !== '#') {
-                window.open(registrationUrl, '_blank', 'noopener,noreferrer');
+            const sanitizedUrl = window.formatExternalUrl(registrationUrl);
+            if (sanitizedUrl && sanitizedUrl !== '#') {
+                window.open(sanitizedUrl, '_blank', 'noopener,noreferrer');
             }
         }
 
@@ -2157,7 +2158,7 @@
             const btnEl = document.getElementById('stickyRegBtn');
 
             nameEl.innerText = upcoming.name.toUpperCase();
-            btnEl.href = upcoming.registration_url || '#';
+            btnEl.href = window.formatExternalUrl(upcoming.registration_url) || '#';
             btnEl.setAttribute('target', '_blank');
             btnEl.setAttribute('rel', 'noopener');
 
@@ -2250,8 +2251,8 @@
             const date = new Date(race.race_date + 'T00:00:00');
             const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
-            const regUrl = race.registration_url || '#';
-            const infoUrl = race.instructions_pdf_url || race.registration_url || '#';
+            const regUrl = window.formatExternalUrl(race.registration_url) || '#';
+            const infoUrl = window.formatExternalUrl(race.instructions_pdf_url || race.registration_url) || '#';
 
             const registerButton = race.registration_url && race.registration_open
                 ? `<a href="${regUrl}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; font-weight: 800; width: 100%; border-radius: 6px;">Register Now</a>`

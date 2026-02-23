@@ -946,63 +946,64 @@
             try {
                 const response = await fetch('/api/training-clubs');
                 if (!response.ok) throw new Error('Failed to fetch clubs');
-                
+
                 const clubs = await response.json();
-                
+
                 const getGrid = (type) => {
-                    switch(type) {
+                    switch (type) {
                         case 'Running Club': return document.getElementById('running-clubs-list');
                         case 'Cycling Club': return document.getElementById('biking-clubs-list');
                         case 'Triathlon Club': return document.getElementById('triathlon-clubs-list');
                         default: return document.getElementById('coaches-list');
                     }
                 };
-                
+
                 let runningDelay = 100;
                 let bikingDelay = 100;
                 let triDelay = 100;
                 let coachDelay = 100;
-                
+
                 const activeClubs = clubs.filter(c => c.is_active);
-                
+
                 activeClubs.forEach(club => {
                     let icon = 'fa-dumbbell';
                     if (club.type === 'Running Club') icon = 'fa-running';
                     if (club.type === 'Cycling Club') icon = 'fa-bicycle';
                     if (club.type === 'Triathlon Club') icon = 'fa-swimmer';
-                    
+
                     if (club.name.indexOf('Amelia') !== -1) icon = 'fa-venus';
                     if (club.name.indexOf('Juliet') !== -1 || club.name.indexOf('Remy') !== -1 || club.name.indexOf('Molly') !== -1) icon = 'fa-user-check';
                     if (club.name.indexOf('First 5K Guide') !== -1) icon = 'fa-star';
-                    
+
                     const isFeatured = club.name.indexOf('First 5K Guide') !== -1;
                     const featuredClass = isFeatured ? 'card-featured' : '';
-                    
+
                     let delay = 100;
                     if (club.type === 'Running Club') { delay = runningDelay; runningDelay = runningDelay > 300 ? 100 : runningDelay + 100; }
                     else if (club.type === 'Cycling Club') { delay = bikingDelay; bikingDelay = bikingDelay > 300 ? 100 : bikingDelay + 100; }
                     else if (club.type === 'Triathlon Club') { delay = triDelay; triDelay = triDelay > 300 ? 100 : triDelay + 100; }
                     else { delay = coachDelay; coachDelay = coachDelay > 300 ? 100 : coachDelay + 100; }
-                    
+
                     const delayClass = `delay-${delay}`;
-                    
+
                     let linkHtml = '';
                     if (!club.url) {
                         linkHtml = '<span class="no-link-label">Coming soon</span>';
                     } else if (club.url === 'first-5k.html') {
                         linkHtml = '<span class="card-link">Start Here <i class="fas fa-arrow-right"></i></span>';
                     } else {
-                        const linkText = club.schedule || club.description ? 
-                            `<span class="card-link card-link-subtitle">${club.schedule || club.description} <i class="fas fa-arrow-right"></i></span>` : 
-                            (club.url.indexOf('facebook') !== -1 ? '<span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>' : 
-                            '<span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>');
+                        const linkText = club.schedule || club.description ?
+                            `<span class="card-link card-link-subtitle">${club.schedule || club.description} <i class="fas fa-arrow-right"></i></span>` :
+                            (club.url.indexOf('facebook') !== -1 ? '<span class="card-link">Visit Facebook <i class="fas fa-arrow-right"></i></span>' :
+                                '<span class="card-link">Visit Website <i class="fas fa-arrow-right"></i></span>');
                         linkHtml = linkText;
                     }
-                    
-                    let targetAttr = club.url && club.url !== 'first-5k.html' && !club.url.startsWith('mailto') ? 'target="_blank" rel="noopener"' : '';
-                    
-                    const cardHtml = club.url ? 
-                        `<a href="${club.url}" ${targetAttr} class="resource-card ${featuredClass} reveal ${delayClass}">
+
+                    let sanitizedUrl = club.url ? window.formatExternalUrl(club.url) : '';
+                    let targetAttr = sanitizedUrl && sanitizedUrl !== 'first-5k.html' && !sanitizedUrl.startsWith('mailto') ? 'target="_blank" rel="noopener"' : '';
+
+                    const cardHtml = sanitizedUrl ?
+                        `<a href="${sanitizedUrl}" ${targetAttr} class="resource-card ${featuredClass} reveal ${delayClass}">
                             <div class="card-icon"><i class="fas ${icon}"></i></div>
                             <div class="card-content">
                                 <h4>${club.name}</h4>
@@ -1016,18 +1017,18 @@
                                 ${linkHtml}
                             </div>
                         </div>`;
-                        
+
                     const grid = getGrid(club.type);
                     if (grid) grid.innerHTML += cardHtml;
                 });
-                
+
                 // Observe new elements
                 setTimeout(() => {
                     document.querySelectorAll('.resource-card.reveal').forEach(el => {
                         if (typeof revealObserver !== 'undefined') revealObserver.observe(el);
                     });
                 }, 50);
-                
+
             } catch (err) {
                 console.error("Error loading training clubs:", err);
             }

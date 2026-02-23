@@ -8,6 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
         rel="stylesheet">
     <link href="../../assets/css/admin-global.css" rel="stylesheet">
+    <script src="../../assets/js/nav.js"></script>
 </head>
 
 <body>
@@ -691,7 +692,7 @@
                 venue: formData.get('venue'),
                 city: formData.get('city'),
                 state: formData.get('state'),
-                registration_url: formData.get('registrationUrl'),
+                registration_url: window.formatExternalUrl(formData.get('registrationUrl')),
                 status: status,
                 is_visible: formData.get('isActive') === 'on',
                 is_featured: formData.get('isFeatured') === 'on',

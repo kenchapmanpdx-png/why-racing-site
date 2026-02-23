@@ -25,3 +25,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 });
+
+/**
+ * Ensures an external URL has a protocol (https://) if it's missing.
+ * Skips mailto, tel, relative links, and anchor links.
+ * @param {string} url - The URL to format.
+ * @returns {string} The formatted URL.
+ */
+window.formatExternalUrl = function (url) {
+    if (!url) return '';
+    const trimmed = url.trim();
+    if (!trimmed || trimmed === '#') return trimmed;
+
+    // Skip if it already has a protocol or is a special link type
+    const lower = trimmed.toLowerCase();
+    if (
+        lower.startsWith('http://') ||
+        lower.startsWith('https://') ||
+        lower.startsWith('mailto:') ||
+        lower.startsWith('tel:') ||
+        lower.startsWith('/') ||
+        lower.startsWith('../') ||
+        lower.startsWith('#')
+    ) {
+        return trimmed;
+    }
+
+    // Default to https if it's a raw domain like www.example.com
+    return `https://${trimmed}`;
+};

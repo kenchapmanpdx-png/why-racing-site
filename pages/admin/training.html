@@ -9,6 +9,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="../../assets/css/admin-global.css" rel="stylesheet">
+    <script src="../../assets/js/nav.js"></script>
 </head>
 
 <body>
@@ -172,7 +173,7 @@
                 name: document.getElementById('clubName').value,
                 type: document.getElementById('clubType').value,
                 schedule: document.getElementById('clubSchedule').value,
-                url: document.getElementById('clubUrl').value,
+                url: window.formatExternalUrl(document.getElementById('clubUrl').value),
                 description: document.getElementById('clubDescription').value,
                 logo_url: document.getElementById('clubLogo').value,
                 is_active: document.getElementById('clubActive').checked

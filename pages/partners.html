@@ -1117,8 +1117,9 @@
 
                 container.innerHTML = activeSponsors.map((sp, i) => {
                     const delayClass = `delay-${(i % 4) + 1}`;
-                    const targetAttr = sp.website_url ? `href="${sp.website_url}" target="_blank" rel="noopener"` : '';
-                    const tag = sp.website_url ? 'a' : 'div';
+                    const sanitizedUrl = window.formatExternalUrl(sp.website_url);
+                    const targetAttr = sanitizedUrl ? `href="${sanitizedUrl}" target="_blank" rel="noopener"` : '';
+                    const tag = sanitizedUrl ? 'a' : 'div';
 
                     // Format logo URL to be relative to the pages directory if it's a local path
                     let logoSrc = sp.logo_url;
