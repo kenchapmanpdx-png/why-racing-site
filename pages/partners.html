@@ -698,7 +698,8 @@
             background: white;
             border: 1px solid var(--border);
             border-radius: 12px;
-            padding: 15px;
+            padding: 10px;
+            /* Reduced padding from 15px to 10px */
             /* Restored slight unified padding for the box */
             text-decoration: none;
             color: var(--brand-black);
@@ -719,13 +720,15 @@
             justify-content: center;
             width: 100%;
             height: 100%;
-            margin-bottom: 10px;
+            margin-bottom: 5px;
+            /* Reduced gap from 10px */
             /* Space between the logo and the label below it */
         }
 
         .charity-logo-img {
             max-width: 140px;
-            max-height: 70px;
+            max-height: 45px;
+            /* Reduced from 70px (~35% reduction) */
             object-fit: contain;
             transition: transform 0.3s ease;
         }
@@ -733,7 +736,8 @@
         /* Increase first three logos by 20% */
         .charity-grid> :nth-child(-n+3) .charity-logo-img {
             max-width: 168px;
-            max-height: 84px;
+            max-height: 55px;
+            /* Reduced from 84px (~35% reduction) */
         }
 
         .charity-link:hover .charity-logo-img {
@@ -745,6 +749,8 @@
             font-size: 0.85rem;
             text-align: center;
             line-height: 1.2;
+            color: var(--brand-black);
+            /* Explicitly set to black so it is visible against white block */
         }
 
         .sponsors-grid-section {
