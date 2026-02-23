@@ -9,6 +9,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="../../assets/css/admin-global.css" rel="stylesheet">
+    <script src="../../assets/js/nav.js"></script>
 </head>
 
 <body>
@@ -27,7 +28,7 @@
         </div>
     </div>
 
-    <div class="admin-dashboard" id="adminDashboard" class="admin-dashboard">
+    <div class="admin-dashboard" id="adminDashboard">
         <div id="adminNavContainer"></div>
 
         <div id="apiErrorBanner" class="api-error-banner">
@@ -107,6 +108,9 @@
 
             async function init() {
                 try {
+                    // Safely escape user-controlled strings before inserting into HTML
+                    const esc = str => String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                    window.esc = esc;
                     if (checkAuth(false)) {
                         document.getElementById('passwordGate').style.display = 'none';
                         document.getElementById('adminDashboard').style.display = 'block';
@@ -163,13 +167,13 @@
                 list.innerHTML = members.map(member => `
                 <div class="race-card">
                     <div class="race-card-info">
-                        <h3>${member.name}</h3>
-                        <p>${member.role || 'No role assigned'}</p>
+                        <h3>${esc(member.name)}</h3>
+                        <p>${esc(member.role || 'No role assigned')}</p>
                     </div>
                     <div class="race-card-status">
                         <span class="status-badge status-${member.is_active ? 'active' : 'draft'}">${member.is_active ? 'Active' : 'Draft'}</span>
-                        <button class="edit-btn" onclick="editMember('${member.id}')">Edit</button>
-                        <button class="edit-btn btn-danger-custom" onclick="deleteMember('${member.id}')">Delete</button>
+                        <button class="edit-btn" onclick="editMember('${esc(member.id)}')">Edit</button>
+                        <button class="edit-btn btn-danger-custom" onclick="deleteMember('${esc(member.id)}')">Delete</button>
                     </div>
                 </div>
             `).join('');

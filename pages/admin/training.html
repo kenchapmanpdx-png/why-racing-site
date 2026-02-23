@@ -30,7 +30,7 @@
     </div>
 
     <!-- Admin Dashboard -->
-    <div class="admin-dashboard" id="adminDashboard" class="admin-dashboard">
+    <div class="admin-dashboard" id="adminDashboard">
         <div id="adminNavContainer"></div>
 
         <div id="apiErrorBanner" class="api-error-banner">
@@ -67,8 +67,20 @@
                     <textarea id="clubDescription" placeholder="Tell us about the club..."></textarea>
                 </div>
                 <div class="form-group full-width">
-                    <label for="clubLogo">Logo URL (Supabase bucket link or external)</label>
-                    <input type="url" id="clubLogo" placeholder="https://...">
+                    <label>Logo Photo</label>
+                    <div class="image-upload-area thumbnail-upload mt-5" id="photoUploadArea"
+                        onclick="document.getElementById('clubLogoInput').click()">
+                        <input type="file" id="clubLogoInput" accept="image/*" onchange="window.previewPhoto(this)"
+                            hidden>
+                        <div class="upload-placeholder" id="photoPlaceholder">
+                            <span>📁</span>
+                            <p>Click to upload logo</p>
+                        </div>
+                        <img id="photoPreview" alt="Club logo preview" class="image-preview display-none">
+                    </div>
+                    <button type="button" class="clear-image-btn display-none" onclick="window.clearPhoto()"
+                        id="photoClearBtn">✕ Remove</button>
+                    <input type="hidden" id="clubLogoUrl">
                 </div>
                 <div class="form-group full-width">
                     <div class="checkbox-item admin-checkbox-wrap">
@@ -99,6 +111,9 @@
 
         async function init() {
             try {
+                // Safely escape user-controlled strings before inserting into HTML
+                const esc = str => String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                window.esc = esc;
                 if (checkAuth(false)) {
                     document.getElementById('passwordGate').style.display = 'none';
                     document.getElementById('adminDashboard').style.display = 'block';
@@ -155,13 +170,13 @@
             list.innerHTML = clubs.map(club => `
                 <div class="race-card">
                     <div class="race-card-info">
-                        <h3>${club.name}</h3>
-                        <p>${club.type} • ${club.schedule || 'No schedule set'}</p>
+                        <h3>${esc(club.name)}</h3>
+                        <p>${esc(club.type)} • ${esc(club.schedule || 'No schedule set')}</p>
                     </div>
                     <div class="race-card-status">
                         <span class="status-badge status-${club.is_active ? 'active' : 'draft'}">${club.is_active ? 'Active' : 'Draft'}</span>
-                        <button class="edit-btn" onclick="editClub('${club.id}')">Edit</button>
-                        <button class="edit-btn btn-danger" onclick="deleteClub('${club.id}')" style="background: #ef4444; margin-left:8px;">Delete</button>
+                        <button class="edit-btn" onclick="editClub('${esc(club.id)}')">Edit</button>
+                        <button class="edit-btn btn-danger" onclick="deleteClub('${esc(club.id)}')" style="background: #ef4444; margin-left:8px;">Delete</button>
                     </div>
                 </div>
             `).join('');
@@ -169,13 +184,45 @@
 
         window.saveClub = async function () {
             const clubId = document.getElementById('clubId').value;
+            const logoInput = document.getElementById('clubLogoInput');
+            let logoUrl = document.getElementById('clubLogoUrl').value;
+
+            // Upload new logo if provided
+            if (logoInput.files && logoInput.files[0]) {
+                const formData = new FormData();
+                formData.append('file', logoInput.files[0]);
+                formData.append('clubId', clubId || 'new');
+
+                try {
+                    const uploadRes = await fetch('/api/training-clubs/upload', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}`
+                        },
+                        body: formData
+                    });
+
+                    if (uploadRes.ok) {
+                        const data = await uploadRes.json();
+                        logoUrl = data.url;
+                    } else {
+                        alert('Image upload failed');
+                        return;
+                    }
+                } catch (err) {
+                    console.error('Upload Error:', err);
+                    alert('Connection error during upload.');
+                    return;
+                }
+            }
+
             const clubData = {
                 name: document.getElementById('clubName').value,
                 type: document.getElementById('clubType').value,
                 schedule: document.getElementById('clubSchedule').value,
                 url: window.formatExternalUrl(document.getElementById('clubUrl').value),
                 description: document.getElementById('clubDescription').value,
-                logo_url: document.getElementById('clubLogo').value,
+                logo_url: logoUrl,
                 is_active: document.getElementById('clubActive').checked
             };
 
@@ -218,8 +265,23 @@
             document.getElementById('clubSchedule').value = club.schedule || '';
             document.getElementById('clubUrl').value = club.url || '';
             document.getElementById('clubDescription').value = club.description || '';
-            document.getElementById('clubLogo').value = club.logo_url || '';
             document.getElementById('clubActive').checked = !!club.is_active;
+
+            document.getElementById('clubLogoUrl').value = club.logo_url || '';
+            const preview = document.getElementById('photoPreview');
+            const placeholder = document.getElementById('photoPlaceholder');
+            const uploadArea = document.getElementById('photoUploadArea');
+            const clearBtn = document.getElementById('photoClearBtn');
+
+            if (club.logo_url) {
+                preview.src = club.logo_url;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+                uploadArea.classList.add('has-image');
+                clearBtn.style.display = 'inline-block';
+            } else {
+                window.clearPhoto();
+            }
 
             document.getElementById('formTitle').innerText = 'Edit Training Club';
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -252,9 +314,41 @@
             document.getElementById('clubSchedule').value = '';
             document.getElementById('clubUrl').value = '';
             document.getElementById('clubDescription').value = '';
-            document.getElementById('clubLogo').value = '';
             document.getElementById('clubActive').checked = true;
             document.getElementById('formTitle').innerText = 'Add New Training Club';
+            window.clearPhoto();
+        };
+
+        window.previewPhoto = function (input) {
+            const preview = document.getElementById('photoPreview');
+            const placeholder = document.getElementById('photoPlaceholder');
+            const uploadArea = document.getElementById('photoUploadArea');
+            const clearBtn = document.getElementById('photoClearBtn');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    uploadArea.classList.add('has-image');
+                    clearBtn.style.display = 'inline-block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+        window.clearPhoto = function () {
+            document.getElementById('clubLogoInput').value = '';
+            document.getElementById('clubLogoUrl').value = '';
+            const preview = document.getElementById('photoPreview');
+            if (preview) { preview.src = ''; preview.style.display = 'none'; }
+            const placeholder = document.getElementById('photoPlaceholder');
+            if (placeholder) placeholder.style.display = 'block';
+            const uploadArea = document.getElementById('photoUploadArea');
+            if (uploadArea) uploadArea.classList.remove('has-image');
+            const clearBtn = document.getElementById('photoClearBtn');
+            if (clearBtn) clearBtn.style.display = 'none';
         };
 
         init();

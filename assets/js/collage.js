@@ -57,6 +57,10 @@ function initHeroCollage() {
     const targetCount = 160;
     let html = '';
 
+    // Determine the correct path prefix based on where the page is loaded from.
+    // Pages under /pages/... need '../', root-level pages like index.html do not.
+    const pathPrefix = window.location.pathname.includes('/pages/') ? '../' : '';
+
     // Create a pool of images and shuffle it once for diversity
     let pool = [...COLLAGE_IMAGES];
     for (let i = pool.length - 1; i > 0; i--) {
@@ -67,7 +71,7 @@ function initHeroCollage() {
     // Fill the grid
     for (let i = 0; i < targetCount; i++) {
         const imgSrc = pool[i % pool.length];
-        html += `<img src="../images/collage/${imgSrc}" alt="" loading="lazy" decoding="async">`;
+        html += `<img src="${pathPrefix}images/collage/${imgSrc}" alt="" loading="lazy" decoding="async">`;
     }
 
     collageContainer.innerHTML = html;

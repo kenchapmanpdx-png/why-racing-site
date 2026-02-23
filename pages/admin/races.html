@@ -330,6 +330,9 @@
             document.getElementById(`tab-${tabName}`).classList.add('active');
         }
 
+        // Add escape helper for XSS prevention
+        const esc = str => String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+
         // === Race List ===
         let races = [];
 
@@ -365,13 +368,13 @@
                 return `
         <div class="race-card" style="${isPastDraft ? 'border-left: 3px solid #f59e0b;' : ''}">
           <div class="race-card-info">
-            <h3>${race.name}${readyBadge}</h3>
-            <p>${formatDate(race.race_date)} • ${race.city || ''}, ${race.state || 'WA'}</p>
+            <h3>${esc(race.name)}${readyBadge}</h3>
+            <p>${esc(formatDate(race.race_date))} • ${esc(race.city || '')}, ${esc(race.state || 'WA')}</p>
           </div>
           <div class="race-card-status">
-            <span class="status-badge status-${race.status}">${race.status}</span>
-            <a href="../events/race-detail.html?id=${race.id}" target="_blank" class="edit-btn admin-btn-outline">View Live</a>
-            <button class="edit-btn" onclick="editRace('${race.id}')">Edit</button>
+            <span class="status-badge status-${race.status}">${esc(race.status)}</span>
+            <a href="../events/race-detail.html?id=${esc(race.id)}" target="_blank" class="edit-btn admin-btn-outline">View Live</a>
+            <button class="edit-btn" onclick="editRace('${esc(race.id)}')">Edit</button>
           </div>
         </div>
       `;

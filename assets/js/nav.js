@@ -17,7 +17,7 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', () => {
             const hamburger = document.querySelector('.hamburger');
             const mobileMenu = document.getElementById('mobileMenu');
-            if (mobileMenu && mobileMenu.classList.contains('active')) {
+            if (hamburger && mobileMenu && mobileMenu.classList.contains('active')) {
                 hamburger.classList.remove('active');
                 mobileMenu.classList.remove('active');
                 document.body.style.overflow = '';

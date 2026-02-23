@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="admin-dashboard" id="adminDashboard" class="admin-dashboard">
+    <div class="admin-dashboard" id="adminDashboard">
         <div id="adminNavContainer"></div>
 
         <div id="apiErrorBanner" class="api-error-banner">
@@ -100,6 +100,9 @@
 
         async function init() {
             try {
+                // Safely escape user-controlled strings before inserting into HTML
+                const esc = str => String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                window.esc = esc;
                 if (checkAuth(false)) {
                     document.getElementById('passwordGate').style.display = 'none';
                     document.getElementById('adminDashboard').style.display = 'block';
@@ -156,13 +159,13 @@
             list.innerHTML = beneficiaries.map(ben => `
                 <div class="race-card">
                     <div class="race-card-info">
-                        <h3>${ben.name}</h3>
-                        <p>${ben.total_donated || 'Donation details TBD'}</p>
+                        <h3>${esc(ben.name)}</h3>
+                        <p>${esc(ben.total_donated || 'Donation details TBD')}</p>
                     </div>
                     <div class="race-card-status">
                         <span class="status-badge status-${ben.is_active ? 'active' : 'draft'}">${ben.is_active ? 'Active' : 'Draft'}</span>
-                        <button class="edit-btn" onclick="editBeneficiary('${ben.id}')">Edit</button>
-                        <button class="edit-btn btn-danger" onclick="deleteBeneficiary('${ben.id}')" style="background: #ef4444; margin-left:8px;">Delete</button>
+                        <button class="edit-btn" onclick="editBeneficiary('${esc(ben.id)}')">Edit</button>
+                        <button class="edit-btn btn-danger" onclick="deleteBeneficiary('${esc(ben.id)}')" style="background: #ef4444; margin-left:8px;">Delete</button>
                     </div>
                 </div>
             `).join('');

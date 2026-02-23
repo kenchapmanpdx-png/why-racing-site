@@ -28,7 +28,7 @@
         </div>
     </div>
 
-    <div class="admin-dashboard" id="adminDashboard" class="admin-dashboard">
+    <div class="admin-dashboard" id="adminDashboard">
         <div id="adminNavContainer"></div>
 
         <div id="apiErrorBanner" class="api-error-banner">
@@ -96,6 +96,9 @@
 
             async function init() {
                 try {
+                    // Safely escape user-controlled strings before inserting into HTML
+                    const esc = str => String(str ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+                    window.esc = esc;
                     if (checkAuth(false)) {
                         document.getElementById('passwordGate').style.display = 'none';
                         document.getElementById('adminDashboard').style.display = 'block';
@@ -152,14 +155,14 @@
                 list.innerHTML = sponsors.map(sp => `
                 <div class="race-card">
                     <div class="race-card-info">
-                        <h3>${sp.name}</h3>
-                        <p>${sp.website_url || 'No URL'}</p>
+                        <h3>${esc(sp.name)}</h3>
+                        <p>${esc(sp.website_url || 'No URL')}</p>
                     </div>
                     <div class="race-card-status">
                          ${sp.logo_url ? `<img src="${sp.logo_url.startsWith('http') ? sp.logo_url : '../../' + sp.logo_url}" alt="logo" style="width: 40px; height: 40px; object-fit: contain; margin-right: 15px;">` : ''}
                         <span class="status-badge status-${sp.is_active ? 'active' : 'draft'}">${sp.is_active ? 'Active' : 'Draft'}</span>
-                        <button class="edit-btn" onclick="editSponsor('${sp.id}')">Edit</button>
-                        <button class="edit-btn btn-danger-custom" onclick="deleteSponsor('${sp.id}')">Delete</button>
+                        <button class="edit-btn" onclick="editSponsor('${esc(sp.id)}')">Edit</button>
+                        <button class="edit-btn btn-danger-custom" onclick="deleteSponsor('${esc(sp.id)}')">Delete</button>
                     </div>
                 </div>
             `).join('');
@@ -224,7 +227,7 @@
                     });
 
                     if (response.ok) {
-                        alert(`Sponsor ${sponsorId ? 'updated' : 'added'} successfully!`);
+                        alert(`Sponsor ${sponsorId !== 'new' ? 'updated' : 'added'} successfully!`);
                         window.resetForm();
                         await loadSponsors();
                     } else {
