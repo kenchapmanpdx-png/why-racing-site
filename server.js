@@ -719,7 +719,6 @@ app.post('/api/generate-theme', async (req, res) => {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
     console.log('--- Theme Generation Start (OpenAI) ---');
-    console.log('Prompt:', prompt);
 
     const response = await fetch(apiUrl, {
       method: 'POST',
@@ -768,8 +767,6 @@ Respond with ONLY valid JSON:
 
     const data = await response.json();
     const text = data.choices[0].message.content;
-    console.log('Raw AI Response:', text);
-
     let theme = JSON.parse(text);
 
     return res.status(200).json(theme);
@@ -940,7 +937,6 @@ app.get('/api/races/:id/full', async (req, res) => {
 
 // Create new race
 app.post('/api/races', adminAuth, async (req, res) => {
-  console.log('=== POST /api/races called ===');
   const {
     distances,
     pricing_tiers,
@@ -1476,8 +1472,6 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
       return res.status(500).json({ error: 'Failed to parse form' });
     }
 
-    console.log('Upload received - fields:', JSON.stringify(fields), 'files:', Object.keys(files));
-
     // Formidable v3 returns arrays for fields and files
     const getSingleValue = (obj, key) => {
       const val = obj[key];
@@ -1494,8 +1488,6 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
       return res.status(400).json({ error: 'No file provided' });
     }
 
-    console.log('Uploading file:', file.originalFilename, 'type:', type, 'raceId:', raceId);
-
     try {
       const fileBuffer = fs.readFileSync(file.filepath);
       // Add random suffix to prevent any filename collisions
@@ -1508,8 +1500,6 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
       if (!ALLOWED_IMAGE_TYPES.has(contentType)) {
         return res.status(400).json({ error: 'Invalid file type. Only JPEG, PNG, WebP, and GIF are allowed.' });
       }
-
-      console.log('Uploading to Supabase Storage:', fileName, 'Size:', fileBuffer.length, 'bytes', 'Type:', contentType);
 
       const { data, error } = await supabase.storage
         .from('race-images')
@@ -1535,8 +1525,6 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
       const { data: urlData } = supabase.storage
         .from('race-images')
         .getPublicUrl(fileName);
-
-      console.log('Upload successful, public URL:', urlData.publicUrl);
 
       return res.status(200).json({ url: urlData.publicUrl });
     } catch (error) {

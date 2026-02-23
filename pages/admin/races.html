@@ -401,7 +401,6 @@
             form.dataset.editingId = id;
 
             // Fill basic info
-            console.log('Editing race:', race.name, '(ID: ' + race.id + ')');
             if (document.getElementById('raceName')) {
                 document.getElementById('raceName').value = race.name || '';
             } else {
@@ -655,7 +654,6 @@
                     if (uploadRes.ok) {
                         const uploadData = await uploadRes.json();
                         thumbnailImageUrl = uploadData.url;
-                        console.log('Thumbnail image uploaded:', thumbnailImageUrl);
                     } else {
                         const errorText = await uploadRes.text();
                         console.error('Thumbnail upload failed:', errorText);
@@ -709,9 +707,6 @@
                 const method = editingId ? 'PUT' : 'POST';
                 const authSecret = sessionStorage.getItem('ADMIN_SECRET');
 
-                console.log('Saving race:', { url, method, authSecret: authSecret ? 'present' : 'missing' });
-                console.log('Payload:', payload);
-
                 const response = await fetch(url, {
                     method: method,
                     headers: {
@@ -722,7 +717,6 @@
                 });
 
                 const result = await response.json();
-                console.log('Server response:', result);
 
                 if (response.ok) {
                     alert('Race saved successfully!');
