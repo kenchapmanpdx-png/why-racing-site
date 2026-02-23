@@ -815,7 +815,7 @@
         // Initialize with empty slots if needed
         document.addEventListener('DOMContentLoaded', function () {
             if (document.getElementById('gallerySlots') && document.querySelectorAll('.gallery-slot').length === 0) {
-                addGallerySlot();
+                if (typeof window.addGallerySlot === 'function') window.addGallerySlot();
             }
             if (document.getElementById('carouselSlots') && document.querySelectorAll('.carousel-slot').length === 0) {
                 // We don't necessarily need empty carousel slots by default, but we can add one
@@ -823,8 +823,29 @@
             }
         });
 
+        // Expose functions to window for inline HTML onclick handlers
+        window.switchTab = switchTab;
+        window.editRace = editRace;
+        window.addDistanceWithValue = addDistanceWithValue;
+        window.addDistance = addDistance;
+        window.removeDistance = removeDistance;
+        window.autoFillDistance = autoFillDistance;
+        window.clearForm = clearForm;
+        window.showDeleteConfirm = showDeleteConfirm;
+        window.hideDeleteConfirm = hideDeleteConfirm;
+        window.finalDeleteRace = finalDeleteRace;
+        window.saveRace = saveRace;
+        window.saveDraft = saveDraft;
+        window.previewImage = previewImage;
+        window.clearImage = clearImage;
+
+        // Provide stubs for missing functions referenced in HTML
+        window.addBeneficiary = function () { console.warn('addBeneficiary not implemented'); };
+        window.addSponsor = function () { console.warn('addSponsor not implemented'); };
+
         // === Drag and Drop ===
     </script>
+
 
 </body>
 

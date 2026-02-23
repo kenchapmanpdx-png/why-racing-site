@@ -44,8 +44,21 @@
                     <input type="text" id="benName" placeholder="e.g. Doernbecher Children's Hospital">
                 </div>
                 <div class="form-group">
-                    <label for="benLogo">Logo URL</label>
-                    <input type="url" id="benLogo" placeholder="https://...">
+                    <label>Logo Photo</label>
+                    <div class="image-upload-area thumbnail-upload mt-5" id="photoUploadArea"
+                        onclick="document.getElementById('benLogoInput').click()">
+                        <input type="file" id="benLogoInput" accept="image/*" onchange="window.previewPhoto(this)"
+                            hidden>
+                        <div class="upload-placeholder" id="photoPlaceholder">
+                            <span>📁</span>
+                            <p>Click to upload logo</p>
+                        </div>
+                        <img id="photoPreview" alt="Beneficiary logo preview" class="image-preview display-none">
+                    </div>
+                    <button type="button" class="clear-image-btn display-none" onclick="window.clearPhoto()"
+                        id="photoClearBtn">✕ Remove</button>
+                    <!-- Hidden field to store existing URL when editing without uploading a new one -->
+                    <input type="hidden" id="benLogoUrl">
                 </div>
                 <div class="form-group">
                     <label for="benUrl">Website URL</label>
@@ -157,9 +170,41 @@
 
         window.saveBeneficiary = async function () {
             const benId = document.getElementById('beneficiaryId').value;
+            const logoInput = document.getElementById('benLogoInput');
+            let logoUrl = document.getElementById('benLogoUrl').value;
+
+            // Upload new logo if provided
+            if (logoInput.files && logoInput.files[0]) {
+                const formData = new FormData();
+                formData.append('file', logoInput.files[0]);
+                formData.append('beneficiaryId', benId || 'new');
+
+                try {
+                    const uploadRes = await fetch('/api/beneficiaries/upload', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}`
+                        },
+                        body: formData
+                    });
+
+                    if (uploadRes.ok) {
+                        const data = await uploadRes.json();
+                        logoUrl = data.url;
+                    } else {
+                        alert('Image upload failed');
+                        return;
+                    }
+                } catch (err) {
+                    console.error('Upload Error:', err);
+                    alert('Connection error during upload.');
+                    return;
+                }
+            }
+
             const benData = {
                 name: document.getElementById('benName').value,
-                logo_url: document.getElementById('benLogo').value,
+                logo_url: logoUrl,
                 website_url: window.formatExternalUrl(document.getElementById('benUrl').value),
                 description: document.getElementById('benDesc').value,
                 total_donated: document.getElementById('benDonated').value,
@@ -201,11 +246,26 @@
 
             document.getElementById('beneficiaryId').value = ben.id;
             document.getElementById('benName').value = ben.name || '';
-            document.getElementById('benLogo').value = ben.logo_url || '';
             document.getElementById('benUrl').value = ben.website_url || '';
             document.getElementById('benDesc').value = ben.description || '';
             document.getElementById('benDonated').value = ben.total_donated || '';
             document.getElementById('benActive').checked = !!ben.is_active;
+
+            document.getElementById('benLogoUrl').value = ben.logo_url || '';
+            const preview = document.getElementById('photoPreview');
+            const placeholder = document.getElementById('photoPlaceholder');
+            const uploadArea = document.getElementById('photoUploadArea');
+            const clearBtn = document.getElementById('photoClearBtn');
+
+            if (ben.logo_url) {
+                preview.src = ben.logo_url;
+                preview.style.display = 'block';
+                placeholder.style.display = 'none';
+                uploadArea.classList.add('has-image');
+                clearBtn.style.display = 'inline-block';
+            } else {
+                window.clearPhoto();
+            }
 
             document.getElementById('formTitle').innerText = 'Edit Beneficiary';
             window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -234,12 +294,47 @@
         window.resetForm = function () {
             document.getElementById('beneficiaryId').value = '';
             document.getElementById('benName').value = '';
-            document.getElementById('benLogo').value = '';
             document.getElementById('benUrl').value = '';
             document.getElementById('benDesc').value = '';
             document.getElementById('benDonated').value = '';
             document.getElementById('benActive').checked = true;
             document.getElementById('formTitle').innerText = 'Add New Beneficiary';
+            window.clearPhoto();
+        };
+
+        window.previewPhoto = function (input) {
+            const preview = document.getElementById('photoPreview');
+            const placeholder = document.getElementById('photoPlaceholder');
+            const uploadArea = document.getElementById('photoUploadArea');
+            const clearBtn = document.getElementById('photoClearBtn');
+
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    preview.src = e.target.result;
+                    preview.style.display = 'block';
+                    placeholder.style.display = 'none';
+                    uploadArea.classList.add('has-image');
+                    clearBtn.style.display = 'inline-block';
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        };
+
+        window.clearPhoto = function () {
+            document.getElementById('benLogoInput').value = '';
+            document.getElementById('benLogoUrl').value = '';
+            const preview = document.getElementById('photoPreview');
+            if (preview) {
+                preview.src = '';
+                preview.style.display = 'none';
+            }
+            const placeholder = document.getElementById('photoPlaceholder');
+            if (placeholder) placeholder.style.display = 'block';
+            const uploadArea = document.getElementById('photoUploadArea');
+            if (uploadArea) uploadArea.classList.remove('has-image');
+            const clearBtn = document.getElementById('photoClearBtn');
+            if (clearBtn) clearBtn.style.display = 'none';
         };
 
         init();
