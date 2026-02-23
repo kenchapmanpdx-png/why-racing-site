@@ -54,3 +54,53 @@ window.formatExternalUrl = function (url) {
     // Default to https if it's a raw domain like www.example.com
     return `https://${trimmed}`;
 };
+
+/* --- DYNAMIC SPONSOR TICKER --- */
+async function initSponsorTicker() {
+    const tracks = document.querySelectorAll('.sponsor-track');
+    if (!tracks.length) return;
+
+    try {
+        const res = await fetch('/api/global-sponsors');
+        if (!res.ok) throw new Error('Failed to load global sponsors for ticker');
+        const sponsors = await res.json();
+
+        const activeSponsors = sponsors
+            .filter(s => s.is_active)
+            .sort((a, b) => (a.sort_order || 0) - (b.sort_order || 0));
+
+        if (activeSponsors.length === 0) return;
+
+        const sponsorHtml = activeSponsors.map(sp => {
+            let logoSrc = sp.logo_url;
+            if (logoSrc) {
+                // If the path is relative (e.g., 'images/...'), make it absolute to the root
+                // This ensures it works from both '/' and '/pages/...'
+                if (!logoSrc.startsWith('http') && !logoSrc.startsWith('/')) {
+                    logoSrc = '/' + logoSrc;
+                }
+            } else {
+                return ''; // skip if no logo
+            }
+
+            const sanitizedUrl = window.formatExternalUrl(sp.website_url);
+
+            if (sanitizedUrl) {
+                return `<a href="${sanitizedUrl}" target="_blank" rel="noopener" title="${sp.name}"><img src="${logoSrc}" alt="${sp.name}"></a>`;
+            } else {
+                return `<img src="${logoSrc}" alt="${sp.name}" title="${sp.name}">`;
+            }
+        }).join('');
+
+        // Duplicate the html to ensure seamless scrolling animation loop
+        const fullTrackHtml = sponsorHtml + sponsorHtml;
+
+        tracks.forEach(track => {
+            track.innerHTML = fullTrackHtml;
+        });
+    } catch (err) {
+        console.warn('Could not load dynamic sponsor ticker, falling back to static HTML:', err);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', initSponsorTicker);
