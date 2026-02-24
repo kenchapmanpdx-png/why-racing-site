@@ -8,6 +8,7 @@ const { formidable } = require('formidable');
 const fs = require('fs');
 const fetch = require('node-fetch');
 const rateLimit = require('express-rate-limit');
+const compression = require('compression');
 const { ServerClient } = require('postmark');
 
 // Chatbot model — update here when upgrading model versions
@@ -91,6 +92,7 @@ const chatLimiter = rateLimit({
   message: { error: 'Chat rate limit reached. Please wait a moment.' }
 });
 
+app.use(compression());
 app.use(express.json({ limit: '50kb' }));
 app.use(express.static('.'));
 
@@ -816,12 +818,14 @@ app.get('/api/races', async (req, res) => {
     `)
     .eq('status', 'active')
     .eq('is_visible', true)
-    .order('race_date', { ascending: true });
+    .order('race_date', { ascending: true })
+    .limit(50);
 
   if (error) {
     console.error('Supabase Error (GET /api/races):', error);
     return res.status(500).json({ error: error.message });
   }
+  res.set('Cache-Control', 'public, max-age=300');
   return res.status(200).json(data || []);
 });
 
@@ -1350,8 +1354,9 @@ app.post('/api/races/:id/seed-standard-content', adminAuth, async (req, res) => 
 
 // Training Clubs
 app.get('/api/training-clubs', async (req, res) => {
-  const { data, error } = await supabase.from('training_clubs').select('*').order('sort_order', { ascending: true });
+  const { data, error } = await supabase.from('training_clubs').select('*').order('sort_order', { ascending: true }).limit(50);
   if (error) return res.status(500).json({ error: error.message });
+  res.set('Cache-Control', 'public, max-age=300');
   return res.status(200).json(data);
 });
 
@@ -1377,8 +1382,9 @@ app.delete('/api/training-clubs/:id', adminAuth, async (req, res) => {
 
 // Beneficiaries (Standalone)
 app.get('/api/beneficiaries', async (req, res) => {
-  const { data, error } = await supabase.from('beneficiaries').select('*').order('sort_order', { ascending: true });
+  const { data, error } = await supabase.from('beneficiaries').select('*').order('sort_order', { ascending: true }).limit(50);
   if (error) return res.status(500).json({ error: error.message });
+  res.set('Cache-Control', 'public, max-age=300');
   return res.status(200).json(data);
 });
 
@@ -1404,8 +1410,9 @@ app.delete('/api/beneficiaries/:id', adminAuth, async (req, res) => {
 
 // Team Members
 app.get('/api/team-members', async (req, res) => {
-  const { data, error } = await supabase.from('team_members').select('*').order('sort_order', { ascending: true });
+  const { data, error } = await supabase.from('team_members').select('*').order('sort_order', { ascending: true }).limit(50);
   if (error) return res.status(500).json({ error: error.message });
+  res.set('Cache-Control', 'public, max-age=300');
   return res.status(200).json(data);
 });
 
@@ -1431,8 +1438,9 @@ app.delete('/api/team-members/:id', adminAuth, async (req, res) => {
 
 // Global Sponsors (Partners Page)
 app.get('/api/global-sponsors', async (req, res) => {
-  const { data, error } = await supabase.from('global_sponsors').select('*').order('sort_order', { ascending: true });
+  const { data, error } = await supabase.from('global_sponsors').select('*').order('sort_order', { ascending: true }).limit(50);
   if (error) return res.status(500).json({ error: error.message });
+  res.set('Cache-Control', 'public, max-age=300');
   return res.status(200).json(data);
 });
 
