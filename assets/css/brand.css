@@ -401,23 +401,10 @@ section[style*="background: var(--brand-blue)"] .price-was {
     margin-bottom: 15px;
 }
 
-/* Outer flex container — two tracks flow inline, each exactly one set wide */
-.sponsor-ticker-inner {
-    display: flex;
-    width: max-content;
-}
-
 .sponsor-track {
     display: flex;
-    flex-shrink: 0;
+    width: max-content;
     animation: sponsorScroll 30s linear infinite;
-    white-space: nowrap;
-}
-
-/* Give the second copy a half-duration head-start so it's always entering
-   just as the first one exits, with no gap and no jump */
-.sponsor-track:nth-child(2) {
-    animation-delay: -15s;
 }
 
 .sponsor-track img {
@@ -441,7 +428,7 @@ section[style*="background: var(--brand-blue)"] .price-was {
     }
 
     100% {
-        transform: translateX(-100%);
+        transform: translateX(-50%);
     }
 }
 
