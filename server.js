@@ -115,6 +115,58 @@ app.get('/api/health', async (req, res) => {
   });
 });
 
+// Public race calendar endpoint — used by index.html to populate the race grid
+app.get('/api/races', async (req, res) => {
+  // Ping check
+  if (req.query && req.query.ping === '1') {
+    return res.status(200).json({ status: 'pong', timestamp: new Date().toISOString() });
+  }
+
+  try {
+    const { data: races, error } = await supabase
+      .from('races')
+      .select(`
+        id,
+        name,
+        slug,
+        race_date,
+        race_type,
+        city,
+        state,
+        venue,
+        registration_url,
+        registration_open,
+        hero_image_url,
+        thumbnail_url,
+        logo_url,
+        instructions_pdf_url,
+        is_visible,
+        status,
+        race_distances (
+          id,
+          name,
+          distance_value,
+          distance_unit
+        )
+      `)
+      .eq('is_visible', true)
+      .eq('status', 'active')
+      .order('race_date', { ascending: true });
+
+    if (error) {
+      console.error('[API /races] Supabase error:', error);
+      return res.status(500).json({ error: 'Database error', details: error.message });
+    }
+
+    return res.status(200).json(races || []);
+  } catch (err) {
+    console.error('[API /races] Fatal error:', err);
+    return res.status(500).json({ error: 'Internal server error', details: err.message });
+  }
+});
+
+
+
 // === Auto-Archive Past Races ===
 // Automatically move races to "draft" status after their date passes
 // This runs on server startup and allows races to be reused for next year
