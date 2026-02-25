@@ -547,6 +547,573 @@
         .delay-4 {
             transition-delay: 0.4s;
         }
+
+        /* ===== RACING FAMILY (sister companies) ===== */
+        .racing-family {
+            background: linear-gradient(135deg, #0a0a0a 0%, #111827 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .racing-family::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(227, 24, 55, 0.08) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .racing-family .section-header h2 {
+            color: white;
+        }
+
+        .racing-family .section-header p {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .sister-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 36px;
+        }
+
+        .sister-card {
+            background: rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 24px;
+            padding: 44px 36px 36px;
+            display: flex;
+            flex-direction: column;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .sister-card::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 24px;
+            padding: 1px;
+            background: linear-gradient(135deg, rgba(227, 24, 55, 0.4), transparent 60%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .sister-card:hover {
+            transform: translateY(-10px);
+            border-color: rgba(227, 24, 55, 0.3);
+        }
+
+        .sister-card:hover::after {
+            opacity: 1;
+        }
+
+        .sister-logo-wrap {
+            height: 80px;
+            display: flex;
+            align-items: center;
+            margin-bottom: 28px;
+        }
+
+        .sister-logo-wrap img {
+            max-height: 72px;
+            max-width: 200px;
+            object-fit: contain;
+            filter: brightness(1.1);
+        }
+
+        .sister-tag {
+            display: inline-block;
+            background: rgba(227, 24, 55, 0.15);
+            color: #ff6b6b;
+            font-size: 0.72rem;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+        }
+
+        .sister-card h3 {
+            color: white;
+            font-size: 1.75rem;
+            margin-bottom: 20px;
+        }
+
+        .sister-events {
+            list-style: none;
+            margin-bottom: 28px;
+            flex: 1;
+        }
+
+        .sister-events li {
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.07);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .sister-events li:last-child {
+            border-bottom: none;
+        }
+
+        .sister-events li .ev-date {
+            min-width: 68px;
+            color: var(--brand-red);
+            font-family: 'Oswald', sans-serif;
+            font-size: 0.78rem;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding-top: 2px;
+        }
+
+        .btn-sister {
+            display: inline-block;
+            background: var(--brand-red);
+            color: white;
+            padding: 13px 28px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(227, 24, 55, 0.3);
+        }
+
+        .btn-sister:hover {
+            background: var(--brand-red-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 12px 32px rgba(227, 24, 55, 0.4);
+        }
+
+        /* ===== SUPPORTED COMMUNITY EVENTS ===== */
+        .supported-events {
+            background: var(--grey);
+        }
+
+        .event-support-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 32px;
+        }
+
+        .event-support-card {
+            background: white;
+            border-radius: 20px;
+            padding: 36px 32px;
+            border: 1px solid var(--border);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.05);
+            transition: all 0.35s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-support-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--brand-red), #ff6b6b);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+        }
+
+        .event-support-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.1);
+            border-color: transparent;
+        }
+
+        .event-support-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .ev-date-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(227, 24, 55, 0.08);
+            color: var(--brand-red);
+            font-size: 0.8rem;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 5px 14px;
+            border-radius: 50px;
+            margin-bottom: 18px;
+        }
+
+        .ev-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin: 14px 0 18px;
+        }
+
+        .ev-tag {
+            background: #f1f5f9;
+            color: #475569;
+            font-size: 0.78rem;
+            padding: 4px 12px;
+            border-radius: 50px;
+        }
+
+        .event-support-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 8px;
+        }
+
+        .ev-location {
+            color: #94a3b8;
+            font-size: 0.85rem;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .event-support-card p {
+            color: #64748b;
+            font-size: 0.95rem;
+            line-height: 1.75;
+            margin-bottom: 24px;
+        }
+
+        .btn-ev-register {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: var(--brand-red);
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            border: 2px solid var(--brand-red);
+            padding: 10px 22px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-ev-register:hover {
+            background: var(--brand-red);
+            color: white;
+        }
+
+        /* ===== COMMUNITY SPOTLIGHT ===== */
+        .community-spotlight {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .community-spotlight::before {
+            content: '';
+            position: absolute;
+            bottom: -20%;
+            left: -10%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(227, 24, 55, 0.07) 0%, transparent 60%);
+            pointer-events: none;
+        }
+
+        .community-spotlight .section-header h2 {
+            color: white;
+        }
+
+        .community-spotlight .section-header p {
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .spotlight-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .spotlight-card {
+            background: rgba(255, 255, 255, 0.05);
+            -webkit-backdrop-filter: blur(10px);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 36px 28px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .spotlight-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            transform: translateY(-8px);
+            border-color: rgba(227, 24, 55, 0.3);
+        }
+
+        .spotlight-avatar {
+            width: 88px;
+            height: 88px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 16px;
+            display: block;
+            border: 3px solid var(--brand-red);
+            box-shadow: 0 0 24px rgba(227, 24, 55, 0.25);
+        }
+
+        .spotlight-badge {
+            display: inline-block;
+            background: rgba(227, 24, 55, 0.15);
+            color: #ff6b6b;
+            font-size: 0.72rem;
+            font-family: 'Oswald', sans-serif;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 50px;
+            margin-bottom: 14px;
+        }
+
+        .spotlight-card p {
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            font-size: 0.92rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .spotlight-card h4 {
+            color: white;
+            font-size: 1rem;
+            letter-spacing: 2px;
+        }
+
+        .spotlight-card .spotlight-sub {
+            color: rgba(255, 255, 255, 0.45);
+            font-size: 0.8rem;
+            margin-top: 4px;
+            font-style: normal;
+        }
+
+        .spotlight-cta {
+            text-align: center;
+            margin-top: 52px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .spotlight-cta p {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 18px;
+            font-size: 1rem;
+        }
+
+        .btn-spotlight {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: white;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            padding: 12px 28px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-spotlight:hover {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+            transform: translateY(-2px);
+        }
+
+        /* ===== COMMUNITY CALENDAR ===== */
+        .community-calendar {
+            background: white;
+        }
+
+        .calendar-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .calendar-text h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .calendar-text h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: var(--brand-red);
+            border-radius: 2px;
+        }
+
+        .calendar-text p {
+            color: #64748b;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 16px;
+        }
+
+        .btn-list-event {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: var(--brand-red);
+            color: white;
+            padding: 15px 32px;
+            border-radius: 50px;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            font-weight: 700;
+            font-size: 1rem;
+            letter-spacing: 1px;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+            box-shadow: 0 10px 28px rgba(227, 24, 55, 0.25);
+        }
+
+        .btn-list-event:hover {
+            background: var(--brand-red-dark);
+            transform: translateY(-3px);
+            box-shadow: 0 14px 36px rgba(227, 24, 55, 0.35);
+        }
+
+        .cal-rules {
+            list-style: none;
+            margin-top: 24px;
+        }
+
+        .cal-rules li {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #64748b;
+            font-size: 0.9rem;
+            padding: 6px 0;
+        }
+
+        .cal-rules li i {
+            color: var(--brand-red);
+            width: 16px;
+        }
+
+        .upcoming-list {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+        }
+
+        .upcoming-item {
+            display: flex;
+            gap: 20px;
+            align-items: flex-start;
+            padding: 22px 24px;
+            background: var(--grey);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+
+        .upcoming-item:hover {
+            border-color: var(--brand-red);
+            transform: translateX(4px);
+        }
+
+        .upcoming-date-block {
+            min-width: 56px;
+            text-align: center;
+            background: var(--brand-red);
+            border-radius: 12px;
+            padding: 10px 8px;
+            color: white;
+        }
+
+        .upcoming-date-block .ud-month {
+            font-size: 0.65rem;
+            font-family: 'Oswald', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.85;
+        }
+
+        .upcoming-date-block .ud-day {
+            font-size: 1.6rem;
+            font-family: 'Oswald', sans-serif;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .upcoming-info h4 {
+            font-size: 1rem;
+            margin-bottom: 4px;
+            color: #1e293b;
+        }
+
+        .upcoming-info span {
+            font-size: 0.82rem;
+            color: #94a3b8;
+        }
+
+        .upcoming-info a {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            font-size: 0.82rem;
+            color: var(--brand-red);
+            margin-top: 6px;
+            font-weight: 600;
+        }
+
+        .upcoming-info a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .calendar-inner {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .sister-grid {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 
@@ -644,7 +1211,281 @@
         </div>
     </section>
 
+    <!-- =====================================================
+         RACING FAMILY — Sister Companies
+    ====================================================== -->
+    <section class="racing-family" id="racing-family">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>The <span class="brand-red-text">Racing Family</span></h2>
+                <p>We're proud to partner with two incredible event companies that share our passion for adventure,
+                    community, and the Pacific Northwest.</p>
+            </div>
+            <div class="sister-grid">
+
+                <!-- Bivouac Racing -->
+                <div class="sister-card reveal delay-1">
+                    <div class="sister-logo-wrap">
+                        <img src="../images/logos/Bivouac Racing.jpg" alt="Bivouac Racing logo">
+                    </div>
+                    <span class="sister-tag">Trail &amp; Ultra Series</span>
+                    <h3>Bivouac Racing</h3>
+                    <ul class="sister-events">
+                        <li>
+                            <span class="ev-date">Feb 28</span>
+                            <span>Silver Falls Trail Challenge — Silver Falls State Park, OR (¼ &amp; ½ Marathon)</span>
+                        </li>
+                        <li>
+                            <span class="ev-date">Apr 4–5</span>
+                            <span>Crown Stub 100 &amp; Stub Stewart Trail Challenge — Buxton, OR</span>
+                        </li>
+                        <li>
+                            <span class="ev-date">Jul 5</span>
+                            <span>Hellz Bellz Ultra — Yacolt, WA (50-miler, 50K, Purgatory Marathon)</span>
+                        </li>
+                        <li>
+                            <span class="ev-date">Nov TBD</span>
+                            <span>Battle to the Pacific — Oregon Coast</span>
+                        </li>
+                    </ul>
+                    <a href="https://bivouacracing.com" target="_blank" rel="noopener" class="btn-sister">
+                        View All Events <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+                <!-- X-Dog Adventures -->
+                <div class="sister-card reveal delay-2">
+                    <div class="sister-logo-wrap">
+                        <img src="../images/logos/x-dog-logo.png" alt="X-Dog Adventures logo">
+                    </div>
+                    <span class="sister-tag">Adventure &amp; Off-Road</span>
+                    <h3>X-Dog Adventures</h3>
+                    <ul class="sister-events">
+                        <li>
+                            <span class="ev-date">Feb 7</span>
+                            <span>White River Snowshoe 4K/8K — Government Camp, OR</span>
+                        </li>
+                        <li>
+                            <span class="ev-date">TBD</span>
+                            <span>Coven's Gulch Trail Run — PNW</span>
+                        </li>
+                        <li>
+                            <span class="ev-date">TBD</span>
+                            <span>Mount Hood Scramble — Mt. Hood, OR</span>
+                        </li>
+                        <li>
+                            <span class="ev-date">Sep TBD</span>
+                            <span>Ride, Row, Run Triathlon — Maupin, OR (Bike · Raft · Run)</span>
+                        </li>
+                    </ul>
+                    <a href="https://xdogadventures.com" target="_blank" rel="noopener" class="btn-sister">
+                        View All Events <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         SUPPORTED COMMUNITY EVENTS
+    ====================================================== -->
+    <section class="supported-events" id="community-events">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Events We <span class="brand-red-text">Support</span></h2>
+                <p>Great races happen beyond our own calendar. These are community events we proudly cheer for and
+                    encourage our athletes to check out.</p>
+            </div>
+            <div class="event-support-grid">
+
+                <div class="event-support-card reveal delay-1">
+                    <div class="ev-date-badge">
+                        <i class="fas fa-calendar-alt"></i> January 25, 2026
+                    </div>
+                    <h3>Race for the Warmth</h3>
+                    <div class="ev-location"><i class="fas fa-map-marker-alt"></i> 1200 Fort Vancouver Way, Vancouver,
+                        WA</div>
+                    <div class="ev-tags">
+                        <span class="ev-tag">5K</span>
+                        <span class="ev-tag">10K</span>
+                        <span class="ev-tag">Kids Race</span>
+                        <span class="ev-tag">Fundraiser</span>
+                    </div>
+                    <p>Organized by Clark Public Utilities, this beloved community race raises money for Operation Warm
+                        Heart — helping limited-income families cover winter energy bills. A flat, fast course through
+                        Fort Vancouver and along the Columbia River.</p>
+                    <a href="https://www.getmeregistered.com/RaceForTheWarmth" target="_blank" rel="noopener"
+                        class="btn-ev-register">
+                        Register <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+                <div class="event-support-card reveal delay-2">
+                    <div class="ev-date-badge">
+                        <i class="fas fa-calendar-alt"></i> February 22, 2026
+                    </div>
+                    <h3>Vancouver Lake Half Marathon</h3>
+                    <div class="ev-location"><i class="fas fa-map-marker-alt"></i> Vancouver Lake Park, Vancouver, WA
+                    </div>
+                    <div class="ev-tags">
+                        <span class="ev-tag">Half Marathon</span>
+                        <span class="ev-tag">4-Mile Run</span>
+                        <span class="ev-tag">Fast &amp; Flat</span>
+                    </div>
+                    <p>A community favorite at Vancouver Lake Park — flat and fast along the lake and out to Frenchman's
+                        Bar. Capped at 475 entries and frequently sells out. Half starts at 10:00 AM, 4-Miler at 10:20
+                        AM. Medals for all half finishers.</p>
+                    <a href="https://runsignup.com/Race/WA/Vancouver/VancouverLakeHalfMarathon4MileRun" target="_blank"
+                        rel="noopener" class="btn-ev-register">
+                        Register <i class="fas fa-external-link-alt"></i>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         COMMUNITY SPOTLIGHT
+    ====================================================== -->
+    <section class="community-spotlight" id="spotlight">
+        <div class="container">
+            <div class="section-header reveal">
+                <h2>Community <span class="brand-red-text">Spotlight</span></h2>
+                <p>Every race, every finish line — there's a story. Here are a few of the athletes who inspire us every
+                    day.</p>
+            </div>
+            <div class="spotlight-grid">
+
+                <div class="spotlight-card reveal delay-1">
+                    <img src="../images/Scrapedimages/Jenni-cropped.jpg" alt="Jenni" class="spotlight-avatar">
+                    <div class="spotlight-badge">Ambassador</div>
+                    <p>"The Girlfriends Half Marathon is an annual tradition for me — the atmosphere always welcomes
+                        every level of athlete."</p>
+                    <h4>Jenni</h4>
+                    <div class="spotlight-sub">Multi-year WHY Racing Ambassador</div>
+                </div>
+
+                <div class="spotlight-card reveal delay-2">
+                    <img src="../images/Scrapedimages/rebecca-cady-age30.jpg" alt="Rebecca Cady"
+                        class="spotlight-avatar">
+                    <div class="spotlight-badge">First-Timer</div>
+                    <p>"5 weeks ago I set myself a challenge of doing a triathlon. Not fast. Not flashy. Not last. Just
+                        steady, committed, and proud."</p>
+                    <h4>Rebecca Cady</h4>
+                    <div class="spotlight-sub">First-time triathlete</div>
+                </div>
+
+                <div class="spotlight-card reveal delay-3">
+                    <img src="../images/Scrapedimages/Noland-Hoshino.jpg" alt="Noland Hoshino" class="spotlight-avatar">
+                    <div class="spotlight-badge">WHY Racing Fan</div>
+                    <p>"Another amazing show. Pretty course through downtown, parks &amp; along the river — and free
+                        lunch with burgers &amp; entertainment at the end!"</p>
+                    <h4>Noland Hoshino</h4>
+                    <div class="spotlight-sub">Couve Clover Run finisher</div>
+                </div>
+
+            </div>
+            <div class="spotlight-cta reveal">
+                <p>Want to be featured? Tag your race photos and share your story.</p>
+                <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
+                    class="btn-spotlight">
+                    <i class="fab fa-instagram"></i> Tag #WhyRacing
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- =====================================================
+         COMMUNITY CALENDAR / LIST YOUR EVENT
+    ====================================================== -->
+    <section class="community-calendar" id="community-calendar">
+        <div class="container">
+            <div class="calendar-inner">
+                <div class="calendar-text reveal">
+                    <h2>List Your Event</h2>
+                    <p>Are you organizing a local race, fun run, or community fitness event in the PNW? We're happy to
+                        share it here and help spread the word to our community of athletes.</p>
+                    <p>Send us your event details — date, distance, location, and registration link — and we'll get it
+                        added to the calendar.</p>
+                    <ul class="cal-rules">
+                        <li><i class="fas fa-check-circle"></i> Free to list for community &amp; non-profit events</li>
+                        <li><i class="fas fa-check-circle"></i> Must be a registered race or organized fitness event
+                        </li>
+                        <li><i class="fas fa-check-circle"></i> Pacific Northwest events only</li>
+                        <li><i class="fas fa-check-circle"></i> We review all submissions before posting</li>
+                    </ul>
+                    <a href="mailto:info@whyracingevents.com?subject=Community%20Event%20Listing%20Request"
+                        class="btn-list-event">
+                        <i class="fas fa-paper-plane"></i> Submit Your Event
+                    </a>
+                </div>
+
+                <div class="upcoming-list reveal delay-2">
+                    <div class="upcoming-item">
+                        <div class="upcoming-date-block">
+                            <div class="ud-month">Jan</div>
+                            <div class="ud-day">25</div>
+                        </div>
+                        <div class="upcoming-info">
+                            <h4>Race for the Warmth 5K &amp; 10K</h4>
+                            <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA &nbsp;·&nbsp; Benefits Operation
+                                Warm Heart</span>
+                            <br>
+                            <a href="https://www.getmeregistered.com/RaceForTheWarmth" target="_blank"
+                                rel="noopener">Register <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="upcoming-item">
+                        <div class="upcoming-date-block">
+                            <div class="ud-month">Feb</div>
+                            <div class="ud-day">22</div>
+                        </div>
+                        <div class="upcoming-info">
+                            <h4>Vancouver Lake Half Marathon &amp; 4 Mile</h4>
+                            <span><i class="fas fa-map-marker-alt"></i> Vancouver Lake Park, WA &nbsp;·&nbsp; Capped at
+                                475 entries</span>
+                            <br>
+                            <a href="https://runsignup.com/Race/WA/Vancouver/VancouverLakeHalfMarathon4MileRun"
+                                target="_blank" rel="noopener">Register <i class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="upcoming-item">
+                        <div class="upcoming-date-block">
+                            <div class="ud-month">Feb</div>
+                            <div class="ud-day">28</div>
+                        </div>
+                        <div class="upcoming-info">
+                            <h4>Silver Falls Trail Challenge</h4>
+                            <span><i class="fas fa-map-marker-alt"></i> Silver Falls State Park, OR &nbsp;·&nbsp;
+                                Bivouac Racing</span>
+                            <br>
+                            <a href="https://bivouacracing.com" target="_blank" rel="noopener">View Details <i
+                                    class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                    <div class="upcoming-item">
+                        <div class="upcoming-date-block">
+                            <div class="ud-month">Jul</div>
+                            <div class="ud-day">5</div>
+                        </div>
+                        <div class="upcoming-info">
+                            <h4>Hellz Bellz Ultra</h4>
+                            <span><i class="fas fa-map-marker-alt"></i> Yacolt, WA &nbsp;·&nbsp; X-Dog Adventures &amp;
+                                Bivouac Racing</span>
+                            <br>
+                            <a href="https://bivouacracing.com" target="_blank" rel="noopener">View Details <i
+                                    class="fas fa-chevron-right"></i></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section class="community-highlights">
+
         <div class="container">
             <div class="highlight-box">
                 <div class="highlight-image reveal">
