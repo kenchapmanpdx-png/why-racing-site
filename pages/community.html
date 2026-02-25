@@ -548,6 +548,79 @@
             transition-delay: 0.4s;
         }
 
+        /* ===== STAT BAR ===== */
+        .stat-bar-section {
+            padding: 0;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .stat-bar {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            padding: 48px 0;
+        }
+
+        .stat-item {
+            text-align: center;
+            flex: 1;
+            min-width: 140px;
+            padding: 16px 24px;
+        }
+
+        .stat-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            color: #0a0a0a;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-number span {
+            color: var(--brand-red);
+        }
+
+        .stat-label {
+            font-size: 0.82rem;
+            color: #94a3b8;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-weight: 600;
+        }
+
+        .stat-divider {
+            width: 1px;
+            height: 60px;
+            background: var(--border);
+            flex-shrink: 0;
+        }
+
+        @media (max-width: 600px) {
+            .stat-divider {
+                display: none;
+            }
+
+            .stat-item {
+                min-width: 45%;
+            }
+        }
+
+        /* ===== TESTIMONIAL IG CTA ===== */
+        .testimonial-ig-cta {
+            margin-top: 52px;
+            position: relative;
+            z-index: 1;
+            text-align: center;
+        }
+
+        .testimonial-ig-text {
+            color: rgba(255, 255, 255, 0.6);
+            margin-bottom: 18px;
+        }
+
         /* ===== RACING FAMILY (sister companies) ===== */
         .racing-family {
             background: linear-gradient(135deg, #0a0a0a 0%, #111827 100%);
@@ -1157,8 +1230,8 @@
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>Stronger <span class="brand-red-text">Together.</span></h1>
-            <p>Whether you're looking for a training partner, a corporate team challenge, or professional coaching, the
-                WHY RACING EVENTS community is here to lift you up.</p>
+            <p>Sister companies. Community events. Team racing. Social runs. This is the hub for everything that makes
+                the PNW racing scene the best in the country.</p>
         </div>
     </header>
 
@@ -1182,30 +1255,67 @@
         </div>
     </div>
 
+    <!-- STAT BAR -->
+    <section class="stat-bar-section">
+        <div class="container">
+            <div class="stat-bar">
+                <div class="stat-item reveal delay-1">
+                    <div class="stat-number">$3M<span>+</span></div>
+                    <div class="stat-label">Raised for Charity</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item reveal delay-2">
+                    <div class="stat-number">17<span>+</span></div>
+                    <div class="stat-label">Annual Events</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item reveal delay-3">
+                    <div class="stat-number">3</div>
+                    <div class="stat-label">Event Companies, One Family</div>
+                </div>
+                <div class="stat-divider"></div>
+                <div class="stat-item reveal delay-4">
+                    <div class="stat-number">40<span>+</span></div>
+                    <div class="stat-label">Years of Racing History</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- JOIN THE MOVEMENT -->
     <section>
         <div class="container">
             <div class="section-header reveal">
                 <h2>Join the Movement</h2>
-                <p>Racing is more rewarding when you're part of something bigger. Find your tribe.</p>
+                <p>Racing is more rewarding when you're part of something bigger. Find your place in the community.</p>
             </div>
             <div class="grid">
                 <div class="card reveal delay-1">
                     <div class="card-icon">
                         <i class="fas fa-users"></i>
                     </div>
-                    <h3>Create a Team</h3>
-                    <p>Race with your coworkers, your running club, or your best friends. Teams of 10+ get exclusive
-                        discounts and a dedicated space in the athlete village.</p>
-                    <a href="#" class="btn-card">Register a Team</a>
+                    <h3>Race as a Team</h3>
+                    <p>Bring your coworkers, running club, or crew. Teams of 10+ get exclusive discounts and a dedicated
+                        space in the athlete village. Your people will thank you.</p>
+                    <a href="../index.html#calendar" class="btn-card">Find Your Race</a>
                 </div>
                 <div class="card reveal delay-2">
                     <div class="card-icon">
-                        <i class="fas fa-stopwatch"></i>
+                        <i class="fas fa-dumbbell"></i>
                     </div>
-                    <h3>Get Coached</h3>
-                    <p>Don't just train—train smart. We partner with the best coaches in the PNW to provide custom
-                        training plans for every distance from 5K to Ironman.</p>
-                    <a href="#" class="btn-card">Find a Coach</a>
+                    <h3>Train with a Club</h3>
+                    <p>Connect with local training clubs that prepare you for every WHY RACING distance — from your
+                        first 5K to an Ironman. Expert coaching, great people.</p>
+                    <a href="training.html" class="btn-card">Explore Training</a>
+                </div>
+                <div class="card reveal delay-3">
+                    <div class="card-icon">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                    <h3>Give Back</h3>
+                    <p>Every entry supports a cause. Our races have raised over $3 million for charities across the PNW.
+                        Race for something bigger than a finish time.</p>
+                    <a href="beneficiary.html" class="btn-card">See Our Causes</a>
                 </div>
             </div>
         </div>
@@ -1346,56 +1456,7 @@
         </div>
     </section>
 
-    <!-- =====================================================
-         COMMUNITY SPOTLIGHT
-    ====================================================== -->
-    <section class="community-spotlight" id="spotlight">
-        <div class="container">
-            <div class="section-header reveal">
-                <h2>Community <span class="brand-red-text">Spotlight</span></h2>
-                <p>Every race, every finish line — there's a story. Here are a few of the athletes who inspire us every
-                    day.</p>
-            </div>
-            <div class="spotlight-grid">
 
-                <div class="spotlight-card reveal delay-1">
-                    <img src="../images/Scrapedimages/Jenni-cropped.jpg" alt="Jenni" class="spotlight-avatar">
-                    <div class="spotlight-badge">Ambassador</div>
-                    <p>"The Girlfriends Half Marathon is an annual tradition for me — the atmosphere always welcomes
-                        every level of athlete."</p>
-                    <h4>Jenni</h4>
-                    <div class="spotlight-sub">Multi-year WHY Racing Ambassador</div>
-                </div>
-
-                <div class="spotlight-card reveal delay-2">
-                    <img src="../images/Scrapedimages/rebecca-cady-age30.jpg" alt="Rebecca Cady"
-                        class="spotlight-avatar">
-                    <div class="spotlight-badge">First-Timer</div>
-                    <p>"5 weeks ago I set myself a challenge of doing a triathlon. Not fast. Not flashy. Not last. Just
-                        steady, committed, and proud."</p>
-                    <h4>Rebecca Cady</h4>
-                    <div class="spotlight-sub">First-time triathlete</div>
-                </div>
-
-                <div class="spotlight-card reveal delay-3">
-                    <img src="../images/Scrapedimages/Noland-Hoshino.jpg" alt="Noland Hoshino" class="spotlight-avatar">
-                    <div class="spotlight-badge">WHY Racing Fan</div>
-                    <p>"Another amazing show. Pretty course through downtown, parks &amp; along the river — and free
-                        lunch with burgers &amp; entertainment at the end!"</p>
-                    <h4>Noland Hoshino</h4>
-                    <div class="spotlight-sub">Couve Clover Run finisher</div>
-                </div>
-
-            </div>
-            <div class="spotlight-cta reveal">
-                <p>Want to be featured? Tag your race photos and share your story.</p>
-                <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
-                    class="btn-spotlight">
-                    <i class="fab fa-instagram"></i> Tag #WhyRacing
-                </a>
-            </div>
-        </div>
-    </section>
 
     <!-- =====================================================
          COMMUNITY CALENDAR / LIST YOUR EVENT
@@ -1405,16 +1466,12 @@
             <div class="calendar-inner">
                 <div class="calendar-text reveal">
                     <h2>List Your Event</h2>
-                    <p>Are you organizing a local race, fun run, or community fitness event in the PNW? We're happy to
-                        share it here and help spread the word to our community of athletes.</p>
-                    <p>Send us your event details — date, distance, location, and registration link — and we'll get it
-                        added to the calendar.</p>
+                    <p>Running a local race or community fitness event in the PNW? We'll add it to the calendar and
+                        spread the word to thousands of active local athletes — free.</p>
                     <ul class="cal-rules">
-                        <li><i class="fas fa-check-circle"></i> Free to list for community &amp; non-profit events</li>
-                        <li><i class="fas fa-check-circle"></i> Must be a registered race or organized fitness event
-                        </li>
-                        <li><i class="fas fa-check-circle"></i> Pacific Northwest events only</li>
-                        <li><i class="fas fa-check-circle"></i> We review all submissions before posting</li>
+                        <li><i class="fas fa-check-circle"></i> Free for community &amp; non-profit events</li>
+                        <li><i class="fas fa-check-circle"></i> PNW registered races only</li>
+                        <li><i class="fas fa-check-circle"></i> We review all submissions</li>
                     </ul>
                     <a href="mailto:info@whyracingevents.com?subject=Community%20Event%20Listing%20Request"
                         class="btn-list-event">
@@ -1522,11 +1579,11 @@
             </div>
             <div class="testimonial-grid">
                 <div class="testimonial-card reveal delay-1">
-                    <img src="../images/Scrapedimages/Jenni-cropped.jpg" alt="Jenni, Why Racing Events Ambassador"
+                    <img src="../images/Scrapedimages/Jenni-cropped.jpg" alt="Jenni, WHY Racing Ambassador"
                         class="avatar-circle">
                     <p>"The Girlfriends Half Marathon is an annual tradition for me... the atmosphere is always
                         supportive and encouraging — this event welcomes every level of athlete."</p>
-                    <h4>Jenni</h4>
+                    <h4>Jenni &mdash; Ambassador</h4>
                 </div>
                 <div class="testimonial-card reveal delay-2">
                     <img src="../images/Scrapedimages/Brian-Jones-IMAGE.jpg" alt="Brian Jones" class="avatar-circle">
@@ -1536,17 +1593,24 @@
                 </div>
                 <div class="testimonial-card reveal delay-3">
                     <img src="../images/Scrapedimages/rebecca-cady-age30.jpg" alt="Rebecca Cady" class="avatar-circle">
-                    <p>"5 weeks ago I set myself a challenge of doing a triathlon... first triathlon with WHY RACING
-                        EVENTS. Not fast. Not flashy. Not last... Just steady, committed, and proud."</p>
-                    <h4>Rebecca Cady</h4>
+                    <p>"5 weeks ago I set myself a challenge of doing a triathlon... Not fast. Not flashy. Not last.
+                        Just steady, committed, and proud."</p>
+                    <h4>Rebecca Cady &mdash; First-Timer</h4>
                 </div>
                 <div class="testimonial-card reveal delay-4">
                     <img src="../images/Scrapedimages/Noland-Hoshino.jpg" alt="Noland Hoshino" class="avatar-circle">
                     <p>"Why Racing of course put on another amazing show as always. This course was pretty, through
-                        downtown, parks & along the river. At the end they even had free lunch with burgers &
-                        entertainment."</p>
+                        downtown, parks &amp; along the river. Free lunch with burgers &amp; entertainment at the end!"
+                    </p>
                     <h4>Noland Hoshino</h4>
                 </div>
+            </div>
+            <div class="spotlight-cta reveal testimonial-ig-cta">
+                <p class="testimonial-ig-text">Love racing with us? Share your story.</p>
+                <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
+                    class="btn-spotlight">
+                    <i class="fab fa-instagram"></i> Tag #WhyRacing on Instagram
+                </a>
             </div>
         </div>
     </section>
