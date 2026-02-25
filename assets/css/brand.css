@@ -747,7 +747,7 @@ footer {
 .footer-links-grid a {
     font-size: 0.9rem;
     transition: 0.3s;
-    color: #777;
+    color: #999;
 }
 
 .footer-links-grid a:hover {
@@ -792,6 +792,10 @@ footer {
     outline: none;
     border-color: var(--brand-red);
     background: rgba(255, 255, 255, 0.08);
+}
+
+.newsletter-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
 }
 
 .newsletter-submit {
@@ -857,7 +861,7 @@ footer {
 
 .footer-copy {
     font-size: 0.8rem;
-    opacity: 0.5;
+    color: #777;
 }
 
 .staff-portal-footer {
@@ -865,7 +869,7 @@ footer {
 }
 
 .staff-portal-link {
-    color: #444;
+    color: #777;
     transition: 0.3s;
     text-decoration: none;
 }
@@ -1010,7 +1014,8 @@ footer {
     font-family: 'Inter', sans-serif;
 }
 
-luxury glassmorphism */ .charity-link:hover .charity-label {
+/* luxury glassmorphism */
+.charity-link:hover .charity-label {
     color: white;
     text-shadow: 0 0 10px rgba(227, 24, 55, 0.5);
 }
