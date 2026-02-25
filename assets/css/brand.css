@@ -413,6 +413,18 @@ section[style*="background: var(--brand-blue)"] .price-was {
     opacity: 1;
     vertical-align: middle;
     flex-shrink: 0;
+    transition: opacity 0.2s ease;
+}
+
+.sponsor-track a {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+    text-decoration: none;
+}
+
+.sponsor-track a:hover img {
+    opacity: 0.75;
 }
 
 /* Specific overrides for smaller logos to improve legibility */
