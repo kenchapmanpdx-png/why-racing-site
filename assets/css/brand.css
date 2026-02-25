@@ -386,7 +386,6 @@ section[style*="background: var(--brand-blue)"] .price-was {
     background: white;
     padding: 20px 0;
     overflow: hidden;
-    white-space: nowrap;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
     position: relative;
@@ -402,10 +401,23 @@ section[style*="background: var(--brand-blue)"] .price-was {
     margin-bottom: 15px;
 }
 
-.sponsor-track {
+/* Outer flex container — two tracks flow inline, each exactly one set wide */
+.sponsor-ticker-inner {
     display: flex;
     width: max-content;
+}
+
+.sponsor-track {
+    display: flex;
+    flex-shrink: 0;
     animation: sponsorScroll 30s linear infinite;
+    white-space: nowrap;
+}
+
+/* Give the second copy a half-duration head-start so it's always entering
+   just as the first one exits, with no gap and no jump */
+.sponsor-track:nth-child(2) {
+    animation-delay: -15s;
 }
 
 .sponsor-track img {
@@ -421,7 +433,6 @@ section[style*="background: var(--brand-blue)"] .price-was {
 .sponsor-track img[alt="Foot Traffic"],
 .sponsor-track img[alt="PepsiCo"] {
     height: 75px;
-    /* ~20% larger */
 }
 
 @keyframes sponsorScroll {
@@ -430,9 +441,10 @@ section[style*="background: var(--brand-blue)"] .price-was {
     }
 
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-100%);
     }
 }
+
 
 /* --- HERO COLLAGE --- */
 .hero-collage {
