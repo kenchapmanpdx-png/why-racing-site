@@ -404,7 +404,7 @@ section[style*="background: var(--brand-blue)"] .price-was {
 .sponsor-track {
     display: flex;
     width: max-content;
-    animation: sponsorScroll 30s linear infinite;
+    animation: sponsorScroll 45s linear infinite;
 }
 
 .sponsor-track img {
@@ -428,7 +428,7 @@ section[style*="background: var(--brand-blue)"] .price-was {
     }
 
     100% {
-        transform: translateX(-50%);
+        transform: translateX(-33.3333%);
     }
 }
 
