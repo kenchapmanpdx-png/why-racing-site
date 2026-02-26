@@ -2154,7 +2154,7 @@
         </div>
 
         <div class="footer-bottom">
-            <div class="footer-copy">© 2025 WHY RACING EVENTS Inc. • La Center, WA • (360) 314-4682</div>
+            <div class="footer-copy">ï¿½ 2025 WHY RACING EVENTS Inc. ï¿½ La Center, WA ï¿½ (360) 314-4682</div>
             <div class="staff-portal-footer">
                 <a href="pages/admin/races.html" class="staff-portal-link">Staff Portal</a>
             </div>
@@ -2298,7 +2298,7 @@
         // Create race card HTML for database races
         function createDynamicRaceCard(race, index = 0) {
             const distances = race.race_distances || [];
-            const distanceText = distances.map(d => d.name || d.distance_value).join(' / ') || 'Details TBA';
+            const distanceText = race.distances || distances.map(d => d.name || d.distance_value).join(' / ') || 'Details TBA';
             const filterKeywords = distances.map(d => {
                 const name = (d.name || '').toLowerCase();
                 if (name.includes('5k')) return '5k';
@@ -2318,7 +2318,7 @@
             const regUrl = window.formatExternalUrl(race.registration_url) || '#';
             const infoUrl = window.formatExternalUrl(race.instructions_pdf_url || race.registration_url) || '#';
 
-            const distancesHtml = race.distances ? `<div class="card-distance" style="font-size: 13.5px; font-weight: 500; color: var(--brand-red); margin-top: 4px; line-height: 1.4;">${race.distances}</div>` : '';
+            
 
             const registerButton = race.registration_url && race.registration_open
                 ? `<a href="${regUrl}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; font-weight: 800; width: 100%; border-radius: 6px;">Register Now</a>`
@@ -2343,7 +2343,6 @@
                     <div onclick="showRaceDetails('${infoUrl}')" style="cursor: pointer;">
                         <span class="card-date">${dateStr}</span>
                         <h3 class="card-title">${race.name || 'New Race'}</h3>
-                        ${distancesHtml}
                     </div>
                     <div style="margin-top: auto;">
                         <div onclick="showRaceDetails('${infoUrl}')" style="cursor: pointer;">
