@@ -112,6 +112,11 @@
                                 <option value="ID">Idaho</option>
                             </select>
                         </div>
+                        <div class="form-group" style="grid-column: 1 / -1;">
+                            <label for="distances_display">Distances (Event Card Display)</label>
+                            <input type="text" id="distances_display" name="distances"
+                                placeholder="e.g., 5K, 10K, Half Marathon">
+                        </div>
 
 
 
@@ -412,6 +417,12 @@
             form.isFeatured.checked = race.is_featured;
             form.waitlistEnabled.checked = race.waitlist_enabled;
 
+            // Text fields
+            if (form.city) form.city.value = race.city || '';
+            if (form.state) form.state.value = race.state || 'WA';
+            if (form.venue) form.venue.value = race.venue || '';
+            if (form.distances) form.distances.value = race.distances || '';
+
             // Show View Live button and Delete section
             document.getElementById('viewLiveBtn').style.display = 'inline-block';
             document.getElementById('deleteSection').style.display = 'block';
@@ -693,6 +704,7 @@
                 venue: formData.get('venue'),
                 city: formData.get('city'),
                 state: formData.get('state'),
+                distances_display: formData.get('distances'),
                 registration_url: window.formatExternalUrl(formData.get('registrationUrl')),
                 status: status,
                 is_visible: formData.get('isActive') === 'on',

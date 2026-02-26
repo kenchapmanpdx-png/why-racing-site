@@ -995,6 +995,7 @@ app.get('/api/races/:id/full', async (req, res) => {
 app.post('/api/races', adminAuth, async (req, res) => {
   const {
     distances,
+    distances_display,
     pricing_tiers,
     pricing_config,
     multisport_details,
@@ -1004,7 +1005,10 @@ app.post('/api/races', adminAuth, async (req, res) => {
     ...raceData
   } = req.body;
 
-  const cleanRaceData = sanitizeData(raceData);
+  const cleanRaceData = sanitizeData({
+    ...raceData,
+    distances: distances_display
+  });
 
   try {
     const { data: race, error: raceError } = await supabase
@@ -1073,6 +1077,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
   if (!isValidUUID(id)) return res.status(400).json({ error: 'Invalid race ID' });
   const {
     distances,
+    distances_display,
     pricing_tiers,
     pricing_config,
     multisport_details,
@@ -1084,7 +1089,10 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
     ...raceData
   } = req.body;
 
-  const cleanRaceData = sanitizeData(raceData);
+  const cleanRaceData = sanitizeData({
+    ...raceData,
+    distances: distances_display
+  });
 
   try {
     // 1. Update race basic info
