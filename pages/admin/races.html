@@ -433,7 +433,7 @@
             distanceList.innerHTML = '';
             if (race.race_distances && race.race_distances.length > 0) {
                 race.race_distances.forEach(d => {
-                    addDistanceWithValue(d.name, d.distance_type, d.distance_value, d.capacity, d.base_price, d.start_time, d.standard_price);
+                    addDistanceWithValue(d.name, d.distance_type, d.distance_value);
                 });
             } else {
                 addDistance();
@@ -453,15 +453,11 @@
 
         }
 
-        function addDistanceWithValue(name = '', distanceType = '', distance = '', capacity = '', price = '', startTime = '', standardPrice = '') {
+        function addDistanceWithValue(name = '', distanceType = '', distance = '') {
             // Convert null/undefined to empty strings for form inputs
             name = name ?? '';
             distanceType = distanceType ?? name ?? '';
             distance = distance ?? '';
-            capacity = (capacity === null || capacity === undefined) ? '' : capacity;
-            price = (price === null || price === undefined) ? '' : price;
-            startTime = startTime ?? '';
-            standardPrice = (standardPrice === null || standardPrice === undefined) ? '' : standardPrice;
 
             const list = document.getElementById('distanceList');
             const item = document.createElement('div');
@@ -505,23 +501,7 @@
           <label>Distance Value</label>
           <input type="text" name="distanceValue[]" value="${distance}" placeholder="e.g., 3.1 miles">
         </div>
-        <div>
-          <label>Capacity</label>
-          <input type="number" name="distanceCapacity[]" value="${capacity}" placeholder="500">
-        </div>
-        <div>
-          <label>Base Price</label>
-          <input type="number" name="distancePrice[]" value="${price}" placeholder="75" step="0.01">
-        </div>
-        <div>
-          <label>Standard Price</label>
-          <input type="number" name="distanceStandardPrice[]" value="${standardPrice}" placeholder="90" step="0.01">
-        </div>
-        <div>
-          <label>Start Time</label>
-          <input type="time" name="distanceStartTime[]" value="${startTime}">
-        </div>
-        <button type="button" class="remove-distance" onclick="removeDistance(this)">×</button>
+        <button type="button" class="remove-distance" style="align-self: flex-end; margin-bottom: 5px;" onclick="removeDistance(this)">×</button>
       `;
             list.appendChild(item);
         }
@@ -689,19 +669,15 @@
             const dTypes = formData.getAll('distanceName[]');
             const dCustomNames = formData.getAll('distanceCustomName[]');
             const dValues = formData.getAll('distanceValue[]');
-            const dCapacities = formData.getAll('distanceCapacity[]');
-            const dPrices = formData.getAll('distancePrice[]');
-            const dStandardPrices = formData.getAll('distanceStandardPrice[]');
-            const dStartTimes = formData.getAll('distanceStartTime[]');
 
             const distances = dTypes.map((type, i) => ({
                 name: dCustomNames[i] || type,
                 distance_type: type,
                 distance_value: dValues[i],
-                capacity: parseInt(dCapacities[i]) || null,
-                base_price: parseFloat(dPrices[i]) || 0,
-                standard_price: parseFloat(dStandardPrices[i]) || null,
-                start_time: dStartTimes[i] || null
+                capacity: null,
+                base_price: 0,
+                standard_price: null,
+                start_time: null
             })).filter(d => d.distance_type);
 
             const payload = {
