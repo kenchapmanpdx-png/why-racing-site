@@ -5,26 +5,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Race Sponsorship Opportunities in Washington & Oregon</title>
+    <title>PNW Race Sponsorship Opportunities | WHY RACING EVENTS</title>
 
     <meta name="description"
-        content="Reach 50,000+ active consumers in the PNW! We offer premier marathon, triathlon, and 5K sponsorship packages with measurable ROI. Partner with us!">
+        content="Reach 50,000+ active consumers in the PNW! We offer premier marathon, triathlon, and 5K sponsorship packages with measurable ROI. Partner with us today!">
 
-    <link rel="canonical" href="https://whyracingevents.com/partners" />
+    <link rel="canonical" href="https://whyracingevents.com/pages/partners.html" />
     <link rel="icon" type="image/png" href="../images/logos/new-why-racing-logo.png">
 
     <meta property="og:title" content="Partner With WHY RACING EVENTS | Premier PNW Sponsorships">
     <meta property="og:description"
         content="Don't just sponsor a race. Own the moment with the region's most affluent audience.">
     <meta property="og:image" content="https://whyracingevents.com/images/share-image.jpg">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://whyracingevents.com/pages/partners.html">
+    <meta property="twitter:title" content="Sponsor WHY RACING EVENTS | PNW Race Sponsorship Opportunities">
+    <meta property="twitter:description" content="Partner with WHY RACING EVENTS to reach thousands of passionate PNW runners, cyclists, and triathletes. Explore sponsorship packages today.">
+    <meta property="twitter:image" content="https://whyracingevents.com/images/share-image.jpg">
     <meta property="og:type" content="website">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@400;600;700&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
     <link rel="stylesheet" href="../assets/css/brand.css">
 
     <script type="application/ld+json">
@@ -776,7 +785,7 @@
 <body>
 
     <nav id="navbar">
-        <a href="../index.html" class="logo"><img src="../images/logos/new-why-racing-logo.png"
+        <a href="../index.html" class="logo"><img loading="lazy" src="../images/logos/new-why-racing-logo.png"
                 alt="WHY RACING EVENTS Home"></a>
         <div class="nav-links">
             <a href="../index.html">Home</a>
@@ -814,8 +823,8 @@
         <div class="hero-content">
             <span class="hero-pre">PACIFIC NORTHWEST DOMINANCE</span>
             <h1>
-                <span>WHY RACING EVENTS</span>
-                EVENTS
+                <span>PNW RACE SPONSORSHIP</span>
+                WHY RACING EVENTS
             </h1>
             <div class="hero-sub">
                 Don't just sponsor a race. Own the moment with the region's most affluent, dedicated, and active
@@ -1079,8 +1088,8 @@
         </div>
     </footer>
 
-    <script src="../assets/js/nav.js"></script>
-    <script src="../assets/js/signup-form.js"></script>
+    <script defer src="../assets/js/nav.js"></script>
+    <script defer src="../assets/js/signup-form.js"></script>
     <script>
         // Scroll Reveal Animation
         const revealElements = document.querySelectorAll('.reveal');
@@ -1132,7 +1141,7 @@
                     return `
                     <${tag} ${targetAttr} class="charity-link ${delayClass}" title="${sp.name}">
                         <div class="charity-logo-wrapper">
-                            ${logoSrc ? `<img src="${logoSrc}" alt="${sp.name}" class="charity-logo-img">` : ''}
+                            ${logoSrc ? `<img loading="lazy" src="${logoSrc}" alt="${sp.name}" class="charity-logo-img">` : ''}
                         </div>
                         <span class="charity-label">${sp.name}</span>
                     </${tag}>
@@ -1147,7 +1156,8 @@
 
         loadSponsors();
     </script>
-    <script src="../assets/js/collage.js"></script>
+    <script defer src="../assets/js/collage.js"></script>
 </body>
 
 </html>
+

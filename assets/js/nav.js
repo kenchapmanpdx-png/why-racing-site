@@ -86,9 +86,9 @@ async function initSponsorTicker() {
             const sanitizedUrl = window.formatExternalUrl(sp.website_url);
 
             if (sanitizedUrl) {
-                return `<a href="${sanitizedUrl}" target="_blank" rel="noopener" title="${sp.name}"><img src="${logoSrc}" alt="${sp.name}"></a>`;
+                return `<a href="${sanitizedUrl}" target="_blank" rel="noopener" title="${sp.name}"><img src="${logoSrc}" alt="${sp.name}" loading="lazy" decoding="async"></a>`;
             } else {
-                return `<img src="${logoSrc}" alt="${sp.name}" title="${sp.name}">`;
+                return `<img src="${logoSrc}" alt="${sp.name}" title="${sp.name}" loading="lazy" decoding="async">`;
             }
         }).join('');
 
