@@ -2304,14 +2304,14 @@
             const distances = race.race_distances || [];
             const distanceText = race.distances || distances.map(d => d.name || d.distance_value).join(' / ') || 'Details TBA';
             const filterKeywords = distances.map(d => {
-                const name = (d.name || '').toLowerCase();
-                if (name.includes('5k')) return '5k';
-                if (name.includes('10k')) return '10k';
-                if (name.includes('half marathon')) return 'half';
-                if (name.includes('marathon')) return 'marathon';
-                if (name.includes('ultra')) return 'ultra';
-                if (name.includes('trail')) return 'trail';
-                if (name.includes('triathlon')) return 'triathlon';
+                const type = (d.distance_type || d.name || '').toLowerCase();
+                if (type.includes('5k')) return '5k';
+                if (type.includes('10k')) return '10k';
+                if (type.includes('half marathon')) return 'half';
+                if (type.includes('marathon')) return 'marathon';
+                if (type.includes('ultra')) return 'ultra';
+                if (type.includes('trail')) return 'trail';
+                if (type.includes('triathlon')) return 'triathlon';
                 return '';
             }).filter(k => k).join(' ');
 

@@ -433,7 +433,7 @@
             distanceList.innerHTML = '';
             if (race.race_distances && race.race_distances.length > 0) {
                 race.race_distances.forEach(d => {
-                    addDistanceWithValue(d.name, d.distance_value, d.capacity, d.base_price, d.start_time, d.standard_price);
+                    addDistanceWithValue(d.name, d.distance_type, d.distance_value, d.capacity, d.base_price, d.start_time, d.standard_price);
                 });
             } else {
                 addDistance();
@@ -453,9 +453,10 @@
 
         }
 
-        function addDistanceWithValue(name = '', distance = '', capacity = '', price = '', startTime = '', standardPrice = '') {
+        function addDistanceWithValue(name = '', distanceType = '', distance = '', capacity = '', price = '', startTime = '', standardPrice = '') {
             // Convert null/undefined to empty strings for form inputs
             name = name ?? '';
+            distanceType = distanceType ?? name ?? '';
             distance = distance ?? '';
             capacity = (capacity === null || capacity === undefined) ? '' : capacity;
             price = (price === null || price === undefined) ? '' : price;
@@ -486,12 +487,16 @@
             ];
 
             const optionsHtml = distanceOptions.map(opt =>
-                `<option value="${opt.value}" ${opt.value === name ? 'selected' : ''}>${opt.label}</option>`
+                `<option value="${opt.value}" ${opt.value === distanceType ? 'selected' : ''}>${opt.label}</option>`
             ).join('');
 
             item.innerHTML = `
+        <div style="grid-column: 1 / -1; margin-bottom: 10px;">
+          <label>Display Name (Custom Title)</label>
+          <input type="text" name="distanceCustomName[]" value="${name}" placeholder="e.g., First Responder Relay">
+        </div>
         <div>
-          <label>Distance Type</label>
+          <label>Standard Distance Type</label>
           <select name="distanceName[]" aria-label="Distance Type" onchange="autoFillDistance(this)" class="admin-lock-input">
             ${optionsHtml}
           </select>
@@ -681,21 +686,23 @@
 
 
             // Extract distances
-            const dNames = formData.getAll('distanceName[]');
+            const dTypes = formData.getAll('distanceName[]');
+            const dCustomNames = formData.getAll('distanceCustomName[]');
             const dValues = formData.getAll('distanceValue[]');
             const dCapacities = formData.getAll('distanceCapacity[]');
             const dPrices = formData.getAll('distancePrice[]');
             const dStandardPrices = formData.getAll('distanceStandardPrice[]');
             const dStartTimes = formData.getAll('distanceStartTime[]');
 
-            const distances = dNames.map((name, i) => ({
-                name,
+            const distances = dTypes.map((type, i) => ({
+                name: dCustomNames[i] || type,
+                distance_type: type,
                 distance_value: dValues[i],
                 capacity: parseInt(dCapacities[i]) || null,
                 base_price: parseFloat(dPrices[i]) || 0,
                 standard_price: parseFloat(dStandardPrices[i]) || null,
                 start_time: dStartTimes[i] || null
-            })).filter(d => d.name);
+            })).filter(d => d.distance_type);
 
             const payload = {
                 name: formData.get('raceName'),
