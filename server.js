@@ -133,6 +133,7 @@ app.get('/api/races', async (req, res) => {
         race_type,
         city,
         state,
+        distances,
         venue,
         registration_url,
         registration_open,
