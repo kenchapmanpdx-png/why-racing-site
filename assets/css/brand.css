@@ -1065,3 +1065,11 @@ footer {
 .delay-400 {
     transition-delay: 0.4s;
 }
+
+/* Tripadvisor Button Container */
+.tripadvisor-btn-container {
+    margin-top: 25px;
+    padding-top: 15px;
+    border-top: 1px solid #f1f5f9;
+    text-align: center;
+}
