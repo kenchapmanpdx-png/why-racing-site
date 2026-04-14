@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page Not Found | WHY RACING EVENTS</title>
+    <meta name="description" content="The page you're looking for doesn't exist. Find your next PNW race on the WHY RACING EVENTS calendar.">
+    <meta name="robots" content="noindex, follow">
+
+    <link rel="canonical" href="https://whyracingevents.com/">
+    <link rel="icon" type="image/png" href="images/logos/new-why-racing-logo.png">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://whyracingevents.com/">
+    <meta property="og:title" content="Page Not Found | WHY RACING EVENTS">
+    <meta property="og:description" content="Find your next PNW race on the WHY RACING EVENTS calendar.">
+    <meta property="og:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
+
+    <!-- Structured Data -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "WHY RACING EVENTS",
+      "url": "https://whyracingevents.com",
+      "logo": "https://whyracingevents.com/images/logos/new-why-racing-logo.png"
+    }
+    </script>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Oswald:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
+    <link rel="stylesheet" href="assets/css/brand.css">
+
+    <style>
+        :root {
+            --brand-red: #E31837;
+            --brand-red-dark: #b8132c;
+            --brand-navy: #1a2744;
+            --dark: #0a0a0a;
+            --light: #ffffff;
+            --grey: #f8fafc;
+            --border: #e2e8f0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--dark);
+            color: var(--light);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ===== NAVBAR ===== */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 40px;
+            background: rgba(10,10,10,0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(227,24,55,0.2);
+        }
+
+        .logo img { height: 44px; }
+
+        .nav-links a {
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-left: 24px;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--brand-red); }
+
+        .nav-btn {
+            background: var(--brand-red);
+            color: #fff !important;
+            padding: 8px 20px;
+            border-radius: 4px;
+            font-size: 0.8rem !important;
+            font-weight: 700 !important;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: background 0.2s;
+            margin-left: 28px;
+        }
+
+        .nav-btn:hover { background: var(--brand-red-dark) !important; color: #fff !important; }
+
+        /* ===== 404 MAIN ===== */
+        main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 24px 80px;
+            text-align: center;
+        }
+
+        .error-container { max-width: 640px; }
+
+        .error-number {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(7rem, 20vw, 12rem);
+            font-weight: 700;
+            line-height: 1;
+            color: var(--brand-red);
+            letter-spacing: -0.02em;
+            text-shadow: 0 0 80px rgba(227,24,55,0.3);
+        }
+
+        .error-divider {
+            width: 60px;
+            height: 4px;
+            background: var(--brand-red);
+            margin: 24px auto;
+            border-radius: 2px;
+        }
+
+        .error-title {
+            font-family: 'Oswald', sans-serif;
+            font-size: clamp(1.4rem, 4vw, 2rem);
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 16px;
+        }
+
+        .error-message {
+            font-size: 1rem;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.7;
+            margin-bottom: 40px;
+        }
+
+        .error-actions {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--brand-red);
+            color: #fff;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            padding: 14px 28px;
+            border-radius: 4px;
+            transition: background 0.2s, transform 0.15s;
+        }
+
+        .btn-primary:hover {
+            background: var(--brand-red-dark);
+            transform: translateY(-1px);
+        }
+
+        .btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: rgba(255,255,255,0.85);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 14px 28px;
+            border-radius: 4px;
+            border: 1px solid rgba(255,255,255,0.25);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--brand-red);
+            color: var(--brand-red);
+        }
+
+        /* ===== QUICK LINKS ===== */
+        .quick-links {
+            margin-top: 64px;
+            padding-top: 40px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .quick-links-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 20px;
+        }
+
+        .quick-links-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+        }
+
+        .quick-link {
+            color: rgba(255,255,255,0.65);
+            text-decoration: none;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 6px 14px;
+            border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.12);
+            transition: border-color 0.2s, color 0.2s;
+        }
+
+        .quick-link:hover {
+            color: var(--brand-red);
+            border-color: var(--brand-red);
+        }
+
+        /* ===== FOOTER ===== */
+        footer {
+            background: #000;
+            border-top: 1px solid rgba(255,255,255,0.06);
+            padding: 24px 40px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .footer-copy {
+            font-size: 0.78rem;
+            color: rgba(255,255,255,0.4);
+        }
+
+        .footer-social {
+            display: flex;
+            gap: 16px;
+        }
+
+        .footer-social a {
+            color: rgba(255,255,255,0.4);
+            font-size: 1rem;
+            transition: color 0.2s;
+        }
+
+        .footer-social a:hover { color: var(--brand-red); }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            nav { padding: 12px 20px; }
+            .nav-links { display: none; }
+            footer { padding: 20px; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav>
+        <a href="index.html" class="logo">
+            <img src="images/logos/new-why-racing-logo.png" alt="WHY RACING EVENTS Home">
+        </a>
+        <div class="nav-links">
+            <a href="index.html">Home</a>
+            <a href="pages/training.html">Training</a>
+            <a href="pages/volunteers.html">Volunteer</a>
+            <a href="pages/beneficiary.html">Give Back</a>
+            <a href="pages/community.html">Community</a>
+            <a href="pages/locations.html">Travel</a>
+            <a href="pages/partners.html">Sponsors</a>
+            <a href="pages/about.html">About</a>
+        </div>
+        <a href="index.html#calendar" class="nav-btn">Find My Race</a>
+    </nav>
+
+    <main>
+        <div class="error-container">
+            <div class="error-number">404</div>
+            <div class="error-divider"></div>
+            <h1 class="error-title">Page Not Found</h1>
+            <p class="error-message">
+                Looks like this page took a wrong turn at mile 12.<br>
+                The page you're looking for doesn't exist or may have moved.
+            </p>
+            <div class="error-actions">
+                <a href="index.html#calendar" class="btn-primary">
+                    <i class="fas fa-flag-checkered"></i> View Race Calendar
+                </a>
+                <a href="index.html" class="btn-secondary">
+                    <i class="fas fa-home"></i> Go Home
+                </a>
+            </div>
+
+            <div class="quick-links">
+                <div class="quick-links-label">Or jump to</div>
+                <div class="quick-links-grid">
+                    <a href="pages/training.html" class="quick-link">Training</a>
+                    <a href="pages/volunteers.html" class="quick-link">Volunteer</a>
+                    <a href="pages/beneficiary.html" class="quick-link">Give Back</a>
+                    <a href="pages/community.html" class="quick-link">Community</a>
+                    <a href="pages/locations.html" class="quick-link">Travel Guide</a>
+                    <a href="pages/partners.html" class="quick-link">Sponsors</a>
+                    <a href="pages/about.html" class="quick-link">About</a>
+                    <a href="pages/first-5k.html" class="quick-link">First 5K</a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="footer-copy">&copy; 2025 WHY RACING EVENTS Inc. &bull; La Center, WA</div>
+        <div class="footer-social">
+            <a href="https://www.facebook.com/whyracingevents/" target="_blank" rel="noopener" title="Facebook">
+                <i class="fab fa-facebook-f"></i>
+            </a>
+            <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener" title="Instagram">
+                <i class="fab fa-instagram"></i>
+            </a>
+            <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter">
+                <i class="fab fa-twitter"></i>
+            </a>
+            <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube">
+                <i class="fab fa-youtube"></i>
+            </a>
+        </div>
+    </footer>
+
+</body>
+</html>

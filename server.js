@@ -73,7 +73,7 @@ const sanitizeData = (data) => {
 };
 
 const app = express();
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
 // === Rate Limiting ===
 const apiLimiter = rateLimit({
@@ -93,27 +93,23 @@ const chatLimiter = rateLimit({
 });
 
 app.use(compression());
-app.use(express.json({ limit: '50kb' }));
+app.use(express.json({ limit: '500kb' }));
 app.use(express.static('.'));
 
-// Apply rate limiting to API routes
-app.use('/api/', apiLimiter);
-app.use('/api/chat', chatLimiter);
-
-// Health check endpoint
+// Health check — registered before rate limiter so it's never throttled during an outage
 app.get('/api/health', async (req, res) => {
   const { count, error } = await supabase.from('races').select('*', { count: 'exact', head: true });
   res.json({
     status: 'ok',
     database: error ? 'error' : 'connected',
     count: count || 0,
-    error: error ? error.message : null,
-    env: {
-      has_url: !!process.env.NEXT_PUBLIC_SUPABASE_URL,
-      has_key: !!process.env.SUPABASE_SERVICE_ROLE_KEY
-    }
+    error: error ? error.message : null
   });
 });
+
+// Apply rate limiting to API routes
+app.use('/api/', apiLimiter);
+app.use('/api/chat', chatLimiter);
 
 // Public race calendar endpoint — used by index.html to populate the race grid
 app.get('/api/races', async (req, res) => {
@@ -173,8 +169,9 @@ app.get('/api/races', async (req, res) => {
 // This runs on server startup and allows races to be reused for next year
 async function archivePastRaces() {
   try {
-    // Get today's date in YYYY-MM-DD format
-    const today = new Date().toISOString().split('T')[0];
+    // Use Pacific time for the date boundary — races are PNW events and the cron runs at
+    // midnight UTC (= 4-5pm Pacific). Using UTC would archive same-day races mid-afternoon.
+    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
 
     // Find all active races where the race_date has passed
     const { data: pastRaces, error: fetchError } = await supabase
@@ -670,9 +667,19 @@ app.post('/api/chat', async (req, res) => {
     return res.status(400).json({ error: 'Messages array is required and must not be empty' });
   }
 
+  // Cap conversation length to prevent runaway token spend
+  const MAX_MESSAGES = 20;
+  const MAX_CONTENT_LENGTH = 2000;
+  if (messages.length > MAX_MESSAGES) {
+    return res.status(400).json({ error: `Conversation too long (max ${MAX_MESSAGES} messages)` });
+  }
+
   for (const msg of messages) {
     if (!msg.role || !msg.content || typeof msg.content !== 'string') {
       return res.status(400).json({ error: 'Each message must have a role and content string' });
+    }
+    if (msg.content.length > MAX_CONTENT_LENGTH) {
+      return res.status(400).json({ error: `Message content exceeds maximum length of ${MAX_CONTENT_LENGTH} characters` });
     }
   }
 
@@ -726,12 +733,17 @@ const adminAuth = (req, res, next) => {
   }
   const authHeader = req.headers.authorization;
   const expected = `Bearer ${process.env.ADMIN_SECRET}`;
-  // Use timing-safe comparison to prevent timing attacks
-  if (
-    !authHeader ||
-    authHeader.length !== expected.length ||
-    !crypto.timingSafeEqual(Buffer.from(authHeader), Buffer.from(expected))
-  ) {
+  try {
+    // Use timing-safe comparison to prevent timing attacks
+    if (
+      !authHeader ||
+      typeof authHeader !== 'string' ||
+      authHeader.length !== expected.length ||
+      !crypto.timingSafeEqual(Buffer.from(authHeader), Buffer.from(expected))
+    ) {
+      return res.status(401).json({ error: 'Unauthorized' });
+    }
+  } catch (e) {
     return res.status(401).json({ error: 'Unauthorized' });
   }
   next();
@@ -857,28 +869,6 @@ app.get('/api/races/all', adminAuth, async (req, res) => {
     console.error('Supabase Error (GET /api/races/all):', error);
     return res.status(500).json({ error: error.message });
   }
-  return res.status(200).json(data || []);
-});
-
-// Get public races (active and visible only)
-app.get('/api/races', async (req, res) => {
-  const { data, error } = await supabase
-    .from('races')
-    .select(`
-      *,
-      race_distances (*),
-      pricing_tiers (*)
-    `)
-    .eq('status', 'active')
-    .eq('is_visible', true)
-    .order('race_date', { ascending: true })
-    .limit(50);
-
-  if (error) {
-    console.error('Supabase Error (GET /api/races):', error);
-    return res.status(500).json({ error: error.message });
-  }
-  res.set('Cache-Control', 'public, max-age=300');
   return res.status(200).json(data || []);
 });
 
@@ -1025,44 +1015,51 @@ app.post('/api/races', adminAuth, async (req, res) => {
 
     const raceId = race.id;
 
+    // Helper for POST: rollback the created race then return 500
+    async function failCreate(msg, details) {
+      await supabase.from('races').delete().eq('id', raceId);
+      console.error(`POST /api/races rollback (${msg}):`, details);
+      return res.status(500).json({ error: msg, details: typeof details === 'string' ? details : details?.message });
+    }
+
     // 1. Insert Distances & Pricing
     if (distances && distances.length > 0) {
-      const distancesWithRaceId = distances.map((d, i) => ({
-        ...d,
-        race_id: raceId,
-        sort_order: i
-      }));
+      const distancesWithRaceId = distances.map((d, i) => ({ ...d, race_id: raceId, sort_order: i }));
       const { data: newDists, error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId).select();
-
-      if (!dError && pricing_config && newDists) {
+      if (dError) return failCreate('Failed to save race distances', dError);
+      if (pricing_config && newDists) {
         await applyGlobalPricing(raceId, newDists, pricing_config, supabase);
       }
     }
 
     // 2. Insert Multi-sport Details
     if (multisport_details) {
-      await supabase.from('multisport_details').insert({ ...multisport_details, race_id: raceId });
+      const { error: msErr } = await supabase.from('multisport_details').insert({ ...multisport_details, race_id: raceId });
+      if (msErr) return failCreate('Failed to save multisport details', msErr);
     }
 
     // 3. Insert Packet Pickup Locations
     if (packet_pickup_locations && packet_pickup_locations.length > 0) {
-      await supabase.from('packet_pickup_locations').insert(
+      const { error: pickupErr } = await supabase.from('packet_pickup_locations').insert(
         packet_pickup_locations.map((loc, i) => ({ ...loc, race_id: raceId, sort_order: i }))
       );
+      if (pickupErr) return failCreate('Failed to save packet pickup locations', pickupErr);
     }
 
     // 4. Insert Beneficiaries
     if (beneficiaries && beneficiaries.length > 0) {
-      await supabase.from('race_beneficiaries').insert(
+      const { error: benErr } = await supabase.from('race_beneficiaries').insert(
         beneficiaries.map((b, i) => ({ ...b, race_id: raceId, sort_order: i }))
       );
+      if (benErr) return failCreate('Failed to save beneficiaries', benErr);
     }
 
     // 5. Insert Sponsors
     if (sponsors && sponsors.length > 0) {
-      await supabase.from('race_sponsors').insert(
+      const { error: sponsorErr } = await supabase.from('race_sponsors').insert(
         sponsors.map((s, i) => ({ ...s, race_id: raceId, sort_order: i }))
       );
+      if (sponsorErr) return failCreate('Failed to save sponsors', sponsorErr);
     }
 
     return res.status(201).json(race);
@@ -1111,20 +1108,39 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
       return res.status(404).json({ error: 'Race not found' });
     }
 
+    // Helper: delete then re-insert child rows; returns error string or null.
+    // If delete succeeds but insert fails, the race is left with no children in that category.
+    // Returning a 500 prompts the admin to retry — the next attempt will re-delete (finds nothing)
+    // and re-insert cleanly.
+    async function replaceChildren(table, field, value, rows) {
+      const { error: delErr } = await supabase.from(table).delete().eq(field, value);
+      if (delErr) return `delete from ${table} failed: ${delErr.message}`;
+      if (!rows || rows.length === 0) return null;
+      const { error: insErr } = await supabase.from(table).insert(rows);
+      if (insErr) return `insert into ${table} failed: ${insErr.message}`;
+      return null;
+    }
+
     // 2. Handle distances
     if (distances) {
-      await supabase.from('race_distances').delete().eq('race_id', id);
       if (distances.length > 0) {
-        const distancesWithRaceId = distances.map((d, i) => ({
-          ...d,
-          race_id: id,
-          sort_order: i
-        }));
+        const distancesWithRaceId = distances.map((d, i) => ({ ...d, race_id: id, sort_order: i }));
+        const { error: delErr } = await supabase.from('race_distances').delete().eq('race_id', id);
+        if (delErr) {
+          console.error(`Error deleting distances for race ${id}:`, delErr);
+          return res.status(500).json({ error: 'Failed to update distances', details: delErr.message });
+        }
         const { data: newDists, error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId).select();
-
-        if (!dError && pricing_config && newDists) {
+        if (dError) {
+          console.error(`Error inserting distances for race ${id}:`, dError);
+          return res.status(500).json({ error: 'Failed to save distances — please try saving again', details: dError.message });
+        }
+        if (pricing_config && newDists) {
           await applyGlobalPricing(id, newDists, pricing_config, supabase);
         }
+      } else {
+        // Empty array explicitly sent — wipe all distances
+        await supabase.from('race_distances').delete().eq('race_id', id);
       }
     }
 
@@ -1132,45 +1148,60 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
     if (multisport_details) {
       await supabase.from('multisport_details').delete().eq('race_id', id);
       if (Object.values(multisport_details).some(v => v !== null && v !== '')) {
-        await supabase.from('multisport_details').insert({ ...multisport_details, race_id: id });
+        const { error: msErr } = await supabase.from('multisport_details').insert({ ...multisport_details, race_id: id });
+        if (msErr) {
+          console.error(`Error saving multisport details for race ${id}:`, msErr);
+          return res.status(500).json({ error: 'Failed to save multisport details — please try saving again', details: msErr.message });
+        }
       }
     }
 
     // 4. Handle Packet Pickup Locations
     if (packet_pickup_locations) {
-      await supabase.from('packet_pickup_locations').delete().eq('race_id', id);
-      if (packet_pickup_locations.length > 0) {
-        await supabase.from('packet_pickup_locations').insert(
-          packet_pickup_locations.map((loc, i) => ({ ...loc, race_id: id, sort_order: i }))
-        );
+      const pickupErr = await replaceChildren(
+        'packet_pickup_locations', 'race_id', id,
+        packet_pickup_locations.map((loc, i) => ({ ...loc, race_id: id, sort_order: i }))
+      );
+      if (pickupErr) {
+        console.error(`Error updating packet pickup for race ${id}:`, pickupErr);
+        return res.status(500).json({ error: 'Failed to save packet pickup locations — please try saving again', details: pickupErr });
       }
     }
 
     // 5. Handle Beneficiaries
     if (beneficiaries) {
-      await supabase.from('race_beneficiaries').delete().eq('race_id', id);
-      if (beneficiaries.length > 0) {
-        await supabase.from('race_beneficiaries').insert(
-          beneficiaries.map((b, i) => ({ ...b, race_id: id, sort_order: i }))
-        );
+      const benErr = await replaceChildren(
+        'race_beneficiaries', 'race_id', id,
+        beneficiaries.map((b, i) => ({ ...b, race_id: id, sort_order: i }))
+      );
+      if (benErr) {
+        console.error(`Error updating beneficiaries for race ${id}:`, benErr);
+        return res.status(500).json({ error: 'Failed to save beneficiaries — please try saving again', details: benErr });
       }
     }
 
     // 6. Handle Sponsors
     if (sponsors) {
-      await supabase.from('race_sponsors').delete().eq('race_id', id);
-      if (sponsors.length > 0) {
-        await supabase.from('race_sponsors').insert(
-          sponsors.map((s, i) => ({ ...s, race_id: id, sort_order: i }))
-        );
+      const sponsorErr = await replaceChildren(
+        'race_sponsors', 'race_id', id,
+        sponsors.map((s, i) => ({ ...s, race_id: id, sort_order: i }))
+      );
+      if (sponsorErr) {
+        console.error(`Error updating sponsors for race ${id}:`, sponsorErr);
+        return res.status(500).json({ error: 'Failed to save sponsors — please try saving again', details: sponsorErr });
       }
     }
 
     // Legacy support for direct pricing_tiers
     if (!pricing_config && pricing_tiers) {
-      await supabase.from('pricing_tiers').delete().eq('race_id', id);
-      const tiersWithRaceId = pricing_tiers.map(t => ({ ...t, race_id: id }));
-      await supabase.from('pricing_tiers').insert(tiersWithRaceId);
+      const tierErr = await replaceChildren(
+        'pricing_tiers', 'race_id', id,
+        pricing_tiers.map(t => ({ ...t, race_id: id }))
+      );
+      if (tierErr) {
+        console.error(`Error updating pricing tiers for race ${id}:`, tierErr);
+        return res.status(500).json({ error: 'Failed to save pricing tiers — please try saving again', details: tierErr });
+      }
     }
     return res.status(200).json({ success: true });
   } catch (err) {
@@ -1244,6 +1275,7 @@ app.post('/api/races/:id/faqs', adminAuth, async (req, res) => {
 
 app.put('/api/faqs/:faqId', adminAuth, async (req, res) => {
   const { faqId } = req.params;
+  if (!isValidUUID(faqId)) return res.status(400).json({ error: 'Invalid FAQ ID' });
   const { data, error } = await supabase.from('race_faqs').update(req.body).eq('id', faqId).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json(data);
@@ -1251,6 +1283,7 @@ app.put('/api/faqs/:faqId', adminAuth, async (req, res) => {
 
 app.delete('/api/faqs/:faqId', adminAuth, async (req, res) => {
   const { faqId } = req.params;
+  if (!isValidUUID(faqId)) return res.status(400).json({ error: 'Invalid FAQ ID' });
   const { error } = await supabase.from('race_faqs').delete().eq('id', faqId);
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ success: true });
@@ -1272,6 +1305,7 @@ app.post('/api/races/:id/policies', adminAuth, async (req, res) => {
 
 app.delete('/api/policies/:policyId', adminAuth, async (req, res) => {
   const { policyId } = req.params;
+  if (!isValidUUID(policyId)) return res.status(400).json({ error: 'Invalid policy ID' });
   const { error } = await supabase.from('race_policies').delete().eq('id', policyId);
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ success: true });
@@ -1289,6 +1323,7 @@ app.post('/api/races/:id/sponsors', adminAuth, async (req, res) => {
 
 app.put('/api/sponsors/:sponsorId', adminAuth, async (req, res) => {
   const { sponsorId } = req.params;
+  if (!isValidUUID(sponsorId)) return res.status(400).json({ error: 'Invalid sponsor ID' });
   const { data, error } = await supabase.from('race_sponsors').update(req.body).eq('id', sponsorId).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json(data);
@@ -1296,6 +1331,7 @@ app.put('/api/sponsors/:sponsorId', adminAuth, async (req, res) => {
 
 app.delete('/api/sponsors/:sponsorId', adminAuth, async (req, res) => {
   const { sponsorId } = req.params;
+  if (!isValidUUID(sponsorId)) return res.status(400).json({ error: 'Invalid sponsor ID' });
   const { error } = await supabase.from('race_sponsors').delete().eq('id', sponsorId);
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ success: true });
@@ -1313,6 +1349,7 @@ app.post('/api/races/:id/beneficiaries', adminAuth, async (req, res) => {
 
 app.delete('/api/beneficiaries/:beneficiaryId', adminAuth, async (req, res) => {
   const { beneficiaryId } = req.params;
+  if (!isValidUUID(beneficiaryId)) return res.status(400).json({ error: 'Invalid beneficiary ID' });
   const { error } = await supabase.from('race_beneficiaries').delete().eq('id', beneficiaryId);
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ success: true });
@@ -1330,6 +1367,7 @@ app.post('/api/races/:id/packet-pickup', adminAuth, async (req, res) => {
 
 app.delete('/api/packet-pickup/:pickupId', adminAuth, async (req, res) => {
   const { pickupId } = req.params;
+  if (!isValidUUID(pickupId)) return res.status(400).json({ error: 'Invalid packet pickup ID' });
   const { error } = await supabase.from('packet_pickup_locations').delete().eq('id', pickupId);
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json({ success: true });
@@ -1935,7 +1973,8 @@ app.post('/api/signup', async (req, res) => {
     const cleanLast = lastName?.trim().slice(0, 100) || null;
     const cleanSource = (source || 'website').slice(0, 50);
 
-    // Upsert to Supabase
+    // Insert or ignore on duplicate email — do not overwrite existing name data.
+    // A returning subscriber shouldn't have their name clobbered by a repeat signup.
     const { error } = await supabase
       .from('email_signups')
       .upsert(
@@ -1945,7 +1984,7 @@ app.post('/api/signup', async (req, res) => {
           last_name: cleanLast,
           source: cleanSource,
         },
-        { onConflict: 'email' }
+        { onConflict: 'email', ignoreDuplicates: true }
       );
 
     if (error) {
@@ -1985,10 +2024,11 @@ app.get('/api/cron/export-signups', async (req, res) => {
   try {
     const snapshotTime = new Date().toISOString();
 
-    // Fetch unexported signups
+    // Fetch unexported signups — include id so we can update by exact IDs,
+    // avoiding a race window between the select filter and the later update filter.
     const { data: signups, error: fetchError } = await supabase
       .from('email_signups')
-      .select('email, first_name, last_name, source, created_at')
+      .select('id, email, first_name, last_name, source, created_at')
       .eq('exported', false)
       .lte('created_at', snapshotTime)
       .order('created_at', { ascending: true });
@@ -2046,17 +2086,24 @@ app.get('/api/cron/export-signups', async (req, res) => {
       ],
     });
 
-    // Mark as exported
+    // Mark exactly the rows we emailed as exported — update by ID to prevent
+    // any rows that arrived after snapshotTime from being silently skipped.
+    const exportedIds = signups.map(s => s.id);
     const { error: updateError } = await supabase
       .from('email_signups')
       .update({
         exported: true,
         exported_at: new Date().toISOString(),
       })
-      .eq('exported', false)
-      .lte('created_at', snapshotTime);
+      .in('id', exportedIds);
 
-    if (updateError) console.error('Update error:', updateError);
+    if (updateError) {
+      console.error('Export cron: failed to mark rows exported after email was sent:', updateError);
+      // Email was already delivered — return 500 so Vercel logs the failure and does not
+      // silently continue. On next run the same rows will be re-exported (duplicate email)
+      // until this is resolved manually or the rows are marked exported in Supabase.
+      return res.status(500).json({ error: 'Email sent but failed to mark rows exported', details: updateError.message });
+    }
 
     return res.json({ success: true, count: signups.length });
   } catch (err) {

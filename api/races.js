@@ -37,8 +37,6 @@ module.exports = async (req, res) => {
 
     try {
         console.log('[API] Initializing Supabase client...');
-        console.log('[API] Key length:', supabaseKey ? supabaseKey.length : 0);
-        console.log('[API] URL exists:', !!supabaseUrl);
 
         const { createClient } = require('@supabase/supabase-js');
         const supabase = createClient(supabaseUrl, supabaseKey);
@@ -76,28 +74,7 @@ module.exports = async (req, res) => {
 
         if (error) {
             console.error('[API] Supabase error:', error);
-
-            let anonResult = 'not_tested';
-            const anonKey = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY;
-            if (anonKey && anonKey !== supabaseKey) {
-                try {
-                    const anonClient = createClient(supabaseUrl, anonKey);
-                    const { error: anonError } = await anonClient.from('races').select('id').limit(1);
-                    anonResult = anonError ? 'Failed: ' + anonError.message : 'SUCCESS';
-                } catch (e) {
-                    anonResult = 'Error: ' + e.message;
-                }
-            }
-
-            return res.status(500).json({
-                error: 'Database error',
-                details: error.message,
-                diagnostic: {
-                    keyLength: supabaseKey ? supabaseKey.length : 0,
-                    url: supabaseUrl.substring(0, 25) + '...',
-                    anonTest: anonResult
-                }
-            });
+            return res.status(500).json({ error: 'Database temporarily unavailable. Please try again.' });
         }
 
         return res.status(200).json(races || []);

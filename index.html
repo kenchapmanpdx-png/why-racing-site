@@ -72,6 +72,8 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
         rel="stylesheet">
+    <!-- Preload hero video so browser fetches it immediately, not after window.load -->
+    <link rel="preload" href="videos/Hero4.mp4" as="video" type="video/mp4">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
@@ -245,6 +247,11 @@
             position: absolute;
             top: 0;
             left: 0;
+            /* Promote to GPU compositing layer — decouples video playback
+               from the main thread so JS activity can't cause frame drops */
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .hero-overlay {
@@ -2250,12 +2257,15 @@
                 countdownEl.innerHTML = `${d}<span>d</span> ${h}<span>h</span> ${m}<span>m</span>`;
             }
 
-            setInterval(updateStickyCountdown, 60000);
+            var _stickyInterval = setInterval(updateStickyCountdown, 60000);
+            window.addEventListener('pagehide', function () { clearInterval(_stickyInterval); });
             updateStickyCountdown();
         }
 
-        // Inject hero videos after load to satisfy static linters
-        window.addEventListener('load', function () {
+        // Inject hero videos at DOMContentLoaded (not window.load) so the browser
+        // can start buffering the video file in parallel with images/scripts,
+        // rather than waiting for everything else to finish first.
+        document.addEventListener('DOMContentLoaded', function () {
             const heroBg = document.getElementById('heroBg');
             const heroBgMobile = document.getElementById('heroBgMobile');
 
@@ -2264,6 +2274,7 @@
                 video.autoplay = true;
                 video.muted = true;
                 video.loop = true;
+                video.preload = 'auto'; // aggressively buffer the full file
                 video.playbackRate = 0.75;
                 video.setAttribute('playsinline', '');
                 video.poster = "images/Scrapedimages/our-lifestyle-img.jpg";
@@ -2279,6 +2290,7 @@
                 video.autoplay = true;
                 video.muted = true;
                 video.loop = true;
+                video.preload = 'auto';
                 video.playbackRate = 0.75;
                 video.setAttribute('playsinline', '');
                 const source = document.createElement('source');
@@ -2295,9 +2307,25 @@
         function updateRegCount() {
             var randomAdd = Math.floor(Math.random() * 3);
             baseCount += randomAdd;
-            regCounter.innerText = baseCount.toLocaleString();
+            if (regCounter) regCounter.innerText = baseCount.toLocaleString();
         }
-        setInterval(updateRegCount, 15000);
+        var _regCountInterval = setInterval(updateRegCount, 15000);
+
+        // Clean up intervals when page is hidden/navigated away to prevent memory leaks
+        window.addEventListener('pagehide', function () {
+            clearInterval(_regCountInterval);
+        });
+
+        // Escape user-controlled strings before inserting into innerHTML
+        function escapeHtml(str) {
+            if (str == null) return '';
+            return String(str)
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
 
         // Create race card HTML for database races
         function createDynamicRaceCard(race, index = 0) {
@@ -2320,7 +2348,13 @@
             const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
             const regUrl = window.formatExternalUrl(race.registration_url) || '#';
-            const infoUrl = window.formatExternalUrl(race.instructions_pdf_url || race.registration_url) || '#';
+            // When registration is closed and there's no separate info PDF, don't link the
+            // card body to the registrar — that would bypass the "Coming Soon" button state.
+            const hasInfoPdf = !!race.instructions_pdf_url;
+            const cardClickUrl = hasInfoPdf
+                ? window.formatExternalUrl(race.instructions_pdf_url)
+                : (race.registration_open ? window.formatExternalUrl(race.registration_url) : null);
+            const infoUrl = cardClickUrl || '#';
 
 
 
@@ -2328,8 +2362,14 @@
                 ? `<a href="${regUrl}" target="_blank" rel="noopener" class="card-cta" style="background: var(--brand-red); text-decoration: none; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; font-weight: 800; width: 100%; border-radius: 6px;">Register Now</a>`
                 : `<span class="card-cta" style="background: #ccc; cursor: not-allowed; display: flex; align-items: center; justify-content: center; padding: 14px; font-size: 13px; color: #666; width: 100%; border-radius: 6px;">Coming Soon</span>`;
 
+            const safeName = escapeHtml(race.name);
+            const safeCity = escapeHtml(race.city || 'TBA');
+            const safeState = race.state ? ', ' + escapeHtml(race.state) : '';
+            const safeDistanceText = escapeHtml(distanceText);
+            const safeInfoUrl = escapeHtml(infoUrl);
+
             const logoHtml = race.logo_url
-                ? `<img src="${race.logo_url}" alt="${race.name} logo" class="card-logo" loading="lazy">`
+                ? `<img src="${escapeHtml(race.logo_url)}" alt="${safeName} logo" class="card-logo" loading="lazy">`
                 : '';
 
             const card = document.createElement('div');
@@ -2340,23 +2380,23 @@
             card.style.transitionDelay = `${index * 0.05}s`;
 
             card.innerHTML = `
-                <div class="card-img-container skeleton" onclick="showRaceDetails('${infoUrl}')" style="cursor: pointer;">
-                    <img src="${cardImage}" alt="${race.name}" loading="lazy" class="loading" onload="this.classList.remove('loading'); this.parentElement.classList.remove('skeleton')" style="${race.name.includes('Bigfoot') ? 'object-position: center 25%' : ''}">
+                <div class="card-img-container skeleton" onclick="showRaceDetails('${safeInfoUrl}')" style="cursor: pointer;">
+                    <img src="${escapeHtml(cardImage)}" alt="${safeName}" loading="lazy" class="loading" onload="this.classList.remove('loading'); this.parentElement.classList.remove('skeleton')" style="${race.name && race.name.includes('Bigfoot') ? 'object-position: center 25%' : ''}">
                 </div>
                 <div class="card-body">
-                    <div onclick="showRaceDetails('${infoUrl}')" style="cursor: pointer;">
-                        <span class="card-date">${dateStr}</span>
+                    <div onclick="showRaceDetails('${safeInfoUrl}')" style="cursor: pointer;">
+                        <span class="card-date">${escapeHtml(dateStr)}</span>
                         <h3 class="card-title">
-                            ${race.name || 'New Race'}
+                            ${safeName || 'New Race'}
                             ${race.name && race.name.toLowerCase().includes('girlfriend') ? ' <i class="fas fa-ribbon" style="color: #ff69b4;" title="Breast Cancer Awareness"></i>' : ''}
                         </h3>
                     </div>
                     <div style="margin-top: auto;">
-                        <div onclick="showRaceDetails('${infoUrl}')" style="cursor: pointer;">
+                        <div onclick="showRaceDetails('${safeInfoUrl}')" style="cursor: pointer;">
                             <div class="card-meta-row">
                                 <div class="card-meta" style="margin-bottom: 0; padding-top: 0; border-top: none;">
-                                    <span><i class="fas fa-route"></i> ${distanceText}</span>
-                                    <span><i class="fas fa-map-marker-alt"></i> ${race.city || 'TBA'}${race.state ? ', ' + race.state : ''}</span>
+                                    <span><i class="fas fa-route"></i> ${safeDistanceText}</span>
+                                    <span><i class="fas fa-map-marker-alt"></i> ${safeCity}${safeState}</span>
                                 </div>
                                 ${logoHtml}
                             </div>
@@ -2413,6 +2453,59 @@
             });
         }
 
+        // Inject SportsEvent JSON-LD schema for search engines
+        function injectEventSchema(races) {
+            var existing = document.getElementById('ld-json-events');
+            if (existing) existing.remove();
+            if (!Array.isArray(races) || races.length === 0) return;
+
+            var items = races
+                .filter(function(r) { return r.race_date && r.name && r.is_visible && r.status === 'active'; })
+                .map(function(r, i) {
+                    var locationName = r.venue || (r.city ? r.city + (r.state ? ', ' + r.state : '') : 'Pacific Northwest');
+                    var item = {
+                        '@type': 'SportsEvent',
+                        name: r.name,
+                        startDate: r.race_date,
+                        location: {
+                            '@type': 'Place',
+                            name: locationName,
+                            address: {
+                                '@type': 'PostalAddress',
+                                addressLocality: r.city || '',
+                                addressRegion: r.state || '',
+                                addressCountry: 'US'
+                            }
+                        },
+                        organizer: {
+                            '@type': 'Organization',
+                            name: 'WHY RACING EVENTS',
+                            url: 'https://whyracingevents.com'
+                        },
+                        eventStatus: 'https://schema.org/EventScheduled',
+                        eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode'
+                    };
+                    if (r.registration_url) item.url = r.registration_url;
+                    if (r.hero_image_url || r.thumbnail_url) item.image = r.hero_image_url || r.thumbnail_url;
+                    return { '@type': 'ListItem', position: i + 1, item: item };
+                });
+
+            if (items.length === 0) return;
+
+            var schema = {
+                '@context': 'https://schema.org',
+                '@type': 'ItemList',
+                name: 'WHY RACING EVENTS Race Calendar',
+                itemListElement: items
+            };
+
+            var script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.id = 'ld-json-events';
+            script.textContent = JSON.stringify(schema);
+            document.head.appendChild(script);
+        }
+
         // Load and insert database races
         async function loadHomepageRaces() {
             const grids = {
@@ -2437,27 +2530,56 @@
 
             Object.values(grids).forEach(grid => { if (grid) grid.innerHTML = skeletonHtml; });
 
-            // 1. Try Cache First
-            const cached = localStorage.getItem('why_races_cache');
-            if (cached) {
-                try {
-                    const races = JSON.parse(cached);
-                    renderRacesToGraces(races, grids);
-                    initStickyBar(races);
-                } catch (e) { localStorage.removeItem('why_races_cache'); }
+            const CACHE_KEY = 'why_races_cache';
+            const CACHE_TTL_MS = 2 * 60 * 60 * 1000; // 2 hours
+
+            function showApiError(msg) {
+                Object.values(grids).forEach(g => { if (g) g.innerHTML = ''; });
+                const errEl = document.getElementById('apiError');
+                if (errEl) errEl.style.display = 'block';
+                const detailEl = document.getElementById('errorDetails');
+                if (detailEl && msg) detailEl.textContent = msg;
             }
 
-            // 2. Fetch Fresh Data
+            // 1. Try Cache First (with TTL)
+            const cached = localStorage.getItem(CACHE_KEY);
+            if (cached) {
+                try {
+                    const { races, ts } = JSON.parse(cached);
+                    if (Array.isArray(races) && (Date.now() - ts) < CACHE_TTL_MS) {
+                        renderRacesToGraces(races, grids);
+                        injectEventSchema(races);
+                        initStickyBar(races);
+                    } else {
+                        localStorage.removeItem(CACHE_KEY);
+                    }
+                } catch (e) { localStorage.removeItem(CACHE_KEY); }
+            }
+
+            // 2. Fetch Fresh Data (10-second timeout)
             try {
-                const response = await fetch('/api/races');
+                const controller = new AbortController();
+                const timeoutId = setTimeout(() => controller.abort(), 10000);
+                let response;
+                try {
+                    response = await fetch('/api/races', { signal: controller.signal });
+                } finally {
+                    clearTimeout(timeoutId);
+                }
                 if (response.ok) {
                     const races = await response.json();
-                    localStorage.setItem('why_races_cache', JSON.stringify(races));
+                    localStorage.setItem(CACHE_KEY, JSON.stringify({ races, ts: Date.now() }));
                     renderRacesToGraces(races, grids);
+                    injectEventSchema(races);
                     initStickyBar(races);
+                } else {
+                    console.error('API Error:', response.status, response.statusText);
+                    // Only show error if we also have no cached data to fall back on
+                    if (!cached) showApiError(`Status ${response.status}`);
                 }
             } catch (error) {
                 console.error('API Error:', error);
+                if (!cached) showApiError(error.name === 'AbortError' ? 'Request timed out' : error.message);
             }
         }
 
