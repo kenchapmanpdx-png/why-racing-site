@@ -67,6 +67,19 @@ const supabase = new Proxy({}, {
   }
 });
 
+// Strip server-managed fields from client-supplied payloads before DB writes.
+// Prevents mass-assignment attacks where an authenticated admin (or stolen
+// token) could tamper with primary keys, timestamps, or foreign keys on rows
+// targeted by other URL params (e.g. an FAQ for race A being moved to race B).
+const PROTECTED_FIELDS = ['id', 'created_at', 'updated_at', 'inserted_at', 'deleted_at'];
+const stripProtectedFields = (body, extra = []) => {
+  if (!body || typeof body !== 'object' || Array.isArray(body)) return {};
+  const clean = { ...body };
+  for (const field of PROTECTED_FIELDS) delete clean[field];
+  for (const field of extra) delete clean[field];
+  return clean;
+};
+
 // Helper to sanitize data (convert empty strings to null for DB)
 const sanitizeData = (data) => {
   const sanitized = { ...data };
@@ -107,6 +120,18 @@ const chatLimiter = rateLimit({
   message: { error: 'Chat rate limit reached. Please wait a moment.' }
 });
 
+// CSP report endpoint gets its own bucket — a single misconfigured directive on a
+// popular page can fire dozens of reports per visit. We don't want that to exhaust
+// the legit /api/ budget for the same client.
+const cspReportLimiter = rateLimit({
+  windowMs: 60 * 1000, // 1 minute
+  max: 30,
+  standardHeaders: false,
+  legacyHeaders: false,
+  // Browsers don't show response bodies for CSP report POSTs; keep it silent.
+  handler: (req, res) => res.status(429).end()
+});
+
 app.use(compression());
 app.use(express.json({ limit: '500kb' }));
 app.use(express.static('.'));
@@ -121,6 +146,53 @@ app.get('/api/health', async (req, res) => {
     error: error ? error.message : null
   });
 });
+
+// CSP violation reports — receives JSON POSTs from browsers when a directive in our
+// Content-Security-Policy-Report-Only header is violated. Logged to Vercel runtime
+// logs (greppable as "[CSP]") so we can tighten the policy before flipping it from
+// report-only to enforcing. Mounted BEFORE apiLimiter so report storms can't lock
+// real users out of /api/.
+//
+// Browsers send these with two different content-types depending on which reporting
+// API fired: legacy `report-uri` uses application/csp-report, modern `report-to`
+// uses application/reports+json. We accept both plus regular JSON for testing.
+app.post(
+  '/api/csp-report',
+  cspReportLimiter,
+  express.json({
+    type: ['application/csp-report', 'application/reports+json', 'application/json'],
+    limit: '50kb'
+  }),
+  (req, res) => {
+    try {
+      const body = req.body || {};
+      // Legacy report-uri payload: { "csp-report": { ... } }
+      // Modern report-to payload: [{ "type": "csp-violation", "body": { ... } }, ...]
+      const reports = Array.isArray(body)
+        ? body.filter(r => r && (r.type === 'csp-violation' || r.body)).map(r => r.body || r)
+        : [body['csp-report'] || body];
+
+      for (const r of reports) {
+        if (!r || typeof r !== 'object') continue;
+        // Compact one-liner — easy to grep, easy to scan in Vercel log stream.
+        console.warn('[CSP]', JSON.stringify({
+          directive: r['violated-directive'] || r.effectiveDirective || r.violatedDirective,
+          blocked: r['blocked-uri'] || r.blockedURL || r.blockedURI,
+          document: r['document-uri'] || r.documentURL,
+          source: r['source-file'] || r.sourceFile,
+          line: r['line-number'] || r.lineNumber,
+          disposition: r.disposition,
+          ua: req.headers['user-agent']
+        }));
+      }
+    } catch (err) {
+      // Never let a malformed report take down the endpoint.
+      console.warn('[CSP] parse error:', err.message);
+    }
+    // Browsers ignore the response body; 204 keeps it cheap.
+    res.status(204).end();
+  }
+);
 
 // Apply rate limiting to API routes
 app.use('/api/', apiLimiter);
@@ -1012,7 +1084,7 @@ app.post('/api/races', adminAuth, async (req, res) => {
   } = req.body;
 
   const cleanRaceData = sanitizeData({
-    ...raceData,
+    ...stripProtectedFields(raceData),
     distances: distances_display
   });
 
@@ -1039,7 +1111,7 @@ app.post('/api/races', adminAuth, async (req, res) => {
 
     // 1. Insert Distances & Pricing
     if (distances && distances.length > 0) {
-      const distancesWithRaceId = distances.map((d, i) => ({ ...d, race_id: raceId, sort_order: i }));
+      const distancesWithRaceId = distances.map((d, i) => ({ ...stripProtectedFields(d, ['race_id']), race_id: raceId, sort_order: i }));
       const { data: newDists, error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId).select();
       if (dError) return failCreate('Failed to save race distances', dError);
       if (pricing_config && newDists) {
@@ -1049,14 +1121,14 @@ app.post('/api/races', adminAuth, async (req, res) => {
 
     // 2. Insert Multi-sport Details
     if (multisport_details) {
-      const { error: msErr } = await supabase.from('multisport_details').insert({ ...multisport_details, race_id: raceId });
+      const { error: msErr } = await supabase.from('multisport_details').insert({ ...stripProtectedFields(multisport_details, ['race_id']), race_id: raceId });
       if (msErr) return failCreate('Failed to save multisport details', msErr);
     }
 
     // 3. Insert Packet Pickup Locations
     if (packet_pickup_locations && packet_pickup_locations.length > 0) {
       const { error: pickupErr } = await supabase.from('packet_pickup_locations').insert(
-        packet_pickup_locations.map((loc, i) => ({ ...loc, race_id: raceId, sort_order: i }))
+        packet_pickup_locations.map((loc, i) => ({ ...stripProtectedFields(loc, ['race_id']), race_id: raceId, sort_order: i }))
       );
       if (pickupErr) return failCreate('Failed to save packet pickup locations', pickupErr);
     }
@@ -1064,7 +1136,7 @@ app.post('/api/races', adminAuth, async (req, res) => {
     // 4. Insert Beneficiaries
     if (beneficiaries && beneficiaries.length > 0) {
       const { error: benErr } = await supabase.from('race_beneficiaries').insert(
-        beneficiaries.map((b, i) => ({ ...b, race_id: raceId, sort_order: i }))
+        beneficiaries.map((b, i) => ({ ...stripProtectedFields(b, ['race_id']), race_id: raceId, sort_order: i }))
       );
       if (benErr) return failCreate('Failed to save beneficiaries', benErr);
     }
@@ -1072,7 +1144,7 @@ app.post('/api/races', adminAuth, async (req, res) => {
     // 5. Insert Sponsors
     if (sponsors && sponsors.length > 0) {
       const { error: sponsorErr } = await supabase.from('race_sponsors').insert(
-        sponsors.map((s, i) => ({ ...s, race_id: raceId, sort_order: i }))
+        sponsors.map((s, i) => ({ ...stripProtectedFields(s, ['race_id']), race_id: raceId, sort_order: i }))
       );
       if (sponsorErr) return failCreate('Failed to save sponsors', sponsorErr);
     }
@@ -1103,7 +1175,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
   } = req.body;
 
   const cleanRaceData = sanitizeData({
-    ...raceData,
+    ...stripProtectedFields(raceData),
     distances: distances_display
   });
 
@@ -1139,7 +1211,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
     // 2. Handle distances
     if (distances) {
       if (distances.length > 0) {
-        const distancesWithRaceId = distances.map((d, i) => ({ ...d, race_id: id, sort_order: i }));
+        const distancesWithRaceId = distances.map((d, i) => ({ ...stripProtectedFields(d, ['race_id']), race_id: id, sort_order: i }));
         const { error: delErr } = await supabase.from('race_distances').delete().eq('race_id', id);
         if (delErr) {
           console.error(`Error deleting distances for race ${id}:`, delErr);
@@ -1163,7 +1235,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
     if (multisport_details) {
       await supabase.from('multisport_details').delete().eq('race_id', id);
       if (Object.values(multisport_details).some(v => v !== null && v !== '')) {
-        const { error: msErr } = await supabase.from('multisport_details').insert({ ...multisport_details, race_id: id });
+        const { error: msErr } = await supabase.from('multisport_details').insert({ ...stripProtectedFields(multisport_details, ['race_id']), race_id: id });
         if (msErr) {
           console.error(`Error saving multisport details for race ${id}:`, msErr);
           return res.status(500).json({ error: 'Failed to save multisport details — please try saving again', details: msErr.message });
@@ -1175,7 +1247,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
     if (packet_pickup_locations) {
       const pickupErr = await replaceChildren(
         'packet_pickup_locations', 'race_id', id,
-        packet_pickup_locations.map((loc, i) => ({ ...loc, race_id: id, sort_order: i }))
+        packet_pickup_locations.map((loc, i) => ({ ...stripProtectedFields(loc, ['race_id']), race_id: id, sort_order: i }))
       );
       if (pickupErr) {
         console.error(`Error updating packet pickup for race ${id}:`, pickupErr);
@@ -1187,7 +1259,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
     if (beneficiaries) {
       const benErr = await replaceChildren(
         'race_beneficiaries', 'race_id', id,
-        beneficiaries.map((b, i) => ({ ...b, race_id: id, sort_order: i }))
+        beneficiaries.map((b, i) => ({ ...stripProtectedFields(b, ['race_id']), race_id: id, sort_order: i }))
       );
       if (benErr) {
         console.error(`Error updating beneficiaries for race ${id}:`, benErr);
@@ -1199,7 +1271,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
     if (sponsors) {
       const sponsorErr = await replaceChildren(
         'race_sponsors', 'race_id', id,
-        sponsors.map((s, i) => ({ ...s, race_id: id, sort_order: i }))
+        sponsors.map((s, i) => ({ ...stripProtectedFields(s, ['race_id']), race_id: id, sort_order: i }))
       );
       if (sponsorErr) {
         console.error(`Error updating sponsors for race ${id}:`, sponsorErr);
@@ -1211,7 +1283,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
     if (!pricing_config && pricing_tiers) {
       const tierErr = await replaceChildren(
         'pricing_tiers', 'race_id', id,
-        pricing_tiers.map(t => ({ ...t, race_id: id }))
+        pricing_tiers.map(t => ({ ...stripProtectedFields(t, ['race_id']), race_id: id }))
       );
       if (tierErr) {
         console.error(`Error updating pricing tiers for race ${id}:`, tierErr);
@@ -1281,7 +1353,7 @@ app.put('/api/races/:id/content', adminAuth, async (req, res) => {
 // FAQs CRUD
 app.post('/api/races/:id/faqs', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const faqData = { ...req.body, race_id: id };
+  const faqData = { ...stripProtectedFields(req.body, ['race_id']), race_id: id };
 
   const { data, error } = await supabase.from('race_faqs').insert(faqData).select().single();
   if (error) return res.status(500).json({ error: error.message });
@@ -1291,7 +1363,7 @@ app.post('/api/races/:id/faqs', adminAuth, async (req, res) => {
 app.put('/api/faqs/:faqId', adminAuth, async (req, res) => {
   const { faqId } = req.params;
   if (!isValidUUID(faqId)) return res.status(400).json({ error: 'Invalid FAQ ID' });
-  const { data, error } = await supabase.from('race_faqs').update(req.body).eq('id', faqId).select().single();
+  const { data, error } = await supabase.from('race_faqs').update(stripProtectedFields(req.body, ['race_id'])).eq('id', faqId).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json(data);
 });
@@ -1307,7 +1379,7 @@ app.delete('/api/faqs/:faqId', adminAuth, async (req, res) => {
 // Policies CRUD
 app.post('/api/races/:id/policies', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const policyData = { ...req.body, race_id: id };
+  const policyData = { ...stripProtectedFields(req.body, ['race_id']), race_id: id };
 
   const { data, error } = await supabase
     .from('race_policies')
@@ -1329,7 +1401,7 @@ app.delete('/api/policies/:policyId', adminAuth, async (req, res) => {
 // Sponsors CRUD
 app.post('/api/races/:id/sponsors', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const sponsorData = { ...req.body, race_id: id };
+  const sponsorData = { ...stripProtectedFields(req.body, ['race_id']), race_id: id };
 
   const { data, error } = await supabase.from('race_sponsors').insert(sponsorData).select().single();
   if (error) return res.status(500).json({ error: error.message });
@@ -1339,7 +1411,7 @@ app.post('/api/races/:id/sponsors', adminAuth, async (req, res) => {
 app.put('/api/sponsors/:sponsorId', adminAuth, async (req, res) => {
   const { sponsorId } = req.params;
   if (!isValidUUID(sponsorId)) return res.status(400).json({ error: 'Invalid sponsor ID' });
-  const { data, error } = await supabase.from('race_sponsors').update(req.body).eq('id', sponsorId).select().single();
+  const { data, error } = await supabase.from('race_sponsors').update(stripProtectedFields(req.body, ['race_id'])).eq('id', sponsorId).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json(data);
 });
@@ -1355,7 +1427,7 @@ app.delete('/api/sponsors/:sponsorId', adminAuth, async (req, res) => {
 // Beneficiaries CRUD
 app.post('/api/races/:id/beneficiaries', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const beneficiaryData = { ...req.body, race_id: id };
+  const beneficiaryData = { ...stripProtectedFields(req.body, ['race_id']), race_id: id };
 
   const { data, error } = await supabase.from('race_beneficiaries').insert(beneficiaryData).select().single();
   if (error) return res.status(500).json({ error: error.message });
@@ -1373,7 +1445,7 @@ app.delete('/api/beneficiaries/:beneficiaryId', adminAuth, async (req, res) => {
 // Packet Pickup CRUD
 app.post('/api/races/:id/packet-pickup', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const pickupData = { ...req.body, race_id: id };
+  const pickupData = { ...stripProtectedFields(req.body, ['race_id']), race_id: id };
 
   const { data, error } = await supabase.from('packet_pickup_locations').insert(pickupData).select().single();
   if (error) return res.status(500).json({ error: error.message });
@@ -1391,7 +1463,7 @@ app.delete('/api/packet-pickup/:pickupId', adminAuth, async (req, res) => {
 // Multi-Sport Details (upsert)
 app.put('/api/races/:id/multisport', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const multisportData = { ...req.body, race_id: id };
+  const multisportData = { ...stripProtectedFields(req.body, ['race_id']), race_id: id };
 
   const { data, error } = await supabase
     .from('multisport_details')
@@ -1405,7 +1477,7 @@ app.put('/api/races/:id/multisport', adminAuth, async (req, res) => {
 // Themed Event Content (upsert)
 app.put('/api/races/:id/themed-content', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const themedData = { ...req.body, race_id: id };
+  const themedData = { ...stripProtectedFields(req.body, ['race_id']), race_id: id };
 
   const { data, error } = await supabase
     .from('themed_event_content')
@@ -1475,14 +1547,14 @@ app.get('/api/training-clubs', async (req, res) => {
 });
 
 app.post('/api/training-clubs', adminAuth, async (req, res) => {
-  const { data, error } = await supabase.from('training_clubs').insert(req.body).select().single();
+  const { data, error } = await supabase.from('training_clubs').insert(stripProtectedFields(req.body)).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(201).json(data);
 });
 
 app.put('/api/training-clubs/:id', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const { data, error } = await supabase.from('training_clubs').update(req.body).eq('id', id).select().single();
+  const { data, error } = await supabase.from('training_clubs').update(stripProtectedFields(req.body)).eq('id', id).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json(data);
 });
@@ -1503,14 +1575,14 @@ app.get('/api/beneficiaries', async (req, res) => {
 });
 
 app.post('/api/beneficiaries', adminAuth, async (req, res) => {
-  const { data, error } = await supabase.from('beneficiaries').insert(req.body).select().single();
+  const { data, error } = await supabase.from('beneficiaries').insert(stripProtectedFields(req.body)).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(201).json(data);
 });
 
 app.put('/api/beneficiaries/:id', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const { data, error } = await supabase.from('beneficiaries').update(req.body).eq('id', id).select().single();
+  const { data, error } = await supabase.from('beneficiaries').update(stripProtectedFields(req.body)).eq('id', id).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json(data);
 });
@@ -1531,14 +1603,14 @@ app.get('/api/team-members', async (req, res) => {
 });
 
 app.post('/api/team-members', adminAuth, async (req, res) => {
-  const { data, error } = await supabase.from('team_members').insert(req.body).select().single();
+  const { data, error } = await supabase.from('team_members').insert(stripProtectedFields(req.body)).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(201).json(data);
 });
 
 app.put('/api/team-members/:id', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const { data, error } = await supabase.from('team_members').update(req.body).eq('id', id).select().single();
+  const { data, error } = await supabase.from('team_members').update(stripProtectedFields(req.body)).eq('id', id).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json(data);
 });
@@ -1559,14 +1631,14 @@ app.get('/api/global-sponsors', async (req, res) => {
 });
 
 app.post('/api/global-sponsors', adminAuth, async (req, res) => {
-  const { data, error } = await supabase.from('global_sponsors').insert(req.body).select().single();
+  const { data, error } = await supabase.from('global_sponsors').insert(stripProtectedFields(req.body)).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(201).json(data);
 });
 
 app.put('/api/global-sponsors/:id', adminAuth, async (req, res) => {
   const { id } = req.params;
-  const { data, error } = await supabase.from('global_sponsors').update(req.body).eq('id', id).select().single();
+  const { data, error } = await supabase.from('global_sponsors').update(stripProtectedFields(req.body)).eq('id', id).select().single();
   if (error) return res.status(500).json({ error: error.message });
   return res.status(200).json(data);
 });
