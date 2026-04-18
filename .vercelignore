@@ -1,0 +1,23 @@
+# Admin / ETL scripts — not part of the deployed app
+schema/
+add_distance_types.js
+add_distances_col.js
+fix_index.js
+update_distances.js
+update_index.js
+
+# Old hero videos (unused — active video is videos/Hero4.mp4)
+hero-animation-2026.mp4
+hero-video.mp4
+
+# Replit artifacts
+.replit
+replit.md
+
+# Dev/docs (README, replit.md, etc.)
+*.md
+
+# Env files (belt & suspenders — .gitignore already covers these)
+.env
+.env.local
+.env.*.local

@@ -1,5 +1,20 @@
 require('dotenv').config({ path: '.env.local' });
 require('dotenv').config(); // Also load standard .env if present
+
+// === Sentry (must init BEFORE other requires that it auto-instruments) ===
+// No-op if SENTRY_DSN is not set, so local dev and un-configured deploys are unaffected.
+const Sentry = require('@sentry/node');
+if (process.env.SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    environment: process.env.VERCEL_ENV || process.env.NODE_ENV || 'development',
+    tracesSampleRate: 0.1,
+    // Don't capture user PII by default
+    sendDefaultPii: false
+  });
+  console.log('✓ Sentry initialized');
+}
+
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
@@ -1880,6 +1895,12 @@ app.post('/api/global-sponsors/upload', adminAuth, (req, res) => {
     }
   });
 });
+
+// Sentry error handler — must be registered AFTER all routes but BEFORE any other
+// error-handling middleware. No-op when SENTRY_DSN is unset.
+if (process.env.SENTRY_DSN) {
+  Sentry.setupExpressErrorHandler(app);
+}
 
 // For local development
 if (require.main === module) {

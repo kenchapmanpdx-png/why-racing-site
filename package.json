@@ -11,6 +11,7 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
+    "@sentry/node": "^10.49.0",
     "@supabase/supabase-js": "^2.45.0",
     "compression": "^1.8.1",
     "dotenv": "^17.2.3",

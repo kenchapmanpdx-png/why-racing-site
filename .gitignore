@@ -39,3 +39,7 @@ env/
 # Backup and archive files (should not be tracked)
 *.bak
 *.zip
+
+# Tool artifacts
+.claude/
+.playwright-mcp/

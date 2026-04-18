@@ -72,8 +72,9 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
         rel="stylesheet">
-    <!-- Preload hero video so browser fetches it immediately, not after window.load -->
-    <link rel="preload" href="videos/Hero4.mp4" as="video" type="video/mp4">
+    <!-- NOTE: <link rel="preload" as="video"> was removed — Chrome warns it's unsupported
+         for ranged media fetches. The <video preload="auto"> attribute plus DOMContentLoaded
+         injection (see bottom of file) already warms the network cache. -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
     <noscript>
@@ -2637,86 +2638,122 @@
         });
     </script>
 
-    <!-- Chatbot Widget -->
+    <!-- Chatbot Widget (vanilla JS — no React/Babel) -->
     <div id="chatbot-root"></div>
-    <script defer src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
-    <script defer src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
-    <script defer src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
-    <script type="text/babel">
-        function WhyRacingChatbot() {
-            const [isOpen, setIsOpen] = React.useState(false);
-            const [messages, setMessages] = React.useState([
-                { role: 'assistant', content: "Hi! ?? I'm your WHY RACING EVENTS assistant. Ask me about our 2026 events, registration, course records, packet pickup times, or anything else!" }
-            ]);
-            const [input, setInput] = React.useState('');
-            const [isLoading, setIsLoading] = React.useState(false);
-            const messagesEndRef = React.useRef(null);
-
-            React.useEffect(() => {
-                messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
-            }, [messages]);
-
-            const sendMessage = async () => {
-                if (!input.trim() || isLoading) return;
-                const userMessage = input.trim();
-                setInput('');
-                setMessages(prev => [...prev, { role: 'user', content: userMessage }]);
-                setIsLoading(true);
-                try {
-                    const response = await fetch('/api/chat', {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({ messages: [...messages.slice(1), { role: 'user', content: userMessage }] })
-                    });
-                    const data = await response.json();
-                    const assistantMessage = data.content?.[0]?.text || "Sorry, I couldn't process that. Please try again!";
-                    setMessages(prev => [...prev, { role: 'assistant', content: assistantMessage }]);
-                } catch (error) {
-                    setMessages(prev => [...prev, { role: 'assistant', content: "Oops! Something went wrong. Please contact us at info@whyracingevents.com or call (360) 314-4682" }]);
-                } finally {
-                    setIsLoading(false);
-                }
-            };
-
-            const handleKeyPress = (e) => { if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); } };
-
-            return (
-                <>
-                    <style>{`
+    <style>
         @keyframes chatBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+        #why-chat-toggle { position: fixed; bottom: 24px; right: 24px; width: 60px; height: 60px; background: linear-gradient(135deg, #E31837 0%, #000000 100%); border-radius: 50%; border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 20px rgba(227, 24, 55, 0.4); z-index: 9999; transition: transform 0.2s, box-shadow 0.2s; }
         #why-chat-toggle:hover { transform: scale(1.05); box-shadow: 0 6px 25px rgba(227, 24, 55, 0.5); }
+        #why-chat-panel { position: fixed; bottom: 100px; right: 24px; width: 400px; max-width: calc(100vw - 48px); height: 550px; max-height: calc(100vh - 140px); background: #fff; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.15); display: flex; flex-direction: column; overflow: hidden; z-index: 9999; border: 1px solid rgba(0,0,0,0.08); }
+        #why-chat-panel[hidden] { display: none; }
+        #why-chat-header { background: linear-gradient(135deg, #E31837 0%, #000000 100%); color: #fff; padding: 20px; display: flex; align-items: center; gap: 12px; }
+        #why-chat-header h3 { margin: 0; font-size: 18px; font-weight: bold; }
+        #why-chat-header p { margin: 0; font-size: 12px; opacity: 0.9; }
+        #why-chat-messages { flex: 1; overflow-y: auto; padding: 20px; background: #f8fafc; display: flex; flex-direction: column; gap: 16px; }
+        .why-chat-row { display: flex; }
+        .why-chat-row.user { justify-content: flex-end; }
+        .why-chat-row.assistant { justify-content: flex-start; }
+        .why-chat-bubble { max-width: 85%; padding: 12px 16px; font-size: 14px; line-height: 1.5; }
+        .why-chat-row.user .why-chat-bubble { border-radius: 18px 18px 4px 18px; background: linear-gradient(135deg, #E31837 0%, #000000 100%); color: #fff; }
+        .why-chat-row.assistant .why-chat-bubble { border-radius: 18px 18px 18px 4px; background: #fff; color: #1f2937; box-shadow: 0 2px 8px rgba(0,0,0,0.06); border: 1px solid rgba(0,0,0,0.04); }
+        .why-chat-typing { display: flex; gap: 6px; }
+        .why-chat-typing span { width: 8px; height: 8px; background: #cbd5e1; border-radius: 50%; animation: chatBounce 0.6s infinite; }
+        .why-chat-typing span:nth-child(2) { animation-delay: 150ms; }
+        .why-chat-typing span:nth-child(3) { animation-delay: 300ms; }
+        #why-chat-inputbar { padding: 16px 20px; background: #fff; border-top: 1px solid #e5e7eb; display: flex; gap: 12px; align-items: center; }
+        #why-chat-input { flex: 1; padding: 12px 18px; border-radius: 25px; border: 2px solid #e5e7eb; font-size: 14px; outline: none; }
         #why-chat-input:focus { border-color: #E31837; }
+        #why-send-btn { width: 44px; height: 44px; border-radius: 50%; background: linear-gradient(135deg, #E31837 0%, #000000 100%); border: none; cursor: pointer; display: flex; align-items: center; justify-content: center; }
         #why-send-btn:hover:not(:disabled) { transform: scale(1.05); }
         #why-send-btn:disabled { opacity: 0.5; cursor: not-allowed; }
-      `}</style>
-                    <button id="why-chat-toggle" onClick={() => setIsOpen(!isOpen)} style={{ position: 'fixed', bottom: '24px', right: '24px', width: '60px', height: '60px', background: 'linear-gradient(135deg, #E31837 0%, #000000 100%)', borderRadius: '50%', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 4px 20px rgba(227, 24, 55, 0.4)', zIndex: 9999, transition: 'transform 0.2s, box-shadow 0.2s' }} aria-label="Toggle chat">
-                        {isOpen ? <svg width="24" height="24" fill="none" stroke="#fff" strokeWidth="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg> : <svg width="28" height="28" fill="none" stroke="#fff" strokeWidth="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>}
-                    </button>
-                    {isOpen && (
-                        <div style={{ position: 'fixed', bottom: '100px', right: '24px', width: '400px', maxWidth: 'calc(100vw - 48px)', height: '550px', maxHeight: 'calc(100vh - 140px)', background: '#fff', borderRadius: '20px', boxShadow: '0 10px 40px rgba(0,0,0,0.15)', display: 'flex', flexDirection: 'column', overflow: 'hidden', zIndex: 9999, border: '1px solid rgba(0,0,0,0.08)' }}>
-                            <div style={{ background: 'linear-gradient(135deg, #E31837 0%, #000000 100%)', color: '#fff', padding: '20px', display: 'flex', alignItems: 'center', gap: '12px' }}>
-                                <div style={{ width: '45px', height: '45px', background: 'rgba(255,255,255,0.2)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '24px' }}>??</div>
-                                <div><h3 style={{ margin: 0, fontSize: '18px', fontWeight: 'bold' }}>WHY RACING EVENTS</h3><p style={{ margin: 0, fontSize: '12px', opacity: 0.9 }}>Ask about events, registration, and more!</p></div>
-                            </div>
-                            <div style={{ flex: 1, overflowY: 'auto', padding: '20px', background: '#f8fafc', display: 'flex', flexDirection: 'column', gap: '16px' }}>
-                                {messages.map((msg, i) => (
-                                    <div key={i} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
-                                        <div style={{ maxWidth: '85%', padding: '12px 16px', borderRadius: msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px', background: msg.role === 'user' ? 'linear-gradient(135deg, #E31837 0%, #000000 100%)' : '#fff', color: msg.role === 'user' ? '#fff' : '#1f2937', fontSize: '14px', lineHeight: '1.5', boxShadow: msg.role === 'user' ? 'none' : '0 2px 8px rgba(0,0,0,0.06)', border: msg.role === 'user' ? 'none' : '1px solid rgba(0,0,0,0.04)' }}>{msg.content}</div>
-                                    </div>
-                                ))}
-                                {isLoading && <div style={{ display: 'flex', justifyContent: 'flex-start' }}><div style={{ padding: '12px 16px', borderRadius: '18px 18px 18px 4px', background: '#fff', boxShadow: '0 2px 8px rgba(0,0,0,0.06)' }}><div style={{ display: 'flex', gap: '6px' }}><span style={{ width: '8px', height: '8px', background: '#cbd5e1', borderRadius: '50%', animation: 'chatBounce 0.6s infinite 0ms' }} /><span style={{ width: '8px', height: '8px', background: '#cbd5e1', borderRadius: '50%', animation: 'chatBounce 0.6s infinite 150ms' }} /><span style={{ width: '8px', height: '8px', background: '#cbd5e1', borderRadius: '50%', animation: 'chatBounce 0.6s infinite 300ms' }} /></div></div></div>}
-                                <div ref={messagesEndRef} />
-                            </div>
-                            <div style={{ padding: '16px 20px', background: '#fff', borderTop: '1px solid #e5e7eb', display: 'flex', gap: '12px', alignItems: 'center' }}>
-                                <input id="why-chat-input" type="text" value={input} onChange={(e) => setInput(e.target.value)} onKeyPress={handleKeyPress} placeholder="Ask about events, registration..." style={{ flex: 1, padding: '12px 18px', borderRadius: '25px', border: '2px solid #e5e7eb', fontSize: '14px', outline: 'none' }} disabled={isLoading} />
-                                <button id="why-send-btn" onClick={sendMessage} disabled={isLoading || !input.trim()} style={{ width: '44px', height: '44px', borderRadius: '50%', background: 'linear-gradient(135deg, #E31837 0%, #000000 100%)', border: 'none', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}><svg width="20" height="20" fill="none" stroke="#fff" strokeWidth="2"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg></button>
-                            </div>
-                        </div>
-                    )}
-                </>
-            );
-        }
-        ReactDOM.createRoot(document.getElementById('chatbot-root')).render(<WhyRacingChatbot />);
+    </style>
+    <script>
+        (function () {
+            var root = document.getElementById('chatbot-root');
+            if (!root) return;
+
+            var isOpen = false;
+            var isLoading = false;
+            var messages = [
+                { role: 'assistant', content: "Hi! I'm your WHY RACING EVENTS assistant. Ask me about our 2026 events, registration, course records, packet pickup times, or anything else!" }
+            ];
+
+            var ICON_CHAT = '<svg width="28" height="28" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>';
+            var ICON_CLOSE = '<svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18" /><line x1="6" y1="6" x2="18" y2="18" /></svg>';
+            var ICON_SEND = '<svg width="20" height="20" fill="none" stroke="#fff" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13" /><polygon points="22 2 15 22 11 13 2 9 22 2" /></svg>';
+
+            root.innerHTML = [
+                '<button id="why-chat-toggle" aria-label="Toggle chat">' + ICON_CHAT + '</button>',
+                '<div id="why-chat-panel" hidden>',
+                '  <div id="why-chat-header">',
+                '    <div><h3>WHY RACING EVENTS</h3><p>Ask about events, registration, and more!</p></div>',
+                '  </div>',
+                '  <div id="why-chat-messages"></div>',
+                '  <div id="why-chat-inputbar">',
+                '    <input id="why-chat-input" type="text" placeholder="Ask about events, registration..." />',
+                '    <button id="why-send-btn" aria-label="Send">' + ICON_SEND + '</button>',
+                '  </div>',
+                '</div>'
+            ].join('');
+
+            var toggleBtn = document.getElementById('why-chat-toggle');
+            var panel = document.getElementById('why-chat-panel');
+            var msgList = document.getElementById('why-chat-messages');
+            var input = document.getElementById('why-chat-input');
+            var sendBtn = document.getElementById('why-send-btn');
+
+            function escapeHTML(s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); }
+
+            function render() {
+                var html = messages.map(function (m) {
+                    return '<div class="why-chat-row ' + m.role + '"><div class="why-chat-bubble">' + escapeHTML(m.content) + '</div></div>';
+                }).join('');
+                if (isLoading) {
+                    html += '<div class="why-chat-row assistant"><div class="why-chat-bubble"><div class="why-chat-typing"><span></span><span></span><span></span></div></div></div>';
+                }
+                msgList.innerHTML = html;
+                msgList.scrollTop = msgList.scrollHeight;
+                sendBtn.disabled = isLoading || !input.value.trim();
+            }
+
+            function togglePanel() {
+                isOpen = !isOpen;
+                panel.hidden = !isOpen;
+                toggleBtn.innerHTML = isOpen ? ICON_CLOSE : ICON_CHAT;
+                if (isOpen) { render(); setTimeout(function () { input.focus(); }, 50); }
+            }
+
+            async function sendMessage() {
+                var text = input.value.trim();
+                if (!text || isLoading) return;
+                input.value = '';
+                messages.push({ role: 'user', content: text });
+                isLoading = true;
+                render();
+                try {
+                    var res = await fetch('/api/chat', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ messages: messages.slice(1) })
+                    });
+                    var data = await res.json();
+                    var reply = (data.content && data.content[0] && data.content[0].text) || "Sorry, I couldn't process that. Please try again!";
+                    messages.push({ role: 'assistant', content: reply });
+                } catch (e) {
+                    messages.push({ role: 'assistant', content: "Oops! Something went wrong. Please contact us at info@whyracingevents.com or call (360) 314-4682" });
+                } finally {
+                    isLoading = false;
+                    render();
+                }
+            }
+
+            toggleBtn.addEventListener('click', togglePanel);
+            sendBtn.addEventListener('click', sendMessage);
+            input.addEventListener('input', function () { sendBtn.disabled = isLoading || !input.value.trim(); });
+            input.addEventListener('keydown', function (e) {
+                if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendMessage(); }
+            });
+        })();
     </script>
 
     <script defer src="assets/js/signup-form.js"></script>
