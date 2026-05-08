@@ -453,6 +453,28 @@
             margin: 0 auto;
         }
 
+        /* Partner Events grid — 70% size of main tiles, auto-fit chronological */
+        .event-grid-partner {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        .event-grid-partner .event-card {
+            font-size: 0.85em;
+        }
+        .event-grid-partner .card-logo {
+            height: 42px;
+            max-width: 126px;
+        }
+        .partner-events-section {
+            margin-top: 60px;
+        }
+        .partner-events-section .section-header {
+            margin-bottom: 30px;
+        }
+
         /* FILTER BAR */
         .filter-bar {
             background: white;
@@ -1944,6 +1966,17 @@
             </div>
         </div>
 
+        <!-- PARTNER EVENTS — smaller tiles, chronological, no quarter grouping -->
+        <div class="partner-events-section section q-alt" id="partner-section">
+            <div class="section-header">
+                <h2>Partner Events</h2>
+                <p>Curated races from our PNW partners</p>
+            </div>
+            <div class="event-grid event-grid-partner">
+                <!-- Dynamically loaded from DB -->
+            </div>
+        </div>
+
 
     </section>
 
@@ -2411,6 +2444,26 @@
             return card;
         }
 
+        // Detect partner-hosted races (Bivouac / X-Dog) by their registration URL
+        // host or logo_url substring. This is the most reliable signal short of a
+        // dedicated `is_partner_race` DB column — both fields are admin-controlled
+        // and stable for the existing partners. To onboard a new partner: either
+        // register at their domain (caught automatically) or extend the lists
+        // below.
+        const PARTNER_HOSTS = ['xdogadventures.org', 'bivouacracing.com'];
+        const PARTNER_LOGO_HINTS = ['x-dog', 'xdog', 'bivouac'];
+        function isPartnerRace(race) {
+            try {
+                const reg = race.registration_url || '';
+                if (reg) {
+                    const host = (new URL(reg)).hostname.replace(/^www\./, '').toLowerCase();
+                    if (PARTNER_HOSTS.some(h => host === h || host.endsWith('.' + h))) return true;
+                }
+            } catch (e) { /* malformed URL — fall through */ }
+            const logo = (race.logo_url || '').toLowerCase();
+            return PARTNER_LOGO_HINTS.some(h => logo.includes(h));
+        }
+
         // Render functions for race grids
         function renderRacesToGraces(races, grids) {
             const visibleRaces = races.filter(r => r.is_visible && r.status === 'active');
@@ -2429,10 +2482,20 @@
             });
 
             // Counters for staggered delay per section
-            const counters = { 'Q1': 0, 'Q2': 0, 'Q3': 0, 'Q4': 0 };
+            const counters = { 'Q1': 0, 'Q2': 0, 'Q3': 0, 'Q4': 0, 'PARTNER': 0 };
 
             visibleRaces.forEach(race => {
                 if (!race.race_date) return;
+
+                // Partner races bypass quarter grouping and go to a single
+                // chronological list at the bottom (already sorted by date).
+                if (isPartnerRace(race)) {
+                    if (fragments['PARTNER']) {
+                        fragments['PARTNER'].appendChild(createDynamicRaceCard(race, counters['PARTNER']++));
+                    }
+                    return;
+                }
+
                 const month = new Date(race.race_date + 'T00:00:00').getMonth() + 1;
                 const quarter = month <= 3 ? 'Q1' : month <= 6 ? 'Q2' : month <= 9 ? 'Q3' : 'Q4';
 
@@ -2508,7 +2571,8 @@
                 'Q1': document.querySelector('#q1-section .event-grid'),
                 'Q2': document.querySelector('#q2-section .event-grid'),
                 'Q3': document.querySelector('#q3-section .event-grid'),
-                'Q4': document.querySelector('#q4-section .event-grid')
+                'Q4': document.querySelector('#q4-section .event-grid'),
+                'PARTNER': document.querySelector('#partner-section .event-grid')
             };
 
             // Show skeletons immediately
@@ -2586,7 +2650,7 @@
 
             var filterBtns = document.querySelectorAll('.filter-btn');
             var noResults = document.getElementById('noResults');
-            var sections = document.querySelectorAll('.calendar-quarter-section');
+            var sections = document.querySelectorAll('.calendar-quarter-section, .partner-events-section');
 
             filterBtns.forEach(function (btn) {
                 btn.addEventListener('click', function () {
