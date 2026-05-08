@@ -130,7 +130,7 @@
                 const list = document.getElementById('sponsorsList');
                 list.innerHTML = '<p>Loading sponsors from database...</p>';
                 try {
-                    const response = await fetch('/api/global-sponsors', {
+                    const response = await fetch('/api/global-sponsors', { cache: 'no-store',
                         headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
                     });
 

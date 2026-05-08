@@ -145,7 +145,7 @@
             const list = document.getElementById('clubsList');
             list.innerHTML = '<p>Loading clubs from database...</p>';
             try {
-                const response = await fetch('/api/training-clubs', {
+                const response = await fetch('/api/training-clubs', { cache: 'no-store',
                     headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
                 });
 

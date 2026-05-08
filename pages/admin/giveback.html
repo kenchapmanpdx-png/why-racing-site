@@ -134,7 +134,7 @@
             const list = document.getElementById('beneficiariesList');
             list.innerHTML = '<p>Loading beneficiaries from database...</p>';
             try {
-                const response = await fetch('/api/beneficiaries', {
+                const response = await fetch('/api/beneficiaries', { cache: 'no-store',
                     headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
                 });
 

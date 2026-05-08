@@ -142,7 +142,7 @@
                 const list = document.getElementById('membersList');
                 list.innerHTML = '<p>Loading team members from database...</p>';
                 try {
-                    const response = await fetch('/api/team-members', {
+                    const response = await fetch('/api/team-members', { cache: 'no-store',
                         headers: { 'Authorization': `Bearer ${sessionStorage.getItem('ADMIN_SECRET')}` }
                     });
 

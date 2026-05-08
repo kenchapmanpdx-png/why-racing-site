@@ -347,7 +347,7 @@
 
         async function loadRaces() {
             try {
-                const response = await fetch('/api/races/all', {
+                const response = await fetch('/api/races/all', { cache: 'no-store',
                     headers: {
                         'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
                     }
