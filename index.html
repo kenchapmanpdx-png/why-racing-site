@@ -2360,17 +2360,35 @@
         function createDynamicRaceCard(race, index = 0) {
             const distances = race.race_distances || [];
             const distanceText = race.distances || distances.map(d => d.name || d.distance_value).join(' / ') || 'Details TBA';
-            const filterKeywords = distances.map(d => {
-                const type = (d.distance_type || d.name || '').toLowerCase();
-                if (type.includes('5k')) return '5k';
-                if (type.includes('10k')) return '10k';
-                if (type.includes('half marathon')) return 'half';
-                if (type.includes('marathon')) return 'marathon';
-                if (type.includes('ultra')) return 'ultra';
-                if (type.includes('trail')) return 'trail';
-                if (type.includes('triathlon')) return 'triathlon';
+            // Map a free-text label (race_distances entry OR fallback name match)
+            // onto one of the filter chip ids.
+            const labelToFilter = (text) => {
+                const t = (text || '').toLowerCase();
+                if (t.includes('half marathon')) return 'half';
+                if (t.includes('marathon')) return 'marathon';
+                if (t.includes('ultra')) return 'ultra';
+                if (t.includes('triathlon') || t.includes(' tri ') || /\btri\b/.test(t)) return 'triathlon';
+                if (t.includes('trail') || t.includes('scramble') || t.includes('snowshoe')) return 'trail';
+                if (t.includes('10k')) return '10k';
+                if (t.includes('5k')) return '5k';
                 return '';
-            }).filter(k => k).join(' ');
+            };
+            let kw = new Set(distances.map(d => labelToFilter(d.distance_type || d.name)).filter(Boolean));
+            // Fallback: when race_distances is empty (common for partner races)
+            // scan the race name itself so the filter chips still catch something.
+            // Best-effort only — populate race_distances in admin for accurate
+            // categorization.
+            if (kw.size === 0) {
+                const fromName = labelToFilter(race.name);
+                if (fromName) kw.add(fromName);
+                // catch multi-distance names ("5K & 10K", "5K/10K/Half")
+                const t = (race.name || '').toLowerCase();
+                if (/\b5k\b/.test(t)) kw.add('5k');
+                if (/\b10k\b/.test(t)) kw.add('10k');
+                if (t.includes('half')) kw.add('half');
+                if (/\bmarathon\b/.test(t) && !t.includes('half marathon')) kw.add('marathon');
+            }
+            const filterKeywords = Array.from(kw).join(' ');
 
             const cardImage = race.thumbnail_url || race.hero_image_url || 'images/action/hagg-lake-run.jpg';
             const date = new Date(race.race_date + 'T00:00:00');
