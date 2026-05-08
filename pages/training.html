@@ -146,6 +146,19 @@
         }
 
         /* --- ANIMATED HERO --- */
+        /* Full-bleed hero video (replaces the multi-photo collage) */
+        .hero-bg-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+            pointer-events: none;
+        }
+
         .hero {
             position: relative;
             padding: 180px 5% 120px;
@@ -804,7 +817,9 @@
     </div>
 
     <header class="hero" id="main-content">
-        <div class="hero-collage"></div>
+        <video class="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="../images/Scrapedimages/our-lifestyle-img.jpg">
+            <source src="../videos/Hero4.mp4" type="video/mp4">
+        </video>
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>PNW Training Programs: Master Your <span class="brand-red-text">Journey.</span></h1>
@@ -812,6 +827,73 @@
                 cross every finish line with confidence.</p>
         </div>
     </header>
+
+    <!-- COMMITMENT BAR -->
+    <div class="commitment-bar">
+        <p><i class="fas fa-trophy"></i> We are 100% committed to providing you with the guidance, support, resources
+            and various types of training programs to help inspire you every step of the way.</p>
+    </div>
+
+    <!-- RUNNING CLUBS -->
+    <section>
+        <div class="container">
+            <div class="section-header reveal">
+                                <h2>Running Clubs</h2>
+                <p>Join a local running community and take your training to the next level.</p>
+            </div>
+            <div class="resource-grid" id="running-clubs-list">
+                <!-- Fetching dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- BIKING CLUBS -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="section-header reveal">
+                                <h2>Biking Clubs</h2>
+                <p>Ride with a crew that pushes you further on every climb.</p>
+            </div>
+            <div class="resource-grid" id="biking-clubs-list">
+                <!-- Fetching dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- TRIATHLON TRAINING CLUBS -->
+    <section class="section-grey">
+        <div class="container">
+            <div class="section-header reveal">
+                                <h2>Triathlon Training Clubs</h2>
+                <p>Swim, bike, run — train with the best multi-sport teams in the region.</p>
+            </div>
+            <div class="resource-grid" id="triathlon-clubs-list">
+                <!-- Fetching dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- PERSONAL TRAINING & COACHES -->
+    <section class="section-dark">
+        <div class="container">
+            <div class="section-header reveal">
+                                <h2>Personal Training & Coaches</h2>
+                <p>One-on-one expertise to help you reach your goals faster.</p>
+            </div>
+            <div class="resource-grid" id="coaches-list">
+                <!-- Fetching dynamically -->
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container reveal">
+            <h2>Ready to Start <span>Training?</span></h2>
+            <p>Find your next race, set your goal, and let these incredible resources help you crush it.</p>
+            <a href="../index.html#calendar" class="btn-cta">Find Your Race</a>
+        </div>
+    </section>
 
     <!-- SPONSOR TICKER -->
     <div class="sponsor-ticker">
@@ -891,77 +973,6 @@
                     src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
         </div>
     </div>
-
-    <!-- COMMITMENT BAR -->
-    <div class="commitment-bar">
-        <p><i class="fas fa-trophy"></i> We are 100% committed to providing you with the guidance, support, resources
-            and various types of training programs to help inspire you every step of the way.</p>
-    </div>
-
-    <!-- RUNNING CLUBS -->
-    <section>
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="category-icon">??</span>
-                <h2>Running Clubs</h2>
-                <p>Join a local running community and take your training to the next level.</p>
-            </div>
-            <div class="resource-grid" id="running-clubs-list">
-                <!-- Fetching dynamically -->
-            </div>
-        </div>
-    </section>
-
-    <!-- BIKING CLUBS -->
-    <section class="section-dark">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="category-icon">??</span>
-                <h2>Biking Clubs</h2>
-                <p>Ride with a crew that pushes you further on every climb.</p>
-            </div>
-            <div class="resource-grid" id="biking-clubs-list">
-                <!-- Fetching dynamically -->
-            </div>
-        </div>
-    </section>
-
-    <!-- TRIATHLON TRAINING CLUBS -->
-    <section class="section-grey">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="category-icon">??</span>
-                <h2>Triathlon Training Clubs</h2>
-                <p>Swim, bike, run — train with the best multi-sport teams in the region.</p>
-            </div>
-            <div class="resource-grid" id="triathlon-clubs-list">
-                <!-- Fetching dynamically -->
-            </div>
-        </div>
-    </section>
-
-    <!-- PERSONAL TRAINING & COACHES -->
-    <section class="section-dark">
-        <div class="container">
-            <div class="section-header reveal">
-                <span class="category-icon">??</span>
-                <h2>Personal Training & Coaches</h2>
-                <p>One-on-one expertise to help you reach your goals faster.</p>
-            </div>
-            <div class="resource-grid" id="coaches-list">
-                <!-- Fetching dynamically -->
-            </div>
-        </div>
-    </section>
-
-    <!-- CTA -->
-    <section class="cta-section">
-        <div class="container reveal">
-            <h2>Ready to Start <span>Training?</span></h2>
-            <p>Find your next race, set your goal, and let these incredible resources help you crush it.</p>
-            <a href="../index.html#calendar" class="btn-cta">Find Your Race ?</a>
-        </div>
-    </section>
 
     <footer>
         <div class="footer-container">
@@ -1051,7 +1062,7 @@
 
         revealElements.forEach(el => revealObserver.observe(el));
     </script>
-    <script defer src="../assets/js/collage.js"></script>
+    <script>document.querySelectorAll(".hero-bg-video").forEach(v=>{try{v.playbackRate=0.85;}catch(e){}});</script>
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
