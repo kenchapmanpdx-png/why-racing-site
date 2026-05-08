@@ -101,6 +101,14 @@ const sanitizeData = (data) => {
 };
 
 const app = express();
+
+// Vercel sits in front of the lambda; trust the X-Forwarded-* headers it sets
+// so express-rate-limit can attribute requests to the real client IP
+// (one hop = the Vercel proxy itself). Without this, the rate limiter
+// throws ValidationError on every request and pools all clients under the
+// proxy IP.
+app.set('trust proxy', 1);
+
 const PORT = process.env.PORT || 5000;
 
 // === Rate Limiting ===
