@@ -82,7 +82,7 @@
     </noscript>
     <link rel="stylesheet" href="assets/css/brand.css">
     <style>
-        :root {
+:root {
             --brand-red: #E31837;
             --brand-blue: #000000;
             --dark: #0a0a0a;
@@ -1781,6 +1781,7 @@
 </head>
 
 <body>
+    <a class="skip-to-content" href="#main-content">Skip to main content</a>
 
     <!-- NAV -->
     <nav id="navbar">
@@ -1816,7 +1817,7 @@
     </div>
 
     <!-- HERO -->
-    <header>
+    <header id="main-content">
         <div class="hero-bg" id="heroBg">
             <!-- Video injected via JS to resolve compatibility warnings -->
         </div>
@@ -2150,12 +2151,15 @@
                             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                         </div>
                         <div class="newsletter-signup-row">
-                            <input type="text" name="firstName" placeholder="First Name" required
+                            <label for="signup-first-name" class="visually-hidden">First Name</label>
+                            <input type="text" id="signup-first-name" name="firstName" placeholder="First Name" autocomplete="given-name" required
                                 class="newsletter-input">
-                            <input type="text" name="lastName" placeholder="Last Name" required
+                            <label for="signup-last-name" class="visually-hidden">Last Name</label>
+                            <input type="text" id="signup-last-name" name="lastName" placeholder="Last Name" autocomplete="family-name" required
                                 class="newsletter-input">
                         </div>
-                        <input type="email" name="email" placeholder="Email Address" required
+                        <label for="signup-email" class="visually-hidden">Email Address</label>
+                        <input type="email" id="signup-email" name="email" placeholder="Email Address" autocomplete="email" required
                             class="newsletter-input newsletter-email-input">
                         <button type="submit" class="btn newsletter-submit">KEEP ME POSTED! <i
                                 class="fas fa-arrow-right"></i></button>
@@ -2166,7 +2170,7 @@
         </div>
 
         <div class="footer-bottom">
-            <div class="footer-copy">� 2025 WHY RACING EVENTS Inc. � La Center, WA � (360) 314-4682</div>
+            <div class="footer-copy">© 2026 WHY RACING EVENTS Inc. • La Center, WA • (360) 314-4682</div>
             <div class="staff-portal-footer">
                 <a href="pages/admin/races.html" class="staff-portal-link">Staff Portal</a>
             </div>

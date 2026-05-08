@@ -134,7 +134,26 @@ const cspReportLimiter = rateLimit({
 
 app.use(compression());
 app.use(express.json({ limit: '500kb' }));
-app.use(express.static('.'));
+// Static file serving — when running directly (e.g. `node server.js`).
+// On Vercel, the static layer serves files from the project root before requests
+// reach this handler, so this branch only matters in local dev / non-Vercel hosts.
+// Deny dotfiles and explicitly block sensitive sources/configs from being served.
+const STATIC_DENY = /(^|\/)(\.git\/|node_modules\/|server\.js$|package(?:-lock)?\.json$|\.env)/i;
+app.use((req, res, next) => {
+  if (STATIC_DENY.test(req.path)) return res.status(404).end();
+  next();
+});
+app.use(express.static('.', {
+  dotfiles: 'deny',
+  index: ['index.html'],
+  setHeaders: (res, filePath) => {
+    // Belt-and-suspenders: refuse to serve known sensitive filenames even if a
+    // future change loosens the regex above.
+    if (/(\.env|server\.js|package(?:-lock)?\.json)$/.test(filePath)) {
+      res.status(404).end();
+    }
+  }
+}));
 
 // Health check — registered before rate limiter so it's never throttled during an outage
 app.get('/api/health', async (req, res) => {
@@ -198,7 +217,9 @@ app.post(
 app.use('/api/', apiLimiter);
 app.use('/api/chat', chatLimiter);
 
-// Public race calendar endpoint — used by index.html to populate the race grid
+// Public race calendar endpoint — used by index.html to populate the race grid.
+// All /api/races methods (GET / POST / PUT / DELETE) are served by this Express app.
+// (api/races.js was deleted to keep a single source of truth — see AUDIT.md C1.)
 app.get('/api/races', async (req, res) => {
   // Ping check
   if (req.query && req.query.ping === '1') {
@@ -248,8 +269,6 @@ app.get('/api/races', async (req, res) => {
     return res.status(500).json({ error: 'Internal server error', details: err.message });
   }
 });
-
-
 
 // === Auto-Archive Past Races ===
 // Automatically move races to "draft" status after their date passes
@@ -1724,6 +1743,9 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
     } catch (error) {
       console.error('Upload error:', error.message, error.stack);
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
+    } finally {
+      // Clean up the formidable temp file regardless of upload outcome.
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
     }
   });
 });
@@ -1784,6 +1806,9 @@ app.post('/api/training-clubs/upload', adminAuth, (req, res) => {
     } catch (error) {
       console.error('Upload error:', error);
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
+    } finally {
+      // Clean up the formidable temp file regardless of upload outcome.
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
     }
   });
 });
@@ -1844,6 +1869,9 @@ app.post('/api/beneficiaries/upload', adminAuth, (req, res) => {
     } catch (error) {
       console.error('Upload error:', error);
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
+    } finally {
+      // Clean up the formidable temp file regardless of upload outcome.
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
     }
   });
 });
@@ -1904,6 +1932,9 @@ app.post('/api/team-members/upload', adminAuth, (req, res) => {
     } catch (error) {
       console.error('Upload error:', error);
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
+    } finally {
+      // Clean up the formidable temp file regardless of upload outcome.
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
     }
   });
 });
@@ -1964,6 +1995,9 @@ app.post('/api/global-sponsors/upload', adminAuth, (req, res) => {
     } catch (error) {
       console.error('Upload error:', error);
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
+    } finally {
+      // Clean up the formidable temp file regardless of upload outcome.
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
     }
   });
 });
@@ -2092,118 +2126,11 @@ app.post('/api/signup', async (req, res) => {
   }
 });
 
-// Cron Job — Archive Past Races (runs every night at midnight UTC via Vercel cron)
-app.get('/api/cron/archive-races', async (req, res) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-  await archivePastRaces();
-  return res.status(200).json({ success: true });
-});
-
-// 2. Cron Job — Export & Email CSV
-app.get('/api/cron/export-signups', async (req, res) => {
-  const authHeader = req.headers.authorization;
-  if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return res.status(401).json({ error: 'Unauthorized' });
-  }
-
-  if (!postmark) {
-    console.error('Postmark client not initialized (missing token)');
-    return res.status(500).json({ error: 'Postmark configuration missing' });
-  }
-
-  try {
-    const snapshotTime = new Date().toISOString();
-
-    // Fetch unexported signups — include id so we can update by exact IDs,
-    // avoiding a race window between the select filter and the later update filter.
-    const { data: signups, error: fetchError } = await supabase
-      .from('email_signups')
-      .select('id, email, first_name, last_name, source, created_at')
-      .eq('exported', false)
-      .lte('created_at', snapshotTime)
-      .order('created_at', { ascending: true });
-
-    if (fetchError) {
-      console.error('Fetch error:', fetchError);
-      return res.status(500).json({ error: 'Failed to fetch signups' });
-    }
-
-    if (!signups || signups.length === 0) {
-      return res.json({ message: 'No new signups', count: 0 });
-    }
-
-    // Generate CSV
-    const csvHeader = 'Email,First Name,Last Name,Source,Signed Up';
-    const csvRows = signups.map((s) => {
-      const createdAt = new Date(s.created_at).toLocaleDateString('en-US');
-      return [
-        sanitizeCSVCell(s.email),
-        sanitizeCSVCell(s.first_name || ''),
-        sanitizeCSVCell(s.last_name || ''),
-        sanitizeCSVCell(s.source || ''),
-        createdAt,
-      ]
-        .map((cell) => `"${cell}"`)
-        .join(',');
-    });
-    const csvContent = [csvHeader, ...csvRows].join('\n');
-
-    // Safety check for size
-    const csvSizeBytes = Buffer.byteLength(csvContent, 'utf8');
-    if (csvSizeBytes > 9 * 1024 * 1024) {
-      await postmark.sendEmail({
-        From: process.env.SIGNUP_EXPORT_FROM,
-        To: process.env.SIGNUP_EXPORT_RECIPIENT,
-        Subject: `⚠️ Signup Export Too Large — ${signups.length} signups`,
-        TextBody: `The weekly signup export has ${signups.length} new signups and the CSV is too large to email. Please export manually from Supabase.`,
-      });
-      return res.status(400).json({ error: 'CSV too large to email', count: signups.length });
-    }
-
-    // Email CSV
-    const today = new Date().toLocaleDateString('en-US');
-    await postmark.sendEmail({
-      From: process.env.SIGNUP_EXPORT_FROM,
-      To: process.env.SIGNUP_EXPORT_RECIPIENT,
-      Subject: `New Email Signups — ${today} (${signups.length} new)`,
-      TextBody: `Attached is a CSV with ${signups.length} new email signup(s) since the last export.\n\nHave a great day!`,
-      Attachments: [
-        {
-          Name: `email-signups-${new Date().toISOString().split('T')[0]}.csv`,
-          Content: Buffer.from(csvContent).toString('base64'),
-          ContentType: 'text/csv',
-        },
-      ],
-    });
-
-    // Mark exactly the rows we emailed as exported — update by ID to prevent
-    // any rows that arrived after snapshotTime from being silently skipped.
-    const exportedIds = signups.map(s => s.id);
-    const { error: updateError } = await supabase
-      .from('email_signups')
-      .update({
-        exported: true,
-        exported_at: new Date().toISOString(),
-      })
-      .in('id', exportedIds);
-
-    if (updateError) {
-      console.error('Export cron: failed to mark rows exported after email was sent:', updateError);
-      // Email was already delivered — return 500 so Vercel logs the failure and does not
-      // silently continue. On next run the same rows will be re-exported (duplicate email)
-      // until this is resolved manually or the rows are marked exported in Supabase.
-      return res.status(500).json({ error: 'Email sent but failed to mark rows exported', details: updateError.message });
-    }
-
-    return res.json({ success: true, count: signups.length });
-  } catch (err) {
-    console.error('Export cron error:', err);
-    return res.status(500).json({ error: 'Export failed' });
-  }
-});
+// Cron jobs are now standalone Vercel serverless functions:
+//   /api/cron/archive-races  -> api/cron/archive-races.js
+//   /api/cron/export-signups -> api/cron/export-signups.js
+// Vercel filesystem routing matches those files before vercel.json's
+// /api/(.*) rewrite, so this is the actual code path. (See AUDIT.md M4.)
 
 // Export for Vercel
 module.exports = app;

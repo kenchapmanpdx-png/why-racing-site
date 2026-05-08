@@ -1073,3 +1073,33 @@ footer {
     border-top: 1px solid #f1f5f9;
     text-align: center;
 }
+
+
+/* === Shared utilities (extracted from per-page inline CSS) === */
+
+.skip-to-content {
+    position: absolute;
+    left: -9999px;
+    top: 0;
+    background: #000;
+    color: #fff;
+    padding: 12px 20px;
+    z-index: 10000;
+    text-decoration: none;
+    font-weight: 700;
+}
+.skip-to-content:focus {
+    left: 0;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}

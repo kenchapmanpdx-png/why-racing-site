@@ -6,7 +6,8 @@ fix_index.js
 update_distances.js
 update_index.js
 
-# Old hero videos (unused — active video is videos/Hero4.mp4)
+# Hero video orphan (active video is videos/Hero4.mp4)
+videos/Hero.mp4
 hero-animation-2026.mp4
 hero-video.mp4
 
@@ -21,3 +22,15 @@ replit.md
 .env
 .env.local
 .env.*.local
+
+# Scrapedimages — most are unused (110 MB of 112 MB).
+# Ignore the whole folder, then re-include only the 7 actually referenced.
+# See M1 / cleanup-scrapedimages.sh for permanent on-disk pruning.
+images/Scrapedimages/**
+!images/Scrapedimages/33216246_1685527644876492_6650516404111933440_o.jpg
+!images/Scrapedimages/Brian-Jones-IMAGE.jpg
+!images/Scrapedimages/Good-Times.jpg
+!images/Scrapedimages/Jenni-cropped.jpg
+!images/Scrapedimages/Noland-Hoshino.jpg
+!images/Scrapedimages/our-lifestyle-img.jpg
+!images/Scrapedimages/rebecca-cady-age30.jpg

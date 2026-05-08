@@ -7,36 +7,120 @@
         }
     ],
     "redirects": [
-        { "source": "/server.js",         "destination": "/", "permanent": false },
-        { "source": "/api/index.js",      "destination": "/", "permanent": false },
-        { "source": "/api/races.js",      "destination": "/", "permanent": false },
-        { "source": "/package.json",      "destination": "/", "permanent": false },
-        { "source": "/package-lock.json", "destination": "/", "permanent": false },
-        { "source": "/video-mapping.json","destination": "/", "permanent": false },
-        { "source": "/chatbot-widget.html","destination": "/", "permanent": false },
-        { "source": "/.env",              "destination": "/", "permanent": false },
-        { "source": "/.env.local",        "destination": "/", "permanent": false },
-        { "source": "/.env.(.*)",         "destination": "/", "permanent": false },
-        { "source": "/.git/(.*)",         "destination": "/", "permanent": false },
-        { "source": "/.vercel/(.*)",      "destination": "/", "permanent": false }
+        {
+            "source": "/server.js",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/api/index.js",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/package.json",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/package-lock.json",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/.env",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/.env.local",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/.env.(.*)",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/.git/(.*)",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/.vercel/(.*)",
+            "destination": "/",
+            "permanent": false
+        }
     ],
     "headers": [
         {
             "source": "/(.*)",
             "headers": [
-                { "key": "X-Content-Type-Options", "value": "nosniff" },
-                { "key": "X-Frame-Options", "value": "SAMEORIGIN" },
-                { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
-                { "key": "Permissions-Policy", "value": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()" },
-                { "key": "X-DNS-Prefetch-Control", "value": "on" },
-                { "key": "Content-Security-Policy-Report-Only", "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https://qotqzsbpokvjsgueewdi.supabase.co; media-src 'self'; connect-src 'self'; frame-src 'none'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests; report-uri /api/csp-report" }
+                {
+                    "key": "X-Content-Type-Options",
+                    "value": "nosniff"
+                },
+                {
+                    "key": "X-Frame-Options",
+                    "value": "SAMEORIGIN"
+                },
+                {
+                    "key": "Referrer-Policy",
+                    "value": "strict-origin-when-cross-origin"
+                },
+                {
+                    "key": "Permissions-Policy",
+                    "value": "geolocation=(), microphone=(), camera=(), payment=(), usb=(), magnetometer=(), gyroscope=(), accelerometer=()"
+                },
+                {
+                    "key": "X-DNS-Prefetch-Control",
+                    "value": "on"
+                },
+                {
+                    "key": "Content-Security-Policy",
+                    "value": "default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com; img-src 'self' data: blob: https://*.supabase.co; media-src 'self' https://*.supabase.co; connect-src 'self' https://*.supabase.co https://*.ingest.sentry.io; frame-src 'none'; frame-ancestors 'self'; form-action 'self'; base-uri 'self'; object-src 'none'; upgrade-insecure-requests; report-uri /api/csp-report"
+                }
+            ]
+        },
+        {
+            "source": "/images/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=86400, must-revalidate"
+                }
+            ]
+        },
+        {
+            "source": "/videos/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=86400, must-revalidate"
+                }
+            ]
+        },
+        {
+            "source": "/assets/(.*)",
+            "headers": [
+                {
+                    "key": "Cache-Control",
+                    "value": "public, max-age=86400, must-revalidate"
+                }
             ]
         },
         {
             "source": "/pages/admin/(.*)",
             "headers": [
-                { "key": "X-Robots-Tag", "value": "noindex, nofollow, noarchive" },
-                { "key": "Cache-Control", "value": "no-store, no-cache, must-revalidate, private" }
+                {
+                    "key": "X-Robots-Tag",
+                    "value": "noindex, nofollow, noarchive"
+                },
+                {
+                    "key": "Cache-Control",
+                    "value": "no-store, no-cache, must-revalidate, private"
+                }
             ]
         }
     ],

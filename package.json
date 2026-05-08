@@ -19,6 +19,10 @@
     "express-rate-limit": "^8.2.1",
     "formidable": "^3.5.4",
     "node-fetch": "^2.7.0",
-    "postmark": "^4.0.5"
+    "postmark": "^4.0.7"
+  },
+  "overrides": {
+    "axios": "^1.16.0",
+    "ip-address": "^10.2.0"
   }
 }
