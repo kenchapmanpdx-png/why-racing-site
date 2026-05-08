@@ -147,16 +147,27 @@
 
         /* --- ANIMATED HERO --- */
         /* Full-bleed hero video (replaces the multi-photo collage) */
-        .hero-bg-video {
+        .hero-bg {
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            object-fit: cover;
-            object-position: center;
             z-index: 0;
+            overflow: hidden;
             pointer-events: none;
+        }
+        .hero-bg video {
+            width: 100%;
+            height: 108%;
+            object-fit: cover;
+            object-position: center top;
+            position: absolute;
+            top: 0;
+            left: 0;
+            will-change: transform;
+            transform: translateZ(0);
+            backface-visibility: hidden;
         }
 
         .hero {
@@ -817,9 +828,7 @@
     </div>
 
     <header class="hero" id="main-content">
-        <video class="hero-bg-video" autoplay muted loop playsinline preload="auto" poster="../images/Scrapedimages/our-lifestyle-img.jpg">
-            <source src="../videos/Hero4.mp4" type="video/mp4">
-        </video>
+        <div class="hero-bg" id="heroBg"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>PNW Training Programs: Master Your <span class="brand-red-text">Journey.</span></h1>
@@ -1062,7 +1071,29 @@
 
         revealElements.forEach(el => revealObserver.observe(el));
     </script>
-    <script>document.querySelectorAll(".hero-bg-video").forEach(v=>{try{v.playbackRate=0.85;}catch(e){}});</script>
+    <script>
+        // Mirror the homepage hero injection: create the <video> element
+        // imperatively so the browser's autoplay heuristics consistently
+        // grant playback (the inline <video> form was getting stuck at
+        // readyState=0 / networkState=2 without ever issuing a fetch).
+        (function(){
+            var heroBg = document.getElementById('heroBg');
+            if (!heroBg) return;
+            var v = document.createElement('video');
+            v.autoplay = true;
+            v.muted = true;
+            v.loop = true;
+            v.preload = 'auto';
+            v.playbackRate = 0.85;
+            v.setAttribute('playsinline', '');
+            v.poster = "../images/Scrapedimages/our-lifestyle-img.jpg";
+            var src = document.createElement('source');
+            src.src = "../videos/Hero4.mp4";
+            src.type = "video/mp4";
+            v.appendChild(src);
+            heroBg.appendChild(v);
+        })();
+        </script>
 
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
