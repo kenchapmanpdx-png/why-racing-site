@@ -255,6 +255,7 @@ app.get('/api/races', async (req, res) => {
         instructions_pdf_url,
         is_visible,
         status,
+        is_partner_race,
         race_distances (
           id,
           name,

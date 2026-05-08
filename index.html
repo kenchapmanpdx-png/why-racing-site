@@ -2471,6 +2471,11 @@
         const PARTNER_HOSTS = ['xdogadventures.org', 'bivouacracing.com'];
         const PARTNER_LOGO_HINTS = ['x-dog', 'xdog', 'bivouac'];
         function isPartnerRace(race) {
+            // Source of truth: the admin-controlled is_partner_race column.
+            if (race.is_partner_race === true) return true;
+            // Fallback for stale payloads or rows where the field is still null
+            // (e.g., localStorage cache from before the column existed). Detect
+            // via registration_url host or logo_url substring.
             try {
                 const reg = race.registration_url || '';
                 if (reg) {

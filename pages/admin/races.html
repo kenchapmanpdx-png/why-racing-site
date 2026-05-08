@@ -67,6 +67,10 @@
                             <input type="checkbox" name="waitlistEnabled">
                             <span>Waitlist enabled when full</span>
                         </label>
+                        <label class="checkbox-item">
+                            <input type="checkbox" name="isPartnerRace">
+                            <span>Partner race (Bivouac, X-Dog, etc. — shows in Partner Events section)</span>
+                        </label>
                     </div>
                 </div>
 
@@ -418,6 +422,7 @@
             form.registrationOpen.checked = race.registration_open;
             form.isFeatured.checked = race.is_featured;
             form.waitlistEnabled.checked = race.waitlist_enabled;
+            if (form.isPartnerRace) form.isPartnerRace.checked = !!race.is_partner_race;
 
             // Text fields
             if (form.city) form.city.value = race.city || '';
@@ -695,6 +700,7 @@
                 is_visible: formData.get('isActive') === 'on',
                 is_featured: formData.get('isFeatured') === 'on',
                 waitlist_enabled: formData.get('waitlistEnabled') === 'on',
+                is_partner_race: formData.get('isPartnerRace') === 'on',
                 thumbnail_url: thumbnailImageUrl || (editingId ? races.find(r => r.id === editingId)?.thumbnail_url : null),
                 distances: distances
             };
