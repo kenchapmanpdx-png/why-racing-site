@@ -146,6 +146,13 @@
         }
 
         /* --- ANIMATED HERO --- */
+        /* Override brand.css red overlay — keep darken-only gradient
+           for text legibility, no brand-red tint. Inline so it wins
+           regardless of cached brand.css versions. */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.25) 100%) !important;
+        }
+
         /* Full-bleed static hero image (replaces the multi-photo collage) */
         .hero-bg-img {
             position: absolute;
