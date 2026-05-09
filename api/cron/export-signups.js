@@ -27,7 +27,10 @@ module.exports = async function handler(req, res) {
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const postmarkToken = process.env.POSTMARK_API_TOKEN;
   const fromEmail = process.env.SIGNUP_EXPORT_FROM;
-  const toEmail = process.env.SIGNUP_EXPORT_RECIPIENT;
+  // Recipient is pinned to brock@whyracingevents.com (per owner request).
+  // Was previously env-driven (SIGNUP_EXPORT_RECIPIENT) — hardcoding makes
+  // this independent of Vercel env state. Change this string to redirect.
+  const toEmail = 'brock@whyracingevents.com';
 
   if (!supabaseUrl || !supabaseKey) {
     console.error('[cron export-signups] Missing Supabase credentials');
@@ -37,9 +40,9 @@ module.exports = async function handler(req, res) {
     console.error('[cron export-signups] Missing POSTMARK_API_TOKEN');
     return res.status(500).json({ error: 'Postmark config missing' });
   }
-  if (!fromEmail || !toEmail) {
-    console.error('[cron export-signups] Missing SIGNUP_EXPORT_FROM/RECIPIENT');
-    return res.status(500).json({ error: 'Email config missing' });
+  if (!fromEmail) {
+    console.error('[cron export-signups] Missing SIGNUP_EXPORT_FROM env var (sender email, must be Postmark-verified)');
+    return res.status(500).json({ error: 'Sender email not configured' });
   }
 
   const supabase = createClient(supabaseUrl, supabaseKey);
