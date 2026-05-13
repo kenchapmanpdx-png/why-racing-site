@@ -142,6 +142,113 @@ const cspReportLimiter = rateLimit({
 
 app.use(compression());
 app.use(express.json({ limit: '500kb' }));
+
+// === SEO/GEO server-rendered routes ===
+// These MUST be registered before the static middleware so /events/:slug,
+// /sitemap.xml, /llms.txt resolve to Express handlers instead of falling through
+// to disk. On Vercel, paired vercel.json rewrites send these paths to /api/index.js.
+const { renderEventPage } = require('./lib/seo/event-page');
+const { renderEventMarkdown } = require('./lib/seo/event-md');
+const { renderSitemapXml } = require('./lib/seo/sitemap');
+const { renderLlmsTxt } = require('./lib/seo/llms-txt');
+
+const SLUG_REGEX = /^[a-z0-9][a-z0-9-]{0,79}$/;
+
+async function fetchRaceFull(slug) {
+  const { data: race, error } = await supabase
+    .from('races')
+    .select('*')
+    .eq('slug', slug)
+    .eq('is_visible', true)
+    .eq('status', 'active')
+    .maybeSingle();
+  if (error || !race) return null;
+  const [contentResult, distancesResult, pricingResult, faqsResult,
+         sponsorsResult, beneficiariesResult, packetPickupResult] = await Promise.all([
+    supabase.from('race_content').select('*').eq('race_id', race.id).maybeSingle(),
+    supabase.from('race_distances').select('*').eq('race_id', race.id).order('sort_order'),
+    supabase.from('pricing_tiers').select('*').eq('race_id', race.id),
+    supabase.from('race_faqs').select('*').eq('race_id', race.id).order('sort_order'),
+    supabase.from('race_sponsors').select('*').eq('race_id', race.id).order('sort_order'),
+    supabase.from('race_beneficiaries').select('*').eq('race_id', race.id).order('sort_order'),
+    supabase.from('packet_pickup_locations').select('*').eq('race_id', race.id).order('sort_order')
+  ]);
+  return {
+    ...race,
+    content: contentResult.data || null,
+    race_distances: distancesResult.data || [],
+    pricing_tiers: pricingResult.data || [],
+    faqs: faqsResult.data || [],
+    sponsors: sponsorsResult.data || [],
+    beneficiaries: beneficiariesResult.data || [],
+    packet_pickup: packetPickupResult.data || []
+  };
+}
+
+app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
+  const slug = req.params[0];
+  const wantMarkdown = req.params[1] === '.md';
+  try {
+    const race = await fetchRaceFull(slug);
+    if (!race) {
+      res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+      if (wantMarkdown) return res.status(404).type('text/plain').send('Event not found.\n');
+      return res.status(404).type('text/html').send('<!DOCTYPE html><title>Event Not Found</title><h1>Event not found</h1><p><a href="/">Return home</a></p>');
+    }
+    if (wantMarkdown) {
+      const md = renderEventMarkdown(race);
+      if (!md) return res.status(500).end();
+      res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=86400');
+      res.set('Content-Type', 'text/markdown; charset=utf-8');
+      return res.status(200).send(md);
+    }
+    const { html, statusCode } = renderEventPage(race);
+    if (!html) return res.status(statusCode || 500).end();
+    res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=86400');
+    res.set('Content-Type', 'text/html; charset=utf-8');
+    return res.status(200).send(html);
+  } catch (err) {
+    console.error('[GET /events/:slug] error:', err);
+    if (wantMarkdown) return res.status(500).type('text/plain').send('Server error.\n');
+    return res.status(500).type('text/html').send('<!DOCTYPE html><title>Error</title><h1>Server error</h1>');
+  }
+});
+
+app.get('/llms.txt', async (req, res) => {
+  try {
+    const { data: races, error } = await supabase
+      .from('races')
+      .select('slug, name, race_date, city, state, is_visible, status')
+      .eq('is_visible', true)
+      .eq('status', 'active')
+      .order('race_date', { ascending: true });
+    if (error) console.error('[GET /llms.txt] supabase error:', error);
+    res.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    res.set('Content-Type', 'text/plain; charset=utf-8');
+    return res.status(200).send(renderLlmsTxt(races || []));
+  } catch (err) {
+    console.error('[GET /llms.txt] error:', err);
+    return res.status(500).end();
+  }
+});
+
+app.get('/sitemap.xml', async (req, res) => {
+  try {
+    const { data: races, error } = await supabase
+      .from('races')
+      .select('slug, is_visible, status, updated_at, created_at, race_date')
+      .eq('is_visible', true)
+      .eq('status', 'active');
+    if (error) console.error('[GET /sitemap.xml] supabase error:', error);
+    res.set('Cache-Control', 'public, s-maxage=600, stale-while-revalidate=86400');
+    res.set('Content-Type', 'application/xml; charset=utf-8');
+    return res.status(200).send(renderSitemapXml(races || []));
+  } catch (err) {
+    console.error('[GET /sitemap.xml] error:', err);
+    return res.status(500).end();
+  }
+});
+
 // Static file serving — when running directly (e.g. `node server.js`).
 // On Vercel, the static layer serves files from the project root before requests
 // reach this handler, so this branch only matters in local dev / non-Vercel hosts.

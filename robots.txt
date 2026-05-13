@@ -1,6 +1,73 @@
+# Why Racing Events — robots.txt
+# Policy: Allow all major search + AI crawlers (citation + training tiers).
+# Reference: §18 of SEO/GEO doc; revisit if data-licensing policy changes.
+
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# AI citation / search crawlers — these cite content with attribution
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: Applebot
+Allow: /
+
+User-agent: Amazonbot
+Allow: /
+
+# AI training crawlers — allowed per current data policy
+User-agent: GPTBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+User-agent: Bytespider
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+# Default policy for everything else
 User-agent: *
 Allow: /
 Disallow: /pages/admin/
 Disallow: /api/
+Disallow: /.vercel/
+Disallow: /.git/
+Disallow: /schema/
+Disallow: /*?sort=
+Disallow: /*?filter=
+Disallow: /*?s=
 
 Sitemap: https://whyracingevents.com/sitemap.xml
