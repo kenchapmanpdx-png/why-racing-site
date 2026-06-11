@@ -91,6 +91,8 @@
         </div>
 
         <script type="module">
+        // Resolve DB-stored image paths (relative to public pages) for the admin context.
+        const adminImg = u => !u ? '' : (/^(https?:|data:|\/)/.test(u) ? u : '/' + u.replace(/^(\.\.\/)+|^\.\//, ''));
             import { checkAuth, login } from '../../assets/js/admin-auth.js';
             import { renderAdminNav } from '../../assets/js/admin-nav.js';
 
@@ -159,7 +161,7 @@
                         <p>${esc(sp.website_url || 'No URL')}</p>
                     </div>
                     <div class="race-card-status">
-                         ${sp.logo_url ? `<img src="${sp.logo_url.startsWith('http') ? sp.logo_url : '../../' + sp.logo_url}" alt="logo" style="width: 40px; height: 40px; object-fit: contain; margin-right: 15px;">` : ''}
+                         ${sp.logo_url ? `<img src="${adminImg(sp.logo_url)}" alt="logo" style="width: 40px; height: 40px; object-fit: contain; margin-right: 15px;">` : ''}
                         <span class="status-badge status-${sp.is_active ? 'active' : 'draft'}">${sp.is_active ? 'Active' : 'Draft'}</span>
                         <button class="edit-btn" onclick="editSponsor('${esc(sp.id)}')">Edit</button>
                         <button class="edit-btn btn-danger-custom" onclick="deleteSponsor('${esc(sp.id)}')">Delete</button>
@@ -254,7 +256,7 @@
                 document.getElementById('spLogoUrl').value = sponsor.logo_url || '';
                 document.getElementById('spLogoInput').value = ''; // Clear file input
                 if (sponsor.logo_url) {
-                    document.getElementById('photoPreview').src = sponsor.logo_url.startsWith('images') ? `../../${sponsor.logo_url}` : sponsor.logo_url;
+                    document.getElementById('photoPreview').src = adminImg(sponsor.logo_url);
                     document.getElementById('photoPreview').style.display = 'block';
                     document.getElementById('photoPlaceholder').style.display = 'none';
                     document.getElementById('photoUploadArea').classList.add('has-image');

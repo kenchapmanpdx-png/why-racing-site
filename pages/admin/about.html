@@ -103,6 +103,8 @@
         </div>
 
         <script type="module">
+        // Resolve DB-stored image paths (relative to public pages) for the admin context.
+        const adminImg = u => !u ? '' : (/^(https?:|data:|\/)/.test(u) ? u : '/' + u.replace(/^(\.\.\/)+|^\.\//, ''));
             import { checkAuth, login } from '../../assets/js/admin-auth.js';
             import { renderAdminNav } from '../../assets/js/admin-nav.js';
 
@@ -271,7 +273,7 @@
                 document.getElementById('memPhotoUrl').value = member.photo_url || '';
                 document.getElementById('memPhotoInput').value = ''; // Clear file input
                 if (member.photo_url) {
-                    document.getElementById('photoPreview').src = member.photo_url;
+                    document.getElementById('photoPreview').src = adminImg(member.photo_url);
                     document.getElementById('photoPreview').style.display = 'block';
                     document.getElementById('photoPlaceholder').style.display = 'none';
                     document.getElementById('photoUploadArea').classList.add('has-image');

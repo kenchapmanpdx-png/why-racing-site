@@ -292,6 +292,8 @@
     </div>
 
     <script type="module">
+        // Resolve DB-stored image paths (relative to public pages) for the admin context.
+        const adminImg = u => !u ? '' : (/^(https?:|data:|\/)/.test(u) ? u : '/' + u.replace(/^(\.\.\/)+|^\.\//, ''));
         import { checkAuth, login } from '../../assets/js/admin-auth.js';
         import { renderAdminNav } from '../../assets/js/admin-nav.js';
 
@@ -450,7 +452,7 @@
 
             if (race.thumbnail_url) {
                 const preview = document.getElementById('thumbnailPreview');
-                preview.src = race.thumbnail_url;
+                preview.src = adminImg(race.thumbnail_url);
                 preview.style.display = 'block';
                 document.getElementById('thumbnailPlaceholder').style.display = 'none';
                 document.getElementById('thumbnailUploadArea').classList.add('has-image');

@@ -95,6 +95,8 @@
     </div>
 
     <script type="module">
+        // Resolve DB-stored image paths (relative to public pages) for the admin context.
+        const adminImg = u => !u ? '' : (/^(https?:|data:|\/)/.test(u) ? u : '/' + u.replace(/^(\.\.\/)+|^\.\//, ''));
         import { checkAuth, login } from '../../assets/js/admin-auth.js';
         import { renderAdminNav } from '../../assets/js/admin-nav.js';
 
@@ -261,7 +263,7 @@
             const clearBtn = document.getElementById('photoClearBtn');
 
             if (ben.logo_url) {
-                preview.src = ben.logo_url;
+                preview.src = adminImg(ben.logo_url);
                 preview.style.display = 'block';
                 placeholder.style.display = 'none';
                 uploadArea.classList.add('has-image');
