@@ -71,7 +71,7 @@ const supabase = new Proxy({}, {
 // Prevents mass-assignment attacks where an authenticated admin (or stolen
 // token) could tamper with primary keys, timestamps, or foreign keys on rows
 // targeted by other URL params (e.g. an FAQ for race A being moved to race B).
-const PROTECTED_FIELDS = ['id', 'created_at', 'updated_at', 'inserted_at', 'deleted_at'];
+const PROTECTED_FIELDS = ['id', 'created_at', 'updated_at', 'inserted_at', 'deleted_at', 'parent_race_id'];
 const stripProtectedFields = (body, extra = []) => {
   if (!body || typeof body !== 'object' || Array.isArray(body)) return {};
   const clean = { ...body };
@@ -151,6 +151,7 @@ const { renderEventPage } = require('./lib/seo/event-page');
 const { renderEventMarkdown } = require('./lib/seo/event-md');
 const { renderSitemapXml } = require('./lib/seo/sitemap');
 const { renderLlmsTxt } = require('./lib/seo/llms-txt');
+const { renewPastRaces } = require('./lib/race-clone');
 
 const SLUG_REGEX = /^[a-z0-9][a-z0-9-]{0,79}$/;
 
@@ -386,57 +387,32 @@ app.get('/api/races', async (req, res) => {
   }
 });
 
-// === Auto-Archive Past Races ===
-// Automatically move races to "draft" status after their date passes
-// This runs on server startup and allows races to be reused for next year
-async function archivePastRaces() {
+// === Renew Past Races ===
+// When a race date passes, the past edition STAYS active (still shown). This
+// creates a full DRAFT clone for next year (deep copy minus dates/times) so it can
+// be edited and published. Dedupe + replacement are handled via parent_race_id.
+// Shared logic lives in lib/race-clone.js (also used by api/cron/archive-races.js).
+async function renewPastRacesOnStartup() {
   try {
-    // Use Pacific time for the date boundary — races are PNW events and the cron runs at
-    // midnight UTC (= 4-5pm Pacific). Using UTC would archive same-day races mid-afternoon.
-    const today = new Intl.DateTimeFormat('en-CA', { timeZone: 'America/Los_Angeles' }).format(new Date());
-
-    // Find all active races where the race_date has passed
-    const { data: pastRaces, error: fetchError } = await supabase
-      .from('races')
-      .select('id, name, race_date')
-      .eq('status', 'active')
-      .lt('race_date', today);
-
-    if (fetchError) {
-      console.error('Error fetching past races:', fetchError);
+    const result = await renewPastRaces(supabase);
+    if (result.renewed.length === 0 && result.skipped.length === 0) {
+      console.log('✓ No past races to renew');
       return;
     }
-
-    if (!pastRaces || pastRaces.length === 0) {
-      console.log('✓ No past races to archive');
-      return;
+    console.log(`✓ Renewed ${result.renewed.length} past race(s) to next-year draft (skipped ${result.skipped.length} already-renewed):`);
+    result.renewed.forEach(r => console.log(`  - ${r.name} -> ${r.draftSlug}`));
+    if (result.errors.length) {
+      console.error('  renew errors:', result.errors.map(e => `${e.name}: ${e.error}`).join(' | '));
     }
-
-    // Update each past race to draft status
-    const { error: updateError } = await supabase
-      .from('races')
-      .update({ status: 'draft' })
-      .eq('status', 'active')
-      .lt('race_date', today);
-
-    if (updateError) {
-      console.error('Error archiving past races:', updateError);
-      return;
-    }
-
-    console.log(`✓ Archived ${pastRaces.length} past race(s) to draft:`);
-    pastRaces.forEach(race => {
-      console.log(`  - ${race.name} (${race.race_date})`);
-    });
   } catch (error) {
-    console.error('Error in archivePastRaces:', error);
+    console.error('Error in renewPastRacesOnStartup:', error);
   }
 }
 
-// Run archive check on startup only for traditional (non-serverless) deployments.
+// Run renew check on startup only for traditional (non-serverless) deployments.
 // On Vercel, use the /api/cron/archive-races endpoint instead.
 if (require.main === module) {
-  archivePastRaces();
+  renewPastRacesOnStartup();
 }
 
 
@@ -1425,6 +1401,31 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
         return res.status(500).json({ error: 'Failed to save pricing tiers — please try saving again', details: tierErr });
       }
     }
+
+    // Publish-time retirement: if this race was just set active and it is a
+    // next-year clone (has parent_race_id), retire the prior edition so the public
+    // calendar shows only the current one. Archiving is reversible (set back to
+    // 'active' in admin). Guarded by .eq('status','active') so it's idempotent and
+    // never touches an already-retired/draft parent.
+    if (cleanRaceData.status === 'active') {
+      const { data: thisRace, error: linkErr } = await supabase
+        .from('races').select('parent_race_id').eq('id', id).single();
+      if (linkErr) {
+        console.error(`Could not read parent_race_id for race ${id}:`, linkErr.message);
+      } else if (thisRace && thisRace.parent_race_id) {
+        const { error: retireErr } = await supabase
+          .from('races')
+          .update({ status: 'archived' })
+          .eq('id', thisRace.parent_race_id)
+          .eq('status', 'active');
+        if (retireErr) {
+          console.error(`Failed to retire prior edition ${thisRace.parent_race_id}:`, retireErr.message);
+        } else {
+          console.log(`Retired prior edition ${thisRace.parent_race_id} (replaced by published race ${id})`);
+        }
+      }
+    }
+
     return res.status(200).json({ success: true });
   } catch (err) {
     console.error(`Server Internal Error (PUT /api/races/${id}):`, err);

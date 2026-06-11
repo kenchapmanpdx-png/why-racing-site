@@ -27,10 +27,10 @@ module.exports = async function handler(req, res) {
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const postmarkToken = process.env.POSTMARK_API_TOKEN;
   const fromEmail = process.env.SIGNUP_EXPORT_FROM;
-  // Recipient is pinned to brock@whyracingevents.com (per owner request).
-  // Was previously env-driven (SIGNUP_EXPORT_RECIPIENT) — hardcoding makes
-  // this independent of Vercel env state. Change this string to redirect.
-  const toEmail = 'brock@whyracingevents.com';
+  // Recipient pinned to info@whyracingevents.com (per Ken, 2026-06-10 —
+  // newsletter signups should go to info@). Previously brock@whyracingevents.com.
+  // Hardcoded to stay independent of Vercel env state. Change this string to redirect.
+  const toEmail = 'info@whyracingevents.com';
 
   if (!supabaseUrl || !supabaseKey) {
     console.error('[cron export-signups] Missing Supabase credentials');

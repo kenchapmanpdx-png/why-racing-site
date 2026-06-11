@@ -39,7 +39,6 @@
         "sameAs": [
           "https://www.facebook.com/whyracingevents/",
           "https://www.instagram.com/why_racing_events/",
-          "https://x.com/whyracingevents",
           "https://www.youtube.com/@WhyRacingEvents"
         ]
       }
@@ -176,32 +175,6 @@
         section {
             padding: 100px 5%;
             position: relative;
-        }
-
-        /* --- SUBTLE FLAG BACKGROUND --- */
-        .flag-bg {
-            overflow: hidden;
-            min-height: 500px;
-            padding-top: 80px;
-            padding-bottom: 80px;
-        }
-
-        .flag-bg::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            z-index: 0;
-            opacity: 0.10;
-            pointer-events: none;
-            background-image: url("../images/flag.svg");
-            background-size: contain;
-            background-repeat: no-repeat;
-            background-position: center center;
-        }
-
-        .flag-bg>* {
-            position: relative;
-            z-index: 1;
         }
 
         .grey-bg {
@@ -418,7 +391,7 @@
             transition: 0.3s;
         }
 
-        /* --- ANIMATED HERO --- */
+        /* --- HERO --- */
         .hero {
             position: relative;
             padding: 180px 5% 120px;
@@ -426,6 +399,24 @@
             text-align: center;
             overflow: hidden;
             background: #000;
+        }
+
+        /* Full-bleed static hero image (replaces the multi-photo collage) */
+        .hero-bg-img {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            object-position: center;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* Darken-only overlay for text legibility over the static photo */
+        .hero-overlay {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.3) 100%) !important;
         }
 
         .form-section h2 {
@@ -557,52 +548,28 @@
             }
         }
 
-        /* Impact Stats Bar */
-        .impact-stats-bar {
-            background: linear-gradient(135deg, #0a0a0a 0%, var(--brand-navy) 50%, #0a0a0a 100%);
-            padding: 50px 5%;
-            position: relative;
-        }
-
-        .impact-stats-container {
-            display: flex;
-            justify-content: center;
-            gap: 60px;
-            flex-wrap: wrap;
-            text-align: center;
-        }
-
-        .impact-stat {
-            min-width: 140px;
-        }
-
-        .impact-stat-number {
-            font-family: 'Oswald', sans-serif;
-            font-size: 3rem;
-            font-weight: 700;
-            line-height: 1;
-        }
-
-        .impact-stat-number-red {
-            color: var(--brand-red);
-        }
-
-        .impact-stat-number-white {
-            color: white;
-        }
-
-        .impact-stat-label {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            margin-top: 8px;
-        }
-
-        /* Role Emoji Icons */
+        /* Role Icons */
         .role-emoji {
             font-size: 2.5rem;
             margin-bottom: 16px;
+            color: var(--brand-red);
+        }
+
+        /* Roles grid: 4-wide on desktop, 2x2 on tablet, single column on phones */
+        .roles-grid {
+            grid-template-columns: repeat(4, 1fr);
+        }
+
+        @media (max-width: 1024px) {
+            .roles-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            .roles-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         /* Motivational CTA Banner */
@@ -690,6 +657,7 @@
             <a href="locations.html">Travel</a>
             <a href="partners.html">Sponsors</a>
             <a href="about.html">About</a>
+            <a href="corporate-wellness.html">Corporate Wellness</a>
         </div>
         <div class="hamburger" onclick="toggleMobileMenu()">
             <span></span>
@@ -708,11 +676,13 @@
         <a href="locations.html">Travel</a>
         <a href="partners.html">Sponsors</a>
         <a href="about.html">About</a>
+        <a href="corporate-wellness.html">Corporate Wellness</a>
         <a href="../index.html#calendar" class="nav-btn mt-20">Find Your Race</a>
     </div>
 
     <header class="hero" id="main-content">
-        <div class="hero-collage"></div>
+        <img class="hero-bg-img" src="../images/collage/GR%202.jpg"
+            alt="Crowd of smiling race participants at a WHY Racing event start line">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>PNW Race Volunteer Opportunities: Be Part of the <span class="brand-red-text">Spirit.</span></h1>
@@ -721,109 +691,8 @@
         </div>
     </header>
 
-    <!-- SPONSOR TICKER -->
-    <div class="sponsor-ticker">
-        <div class="sponsor-ticker-label">Proud Partners</div>
-        <div class="sponsor-track">
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-        </div>
-    </div>
-
-    <!-- IMPACT STATS BAR -->
-    <section class="impact-stats-bar">
-        <div class="container impact-stats-container">
-            <div class="reveal impact-stat">
-                <div class="impact-stat-number impact-stat-number-red">500+</div>
-                <div class="impact-stat-label">Volunteers</div>
-            </div>
-            <div class="reveal delay-100 impact-stat">
-                <div class="impact-stat-number impact-stat-number-white">30+</div>
-                <div class="impact-stat-label">Events Per Year</div>
-            </div>
-            <div class="reveal delay-200 impact-stat">
-                <div class="impact-stat-number impact-stat-number-red">10K+</div>
-                <div class="impact-stat-label">Athletes Supported</div>
-            </div>
-            <div class="reveal delay-300 impact-stat">
-                <div class="impact-stat-number impact-stat-number-white">$2M+</div>
-                <div class="impact-stat-label">Raised for Charity</div>
-            </div>
-        </div>
-    </section>
-
     <!-- WHY VOLUNTEER -->
-    <section class="flag-bg">
+    <section>
         <div class="container">
             <div class="section-header reveal">
                 <h2>Why Volunteer?</h2>
@@ -866,24 +735,24 @@
                 <h2>Volunteer Roles</h2>
                 <p>From the finish line to the far reaches of the course, we have a spot for you.</p>
             </div>
-            <div class="grid">
+            <div class="grid roles-grid">
                 <div class="role-card reveal delay-100">
-                    <div class="role-emoji">??</div>
+                    <div class="role-emoji"><i class="fas fa-flag-checkered"></i></div>
                     <h4>Course Marshal</h4>
                     <p>Keep athletes safe and on track at key intersections. High energy and loud cheering required!</p>
                 </div>
                 <div class="role-card reveal delay-200">
-                    <div class="role-emoji">??</div>
+                    <div class="role-emoji"><i class="fas fa-clipboard-list"></i></div>
                     <h4>Registration</h4>
                     <p>Be the first friendly face athletes see. Help with bib pickup and gear bags.</p>
                 </div>
                 <div class="role-card reveal delay-300">
-                    <div class="role-emoji">??</div>
+                    <div class="role-emoji"><i class="fas fa-hand-holding-droplet"></i></div>
                     <h4>Aid Stations</h4>
                     <p>The literal life-savers. Hand out water, electrolytes, and endless motivation.</p>
                 </div>
                 <div class="role-card reveal delay-400">
-                    <div class="role-emoji">??</div>
+                    <div class="role-emoji"><i class="fas fa-medal"></i></div>
                     <h4>Finish Line Crew</h4>
                     <p>Place medals around necks and celebrate the incredible achievements of every finisher.</p>
                 </div>
@@ -896,14 +765,14 @@
         <div class="motive-cta-line motive-cta-line-top"></div>
         <div class="container reveal">
             <div class="motive-cta-headline">
-                Every Great Race Has an <span class="motive-cta-highlight">Even Greater Crew</span>
+                Ready to <span class="motive-cta-highlight">Volunteer?</span>
             </div>
             <p class="motive-cta-text">
                 Behind every personal record, every emotional finish, and every first-timer crossing the line — there's
                 a volunteer who made it possible.
             </p>
             <a href="#volunteer-form" class="motive-cta-btn">
-                Join the Crew ?
+                Volunteer Here →
             </a>
         </div>
         <div class="motive-cta-line motive-cta-line-bottom"></div>
@@ -912,9 +781,9 @@
     <!-- SIGN UP FORM -->
     <section class="form-section" id="volunteer-form">
         <div class="container">
-            <h2 class="reveal">Ready to Join the Crew?</h2>
+            <h2 class="reveal">Volunteer Sign Up</h2>
             <div class="form-container reveal delay-200">
-                <form>
+                <form id="volunteer-signup-form">
                     <div class="form-grid">
                         <div class="form-group">
                             <label for="first-name">First Name</label>
@@ -933,11 +802,22 @@
                             placeholder="your.email@example.com">
                     </div>
                     <div class="form-group">
-                        <label for="event">Preferred Event</label>
+                        <label for="event">Which Race?</label>
                         <select id="event" class="form-control" name="event">
+                            <option>Mt Hood Scramble</option>
+                            <option>Pacific Crest Endurance Sports Festival</option>
+                            <option>Hagg Lake Triathlon &amp; Trail Festival</option>
+                            <option>Bigfoot 5K/10K</option>
+                            <option>Hellz Bellz Ultra</option>
+                            <option>McCubbins Gulch</option>
+                            <option>Columbia River Triathlon &amp; Endurance Sports Festival</option>
+                            <option>Girlfriends Triathlon &amp; Fitness Festival</option>
                             <option>Appletree Marathon</option>
-                            <option>White River Snowshoe</option>
-                            <option>Pacific Coast Triathlon</option>
+                            <option>Pacific Coast Running Festival</option>
+                            <option>Girlfriends Half Marathon, 10K &amp; 6K</option>
+                            <option>Scary Run</option>
+                            <option>Battle to the Pacific</option>
+                            <option>Santa's Holiday Hustle 5K &amp; Dirty Santa Trail Run 10K</option>
                             <option>Any Event - Put me where I'm needed!</option>
                         </select>
                     </div>
@@ -963,8 +843,6 @@
                         title="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
                         title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter"><i
-                            class="fab fa-twitter"></i></a>
                     <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube"><i
                             class="fab fa-youtube"></i></a>
                 </div>
@@ -982,12 +860,13 @@
                     <a href="locations.html">Travel</a>
                     <a href="partners.html">Sponsors</a>
                     <a href="about.html">About</a>
+                    <a href="corporate-wellness.html">Corporate Wellness</a>
                 </div>
             </div>
 
             <!-- Newsletter Section -->
             <div class="footer-newsletter-section">
-                <h4>Join the Movement</h4>
+                <h4>Join the Newsletter</h4>
                 <div class="newsletter-spot">
                     <p>Get race updates, training tips, and exclusive early-bird registration alerts.</p>
                     <form id="email-signup-form">
@@ -1039,8 +918,56 @@
         });
 
         revealElements.forEach(el => revealObserver.observe(el));
+
+        // Populate the "Which Race?" dropdown with live upcoming races.
+        // Falls back silently to the hardcoded options if the API is unavailable.
+        (async () => {
+            try {
+                const res = await fetch('/api/races');
+                if (!res.ok) return;
+                const races = await res.json();
+                const today = new Date().toISOString().slice(0, 10);
+                const upcoming = (races || [])
+                    .filter(r => r && r.name && r.status === 'active' && r.is_visible !== false &&
+                        r.race_date && r.race_date >= today)
+                    .sort((a, b) => a.race_date.localeCompare(b.race_date));
+                if (!upcoming.length) return;
+                const seen = new Set();
+                const select = document.getElementById('event');
+                select.innerHTML = '';
+                upcoming.forEach(r => {
+                    if (seen.has(r.name)) return;
+                    seen.add(r.name);
+                    const opt = document.createElement('option');
+                    const d = new Date(r.race_date + 'T12:00:00');
+                    const dateLabel = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+                    opt.value = r.name;
+                    opt.textContent = `${r.name} — ${dateLabel}`;
+                    select.appendChild(opt);
+                });
+                const anyOpt = document.createElement('option');
+                anyOpt.value = 'Any Event';
+                anyOpt.textContent = "Any Event - Put me where I'm needed!";
+                select.appendChild(anyOpt);
+            } catch (e) { /* keep hardcoded fallback options */ }
+        })();
+
+        // Volunteer form: open a pre-filled email to the events team.
+        document.getElementById('volunteer-signup-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const val = id => (document.getElementById(id).value || '').trim();
+            const race = document.getElementById('event').value;
+            const subject = `Volunteer Sign-Up: ${race}`;
+            const body = [
+                `Name: ${val('first-name')} ${val('last-name')}`,
+                `Email: ${val('email')}`,
+                `Race: ${race}`,
+                `Availability / Notes: ${val('notes') || 'None provided'}`
+            ].join('\n');
+            window.location.href = 'mailto:info@whyracingevents.com?subject=' +
+                encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        });
     </script>
-    <script defer src="../assets/js/collage.js"></script>
 </body>
 
 </html>

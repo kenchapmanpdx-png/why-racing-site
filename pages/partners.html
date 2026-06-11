@@ -16,7 +16,7 @@
     <meta property="og:title" content="Partner With WHY RACING EVENTS | Premier PNW Sponsorships">
     <meta property="og:url" content="https://whyracingevents.com/pages/partners.html">
     <meta property="og:description"
-        content="Don't just sponsor a race. Own the moment with the region's most affluent audience.">
+        content="Don't just sponsor a race. Own the moment with the region's most loyal audience.">
     <meta property="og:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
 
     <!-- Twitter -->
@@ -47,7 +47,6 @@
       "sameAs": [
         "https://www.facebook.com/whyracingevents/",
         "https://www.instagram.com/why_racing_events/",
-        "https://x.com/whyracingevents",
         "https://www.youtube.com/@WhyRacingEvents"
       ],
       "contactPoint": {
@@ -135,18 +134,18 @@
         }
 
         .hero h1 {
-            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-size: clamp(2.8rem, 6vw, 4.5rem);
             font-weight: 700;
-            margin-bottom: 20px;
+            margin-bottom: 24px;
             color: white;
+            text-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
             animation: fadeSlideUp 1s ease-out 0.1s both;
         }
 
         .hero h1 span {
-            color: transparent;
-            -webkit-text-stroke: 2px white;
+            color: var(--brand-red);
+            text-shadow: 0 0 30px rgba(227, 24, 55, 0.5);
             display: block;
-            opacity: 0.8;
         }
 
         .hero-sub {
@@ -310,6 +309,9 @@
 
         .active-img {
             width: 100%;
+            max-height: 600px;
+            object-fit: cover;
+            object-position: center top;
             border-radius: 20px;
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.2);
             transition: transform 0.5s ease;
@@ -644,7 +646,7 @@
             }
 
             .hero h1 {
-                font-size: 3rem;
+                font-size: 2.5rem;
             }
 
             .stats-deck,
@@ -688,7 +690,8 @@
             letter-spacing: 2px;
         }
 
-        .advantages-heading {
+        .advantages-heading,
+        .advantage-section .section-header h2 {
             color: white;
             margin-top: 10px;
         }
@@ -798,6 +801,7 @@
             <a href="locations.html">Travel</a>
             <a href="partners.html">Sponsors</a>
             <a href="about.html">About</a>
+            <a href="corporate-wellness.html">Corporate Wellness</a>
         </div>
         <div class="hamburger" onclick="toggleMobileMenu()">
             <span></span>
@@ -816,6 +820,7 @@
         <a href="locations.html">Travel</a>
         <a href="partners.html">Sponsors</a>
         <a href="about.html">About</a>
+        <a href="corporate-wellness.html">Corporate Wellness</a>
         <a href="../index.html#calendar" class="nav-btn mt-20">Find Your Race</a>
     </div>
 
@@ -829,22 +834,12 @@
                 WHY RACING EVENTS
             </h1>
             <div class="hero-sub">
-                Don't just sponsor a race. Own the moment with the region's most affluent, dedicated, and active
+                Don't just sponsor a race. Own the moment with the region's most loyal, dedicated, and active
                 audience.
             </div>
         </div>
     </header>
 
-    <!-- SPONSORS GRID (Dynamic) -->
-    <section id="sponsors-grid" class="sponsors-grid-section">
-        <div class="container">
-            <h2 class="sponsors-grid-title">Our <span class="brand-red-text">Partners</span></h2>
-            <div id="dynamicSponsorsList" class="charity-grid">
-                <!-- Filled via JS -->
-                <p class="sponsors-loading">Loading sponsors...</p>
-            </div>
-        </div>
-    </section>
 
     <div class="container">
         <div class="stats-deck">
@@ -853,7 +848,7 @@
                 <span class="stat-label">Active Participants</span>
             </div>
             <div class="stat-card reveal delay-2">
-                <span class="stat-num">21</span>
+                <span class="stat-num">14</span>
                 <span class="stat-label">Regional Events</span>
             </div>
             <div class="stat-card reveal delay-3">
@@ -879,8 +874,8 @@
                 </div>
             </div>
             <div class="reveal delay-2">
-                <img src="../images/action/spring-classic-1.jpg" class="active-img"
-                    alt="Active WHY RACING EVENTS participants in Portland" loading="lazy">
+                <img src="../images/action/podium-champions.jpg" class="active-img"
+                    alt="Three athletes celebrating on the champion podium in front of the WHY RACING EVENTS finisher backdrop" loading="lazy">
             </div>
         </div>
     </section>
@@ -895,12 +890,12 @@
             <div class="advantage-grid">
                 <div class="advantage-card reveal delay-1">
                     <h4><i class="fas fa-shield-alt"></i> Category Protection</h4>
-                    <p>We don't clutter the course. We offer category exclusivity so your competitor isn't standing next
+                    <p>We don't clutter the course. We can offer category exclusivity so your competitor isn't standing next
                         to you at the finish line.</p>
                 </div>
                 <div class="advantage-card reveal delay-2">
                     <h4><i class="fas fa-calendar-alt"></i> Year-Round Scale</h4>
-                    <p>With 21 events, we offer a full-year marketing calendar with a single contract. Stop negotiating
+                    <p>With 14 events, we offer a full-year marketing calendar with a single contract. Stop negotiating
                         20 tiny deals.</p>
                 </div>
                 <div class="advantage-card reveal delay-3">
@@ -935,7 +930,7 @@
                     <h3>Brand Equity</h3>
                     <div class="check-item">
                         <i class="fas fa-check-circle"></i>
-                        <div><strong>High-Frequency Recall</strong><span>Repeated exposure during peak emotional
+                        <div><strong>High-Frequency Recall</strong><span>Repeated exposure during peak opportunity
                                 moments.</span></div>
                     </div>
                     <div class="check-item">
@@ -1022,6 +1017,18 @@
         </div>
     </section>
 
+
+    <!-- SPONSORS GRID (Dynamic) -->
+    <section id="sponsors-grid" class="sponsors-grid-section">
+        <div class="container">
+            <h2 class="sponsors-grid-title">Our <span class="brand-red-text">Partners</span></h2>
+            <div id="dynamicSponsorsList" class="charity-grid">
+                <!-- Filled via JS -->
+                <p class="sponsors-loading">Loading sponsors...</p>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="footer-container">
             <!-- Brand Section -->
@@ -1033,8 +1040,6 @@
                         title="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
                         title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter"><i
-                            class="fab fa-twitter"></i></a>
                     <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube"><i
                             class="fab fa-youtube"></i></a>
                 </div>
@@ -1052,6 +1057,7 @@
                     <a href="locations.html">Travel</a>
                     <a href="partners.html">Sponsors</a>
                     <a href="about.html">About</a>
+                    <a href="corporate-wellness.html">Corporate Wellness</a>
                 </div>
             </div>
 

@@ -39,7 +39,6 @@
         "sameAs": [
           "https://www.facebook.com/whyracingevents/",
           "https://www.instagram.com/why_racing_events/",
-          "https://x.com/whyracingevents",
           "https://www.youtube.com/@WhyRacingEvents"
         ]
       }
@@ -1234,6 +1233,48 @@
                 grid-template-columns: 1fr;
             }
         }
+
+        /* Centered List Your Event (right-hand list removed) */
+        .calendar-inner {
+            grid-template-columns: 1fr;
+            justify-items: center;
+            text-align: center;
+            max-width: 760px;
+            margin: 0 auto;
+        }
+
+        .calendar-text h2::after {
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .cal-rules {
+            display: inline-block;
+            text-align: left;
+        }
+
+        /* Advertise-your-race slot card */
+        .ad-slot-card {
+            border: 2px dashed rgba(227, 24, 55, 0.45);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            gap: 12px;
+        }
+
+        .ad-slot-icon {
+            font-size: 2.2rem;
+            color: var(--brand-red, #E31837);
+        }
+
+        .ad-slot-pricing {
+            font-family: 'Oswald', sans-serif;
+            font-size: 1.15rem;
+            color: #1a2744;
+            letter-spacing: 1px;
+        }
     </style>
 </head>
 
@@ -1252,6 +1293,7 @@
             <a href="locations.html">Travel</a>
             <a href="partners.html">Sponsors</a>
             <a href="about.html">About</a>
+            <a href="corporate-wellness.html">Corporate Wellness</a>
         </div>
         <div class="hamburger" onclick="toggleMobileMenu()">
             <span></span>
@@ -1270,6 +1312,7 @@
         <a href="locations.html">Travel</a>
         <a href="partners.html">Sponsors</a>
         <a href="about.html">About</a>
+        <a href="corporate-wellness.html">Corporate Wellness</a>
         <a href="../index.html#calendar" class="nav-btn mt-20">Find Your Race</a>
     </div>
 
@@ -1277,90 +1320,12 @@
         <div class="hero-collage"></div>
         <div class="hero-overlay"></div>
         <div class="hero-content">
-            <h1>PNW Racing Community: Stronger <span class="brand-red-text">Together.</span></h1>
-            <p>Sister companies. Community events. Team racing. Social runs. This is the hub for everything that makes
+            <h1>Partner Race Companies: Stronger <span class="brand-red-text">Together.</span></h1>
+            <p>Sister companies. Community events. Team racing. This is the hub for everything that makes
                 the PNW racing scene the best in the country.</p>
         </div>
     </header>
 
-    <!-- SPONSOR TICKER -->
-    <div class="sponsor-ticker">
-        <div class="sponsor-ticker-label">Proud Partners</div>
-        <div class="sponsor-track">
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
-            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
-            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
-                    alt="PepsiCo"></a>
-            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
-            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
-            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
-                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
-        </div>
-    </div>
 
     <!-- STAT BAR -->
     <section class="stat-bar-section">
@@ -1522,6 +1487,16 @@
                     </a>
                 </div>
 
+                <div class="event-support-card ad-slot-card reveal delay-3">
+                    <div class="ad-slot-icon"><i class="fas fa-bullhorn"></i></div>
+                    <h3>Your Race Here</h3>
+                    <p>Advertise your race here and put it in front of thousands of active PNW athletes.</p>
+                    <div class="ad-slot-pricing">$600 / 6 months &nbsp;&bull;&nbsp; $1,000 / 12 months</div>
+                    <a href="mailto:info@whyracingevents.com?subject=Advertise%20My%20Race" class="btn-ev-register">
+                        Advertise Your Race Here <i class="fas fa-paper-plane"></i>
+                    </a>
+                </div>
+
             </div>
         </div>
     </section>
@@ -1540,6 +1515,7 @@
                         spread the word to thousands of active local athletes — free.</p>
                     <ul class="cal-rules">
                         <li><i class="fas fa-check-circle"></i> Free for community &amp; non-profit events</li>
+                        <li><i class="fas fa-check-circle"></i> For-profit race advertising: $600 / 6 months or $1,000 / 12 months</li>
                         <li><i class="fas fa-check-circle"></i> PNW registered races only</li>
                         <li><i class="fas fa-check-circle"></i> We review all submissions</li>
                     </ul>
@@ -1548,98 +1524,11 @@
                         <i class="fas fa-paper-plane"></i> Submit Your Event
                     </a>
                 </div>
-
-                <div class="upcoming-list reveal delay-2">
-                    <div class="upcoming-item">
-                        <div class="upcoming-date-block">
-                            <div class="ud-month">Jan</div>
-                            <div class="ud-day">25</div>
-                        </div>
-                        <div class="upcoming-info">
-                            <h4>Race for the Warmth 5K &amp; 10K</h4>
-                            <span><i class="fas fa-map-marker-alt"></i> Vancouver, WA &nbsp;•&nbsp; Benefits Operation
-                                Warm Heart</span>
-                            <br>
-                            <a href="https://www.getmeregistered.com/RaceForTheWarmth" target="_blank"
-                                rel="noopener">Register <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="upcoming-item">
-                        <div class="upcoming-date-block">
-                            <div class="ud-month">Feb</div>
-                            <div class="ud-day">22</div>
-                        </div>
-                        <div class="upcoming-info">
-                            <h4>Vancouver Lake Half Marathon &amp; 4 Mile</h4>
-                            <span><i class="fas fa-map-marker-alt"></i> Vancouver Lake Park, WA &nbsp;•&nbsp; Capped at
-                                475 entries</span>
-                            <br>
-                            <a href="https://runsignup.com/Race/WA/Vancouver/VancouverLakeHalfMarathon4MileRun"
-                                target="_blank" rel="noopener">Register <i class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="upcoming-item">
-                        <div class="upcoming-date-block">
-                            <div class="ud-month">Feb</div>
-                            <div class="ud-day">28</div>
-                        </div>
-                        <div class="upcoming-info">
-                            <h4>Silver Falls Trail Challenge</h4>
-                            <span><i class="fas fa-map-marker-alt"></i> Silver Falls State Park, OR &nbsp;•&nbsp;
-                                Bivouac Racing</span>
-                            <br>
-                            <a href="https://bivouacracing.com" target="_blank" rel="noopener">View Details <i
-                                    class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                    <div class="upcoming-item">
-                        <div class="upcoming-date-block">
-                            <div class="ud-month">Jul</div>
-                            <div class="ud-day">5</div>
-                        </div>
-                        <div class="upcoming-info">
-                            <h4>Hellz Bellz Ultra</h4>
-                            <span><i class="fas fa-map-marker-alt"></i> Yacolt, WA &nbsp;•&nbsp; X-Dog Adventures &amp;
-                                Bivouac Racing</span>
-                            <br>
-                            <a href="https://bivouacracing.com" target="_blank" rel="noopener">View Details <i
-                                    class="fas fa-chevron-right"></i></a>
-                        </div>
-                    </div>
-                </div>
             </div>
         </div>
     </section>
 
-    <section class="community-highlights">
 
-        <div class="container">
-            <div class="highlight-box">
-                <div class="highlight-image reveal">
-                    <img loading="lazy" src="../images/Scrapedimages/Good-Times.jpg" alt="Training Group" class="glass-image">
-                </div>
-                <div class="highlight-text reveal delay-2">
-                    <h2>Training & Social Runs</h2>
-                    <p>We host regular social runs and training clinics throughout the year. It's a great way to meet
-                        fellow athletes, scope out course segments, and get expert tips from our leads.</p>
-                    <p>Check our social media for the latest meet-up times and locations!</p>
-                </div>
-            </div>
-
-            <div class="highlight-box reverse">
-                <div class="highlight-image reveal order-1">
-                    <img loading="lazy" src="../images/Scrapedimages/33216246_1685527644876492_6650516404111933440_o.jpg"
-                        alt="Corporate Team" class="glass-image">
-                </div>
-                <div class="highlight-text reveal delay-2">
-                    <h2>Corporate Wellness</h2>
-                    <p>Boost morale and promote health within your organization. Our Corporate Team program makes it
-                        easy for companies to sponsor employee entries and compete for the Corporate Cup.</p>
-                    <p>Healthy employees are happy employees.</p>
-                </div>
-            </div>
-        </div>
-    </section>
 
     <section class="testimonials-section">
         <div class="container">
@@ -1693,6 +1582,86 @@
         </div>
     </section>
 
+
+    <!-- SPONSOR TICKER -->
+    <div class="sponsor-ticker">
+        <div class="sponsor-ticker-label">Proud Partners</div>
+        <div class="sponsor-track">
+            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
+            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
+            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
+                    alt="PepsiCo"></a>
+            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
+            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
+            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
+            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
+            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
+            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
+                    alt="PepsiCo"></a>
+            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
+            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
+            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
+            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
+            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
+            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
+                    alt="PepsiCo"></a>
+            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
+            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
+            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
+            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
+            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
+            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
+                    alt="PepsiCo"></a>
+            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
+            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
+            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
+            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
+            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
+            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
+                    alt="PepsiCo"></a>
+            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
+            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
+            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
+            <a href="https://www.peacehealth.org" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/peacehealth.png" alt="PeaceHealth"></a>
+            <a href="https://foottraffic.us" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/foot-traffic.jpg" alt="Foot Traffic"></a>
+            <a href="https://www.pepsi.com" target="_blank" rel="noopener"><img loading="lazy" src="../images/sponsors/pepsi.png"
+                    alt="PepsiCo"></a>
+            <a href="https://www.vancouvertoyota.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/mccords-toyota.png" alt="McCord's Vancouver Toyota"></a>
+            <a href="https://nwpersonaltraining.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/nw-personal-training.png" alt="NW Personal Training"></a>
+            <a href="https://em3concrete.com" target="_blank" rel="noopener"><img loading="lazy"
+                    src="../images/sponsors/em3-concrete.jpg" alt="EM3 Concrete"></a>
+        </div>
+    </div>
+
     <footer>
         <div class="footer-container">
             <!-- Brand Section -->
@@ -1704,8 +1673,6 @@
                         title="Facebook"><i class="fab fa-facebook-f"></i></a>
                     <a href="https://www.instagram.com/why_racing_events/" target="_blank" rel="noopener"
                         title="Instagram"><i class="fab fa-instagram"></i></a>
-                    <a href="https://x.com/whyracingevents" target="_blank" rel="noopener" title="Twitter"><i
-                            class="fab fa-twitter"></i></a>
                     <a href="https://www.youtube.com/@WhyRacingEvents" target="_blank" rel="noopener" title="YouTube"><i
                             class="fab fa-youtube"></i></a>
                 </div>
@@ -1723,6 +1690,7 @@
                     <a href="locations.html">Travel</a>
                     <a href="partners.html">Sponsors</a>
                     <a href="about.html">About</a>
+                    <a href="corporate-wellness.html">Corporate Wellness</a>
                 </div>
             </div>
 
