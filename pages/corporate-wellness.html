@@ -108,18 +108,20 @@
 
         .hero-bg-img {
             position: absolute;
-            top: 0;
+            /* Start below the fixed navbar (~93px) so faces aren't hidden
+               behind the header, and anchor to the top of the photo. */
+            top: 96px;
             left: 0;
             width: 100%;
-            height: 100%;
+            height: calc(100% - 96px);
             object-fit: cover;
-            object-position: center;
+            object-position: center top;
             z-index: 0;
             pointer-events: none;
         }
 
         .hero-overlay {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.65) 0%, rgba(0, 0, 0, 0.3) 100%) !important;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.4) 100%) !important;
         }
 
         .hero-content {
