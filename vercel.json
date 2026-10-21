@@ -67,6 +67,166 @@
             "source": "/.vercel/(.*)",
             "destination": "/",
             "permanent": false
+        },
+        {
+            "source": "/appletree-run/wp-content/uploads/sites/6/2023/08/modified-Appletree_Logo_23Final-003.png",
+            "destination": "/images/logos/appletree-marathon.png",
+            "permanent": true
+        },
+        {
+            "source": "/girlfriends-run/:path*",
+            "destination": "/events/girlfriends-half-marathon-10k-6k",
+            "permanent": true
+        },
+        {
+            "source": "/scary-run/:path*",
+            "destination": "/events/scary-run",
+            "permanent": true
+        },
+        {
+            "source": "/scary-run-half-marathon-10k-5k/:path*",
+            "destination": "/events/scary-run",
+            "permanent": true
+        },
+        {
+            "source": "/couve-clover-run/:path*",
+            "destination": "/events/couve-clover-run",
+            "permanent": true
+        },
+        {
+            "source": "/springclassic/:path*",
+            "destination": "/events/spring-classic-duathlon-half-marathon-10k-5k",
+            "permanent": true
+        },
+        {
+            "source": "/spring-classic-duathlon/:path*",
+            "destination": "/events/spring-classic-duathlon-half-marathon-10k-5k",
+            "permanent": true
+        },
+        {
+            "source": "/reflection-run/:path*",
+            "destination": "/events/reflection-run",
+            "permanent": true
+        },
+        {
+            "source": "/pdx-triathlon/:path*",
+            "destination": "/events/pdx-triathlon-festival",
+            "permanent": true
+        },
+        {
+            "source": "/pdx-triathlon-at-blue-lake/:path*",
+            "destination": "/events/pdx-triathlon-festival",
+            "permanent": true
+        },
+        {
+            "source": "/columbia-river-triathlon/:path*",
+            "destination": "/events/columbia-river-triathlon-endurance-sports-festival",
+            "permanent": true
+        },
+        {
+            "source": "/girlfriends-triathlon-fitness-festival/:path*",
+            "destination": "/events/girlfriends-all-women-s-triathlon-fitness-festival",
+            "permanent": true
+        },
+        {
+            "source": "/appletree-marathon/:path*",
+            "destination": "/events/appletree-marathon",
+            "permanent": true
+        },
+        {
+            "source": "/appletree-run/:path*",
+            "destination": "/events/appletree-marathon",
+            "permanent": true
+        },
+        {
+            "source": "/pacific-coast-running-festival/:path*",
+            "destination": "/events/pacific-coast-running-festival",
+            "permanent": true
+        },
+        {
+            "source": "/hagg-lake-triathlon/:path*",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/pacific-crest-endurance/:path*",
+            "destination": "/",
+            "permanent": false
+        },
+        {
+            "source": "/events",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/events/",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/training-programs/:path*",
+            "destination": "/pages/training.html",
+            "permanent": true
+        },
+        {
+            "source": "/partnership-opportunities/:path*",
+            "destination": "/pages/partners.html",
+            "permanent": true
+        },
+        {
+            "source": "/contact/:path*",
+            "destination": "/pages/about.html",
+            "permanent": true
+        },
+        {
+            "source": "/athlete-of-the-month/:path*",
+            "destination": "/pages/community.html",
+            "permanent": true
+        },
+        {
+            "source": "/blog/:path*",
+            "destination": "/pages/community.html",
+            "permanent": true
+        },
+        {
+            "source": "/triathlon-duathlon-awards-series/:path*",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/merchandise/:path*",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/products/:path*",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/products-2/:path*",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/collections/:path*",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/collections-2/:path*",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/contest/:path*",
+            "destination": "/",
+            "permanent": true
+        },
+        {
+            "source": "/race-home-test/:path*",
+            "destination": "/",
+            "permanent": true
         }
     ],
     "headers": [
