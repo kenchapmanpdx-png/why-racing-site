@@ -380,6 +380,9 @@ app.get('/api/races', async (req, res) => {
       return res.status(500).json({ error: 'Database error', details: error.message });
     }
 
+    // Edge-cache the public race list so traffic spikes are served from Vercel's CDN,
+    // not Supabase. Admin edits show publicly within ~60s.
+    res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
     return res.status(200).json(races || []);
   } catch (err) {
     console.error('[API /races] Fatal error:', err);
@@ -1678,7 +1681,7 @@ app.post('/api/races/:id/seed-standard-content', adminAuth, async (req, res) => 
 app.get('/api/training-clubs', async (req, res) => {
   const { data, error } = await supabase.from('training_clubs').select('*').order('sort_order', { ascending: true }).limit(50);
   if (error) return res.status(500).json({ error: error.message });
-  res.set('Cache-Control', 'public, max-age=300');
+  res.set('Cache-Control', 'public, max-age=300, s-maxage=300, stale-while-revalidate=86400');
   return res.status(200).json(data);
 });
 
@@ -1706,7 +1709,7 @@ app.delete('/api/training-clubs/:id', adminAuth, async (req, res) => {
 app.get('/api/beneficiaries', async (req, res) => {
   const { data, error } = await supabase.from('beneficiaries').select('*').order('sort_order', { ascending: true }).limit(50);
   if (error) return res.status(500).json({ error: error.message });
-  res.set('Cache-Control', 'public, max-age=300');
+  res.set('Cache-Control', 'public, max-age=300, s-maxage=300, stale-while-revalidate=86400');
   return res.status(200).json(data);
 });
 
@@ -1734,7 +1737,7 @@ app.delete('/api/beneficiaries/:id', adminAuth, async (req, res) => {
 app.get('/api/team-members', async (req, res) => {
   const { data, error } = await supabase.from('team_members').select('*').order('sort_order', { ascending: true }).limit(50);
   if (error) return res.status(500).json({ error: error.message });
-  res.set('Cache-Control', 'public, max-age=300');
+  res.set('Cache-Control', 'public, max-age=300, s-maxage=300, stale-while-revalidate=86400');
   return res.status(200).json(data);
 });
 
@@ -1762,7 +1765,7 @@ app.delete('/api/team-members/:id', adminAuth, async (req, res) => {
 app.get('/api/global-sponsors', async (req, res) => {
   const { data, error } = await supabase.from('global_sponsors').select('*').order('sort_order', { ascending: true }).limit(50);
   if (error) return res.status(500).json({ error: error.message });
-  res.set('Cache-Control', 'public, max-age=300');
+  res.set('Cache-Control', 'public, max-age=300, s-maxage=300, stale-while-revalidate=86400');
   return res.status(200).json(data);
 });
 
