@@ -186,6 +186,50 @@ async function fetchRaceFull(slug) {
   };
 }
 
+// Old WordPress event URLs (e.g. /girlfriends-run/, /appletree-run/course-details/).
+// Resolved at request time: 301 to the event page when that race is live, otherwise
+// a temporary 302 to the home page events list. Self-heals when next year's edition
+// is published, so these never point visitors or Google at a 404.
+const LEGACY_EVENT_SLUGS = {
+  'girlfriends-run': 'girlfriends-half-marathon-10k-6k',
+  'scary-run': 'scary-run',
+  'scary-run-half-marathon-10k-5k': 'scary-run',
+  'couve-clover-run': 'couve-clover-run',
+  'springclassic': 'spring-classic-duathlon-half-marathon-10k-5k',
+  'spring-classic-duathlon': 'spring-classic-duathlon-half-marathon-10k-5k',
+  'reflection-run': 'reflection-run',
+  'pdx-triathlon': 'pdx-triathlon-festival',
+  'pdx-triathlon-at-blue-lake': 'pdx-triathlon-festival',
+  'columbia-river-triathlon': 'columbia-river-triathlon-endurance-sports-festival',
+  'girlfriends-triathlon-fitness-festival': 'girlfriends-all-women-s-triathlon-fitness-festival',
+  'appletree-marathon': 'appletree-marathon',
+  'appletree-run': 'appletree-marathon',
+  'pacific-coast-running-festival': 'pacific-coast-running-festival',
+  'hagg-lake-triathlon': 'hagg-lake-triathlon-trail-festival',
+  'pacific-crest-endurance': 'pacific-crest-endurance-sports-festival'
+};
+
+app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
+  const target = LEGACY_EVENT_SLUGS[req.params[0]];
+  if (!target) return next();
+  let live = false;
+  try {
+    const { data } = await supabase
+      .from('races')
+      .select('slug')
+      .eq('slug', target)
+      .eq('is_visible', true)
+      .eq('status', 'active')
+      .limit(1);
+    live = Array.isArray(data) && data.length > 0;
+  } catch (e) {
+    live = false;
+  }
+  res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+  if (live) return res.redirect(301, `/events/${target}`);
+  return res.redirect(302, '/#events');
+});
+
 app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
   const slug = req.params[0];
   const wantMarkdown = req.params[1] === '.md';
