@@ -192,7 +192,7 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
   try {
     const race = await fetchRaceFull(slug);
     if (!race) {
-      res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+      res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=60');
       if (wantMarkdown) return res.status(404).type('text/plain').send('Event not found.\n');
       return res.status(404).type('text/html').send('<!DOCTYPE html><title>Event Not Found</title><h1>Event not found</h1><p><a href="/">Return home</a></p>');
     }
@@ -381,8 +381,8 @@ app.get('/api/races', async (req, res) => {
     }
 
     // Edge-cache the public race list so traffic spikes are served from Vercel's CDN,
-    // not Supabase. Admin edits show publicly within ~60s.
-    res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=300');
+    // not Supabase. Admin edits and deletes show publicly within 2 min.
+    res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=60');
     return res.status(200).json(races || []);
   } catch (err) {
     console.error('[API /races] Fatal error:', err);
