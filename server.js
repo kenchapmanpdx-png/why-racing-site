@@ -212,21 +212,23 @@ const LEGACY_EVENT_SLUGS = {
 app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
   const target = LEGACY_EVENT_SLUGS[req.params[0]];
   if (!target) return next();
-  let live = false;
+  // Match the base slug or a year edition of it (e.g. scary-run-2027), whichever is live.
+  let liveSlug = null;
   try {
     const { data } = await supabase
       .from('races')
-      .select('slug')
-      .eq('slug', target)
+      .select('slug, race_date')
+      .or(`slug.eq.${target},slug.like.${target}-20__`)
       .eq('is_visible', true)
       .eq('status', 'active')
+      .order('race_date', { ascending: true })
       .limit(1);
-    live = Array.isArray(data) && data.length > 0;
+    if (Array.isArray(data) && data.length) liveSlug = data[0].slug;
   } catch (e) {
-    live = false;
+    liveSlug = null;
   }
   res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
-  if (live) return res.redirect(301, `/events/${target}`);
+  if (liveSlug) return res.redirect(301, `/events/${liveSlug}`);
   return res.redirect(302, '/#events');
 });
 
