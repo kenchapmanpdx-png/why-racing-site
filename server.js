@@ -71,7 +71,8 @@ const supabase = new Proxy({}, {
 // Prevents mass-assignment attacks where an authenticated admin (or stolen
 // token) could tamper with primary keys, timestamps, or foreign keys on rows
 // targeted by other URL params (e.g. an FAQ for race A being moved to race B).
-const PROTECTED_FIELDS = ['id', 'created_at', 'updated_at', 'inserted_at', 'deleted_at', 'parent_race_id'];
+const PROTECTED_FIELDS = ['id', 'created_at', 'updated_at', 'inserted_at', 'deleted_at', 'status_before_delete',
+  'slug_before_delete', 'renewed_for_date', 'parent_race_id'];
 const stripProtectedFields = (body, extra = []) => {
   if (!body || typeof body !== 'object' || Array.isArray(body)) return {};
   const clean = { ...body };
@@ -99,6 +100,16 @@ const sanitizeData = (data) => {
   }
   return sanitized;
 };
+
+// A registration link that points back at this website. After whyracingevents.com
+// moves to this site, old WordPress paths redirect (vercel.json) to the race's own
+// page, so a "Register" button with such a link would loop back to itself.
+const OWN_SITE_HOSTS = new Set(['whyracingevents.com', 'www.whyracingevents.com', 'why-racing-site.vercel.app']);
+function isOwnSiteUrl(url) {
+  if (!url || typeof url !== 'string') return false;
+  try { return OWN_SITE_HOSTS.has(new URL(url).hostname.toLowerCase()); } catch (_) { return false; }
+}
+const OWN_SITE_URL_ERROR = 'The Registration URL points to whyracingevents.com. After the domain moves to the new site it would send runners back to this same page. Use the race\'s sign-up page (RunSignUp, UltraSignup, ...) to publish.';
 
 const app = express();
 
@@ -152,6 +163,7 @@ const { renderEventMarkdown } = require('./lib/seo/event-md');
 const { renderSitemapXml } = require('./lib/seo/sitemap');
 const { renderLlmsTxt } = require('./lib/seo/llms-txt');
 const { renewPastRaces } = require('./lib/race-clone');
+const { restoreUntil, softDeleteRace, restoreRace } = require('./lib/race-trash');
 
 const SLUG_REGEX = /^[a-z0-9][a-z0-9-]{0,79}$/;
 
@@ -245,13 +257,15 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
     if (wantMarkdown) {
       const md = renderEventMarkdown(race);
       if (!md) return res.status(500).end();
-      res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=86400');
+      // Max age of any copy served by the CDN: 300s fresh + 60s stale = 6 minutes.
+      // That is the longest an edited or deleted race can still show on its page.
+      res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
       res.set('Content-Type', 'text/markdown; charset=utf-8');
       return res.status(200).send(md);
     }
     const { html, statusCode } = renderEventPage(race);
     if (!html) return res.status(statusCode || 500).end();
-    res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=86400');
+    res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
     res.set('Content-Type', 'text/html; charset=utf-8');
     return res.status(200).send(html);
   } catch (err) {
@@ -1116,7 +1130,9 @@ app.get('/api/races/all', adminAuth, async (req, res) => {
     console.error('Supabase Error (GET /api/races/all):', error);
     return res.status(500).json({ error: error.message });
   }
-  return res.status(200).json(data || []);
+  // Deleted races carry restore_until so the admin can show the exact deadline.
+  const rows = (data || []).map(r => (r.deleted_at ? { ...r, restore_until: restoreUntil(r.deleted_at) } : r));
+  return res.status(200).json(rows);
 });
 
 // Get single race (basic)
@@ -1245,8 +1261,11 @@ app.post('/api/races', adminAuth, async (req, res) => {
 
   const cleanRaceData = sanitizeData({
     ...stripProtectedFields(raceData),
-    distances: distances_display
+    ...(distances_display !== undefined ? { distances: distances_display } : {})
   });
+  if (cleanRaceData.status === 'active' && isOwnSiteUrl(cleanRaceData.registration_url)) {
+    return res.status(400).json({ error: OWN_SITE_URL_ERROR });
+  }
 
   try {
     const { data: race, error: raceError } = await supabase
@@ -1257,6 +1276,11 @@ app.post('/api/races', adminAuth, async (req, res) => {
 
     if (raceError) {
       console.error('Supabase Error (POST /api/races - race insert):', raceError);
+      if (raceError.code === '23505' && /slug/.test(raceError.message || '')) {
+        // The DB trigger builds the web address from the name; it must be unique.
+        const slug = String(cleanRaceData.slug || cleanRaceData.name || '').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+        return res.status(409).json({ error: `Another race already uses the web address /events/${slug}. Change the race name (for example, add the year) and save again.` });
+      }
       return res.status(500).json({ error: raceError.message });
     }
 
@@ -1271,7 +1295,11 @@ app.post('/api/races', adminAuth, async (req, res) => {
 
     // 1. Insert Distances & Pricing
     if (distances && distances.length > 0) {
-      const distancesWithRaceId = distances.map((d, i) => ({ ...stripProtectedFields(d, ['race_id']), race_id: raceId, sort_order: i }));
+      const distancesWithRaceId = distances.map((d, i) => {
+        const row = { ...stripProtectedFields(d, ['race_id']), race_id: raceId, sort_order: i };
+        if (row.base_price == null) row.base_price = 0; // NOT NULL, no default
+        return row;
+      });
       const { data: newDists, error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId).select();
       if (dError) return failCreate('Failed to save race distances', dError);
       if (pricing_config && newDists) {
@@ -1336,22 +1364,51 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
 
   const cleanRaceData = sanitizeData({
     ...stripProtectedFields(raceData),
-    distances: distances_display
+    ...(distances_display !== undefined ? { distances: distances_display } : {})
   });
 
   try {
-    // 1. Update race basic info
-    const { data: updatedRows, error: raceError } = await supabase
-      .from('races')
-      .update(cleanRaceData)
-      .eq('id', id)
-      .select('id');
+    // 0. Block edits to a deleted race (it would go live while still queued for purge).
+    //    select('*') so this works whether or not the soft-delete columns exist yet.
+    const { data: current, error: curErr } = await supabase
+      .from('races').select('*').eq('id', id).maybeSingle();
+    if (curErr) {
+      console.error(`Supabase Error (PUT /api/races/${id} pre-check):`, curErr);
+      return res.status(500).json({ error: curErr.message });
+    }
+    if (!current) return res.status(404).json({ error: 'Race not found' });
+    const DELETED_MSG = 'This race was deleted. Restore it from "Recently deleted" before editing.';
+    if (current.deleted_at) return res.status(409).json({ error: DELETED_MSG });
+
+    const finalStatus = cleanRaceData.status !== undefined ? cleanRaceData.status : current.status;
+    if (finalStatus === 'active') {
+      // Publishing rules
+      const finalUrl = cleanRaceData.registration_url !== undefined ? cleanRaceData.registration_url : current.registration_url;
+      if (isOwnSiteUrl(finalUrl)) return res.status(400).json({ error: OWN_SITE_URL_ERROR });
+      if (current.status !== 'active') {
+        // Never two live editions: refuse to publish an edition whose newer edition is live.
+        let q = supabase.from('races').select('name, race_date').eq('parent_race_id', id).eq('status', 'active');
+        if ('deleted_at' in current) q = q.is('deleted_at', null);
+        const { data: liveNewer, error: lnErr } = await q;
+        if (lnErr) return res.status(500).json({ error: lnErr.message });
+        if (liveNewer && liveNewer.length) {
+          return res.status(409).json({ error: `A newer edition of this race (${liveNewer[0].race_date}) is live. Edit that one instead, or set it to draft first.` });
+        }
+      }
+    }
+
+    // 1. Update race basic info (never a deleted race: guards a Delete racing this save)
+    let upd = supabase.from('races').update(cleanRaceData).eq('id', id);
+    if ('deleted_at' in current) upd = upd.is('deleted_at', null);
+    const { data: updatedRows, error: raceError } = await upd.select('id');
 
     if (raceError) {
       console.error(`Supabase Error (PUT /api/races/${id}):`, raceError);
       return res.status(500).json({ error: raceError.message });
     }
     if (!updatedRows || updatedRows.length === 0) {
+      const { data: again } = await supabase.from('races').select('*').eq('id', id).maybeSingle();
+      if (again && again.deleted_at) return res.status(409).json({ error: DELETED_MSG });
       return res.status(404).json({ error: 'Race not found' });
     }
 
@@ -1368,26 +1425,53 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
       return null;
     }
 
-    // 2. Handle distances
+    // 2. Handle distances - sync in place so ids stay stable.
+    //    Rows sent with an id that belongs to this race are UPDATED (only the
+    //    fields sent; price, capacity, start time etc. are left as they are).
+    //    Rows without an id are INSERTED. Existing rows not sent are DELETED.
+    //    Updating in place keeps rows that reference a distance (start times,
+    //    course records, amenities, pricing tiers) from being cascade-deleted.
     if (distances) {
-      if (distances.length > 0) {
-        const distancesWithRaceId = distances.map((d, i) => ({ ...stripProtectedFields(d, ['race_id']), race_id: id, sort_order: i }));
-        const { error: delErr } = await supabase.from('race_distances').delete().eq('race_id', id);
+      if (!Array.isArray(distances)) return res.status(400).json({ error: 'distances must be an array' });
+      const { data: existingDists, error: exErr } = await supabase
+        .from('race_distances').select('id').eq('race_id', id);
+      if (exErr) {
+        console.error(`Error reading distances for race ${id}:`, exErr);
+        return res.status(500).json({ error: 'Failed to update distances', details: exErr.message });
+      }
+      const existingIds = new Set((existingDists || []).map(d => d.id));
+      const keptIds = new Set();
+      for (let i = 0; i < distances.length; i++) {
+        const incoming = distances[i] || {};
+        const fields = { ...stripProtectedFields(incoming, ['race_id']), sort_order: i };
+        if (incoming.id && existingIds.has(incoming.id)) {
+          const { error: upErr } = await supabase.from('race_distances').update(fields).eq('id', incoming.id).eq('race_id', id);
+          if (upErr) {
+            console.error(`Error updating distance ${incoming.id} for race ${id}:`, upErr);
+            return res.status(500).json({ error: 'Failed to save distances - please try saving again', details: upErr.message });
+          }
+          keptIds.add(incoming.id);
+        } else {
+          const row = { ...fields, race_id: id };
+          if (row.base_price == null) row.base_price = 0; // NOT NULL, no default
+          const { error: insErr } = await supabase.from('race_distances').insert(row);
+          if (insErr) {
+            console.error(`Error inserting distance for race ${id}:`, insErr);
+            return res.status(500).json({ error: 'Failed to save distances - please try saving again', details: insErr.message });
+          }
+        }
+      }
+      const removedIds = [...existingIds].filter(x => !keptIds.has(x));
+      if (removedIds.length) {
+        const { error: delErr } = await supabase.from('race_distances').delete().in('id', removedIds).eq('race_id', id);
         if (delErr) {
-          console.error(`Error deleting distances for race ${id}:`, delErr);
+          console.error(`Error deleting removed distances for race ${id}:`, delErr);
           return res.status(500).json({ error: 'Failed to update distances', details: delErr.message });
         }
-        const { data: newDists, error: dError } = await supabase.from('race_distances').insert(distancesWithRaceId).select();
-        if (dError) {
-          console.error(`Error inserting distances for race ${id}:`, dError);
-          return res.status(500).json({ error: 'Failed to save distances — please try saving again', details: dError.message });
-        }
-        if (pricing_config && newDists) {
-          await applyGlobalPricing(id, newDists, pricing_config, supabase);
-        }
-      } else {
-        // Empty array explicitly sent — wipe all distances
-        await supabase.from('race_distances').delete().eq('race_id', id);
+      }
+      if (pricing_config) {
+        const { data: allDists } = await supabase.from('race_distances').select('*').eq('race_id', id).order('sort_order');
+        if (allDists) await applyGlobalPricing(id, allDists, pricing_config, supabase);
       }
     }
 
@@ -1482,31 +1566,30 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
   }
 });
 
-// 2.5 Delete Race
+// 2.5 Delete Race (recoverable) - see lib/race-trash.js for the exact rules.
 app.delete('/api/races/:id', adminAuth, async (req, res) => {
   const { id } = req.params;
   if (!isValidUUID(id)) return res.status(400).json({ error: 'Invalid race ID' });
-  console.log(`DELETE request for race ID: ${id}`);
-
   try {
-    const { data: deletedRows, error } = await supabase
-      .from('races')
-      .delete()
-      .eq('id', id)
-      .select('id');
-
-    if (error) {
-      console.error(`Supabase Error (DELETE /api/races/${id}):`, error);
-      return res.status(500).json({ error: error.message });
-    }
-    if (!deletedRows || deletedRows.length === 0) {
-      return res.status(404).json({ error: 'Race not found' });
-    }
-
-    console.log(`Race ${id} deleted successfully`);
-    return res.status(200).json({ success: true });
+    const out = await softDeleteRace(supabase, id);
+    if (out.status === 200) console.log(`Race ${id} (${out.body.name}) moved to Recently deleted (was ${out.body.was_status})`);
+    return res.status(out.status).json(out.body);
   } catch (err) {
     console.error(`Server Internal Error (DELETE /api/races/${id}):`, err);
+    return res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// 2.6 Restore a deleted race - see lib/race-trash.js for the exact rules.
+app.post('/api/races/:id/restore', adminAuth, async (req, res) => {
+  const { id } = req.params;
+  if (!isValidUUID(id)) return res.status(400).json({ error: 'Invalid race ID' });
+  try {
+    const out = await restoreRace(supabase, id);
+    if (out.status === 200 && !out.body.already) console.log(`Race ${id} (${out.body.name}) restored as ${out.body.status} at /events/${out.body.slug} ${JSON.stringify(out.body.notes)}`);
+    return res.status(out.status).json(out.body);
+  } catch (err) {
+    console.error(`Server Internal Error (POST /api/races/${id}/restore):`, err);
     return res.status(500).json({ error: 'Internal server error' });
   }
 });

@@ -9,6 +9,36 @@
         rel="stylesheet">
     <link href="../../assets/css/admin-global.css" rel="stylesheet">
     <script src="../../assets/js/nav.js"></script>
+    <style>
+        /* Recoverable delete: row button, Recently deleted list, confirm dialog, undo toast */
+        .race-card-status .delete-btn { margin-left: 12px; padding: 8px 14px; background: transparent; border: 1px solid #cbd5e1; color: #64748b; border-radius: 6px; cursor: pointer; font-weight: 600; transition: all 0.2s; }
+        .race-card-status .delete-btn:hover { border-color: #ef4444; color: #ef4444; }
+        .status-archived { background: #e2e8f0; color: #475569; }
+        .trash-section { margin-top: 40px; }
+        .trash-section h2 { font-size: 18px; margin-bottom: 4px; }
+        .trash-section .trash-note { color: #64748b; font-size: 14px; margin-bottom: 16px; }
+        .race-card.is-deleted { background: #f8fafc; border-style: dashed; }
+        .race-card.is-deleted:hover { border-color: #94a3b8; }
+        .race-card.is-deleted h3 { color: #64748b; }
+        .restore-btn { padding: 8px 16px; background: #166534; border: 1px solid #166534; color: #fff; border-radius: 6px; cursor: pointer; font-weight: 600; }
+        .restore-btn:hover { background: #14532d; }
+        .restore-btn:disabled, .dlg-actions button:disabled { opacity: 0.5; cursor: not-allowed; }
+        #deleteDialog { margin: auto; border: none; border-radius: 12px; padding: 24px; max-width: 440px; width: calc(100% - 32px); box-shadow: 0 20px 50px rgba(0,0,0,0.3); }
+        #deleteDialog::backdrop { background: rgba(15, 23, 42, 0.55); }
+        #deleteDialog h3 { margin: 0 0 12px; font-size: 20px; }
+        #deleteDialog .dlg-race { background: #f1f5f9; border-radius: 8px; padding: 12px 14px; margin-bottom: 12px; }
+        #deleteDialog .dlg-race strong { display: block; font-size: 16px; }
+        #deleteDialog .dlg-race span { color: #64748b; font-size: 14px; }
+        #deleteDialog p { color: #334155; font-size: 14px; margin: 0 0 8px; line-height: 1.45; }
+        #deleteDialog .dlg-live { color: #b91c1c; font-weight: 600; }
+        #deleteDialog .dlg-error { color: #b91c1c; font-weight: 600; margin-top: 8px; }
+        #deleteDialog .dlg-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 20px; }
+        #deleteDialog .dlg-cancel { padding: 10px 18px; background: #fff; border: 1px solid #cbd5e1; color: #1e293b; border-radius: 8px; font-weight: 600; cursor: pointer; }
+        #deleteDialog .dlg-confirm { padding: 10px 18px; background: #ef4444; border: 1px solid #ef4444; color: #fff; border-radius: 8px; font-weight: 700; cursor: pointer; }
+        #adminToast { position: fixed; left: 16px; right: 16px; bottom: 24px; margin: 0 auto; width: fit-content; background: #0f172a; color: #fff; padding: 12px 16px; border-radius: 10px; display: none; align-items: center; gap: 16px; z-index: 10000; box-shadow: 0 10px 30px rgba(0,0,0,0.3); }
+        #adminToast.show { display: flex; }
+        #adminToast button { background: transparent; border: 1px solid #fff; color: #fff; border-radius: 6px; padding: 6px 12px; font-weight: 700; cursor: pointer; }
+    </style>
 </head>
 
 <body>
@@ -40,6 +70,11 @@
         <div class="tab-content active" id="tab-races">
             <div class="race-list" id="raceList">
                 <!-- Populated by JavaScript -->
+            </div>
+            <div class="trash-section display-none" id="trashSection">
+                <h2>🗑️ Recently deleted</h2>
+                <p class="trash-note">Hidden from the website. Restore puts a race back exactly as it was. Each race is removed for good 30 days after it was deleted.</p>
+                <div class="race-list" id="trashList"></div>
             </div>
         </div>
 
@@ -239,7 +274,7 @@
                                 <img id="thumbnailPreview" alt="Race thumbnail preview"
                                     class="image-preview display-none">
                             </div>
-                            <button type="button" class="clear-image-btn display-none" onclick="clearImage('thumbnail')"
+                            <button type="button" class="clear-image-btn display-none" onclick="removeImage('thumbnail')"
                                 id="thumbnailClearBtn">✕ Remove</button>
                         </div>
                     </div>
@@ -253,43 +288,42 @@
                 <div class="form-actions">
                     <button type="button" class="btn btn-secondary" onclick="clearForm()">Clear Form</button>
                     <button type="button" class="btn btn-secondary display-none" id="viewLiveBtn"
-                        onclick="window.open('../events/race-detail.html?id=' + document.getElementById('raceForm').dataset.editingId, '_blank')">View
-                        Live</button>
+                        onclick="openRacePage(document.getElementById('raceForm').dataset.editingId)">View Page</button>
+                    <button type="button" class="btn btn-secondary display-none" id="saveKeepBtn" onclick="saveRace(null)">Save Changes</button>
                     <button type="button" class="btn btn-secondary" onclick="saveDraft()">Save as Draft</button>
-                    <button type="submit" class="btn btn-primary">Save & Publish Race</button>
+                    <button type="button" class="btn btn-primary" onclick="saveRace('active')">Save & Publish Race</button>
                 </div>
 
                 <!-- Delete Section (only visible when editing) -->
                 <div id="deleteSection" class="display-none mt-40 pt-30 danger-border-top">
-                    <h4 class="color-red-danger mb-15">⚠️ Danger Zone</h4>
-                    <p class="color-slate mb-15">Permanently delete this race and all associated
-                        data. This action cannot be undone.</p>
-
-                    <!-- Step 1: Initial Button -->
-                    <div id="deleteStep1">
-                        <button type="button" class="btn btn-danger-outline" onclick="showDeleteConfirm()">
-                            🗑️ Delete This Race
-                        </button>
-                    </div>
-
-                    <!-- Step 2: Confirmation Buttons -->
-                    <div id="deleteStep2" class="display-none danger-confirm-box">
-                        <p class="danger-confirm-text">Are you absolutely sure? This
-                            cannot be undone.</p>
-                        <div class="flex-centered-gap-8">
-                            <button type="button" class="btn btn-danger-solid" onclick="finalDeleteRace()">
-                                YES, DELETE PERMANENTLY
-                            </button>
-                            <button type="button" class="btn btn-secondary"
-                                onclick="hideDeleteConfirm()">Cancel</button>
-                        </div>
-                    </div>
+                    <h4 class="color-red-danger mb-15">Delete race</h4>
+                    <p class="color-slate mb-15">Hides this race from the website. You can restore it from Recently deleted for 30 days.</p>
+                    <button type="button" class="btn btn-danger-outline"
+                        onclick="askDeleteRace(document.getElementById('raceForm').dataset.editingId)">
+                        🗑️ Delete this race
+                    </button>
                 </div>
 
             </form>
         </div>
 
     </div>
+
+    <!-- Delete confirmation (one dialog shared by the list and the edit form) -->
+    <dialog id="deleteDialog" aria-labelledby="deleteDialogTitle">
+        <h3 id="deleteDialogTitle">Delete this race?</h3>
+        <div class="dlg-race"><strong id="dlgRaceName"></strong><span id="dlgRaceMeta"></span></div>
+        <p class="dlg-live display-none" id="dlgLive">This race is live on the website. It leaves the race list right away; its own page can stay up for up to 6 minutes.</p>
+        <p>You can restore it from <strong>Recently deleted</strong> until <strong id="dlgUntil"></strong>.</p>
+        <p class="dlg-error display-none" id="dlgError"></p>
+        <div class="dlg-actions">
+            <button type="button" class="dlg-cancel" id="dlgCancel" autofocus>Cancel</button>
+            <button type="button" class="dlg-confirm" id="dlgConfirm">Delete race</button>
+        </div>
+    </dialog>
+
+    <!-- Undo / status toast -->
+    <div id="adminToast" role="status" aria-live="polite"><span id="toastText"></span><button type="button" id="toastUndo">Undo</button></div>
 
     <script type="module">
         // Resolve DB-stored image paths (relative to public pages) for the admin context.
@@ -365,43 +399,103 @@
 
         function renderRaceList() {
             const list = document.getElementById('raceList');
-            if (races.length === 0) {
+            const now = Date.now();
+            const liveRaces = races.filter(r => !r.deleted_at);
+            // Deleted races still inside the 30-day window (older ones are on their way out)
+            const deletedRaces = races
+                .filter(r => r.deleted_at && r.restore_until && new Date(r.restore_until).getTime() > now)
+                .sort((a, b) => new Date(b.deleted_at) - new Date(a.deleted_at));
+
+            if (liveRaces.length === 0) {
                 list.innerHTML = '<p class="admin-table-desc" style="text-align: center; padding: 40px;">No races found. Add your first race!</p>';
-                return;
-            }
+            } else {
+                const today = new Date().toISOString().split('T')[0];
 
-            const today = new Date().toISOString().split('T')[0];
+                list.innerHTML = liveRaces.map(race => {
+                    const isPastDraft = race.status === 'draft' && race.race_date && race.race_date < today;
+                    const readyBadge = isPastDraft ? '<span class="status-draft" style="font-size: 10px; margin-left: 8px;">📅 Ready to Update</span>' : '';
 
-            list.innerHTML = races.map(race => {
-                const isPastDraft = race.status === 'draft' && race.race_date && race.race_date < today;
-                const readyBadge = isPastDraft ? '<span class="status-draft" style="font-size: 10px; margin-left: 8px;">📅 Ready to Update</span>' : '';
-
-                return `
+                    return `
         <div class="race-card" style="${isPastDraft ? 'border-left: 3px solid #f59e0b;' : ''}">
           <div class="race-card-info">
             <h3>${esc(race.name)}${readyBadge}</h3>
-            <p>${esc(formatDate(race.race_date))} • ${esc(race.city || '')}, ${esc(race.state || 'WA')}</p>
+            <p>${esc([formatDate(race.race_date), [race.city, race.state].filter(Boolean).join(', ')].filter(Boolean).join(' • '))}</p>
           </div>
           <div class="race-card-status">
-            <span class="status-badge status-${race.status}">${esc(race.status)}</span>
+            <span class="status-badge status-${esc(race.status)}">${esc(race.status)}</span>
             ${race.registration_url
               ? `<a href="${esc(race.registration_url)}" target="_blank" rel="noopener noreferrer" class="edit-btn admin-btn-outline">View Live</a>`
               : `<span class="edit-btn admin-btn-outline" style="opacity:0.4;cursor:not-allowed;" title="No registration URL set">View Live</span>`}
             <button class="edit-btn" onclick="editRace('${esc(race.id)}')">Edit</button>
+            <button class="delete-btn" onclick="askDeleteRace('${esc(race.id)}')" title="Delete (restorable for 30 days)">Delete</button>
           </div>
         </div>
       `;
-            }).join('');
+                }).join('');
+            }
+
+            const trashSection = document.getElementById('trashSection');
+            setShown(trashSection, deletedRaces.length > 0);
+            document.getElementById('trashList').innerHTML = deletedRaces.map(race => `
+        <div class="race-card is-deleted">
+          <div class="race-card-info">
+            <h3>${esc(race.name)}</h3>
+            <p>${esc(formatDate(race.race_date))} • Deleted ${esc(formatStamp(race.deleted_at))} • Restorable until ${esc(formatStamp(race.restore_until))}</p>
+          </div>
+          <div class="race-card-status">
+            <span class="status-badge status-${esc(race.status_before_delete || 'draft')}" title="Status it will return to">was ${esc(race.status_before_delete || 'draft')}</span>
+            <button class="restore-btn" onclick="restoreRace('${esc(race.id)}', this)">Restore</button>
+          </div>
+        </div>
+      `).join('');
         }
 
+        // race_date is a plain YYYY-MM-DD. Parse it as a local date so it does not
+        // shift a day earlier in Pacific time (new Date('2026-11-21') is UTC midnight).
         function formatDate(dateStr) {
             if (!dateStr) return 'TBA';
-            return new Date(dateStr).toLocaleDateString('en-US', {
+            const m = String(dateStr).match(/^(\d{4})-(\d{2})-(\d{2})/);
+            const d = m ? new Date(+m[1], +m[2] - 1, +m[3]) : new Date(dateStr);
+            if (isNaN(d.getTime())) return 'TBA';
+            return d.toLocaleDateString('en-US', {
                 weekday: 'short',
                 month: 'short',
                 day: 'numeric',
                 year: 'numeric'
             });
+        }
+
+        // Full timestamps (deleted_at, restore_until) -> "Sun, Nov 29, 12:13 PM" (viewer's local time)
+        function formatStamp(ts) {
+            const d = new Date(ts);
+            if (!ts || isNaN(d.getTime())) return '';
+            return d.toLocaleString('en-US', { weekday: 'short', month: 'short', day: 'numeric', hour: 'numeric', minute: '2-digit' });
+        }
+
+        // Select a value; if the stored value is not one of the options, add it so
+        // saving the form never silently changes it.
+        // A stored NULL selects a "(not set)" option whose value is '' (saved back as NULL).
+        function setSelect(select, value) {
+            if (!select) return;
+            const v = value == null ? '' : String(value);
+            if (![...select.options].some(o => o.value === v)) {
+                select.add(new Option(v === '' ? '(not set)' : v, v));
+            }
+            select.value = v;
+        }
+
+        // Public page for a race (only exists while it is active and visible).
+        function openRacePage(id) {
+            const race = races.find(r => r.id === id);
+            if (race && race.slug) window.open('/events/' + encodeURIComponent(race.slug), '_blank', 'noopener');
+        }
+
+        // .display-none uses !important, so inline style.display cannot override it.
+        // Toggle the class instead.
+        function setShown(el, on) {
+            if (!el) return;
+            el.classList.toggle('display-none', !on);
+            el.style.display = '';
         }
 
         function editRace(id) {
@@ -420,57 +514,69 @@
                 console.error('CRITICAL: raceName input not found in DOM!');
             }
             form.raceDate.value = race.race_date || '';
-            form.isActive.checked = race.is_visible;
-            form.registrationOpen.checked = race.registration_open;
-            form.isFeatured.checked = race.is_featured;
-            form.waitlistEnabled.checked = race.waitlist_enabled;
+            form.isActive.checked = !!race.is_visible;
+            form.registrationOpen.checked = !!race.registration_open;
+            form.isFeatured.checked = !!race.is_featured;
+            form.waitlistEnabled.checked = !!race.waitlist_enabled;
             if (form.isPartnerRace) form.isPartnerRace.checked = !!race.is_partner_race;
 
-            // Text fields
+            // Every field the save sends must be loaded here, or saving would overwrite it.
+            setSelect(form.raceType, race.race_type);
+            setSelect(form.state, race.state);
+            form.registrationUrl.value = race.registration_url || '';
             if (form.city) form.city.value = race.city || '';
-            if (form.state) form.state.value = race.state || 'WA';
             if (form.venue) form.venue.value = race.venue || '';
             if (form.distances) form.distances.value = race.distances || '';
 
-            // Show View Live button and Delete section
-            document.getElementById('viewLiveBtn').style.display = 'inline-block';
-            document.getElementById('deleteSection').style.display = 'block';
+            // Save Changes keeps the current status (draft / active / archived)
+            const keepBtn = document.getElementById('saveKeepBtn');
+            keepBtn.textContent = `Save Changes (keep ${race.status || 'draft'})`;
+            setShown(keepBtn, true);
+
+            // View Page (only for races live on the site) and Delete
+            setShown(document.getElementById('viewLiveBtn'), race.status === 'active' && !!race.is_visible && !!race.slug);
+            setShown(document.getElementById('deleteSection'), true);
 
 
             // Handle distances
             const distanceList = document.getElementById('distanceList');
             distanceList.innerHTML = '';
             if (race.race_distances && race.race_distances.length > 0) {
-                race.race_distances.forEach(d => {
-                    addDistanceWithValue(d.name, d.distance_type, d.distance_value);
-                });
+                [...race.race_distances]
+                    .sort((a, b) => (a.sort_order ?? 0) - (b.sort_order ?? 0))
+                    .forEach(d => addDistanceWithValue(d.name, d.distance_type, d.distance_value, d.id));
             } else {
                 addDistance();
             }
 
 
 
+            // Thumbnail: start clean, then show the race's current image if it has one
+            clearImage('thumbnail');
+            thumbnailRemoved = false;
             if (race.thumbnail_url) {
                 const preview = document.getElementById('thumbnailPreview');
                 preview.src = adminImg(race.thumbnail_url);
-                preview.style.display = 'block';
+                setShown(preview, true);
                 document.getElementById('thumbnailPlaceholder').style.display = 'none';
                 document.getElementById('thumbnailUploadArea').classList.add('has-image');
-                document.getElementById('thumbnailClearBtn').style.display = 'inline-block';
+                setShown(document.getElementById('thumbnailClearBtn'), true);
             }
 
 
         }
 
-        function addDistanceWithValue(name = '', distanceType = '', distance = '') {
+        function addDistanceWithValue(name = '', distanceType = '', distance = '', distanceId = '') {
             // Convert null/undefined to empty strings for form inputs
             name = name ?? '';
-            distanceType = distanceType ?? name ?? '';
+            distanceType = distanceType ?? '';
             distance = distance ?? '';
 
             const list = document.getElementById('distanceList');
             const item = document.createElement('div');
             item.className = 'distance-item';
+            // Existing distances keep their id so saving updates them in place
+            if (distanceId) item.dataset.distanceId = distanceId;
 
             const distanceOptions = [
                 { value: '', label: '-- Select Distance --' },
@@ -491,14 +597,18 @@
                 { value: 'Virtual', label: 'Virtual' }
             ];
 
+            // A stored type that is not in the list is added, so saving never drops the distance
+            if (distanceType && !distanceOptions.some(o => o.value === distanceType)) {
+                distanceOptions.push({ value: distanceType, label: distanceType });
+            }
             const optionsHtml = distanceOptions.map(opt =>
-                `<option value="${opt.value}" ${opt.value === distanceType ? 'selected' : ''}>${opt.label}</option>`
+                `<option value="${esc(opt.value)}" ${opt.value === distanceType ? 'selected' : ''}>${esc(opt.label)}</option>`
             ).join('');
 
             item.innerHTML = `
         <div style="grid-column: 1 / -1; margin-bottom: 10px;">
           <label>Display Name (Custom Title)</label>
-          <input type="text" name="distanceCustomName[]" value="${name}" placeholder="e.g., First Responder Relay">
+          <input type="text" name="distanceCustomName[]" value="${esc(name)}" placeholder="e.g., First Responder Relay">
         </div>
         <div>
           <label>Standard Distance Type</label>
@@ -508,7 +618,7 @@
         </div>
         <div>
           <label>Distance Value</label>
-          <input type="text" name="distanceValue[]" value="${distance}" placeholder="e.g., 3.1 miles">
+          <input type="text" name="distanceValue[]" value="${esc(distance)}" placeholder="e.g., 3.1 miles">
         </div>
         <button type="button" class="remove-distance" style="align-self: flex-end; margin-bottom: 5px;" onclick="removeDistance(this)">×</button>
       `;
@@ -566,71 +676,182 @@
 
 
         // === Form Actions ===
+        function resetForm() {
+            const form = document.getElementById('raceForm');
+            form.reset();
+            delete form.dataset.editingId;
+            setShown(document.getElementById('deleteSection'), false);
+            setShown(document.getElementById('viewLiveBtn'), false);
+            setShown(document.getElementById('saveKeepBtn'), false);
+            clearImage('thumbnail');
+            thumbnailRemoved = false;
+
+            // Clear repeaters
+            document.getElementById('distanceList').innerHTML = '';
+            addDistance(); // Add one default distance
+        }
+
         function clearForm() {
-            if (confirm('Clear all form data?')) {
-                const form = document.getElementById('raceForm');
-                form.reset();
-                delete form.dataset.editingId;
-                document.getElementById('viewLiveBtn').style.display = 'none';
-                document.getElementById('deleteSection').style.display = 'none';
-                clearImage('thumbnail');
+            if (confirm('Clear all form data?')) resetForm();
+        }
 
-                // Clear repeaters
-                document.getElementById('distanceList').innerHTML = '';
-                addDistance(); // Add one default distance
+        // === Delete (recoverable) ===
+        // Delete -> confirm dialog (Cancel is focused; Delete arms after a short pause so a
+        // double-click cannot confirm) -> race moves to Recently deleted -> Undo toast.
+        // Restorable for 30 days; the daily cron removes it for good after that.
+        const authHeaders = () => ({ 'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET') });
+        let pendingDeleteId = null;
 
+        function askDeleteRace(id) {
+            const race = races.find(r => r.id === id);
+            if (!id || !race) return;
+            pendingDeleteId = id;
+
+            const dialog = document.getElementById('deleteDialog');
+            const confirmBtn = document.getElementById('dlgConfirm');
+            document.getElementById('dlgRaceName').textContent = race.name || 'Untitled race';
+            document.getElementById('dlgRaceMeta').textContent =
+                [formatDate(race.race_date), [race.city, race.state].filter(Boolean).join(', ')].filter(Boolean).join(' • ');
+            setShown(document.getElementById('dlgLive'), race.status === 'active' && !!race.is_visible);
+            document.getElementById('dlgUntil').textContent = formatStamp(new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString());
+            setShown(document.getElementById('dlgError'), false);
+            confirmBtn.textContent = 'Delete race';
+            confirmBtn.disabled = true;
+            setTimeout(() => { if (pendingDeleteId === id) confirmBtn.disabled = false; }, 600);
+
+            if (typeof dialog.showModal === 'function') {
+                dialog.showModal();
+                document.getElementById('dlgCancel').focus();
+            } else if (confirm('Delete "' + (race.name || 'this race') + '"? You can restore it from Recently deleted for 30 days.')) {
+                confirmDelete();
+            } else {
+                pendingDeleteId = null;
             }
         }
 
-        // === Delete Functions ===
-        function showDeleteConfirm() {
-            document.getElementById('deleteStep1').style.display = 'none';
-            document.getElementById('deleteStep2').style.display = 'block';
+        function closeDeleteDialog() {
+            pendingDeleteId = null;
+            const dialog = document.getElementById('deleteDialog');
+            if (dialog.open) dialog.close();
         }
 
-        function hideDeleteConfirm() {
-            document.getElementById('deleteStep1').style.display = 'block';
-            document.getElementById('deleteStep2').style.display = 'none';
-        }
-
-        async function finalDeleteRace() {
-            const form = document.getElementById('raceForm');
-            const editingId = form.dataset.editingId;
-
-            if (!editingId) return;
+        async function confirmDelete() {
+            const id = pendingDeleteId;
+            if (!id) return;
+            const race = races.find(r => r.id === id) || {};
+            const confirmBtn = document.getElementById('dlgConfirm');
+            const errEl = document.getElementById('dlgError');
+            confirmBtn.disabled = true;
+            confirmBtn.textContent = 'Deleting...';
+            setShown(errEl, false);
 
             try {
-                const response = await fetch(`/api/races/${editingId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Authorization': 'Bearer ' + sessionStorage.getItem('ADMIN_SECRET')
-                    }
-                });
+                const response = await fetch(`${RACES_ENDPOINT}/${id}`, { method: 'DELETE', headers: authHeaders() });
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(apiError(response, data));
 
-                if (response.ok) {
-                    alert('Race deleted permanently.');
-                    // Manually clear form elements and hide sections
-                    form.reset();
-                    delete form.dataset.editingId;
-                    document.getElementById('viewLiveBtn').style.display = 'none';
-                    document.getElementById('deleteSection').style.display = 'none';
-                    hideDeleteConfirm(); // Reset the buttons for next time
+                closeDeleteDialog();
+                const form = document.getElementById('raceForm');
+                if (form.dataset.editingId === id) {
+                    resetForm();
                     switchTab('races');
-                    loadRaces();
-                } else {
-                    const data = await response.json();
-                    alert('Failed to delete race: ' + (data.error || 'Unknown error'));
                 }
+                showToast(`Deleted "${race.name || 'race'}".`, { label: 'Undo', onClick: () => restoreRace(id) });
+                await loadRaces();
             } catch (error) {
                 console.error('Delete error:', error);
-                alert('Failed to delete race: ' + error.message);
+                errEl.textContent = 'Could not delete: ' + error.message;
+                setShown(errEl, true);
+                confirmBtn.textContent = 'Delete race';
+                confirmBtn.disabled = false;
+                if (!document.getElementById('deleteDialog').open) alert(errEl.textContent);
             }
         }
 
+        async function restoreRace(id, btn) {
+            const race = races.find(r => r.id === id) || {};
+            if (btn) btn.disabled = true;
+            try {
+                const response = await fetch(`${RACES_ENDPOINT}/${id}/restore`, { method: 'POST', headers: authHeaders() });
+                const data = await response.json().catch(() => ({}));
+                if (!response.ok) throw new Error(apiError(response, data));
+                showToast(restoreMessage(race.name || data.name || 'race', data));
+                await loadRaces();
+            } catch (error) {
+                console.error('Restore error:', error);
+                alert('Could not restore: ' + error.message);
+                await loadRaces();
+                if (btn) btn.disabled = false;
+            }
+        }
+
+        function apiError(response, data) {
+            if (response.status === 401) return 'your login expired. Refresh the page and log in again.';
+            if (response.status === 429) return 'too many requests in a short time. Wait a few minutes and try again.';
+            return (data && data.error) || ('server returned ' + response.status);
+        }
+
+        // Exact description of what a restore did (see lib/race-trash.js rules).
+        function restoreMessage(name, data) {
+            const notes = data.notes || [];
+            let msg;
+            if (data.already) msg = `"${name}" was already restored.`;
+            else if (notes.includes('newer_edition_live')) msg = `Restored "${name}" as archived, because a newer edition of it is live.`;
+            else if (data.status === 'active') msg = `Restored "${name}". It is back on the website.`;
+            else msg = `Restored "${name}" as ${data.status === 'archived' ? 'archived' : 'a draft'} (not on the website).`;
+            if (notes.includes('slug_changed')) msg += ` Its web address is now /events/${data.slug} because /events/${data.previous_slug} is used by another race.`;
+            if (notes.includes('previous_edition_archived')) msg += ' Its previous edition was archived.';
+            return msg;
+        }
+
+        // action: { label, onClick } shows one button (Undo, View page); text-only otherwise.
+        let toastTimer = null;
+        function showToast(text, action) {
+            const toast = document.getElementById('adminToast');
+            const btn = document.getElementById('toastUndo');
+            document.getElementById('toastText').textContent = text;
+            btn.style.display = action ? '' : 'none';
+            btn.disabled = false;
+            btn.textContent = action ? action.label : '';
+            btn.onclick = action ? () => { btn.disabled = true; hideToast(); action.onClick(); } : null;
+            toast.classList.add('show');
+            clearTimeout(toastTimer);
+            toastTimer = setTimeout(hideToast, (action || text.length > 80) ? 10000 : 6000);
+        }
+
+        function hideToast() {
+            clearTimeout(toastTimer);
+            document.getElementById('adminToast').classList.remove('show');
+        }
+
+        document.getElementById('dlgCancel').addEventListener('click', closeDeleteDialog);
+        // Clicks on the backdrop or dialog padding (e.g. the 2nd half of a double-click)
+        // must not pull focus off Cancel.
+        document.getElementById('deleteDialog').addEventListener('mousedown', e => {
+            if (e.target === e.currentTarget) e.preventDefault();
+        });
+        document.getElementById('dlgConfirm').addEventListener('click', confirmDelete);
+
+        // status: 'active' (publish), 'draft', or null = keep the race's current status.
+        let saving = false;
         async function saveRace(status = 'active') {
+            if (saving) return; // double-click / repeated clicks: one save at a time
+            saving = true;
+            const actionButtons = [...document.querySelectorAll('#raceForm .form-actions button')];
+            actionButtons.forEach(b => { b.disabled = true; });
+            try {
+                await doSaveRace(status);
+            } finally {
+                saving = false;
+                actionButtons.forEach(b => { b.disabled = false; });
+            }
+        }
+
+        async function doSaveRace(status) {
             const form = document.getElementById('raceForm');
             const formData = new FormData(form);
             const editingId = form.dataset.editingId;
+            if (status == null) status = (editingId && races.find(r => r.id === editingId)?.status) || 'draft';
 
             // Generate a temporary ID if this is a new race
             const raceId = editingId || 'temp-' + Date.now();
@@ -674,20 +895,23 @@
 
 
 
-            // Extract distances
-            const dTypes = formData.getAll('distanceName[]');
-            const dCustomNames = formData.getAll('distanceCustomName[]');
-            const dValues = formData.getAll('distanceValue[]');
+            // Distances: read each row as a unit. Only the fields this form edits are
+            // sent; the server updates existing rows in place (by id) and leaves price,
+            // capacity and start time untouched. Rows with no type selected are skipped.
+            // Existing rows (with id) are always kept; an empty type is saved as NULL and an
+            // empty name leaves the stored name unchanged. New rows need a type.
+            const distances = [...document.querySelectorAll('#distanceList .distance-item')].map(item => {
+                const type = item.querySelector('[name="distanceName[]"]')?.value || '';
+                const custom = (item.querySelector('[name="distanceCustomName[]"]')?.value || '').trim();
+                const value = item.querySelector('[name="distanceValue[]"]')?.value || '';
+                const existingId = editingId && item.dataset.distanceId ? item.dataset.distanceId : null;
+                const d = { distance_type: type || null, distance_value: value };
+                if (custom || type) d.name = custom || type;
+                if (existingId) d.id = existingId;
+                return d;
+            }).filter(d => d.id || d.distance_type);
 
-            const distances = dTypes.map((type, i) => ({
-                name: dCustomNames[i] || type,
-                distance_type: type,
-                distance_value: dValues[i],
-                capacity: null,
-                base_price: 0,
-                standard_price: null,
-                start_time: null
-            })).filter(d => d.distance_type);
+            const existingThumb = editingId ? (races.find(r => r.id === editingId)?.thumbnail_url ?? null) : null;
 
             const payload = {
                 name: formData.get('raceName'),
@@ -698,12 +922,14 @@
                 state: formData.get('state'),
                 distances_display: formData.get('distances'),
                 registration_url: window.formatExternalUrl(formData.get('registrationUrl')),
+                registration_open: formData.get('registrationOpen') === 'on',
                 status: status,
                 is_visible: formData.get('isActive') === 'on',
                 is_featured: formData.get('isFeatured') === 'on',
                 waitlist_enabled: formData.get('waitlistEnabled') === 'on',
                 is_partner_race: formData.get('isPartnerRace') === 'on',
-                thumbnail_url: thumbnailImageUrl || (editingId ? races.find(r => r.id === editingId)?.thumbnail_url : null),
+                // New upload wins; "Remove" clears it; otherwise keep what the race had
+                thumbnail_url: thumbnailImageUrl || (thumbnailRemoved ? null : existingThumb),
                 distances: distances
             };
 
@@ -721,18 +947,19 @@
                     body: JSON.stringify(payload)
                 });
 
-                const result = await response.json();
+                const result = await response.json().catch(() => ({}));
 
                 if (response.ok) {
-                    alert('Race saved successfully!');
-                    if (confirm('Race saved! Would you like to view the live page?')) {
-                        window.open(`../events/race-detail.html?id=${result.id || editingId}`, '_blank');
-                    }
-                    clearForm();
+                    const savedId = result.id || editingId;
+                    resetForm();
                     switchTab('races');
-                    loadRaces();
+                    await loadRaces();
+                    const saved = races.find(r => r.id === savedId);
+                    const live = saved && saved.status === 'active' && saved.is_visible && saved.slug;
+                    showToast(`Saved "${payload.name}".` + (live ? '' : ' It is not on the website (draft or hidden).'),
+                        live ? { label: 'View page', onClick: () => openRacePage(savedId) } : null);
                 } else {
-                    alert('Failed to save race: ' + (result.error || 'Unknown error'));
+                    alert('Failed to save race: ' + (response.status === 401 ? 'your login expired. Refresh the page and log in again.' : (result.error || 'Unknown error')));
                 }
             } catch (e) {
                 console.error('Save error:', e);
@@ -744,9 +971,10 @@
             saveRace('draft');
         }
 
+        // Enter in a field must not save (it used to publish). Saving only happens
+        // through the buttons.
         document.getElementById('raceForm').addEventListener('submit', function (e) {
             e.preventDefault();
-            saveRace('active');
         });
 
 
@@ -785,10 +1013,10 @@
                 const reader = new FileReader();
                 reader.onload = function (e) {
                     preview.src = e.target.result;
-                    preview.style.display = 'block';
+                    setShown(preview, true);
                     placeholder.style.display = 'none';
                     uploadArea.classList.add('has-image');
-                    clearBtn.style.display = 'inline-block';
+                    setShown(clearBtn, true);
                 };
 
                 reader.readAsDataURL(file);
@@ -805,12 +1033,24 @@
             if (input) input.value = '';
             if (preview) {
                 preview.src = '';
-                preview.style.display = 'none';
+                setShown(preview, false);
             }
             if (placeholder) placeholder.style.display = 'block';
             if (uploadArea) uploadArea.classList.remove('has-image');
-            if (clearBtn) clearBtn.style.display = 'none';
+            setShown(clearBtn, false);
         }
+
+        // "Remove" button: clears the preview AND marks the image for removal on save.
+        let thumbnailRemoved = false;
+        function removeImage(type) {
+            clearImage(type);
+            if (type === 'thumbnail') thumbnailRemoved = true;
+        }
+
+        // Replace the static first distance row with a standard one so every row has
+        // the same inputs.
+        document.getElementById('distanceList').innerHTML = '';
+        addDistance();
 
 
 
@@ -833,13 +1073,14 @@
         window.removeDistance = removeDistance;
         window.autoFillDistance = autoFillDistance;
         window.clearForm = clearForm;
-        window.showDeleteConfirm = showDeleteConfirm;
-        window.hideDeleteConfirm = hideDeleteConfirm;
-        window.finalDeleteRace = finalDeleteRace;
+        window.askDeleteRace = askDeleteRace;
+        window.restoreRace = restoreRace;
         window.saveRace = saveRace;
         window.saveDraft = saveDraft;
         window.previewImage = previewImage;
         window.clearImage = clearImage;
+        window.removeImage = removeImage;
+        window.openRacePage = openRacePage;
 
         // Provide stubs for missing functions referenced in HTML
         window.addBeneficiary = function () { console.warn('addBeneficiary not implemented'); };
