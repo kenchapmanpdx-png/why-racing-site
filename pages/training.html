@@ -1143,7 +1143,8 @@
                         linkHtml = linkText;
                     }
 
-                    let sanitizedUrl = club.url ? window.formatExternalUrl(club.url) : '';
+                    // The First 5K guide is a page on this site, not an external URL
+                    let sanitizedUrl = club.url === 'first-5k.html' ? 'first-5k.html' : (club.url ? window.formatExternalUrl(club.url) : '');
                     let targetAttr = sanitizedUrl && sanitizedUrl !== 'first-5k.html' && !sanitizedUrl.startsWith('mailto') ? 'target="_blank" rel="noopener"' : '';
 
                     const cardHtml = sanitizedUrl ?

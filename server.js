@@ -27,7 +27,8 @@ const compression = require('compression');
 const { ServerClient } = require('postmark');
 
 // Chatbot model — update here when upgrading model versions
-const CLAUDE_MODEL = 'claude-sonnet-4-20250514';
+// Override with the CLAUDE_MODEL env var in Vercel if needed.
+const CLAUDE_MODEL = process.env.CLAUDE_MODEL || 'claude-haiku-5-5';
 
 // Allowed image MIME types for uploads (no SVG — can contain embedded JS)
 const ALLOWED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
@@ -244,15 +245,48 @@ app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
   return res.redirect(302, '/#calendar');
 });
 
+// Slug family = the base slug plus its year editions (scary-run, scary-run-2027,
+// scary-run-2027-v2). Returns the live (active, visible) edition, if any, and
+// whether any non-deleted edition exists at all.
+async function findRaceFamily(slug) {
+  const base = slug.replace(/-20\d\d(?:-v\d+)?$/, '');
+  try {
+    const { data, error } = await supabase
+      .from('races')
+      .select('slug, status, is_visible, race_date')
+      .or(`slug.eq.${base},slug.like.${base}-20%`)
+      .is('deleted_at', null)
+      .order('race_date', { ascending: true });
+    if (error || !Array.isArray(data)) return { liveSlug: null, exists: false };
+    const live = data.find(r => r.status === 'active' && r.is_visible);
+    return { liveSlug: live ? live.slug : null, exists: data.length > 0 };
+  } catch (e) {
+    return { liveSlug: null, exists: false };
+  }
+}
+
 app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
   const slug = req.params[0];
   const wantMarkdown = req.params[1] === '.md';
   try {
     const race = await fetchRaceFull(slug);
     if (!race) {
+      // Not live under this slug. When next year's edition is published the race
+      // moves to a new slug (e.g. hagg-lake-...-2027), so send visitors and Google
+      // to whichever edition is live; if the race exists but has no live edition
+      // right now, send them to the calendar instead of a dead end.
+      const family = await findRaceFamily(slug);
+      if (family.liveSlug && family.liveSlug !== slug) {
+        res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+        return res.redirect(301, `/events/${family.liveSlug}${wantMarkdown ? '.md' : ''}`);
+      }
+      if (family.exists && !wantMarkdown) {
+        res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+        return res.redirect(302, '/#calendar');
+      }
       res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=60');
       if (wantMarkdown) return res.status(404).type('text/plain').send('Event not found.\n');
-      return res.status(404).type('text/html').send('<!DOCTYPE html><title>Event Not Found</title><h1>Event not found</h1><p><a href="/">Return home</a></p>');
+      return res.status(404).type('text/html').send('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex"><title>Event Not Found | WHY RACING EVENTS</title><style>body{font-family:system-ui,sans-serif;max-width:640px;margin:15vh auto;padding:0 20px;text-align:center;color:#2c2c2c}a{display:inline-block;margin:8px;padding:12px 22px;border-radius:6px;background:#c8102e;color:#fff;text-decoration:none;font-weight:700}a.alt{background:#2c2c2c}</style></head><body><h1>Event not found</h1><p>This race page has moved or is no longer available.</p><a href="/#calendar">See the race calendar</a><a class="alt" href="/">Home</a></body></html>');
     }
     if (wantMarkdown) {
       const md = renderEventMarkdown(race);
@@ -921,6 +955,38 @@ Guidelines:
 - Keep responses helpful but concise
 - Know all course records, packet pickup times, start times, and policies`;
 
+// The site's chat widget only appears when the chat service is configured.
+app.get('/api/chat/status', (req, res) => {
+  res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+  res.json({ enabled: !!process.env.ANTHROPIC_API_KEY });
+});
+
+// Live race calendar for the chatbot, so it never quotes last year's dates or
+// registration links. Cached for 5 minutes per server instance.
+let _chatCalendar = { at: 0, text: '' };
+async function liveCalendarForChat() {
+  if (_chatCalendar.text && Date.now() - _chatCalendar.at < 5 * 60 * 1000) return _chatCalendar.text;
+  const { data, error } = await supabase
+    .from('races')
+    .select('name, slug, race_date, city, state, distances, registration_url, registration_open')
+    .eq('is_visible', true)
+    .eq('status', 'active')
+    .order('race_date', { ascending: true });
+  if (error || !Array.isArray(data)) return _chatCalendar.text;
+  const today = new Date().toISOString().slice(0, 10);
+  const fmt = d => new Date(d + 'T00:00:00Z').toLocaleDateString('en-US', { weekday: 'long', month: 'long', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
+  const lines = data.filter(r => r.race_date >= today).map(r => [
+    fmt(r.race_date),
+    r.name,
+    [r.city, r.state].filter(Boolean).join(', '),
+    r.distances || '',
+    'Register: ' + (r.registration_open && r.registration_url ? r.registration_url : 'registration opening soon'),
+    'Event page: https://whyracingevents.com/events/' + r.slug
+  ].join(' | '));
+  _chatCalendar = { at: Date.now(), text: lines.join('\n') };
+  return _chatCalendar.text;
+}
+
 app.post('/api/chat', async (req, res) => {
   const { messages } = req.body;
 
@@ -959,7 +1025,9 @@ app.post('/api/chat', async (req, res) => {
       body: JSON.stringify({
         model: CLAUDE_MODEL,
         max_tokens: 1000,
-        system: SYSTEM_PROMPT,
+        system: SYSTEM_PROMPT + '\n\nLIVE RACE CALENDAR (today is ' + new Date().toISOString().slice(0, 10) +
+          '). This list is current and overrides any dates, years or registration links in the event data above. ' +
+          'Only races listed here are open for upcoming dates:\n' + (await liveCalendarForChat().catch(() => '') || '(calendar unavailable: direct people to https://whyracingevents.com/#calendar)'),
         messages
       })
     });

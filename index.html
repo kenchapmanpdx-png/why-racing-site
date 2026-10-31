@@ -2359,35 +2359,31 @@
         function createDynamicRaceCard(race, index = 0) {
             const distances = race.race_distances || [];
             const distanceText = race.distances || distances.map(d => d.name || d.distance_value).join(' / ') || 'Details TBA';
-            // Map a free-text label (race_distances entry OR fallback name match)
-            // onto one of the filter chip ids.
-            const labelToFilter = (text) => {
-                const t = (text || '').toLowerCase();
-                if (t.includes('half marathon')) return 'half';
-                if (t.includes('marathon')) return 'marathon';
-                if (t.includes('ultra')) return 'ultra';
-                if (t.includes('triathlon') || t.includes(' tri ') || /\btri\b/.test(t)) return 'triathlon';
-                if (t.includes('trail') || t.includes('scramble') || t.includes('snowshoe')) return 'trail';
-                if (t.includes('10k')) return '10k';
-                if (t.includes('5k')) return '5k';
-                return '';
-            };
-            let kw = new Set(distances.map(d => labelToFilter(d.distance_type || d.name)).filter(Boolean));
-            // Fallback: when race_distances is empty (common for partner races)
-            // scan the race name itself so the filter chips still catch something.
-            // Best-effort only — populate race_distances in admin for accurate
-            // categorization.
-            if (kw.size === 0) {
-                const fromName = labelToFilter(race.name);
-                if (fromName) kw.add(fromName);
-                // catch multi-distance names ("5K & 10K", "5K/10K/Half")
-                const t = (race.name || '').toLowerCase();
+            // Filter chip keywords from every distance signal on the race: name,
+            // the admin "distances" text, and race_distances rows. The old version
+            // only read race_distances, so races without rows (Battle to the
+            // Pacific, Crown Stub 100, Hellz Bellz...) were missing from filters.
+            const filterKeywords = (function () {
+                const parts = [race.name, race.distances];
+                distances.forEach(d => parts.push(d.distance_type, d.name));
+                // Leg details in parentheses ("swim/12mi bike/10K run") describe a
+                // multisport course, not a standalone run, so they don't count.
+                const t = parts.filter(Boolean).join(' | ').toLowerCase().replace(/\([^)]*\)/g, ' ');
+                const kw = new Set();
                 if (/\b5k\b/.test(t)) kw.add('5k');
                 if (/\b10k\b/.test(t)) kw.add('10k');
-                if (t.includes('half')) kw.add('half');
-                if (/\bmarathon\b/.test(t) && !t.includes('half marathon')) kw.add('marathon');
-            }
-            const filterKeywords = Array.from(kw).join(' ');
+                if (/half marathon|½\s*marathon|\b13\.1\b/.test(t)) kw.add('half');
+                if (/marathon/.test(t.replace(/half marathon|[½¼¾]\s*marathon/g, ' '))) kw.add('marathon');
+                let ultra = /\bultra\b/.test(t);
+                for (const m of t.matchAll(/\b(\d{2,3})\s?k\b/g)) if (+m[1] >= 25) ultra = true;
+                for (const m of t.matchAll(/\b(\d{2,3})[\s-]?mile/g)) if (+m[1] >= 16) ultra = true;
+                if (ultra) kw.add('ultra');
+                // Bivouac Racing events (registered on UltraSignup) are trail races.
+                const reg = (race.registration_url || '') + ' ' + (race.logo_url || '');
+                if (/trail|snow\s?shoe|scramble/.test(t) || /ultrasignup|bivouac/i.test(reg)) kw.add('trail');
+                if (race.race_type === 'triathlon' || /triathlon|\btri\b/.test(t)) kw.add('triathlon');
+                return Array.from(kw).join(' ');
+            })();
 
             const cardImage = race.thumbnail_url || race.hero_image_url || 'images/action/hagg-lake-run.jpg';
             const date = new Date(race.race_date + 'T00:00:00');
@@ -2763,11 +2759,17 @@
         (function () {
             var root = document.getElementById('chatbot-root');
             if (!root) return;
+            // Stay hidden until the server confirms chat is configured, so visitors
+            // never open a chat that can't answer.
+            root.style.display = 'none';
+            fetch('/api/chat/status').then(function (r) { return r.json(); }).then(function (s) {
+                if (s && s.enabled) root.style.display = '';
+            }).catch(function () {});
 
             var isOpen = false;
             var isLoading = false;
             var messages = [
-                { role: 'assistant', content: "Hi! I'm your WHY RACING EVENTS assistant. Ask me about our 2026 events, registration, course records, packet pickup times, or anything else!" }
+                { role: 'assistant', content: "Hi! I'm your WHY RACING EVENTS assistant. Ask me about upcoming races, registration, course records, packet pickup times, or anything else!" }
             ];
 
             var ICON_CHAT = '<svg width="28" height="28" fill="none" stroke="#fff" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" /></svg>';
@@ -2829,7 +2831,7 @@
                         body: JSON.stringify({ messages: messages.slice(1) })
                     });
                     var data = await res.json();
-                    var reply = (data.content && data.content[0] && data.content[0].text) || "Sorry, I couldn't process that. Please try again!";
+                    var reply = (data.content && data.content[0] && data.content[0].text) || data.error || "Sorry, I couldn't process that. Please try again!";
                     messages.push({ role: 'assistant', content: reply });
                 } catch (e) {
                     messages.push({ role: 'assistant', content: "Oops! Something went wrong. Please contact us at info@whyracingevents.com or call (360) 314-4682" });
