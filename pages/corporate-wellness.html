@@ -115,9 +115,21 @@
             width: 100%;
             height: calc(100% - 96px);
             object-fit: cover;
-            object-position: center top;
+            /* Faces sit ~25% down, banner ~50%: keep both in frame */
+            object-position: center 35%;
             z-index: 0;
             pointer-events: none;
+        }
+
+        /* Hero grows with screen width (capped) so wide screens don't slice
+           the photo into a thin strip; content stays vertically centered. */
+        @media (min-width: 769px) {
+            .hero {
+                min-height: clamp(540px, min(46vw, 90vh), 900px);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+            }
         }
 
         .hero-overlay {

@@ -179,6 +179,47 @@ nav {
     }
 }
 
+/* Nine nav links + Find My Race need ~1370px; collapse to the hamburger
+   before they overflow. #navbar outranks per-page .nav-links rules. The logo
+   is scaled 2.5x visually, so reserve room for it beside the links. */
+#navbar .logo {
+    margin-right: 70px;
+}
+
+@media (max-width: 1500px) {
+    #navbar .nav-links {
+        gap: 18px;
+    }
+}
+
+@media (max-width: 1366px) {
+    #navbar .nav-links,
+    #navbar .nav-btn {
+        display: none;
+    }
+
+    #navbar .hamburger {
+        display: flex;
+    }
+}
+
+/* Closed menu is fully hidden (on short screens its links used to peek out
+   below the top edge); tall menus scroll instead of spilling off-screen. */
+#mobileMenu.mobile-menu {
+    overflow-y: auto;
+    justify-content: safe center;
+}
+
+.mobile-menu:not(.active) {
+    visibility: hidden;
+    transition: transform 0.4s, visibility 0s linear 0.4s;
+}
+
+.mobile-menu.active {
+    visibility: visible;
+    transition: transform 0.4s, visibility 0s;
+}
+
 /* --- FOOTER --- */
 footer {
     background: #111;
@@ -543,6 +584,13 @@ section[style*="background: var(--brand-blue)"] .price-was {
     background: linear-gradient(135deg, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0.25) 100%);
     z-index: 1;
     pointer-events: none;
+}
+
+/* Hero text always paints above the photo and overlay (training.html had no
+   rule, so its title rendered underneath the photo and was invisible). */
+.hero .hero-content {
+    position: relative;
+    z-index: 2;
 }
 
 @media (max-width: 1200px) {
