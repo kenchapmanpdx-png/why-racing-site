@@ -241,7 +241,7 @@ app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
   }
   res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
   if (liveSlug) return res.redirect(301, `/events/${liveSlug}`);
-  return res.redirect(302, '/#events');
+  return res.redirect(302, '/#calendar');
 });
 
 app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
