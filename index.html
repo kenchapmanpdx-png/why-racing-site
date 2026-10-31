@@ -2220,7 +2220,8 @@
         <a id="stickyRegBtn" href="#" class="btn btn-primary sticky-btn">Register →</a>
     </div>
 
-    <script defer src="assets/js/nav.js"></script>
+    <!-- Not deferred: the inline script below calls window.formatExternalUrl from nav.js -->
+    <script src="assets/js/nav.js"></script>
     <script>
         // toggleMobileMenu() is defined in /assets/js/nav.js (loaded above) — it
         // includes null guards and the close-on-link-click handler.
