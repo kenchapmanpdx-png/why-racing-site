@@ -2552,6 +2552,21 @@
             if (!Array.isArray(races) || races.length === 0) return;
 
             var BASE = 'https://whyracingevents.com';
+            // Partner races are organized by separate companies (source: each race's
+            // registration page). Keep in sync with PARTNER_HOSTS in lib/seo/event-page.js.
+            var BIVOUAC = { name: 'Bivouac Racing', url: 'https://www.bivouacracing.com/' };
+            var XDOG = { name: 'X-Dog Adventures', url: 'https://www.xdogadventures.org/' };
+            var PARTNER_HOSTS = {
+                'battle-to-the-pacific': BIVOUAC, 'crown-stub-100': BIVOUAC,
+                'stub-stewart-trail-challenge': BIVOUAC, 'hellz-bellz-ultra': BIVOUAC,
+                'ho-ho-5k': XDOG, 'white-river-snow-shoe': XDOG
+            };
+            function raceOrganizer(r) {
+                var p = PARTNER_HOSTS[String(r.slug || '').replace(/-20\d\d(?:-v\d+)?$/, '')];
+                if (p) return { '@type': 'Organization', name: p.name, url: p.url };
+                if (r.is_partner_race) return null;
+                return { '@type': 'Organization', '@id': BASE + '/#organization', name: 'WHY RACING EVENTS', url: BASE };
+            }
             function absUrl(u) {
                 if (!u) return u;
                 return /^https?:\/\//i.test(u) ? u : BASE + '/' + String(u).replace(/^\/+/, '');
@@ -2594,15 +2609,11 @@
                                 addressCountry: 'US'
                             }
                         },
-                        organizer: {
-                            '@type': 'Organization',
-                            '@id': BASE + '/#organization',
-                            name: 'WHY RACING EVENTS',
-                            url: BASE
-                        },
                         eventStatus: 'https://schema.org/EventScheduled',
                         eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode'
                     };
+                    var org = raceOrganizer(r);
+                    if (org) item.organizer = org;
                     // Event URL = our event page (canonical); registration link lives in offers.
                     if (r.slug) item.url = BASE + '/events/' + encodeURIComponent(r.slug);
                     else if (r.registration_url) item.url = r.registration_url;
