@@ -89,7 +89,7 @@ module.exports = async function handler(req, res) {
       await postmark.sendEmail({
         From: fromEmail,
         To: toEmail,
-        Subject: `⚠️ Signup Export Too Large — ${signups.length} signups`,
+        Subject: `⚠️ Signup Export Too Large: ${signups.length} signups`,
         TextBody: `The weekly signup export has ${signups.length} new signups and the CSV is too large to email. Please export manually from Supabase.`,
       });
       return res.status(400).json({ error: 'CSV too large to email', count: signups.length });
@@ -99,7 +99,7 @@ module.exports = async function handler(req, res) {
     await postmark.sendEmail({
       From: fromEmail,
       To: toEmail,
-      Subject: `New Email Signups — ${today} (${signups.length} new)`,
+      Subject: `New Email Signups: ${today} (${signups.length} new)`,
       TextBody: `Attached is a CSV with ${signups.length} new email signup(s) since the last export.\n\nHave a great day!`,
       Attachments: [
         {

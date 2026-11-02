@@ -1563,7 +1563,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
           const { error: upErr } = await supabase.from('race_distances').update(fields).eq('id', incoming.id).eq('race_id', id);
           if (upErr) {
             console.error(`Error updating distance ${incoming.id} for race ${id}:`, upErr);
-            return res.status(500).json({ error: 'Failed to save distances - please try saving again', details: upErr.message });
+            return res.status(500).json({ error: 'Failed to save distances. Please try saving again', details: upErr.message });
           }
           keptIds.add(incoming.id);
         } else {
@@ -1572,7 +1572,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
           const { error: insErr } = await supabase.from('race_distances').insert(row);
           if (insErr) {
             console.error(`Error inserting distance for race ${id}:`, insErr);
-            return res.status(500).json({ error: 'Failed to save distances - please try saving again', details: insErr.message });
+            return res.status(500).json({ error: 'Failed to save distances. Please try saving again', details: insErr.message });
           }
         }
       }
@@ -1597,7 +1597,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
         const { error: msErr } = await supabase.from('multisport_details').insert({ ...stripProtectedFields(multisport_details, ['race_id']), race_id: id });
         if (msErr) {
           console.error(`Error saving multisport details for race ${id}:`, msErr);
-          return res.status(500).json({ error: 'Failed to save multisport details — please try saving again', details: msErr.message });
+          return res.status(500).json({ error: 'Failed to save multisport details. Please try saving again', details: msErr.message });
         }
       }
     }
@@ -1610,7 +1610,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
       );
       if (pickupErr) {
         console.error(`Error updating packet pickup for race ${id}:`, pickupErr);
-        return res.status(500).json({ error: 'Failed to save packet pickup locations — please try saving again', details: pickupErr });
+        return res.status(500).json({ error: 'Failed to save packet pickup locations. Please try saving again', details: pickupErr });
       }
     }
 
@@ -1622,7 +1622,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
       );
       if (benErr) {
         console.error(`Error updating beneficiaries for race ${id}:`, benErr);
-        return res.status(500).json({ error: 'Failed to save beneficiaries — please try saving again', details: benErr });
+        return res.status(500).json({ error: 'Failed to save beneficiaries. Please try saving again', details: benErr });
       }
     }
 
@@ -1634,7 +1634,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
       );
       if (sponsorErr) {
         console.error(`Error updating sponsors for race ${id}:`, sponsorErr);
-        return res.status(500).json({ error: 'Failed to save sponsors — please try saving again', details: sponsorErr });
+        return res.status(500).json({ error: 'Failed to save sponsors. Please try saving again', details: sponsorErr });
       }
     }
 
@@ -1646,7 +1646,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
       );
       if (tierErr) {
         console.error(`Error updating pricing tiers for race ${id}:`, tierErr);
-        return res.status(500).json({ error: 'Failed to save pricing tiers — please try saving again', details: tierErr });
+        return res.status(500).json({ error: 'Failed to save pricing tiers. Please try saving again', details: tierErr });
       }
     }
 
