@@ -225,7 +225,27 @@ const LEGACY_EVENT_SLUGS = {
   'pacific-crest-endurance': 'pacific-crest-endurance-sports-festival'
 };
 
+// Retired races from the old site: permanent redirect to the race calendar.
+const RETIRED_LEGACY_SLUGS = {
+  'lucky-triathlon': '/#calendar',        // Lucky Triathlon Festival, last held 2022
+  'the-lucky-triathlon': '/#calendar'
+};
+
+// Spam posts injected into the old WordPress site (essay-writing, online
+// slots). Gone for good: 410 so search engines drop them instead of passing
+// them to a real race page through the legacy redirect.
+const LEGACY_SPAM_PATH = /^\/(couve-clover-run|bigfoot-run)\/blog(\/|$)/;
+
 app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
+  if (LEGACY_SPAM_PATH.test(req.path)) {
+    res.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    return res.status(410).type('text/html').send('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex"><title>Page Removed | WHY RACING EVENTS</title></head><body style="font-family:system-ui,sans-serif;max-width:640px;margin:15vh auto;padding:0 20px;text-align:center"><h1>This page has been removed</h1><p><a href="/#calendar">See the race calendar</a></p></body></html>');
+  }
+  const retired = RETIRED_LEGACY_SLUGS[req.params[0]];
+  if (retired) {
+    res.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    return res.redirect(301, retired);
+  }
   const target = LEGACY_EVENT_SLUGS[req.params[0]];
   if (!target) return next();
   // Match the base slug or a year edition of it (e.g. scary-run-2027), whichever is live.

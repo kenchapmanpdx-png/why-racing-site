@@ -172,6 +172,22 @@
         {
             "source": "/bigfoot-run/(.*)",
             "destination": "/api/index.js"
+        },
+        {
+            "source": "/lucky-triathlon",
+            "destination": "/api/index.js"
+        },
+        {
+            "source": "/lucky-triathlon/(.*)",
+            "destination": "/api/index.js"
+        },
+        {
+            "source": "/the-lucky-triathlon",
+            "destination": "/api/index.js"
+        },
+        {
+            "source": "/the-lucky-triathlon/(.*)",
+            "destination": "/api/index.js"
         }
     ],
     "redirects": [
