@@ -33,6 +33,9 @@ Allow: /
 User-agent: Amazonbot
 Allow: /
 
+User-agent: Meta-WebIndexer
+Allow: /
+
 # AI training crawlers — allowed per current data policy
 User-agent: GPTBot
 Allow: /
@@ -68,6 +71,5 @@ Disallow: /.git/
 Disallow: /schema/
 Disallow: /*?sort=
 Disallow: /*?filter=
-Disallow: /*?s=
 
 Sitemap: https://whyracingevents.com/sitemap.xml
