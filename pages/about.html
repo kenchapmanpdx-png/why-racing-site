@@ -617,19 +617,19 @@
     <section class="stats-section" id="stats-section">
         <div class="stats-container">
             <div class="stat-item">
-                <span class="stat-number" data-target="3000000">$0</span>
+                <span class="stat-number" data-target="3000000">$3,000,000+</span>
                 <span class="stat-label">Donated to Charity</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-target="50000">0</span>
+                <span class="stat-number" data-target="50000">50,000+</span>
                 <span class="stat-label">Athletes Served</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-target="21">0</span>
+                <span class="stat-number" data-target="21">21</span>
                 <span class="stat-label">Annual Events</span>
             </div>
             <div class="stat-item">
-                <span class="stat-number" data-target="15">0</span>
+                <span class="stat-number" data-target="15">15</span>
                 <span class="stat-label">Years Running</span>
             </div>
         </div>
@@ -818,6 +818,8 @@
 
         const animateCounters = () => {
             counters.forEach(counter => {
+                // HTML ships the real number (crawlers and no-JS visitors see it); restart from 0 for the animation.
+                counter.innerText = '0';
                 const updateCount = () => {
                     const target = +counter.getAttribute('data-target');
                     const count = +counter.innerText.replace(/,/g, '').replace(/\$/g, '').replace(/\+/g, '');
