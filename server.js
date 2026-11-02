@@ -219,6 +219,9 @@ const LEGACY_EVENT_SLUGS = {
   'appletree-run': 'appletree-marathon',
   'pacific-coast-running-festival': 'pacific-coast-running-festival',
   'hagg-lake-triathlon': 'hagg-lake-triathlon-trail-festival',
+  'hagg-lake-triathlon-trail': 'hagg-lake-triathlon-trail-festival',
+  'girlfriends-triathlon': 'girlfriends-all-women-s-triathlon-fitness-festival',
+  'bigfoot-run': 'bigfoot-5k-10k',
   'pacific-crest-endurance': 'pacific-crest-endurance-sports-festival'
 };
 

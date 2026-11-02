@@ -148,6 +148,30 @@
         {
             "source": "/pacific-crest-endurance/(.*)",
             "destination": "/api/index.js"
+        },
+        {
+            "source": "/hagg-lake-triathlon-trail",
+            "destination": "/api/index.js"
+        },
+        {
+            "source": "/hagg-lake-triathlon-trail/(.*)",
+            "destination": "/api/index.js"
+        },
+        {
+            "source": "/girlfriends-triathlon",
+            "destination": "/api/index.js"
+        },
+        {
+            "source": "/girlfriends-triathlon/(.*)",
+            "destination": "/api/index.js"
+        },
+        {
+            "source": "/bigfoot-run",
+            "destination": "/api/index.js"
+        },
+        {
+            "source": "/bigfoot-run/(.*)",
+            "destination": "/api/index.js"
         }
     ],
     "redirects": [
