@@ -298,6 +298,8 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
       // That is the longest an edited or deleted race can still show on its page.
       res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
       res.set('Content-Type', 'text/markdown; charset=utf-8');
+      // The HTML event page is the canonical version of this content.
+      res.set('Link', `<https://whyracingevents.com/events/${race.slug}>; rel="canonical"`);
       return res.status(200).send(md);
     }
     const { html, statusCode } = renderEventPage(race);
