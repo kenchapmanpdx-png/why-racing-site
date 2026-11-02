@@ -465,6 +465,21 @@
                     "value": "no-store, no-cache, must-revalidate, private"
                 }
             ]
+        },
+        {
+            "source": "/(.*)",
+            "has": [
+                {
+                    "type": "host",
+                    "value": "why-racing-site.vercel.app"
+                }
+            ],
+            "headers": [
+                {
+                    "key": "X-Robots-Tag",
+                    "value": "noindex"
+                }
+            ]
         }
     ],
     "crons": [
