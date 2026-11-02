@@ -37,6 +37,7 @@
       "@graph": [
         {
           "@type": "Organization",
+          "@id": "https://whyracingevents.com/#organization",
           "name": "WHY RACING EVENTS",
           "url": "https://whyracingevents.com",
           "logo": "https://whyracingevents.com/images/logos/new-why-racing-logo.png",
@@ -2550,6 +2551,27 @@
             if (existing) existing.remove();
             if (!Array.isArray(races) || races.length === 0) return;
 
+            var BASE = 'https://whyracingevents.com';
+            function absUrl(u) {
+                if (!u) return u;
+                return /^https?:\/\//i.test(u) ? u : BASE + '/' + String(u).replace(/^\/+/, '');
+            }
+            function isTri(r) {
+                if (r.race_type === 'triathlon') return true;
+                return /triathlon|\btri\b|tri\/|aquabike/i.test(r.distances || '');
+            }
+            function describe(r) {
+                var where = [r.city, r.state].filter(Boolean).join(', ');
+                var parts = r.race_date.split('-').map(Number);
+                var date = new Date(Date.UTC(parts[0], parts[1] - 1, parts[2]))
+                    .toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', timeZone: 'UTC' });
+                var s = r.name + ' is a ' + (isTri(r) ? 'triathlon and multisport' : 'running') + ' event';
+                if (where) s += ' in ' + where;
+                s += ' on ' + date + '.';
+                if (r.distances) s += ' Distances: ' + r.distances + '.';
+                return s;
+            }
+
             var items = races
                 .filter(function(r) { return r.race_date && r.name && r.is_visible && r.status === 'active'; })
                 .map(function(r, i) {
@@ -2557,7 +2579,11 @@
                     var item = {
                         '@type': 'SportsEvent',
                         name: r.name,
+                        description: describe(r),
                         startDate: r.race_date,
+                        endDate: r.race_date,
+                        sport: isTri(r) ? 'Triathlon' : 'Running',
+                        performer: { '@type': 'PerformingGroup', name: r.name + ' Athletes' },
                         location: {
                             '@type': 'Place',
                             name: locationName,
@@ -2570,14 +2596,25 @@
                         },
                         organizer: {
                             '@type': 'Organization',
+                            '@id': BASE + '/#organization',
                             name: 'WHY RACING EVENTS',
-                            url: 'https://whyracingevents.com'
+                            url: BASE
                         },
                         eventStatus: 'https://schema.org/EventScheduled',
                         eventAttendanceMode: 'https://schema.org/OfflineEventAttendanceMode'
                     };
-                    if (r.registration_url) item.url = r.registration_url;
-                    if (r.hero_image_url || r.thumbnail_url) item.image = r.hero_image_url || r.thumbnail_url;
+                    // Event URL = our event page (canonical); registration link lives in offers.
+                    if (r.slug) item.url = BASE + '/events/' + encodeURIComponent(r.slug);
+                    else if (r.registration_url) item.url = r.registration_url;
+                    if (r.registration_open && r.registration_url) {
+                        item.offers = {
+                            '@type': 'Offer',
+                            url: r.registration_url,
+                            priceCurrency: 'USD',
+                            availability: 'https://schema.org/InStock'
+                        };
+                    }
+                    if (r.hero_image_url || r.thumbnail_url) item.image = absUrl(r.hero_image_url || r.thumbnail_url);
                     return { '@type': 'ListItem', position: i + 1, item: item };
                 });
 
