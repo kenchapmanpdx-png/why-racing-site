@@ -26,11 +26,11 @@ const rateLimit = require('express-rate-limit');
 const compression = require('compression');
 const { ServerClient } = require('postmark');
 
-// Chatbot model — update here when upgrading model versions
+// Chatbot model - update here when upgrading model versions
 // Override with the CLAUDE_MODEL env var in Vercel if needed.
 const CLAUDE_MODEL = process.env.CLAUDE_MODEL || 'claude-haiku-5-5';
 
-// Allowed image MIME types for uploads (no SVG — can contain embedded JS)
+// Allowed image MIME types for uploads (no SVG - can contain embedded JS)
 const ALLOWED_IMAGE_TYPES = new Set(['image/jpeg', 'image/png', 'image/webp', 'image/gif']);
 
 // UUID validation
@@ -140,7 +140,7 @@ const chatLimiter = rateLimit({
   message: { error: 'Chat rate limit reached. Please wait a moment.' }
 });
 
-// CSP report endpoint gets its own bucket — a single misconfigured directive on a
+// CSP report endpoint gets its own bucket - a single misconfigured directive on a
 // popular page can fire dozens of reports per visit. We don't want that to exhaust
 // the legit /api/ budget for the same client.
 const cspReportLimiter = rateLimit({
@@ -391,7 +391,7 @@ app.get('/sitemap.xml', async (req, res) => {
   }
 });
 
-// Static file serving — when running directly (e.g. `node server.js`).
+// Static file serving - when running directly (e.g. `node server.js`).
 // On Vercel, the static layer serves files from the project root before requests
 // reach this handler, so this branch only matters in local dev / non-Vercel hosts.
 // Deny dotfiles and explicitly block sensitive sources/configs from being served.
@@ -412,7 +412,7 @@ app.use(express.static('.', {
   }
 }));
 
-// Health check — registered before rate limiter so it's never throttled during an outage
+// Health check - registered before rate limiter so it's never throttled during an outage
 app.get('/api/health', async (req, res) => {
   const { count, error } = await supabase.from('races').select('*', { count: 'exact', head: true });
   res.json({
@@ -423,7 +423,7 @@ app.get('/api/health', async (req, res) => {
   });
 });
 
-// CSP violation reports — receives JSON POSTs from browsers when a directive in our
+// CSP violation reports - receives JSON POSTs from browsers when a directive in our
 // Content-Security-Policy-Report-Only header is violated. Logged to Vercel runtime
 // logs (greppable as "[CSP]") so we can tighten the policy before flipping it from
 // report-only to enforcing. Mounted BEFORE apiLimiter so report storms can't lock
@@ -450,7 +450,7 @@ app.post(
 
       for (const r of reports) {
         if (!r || typeof r !== 'object') continue;
-        // Compact one-liner — easy to grep, easy to scan in Vercel log stream.
+        // Compact one-liner - easy to grep, easy to scan in Vercel log stream.
         console.warn('[CSP]', JSON.stringify({
           directive: r['violated-directive'] || r.effectiveDirective || r.violatedDirective,
           blocked: r['blocked-uri'] || r.blockedURL || r.blockedURI,
@@ -474,9 +474,9 @@ app.post(
 app.use('/api/', apiLimiter);
 app.use('/api/chat', chatLimiter);
 
-// Public race calendar endpoint — used by index.html to populate the race grid.
+// Public race calendar endpoint - used by index.html to populate the race grid.
 // All /api/races methods (GET / POST / PUT / DELETE) are served by this Express app.
-// (api/races.js was deleted to keep a single source of truth — see AUDIT.md C1.)
+// (api/races.js was deleted to keep a single source of truth - see AUDIT.md C1.)
 app.get('/api/races', async (req, res) => {
   // Ping check
   if (req.query && req.query.ping === '1') {
@@ -1125,7 +1125,7 @@ const adminAuth = (req, res, next) => {
   next();
 };
 
-// Admin login — validates password server-side and returns the bearer token.
+// Admin login - validates password server-side and returns the bearer token.
 // The secret is never exposed in client-side source code.
 app.post('/api/admin/login', (req, res) => {
   if (!process.env.ADMIN_SECRET) {
@@ -1529,7 +1529,7 @@ app.put('/api/races/:id', adminAuth, async (req, res) => {
 
     // Helper: delete then re-insert child rows; returns error string or null.
     // If delete succeeds but insert fails, the race is left with no children in that category.
-    // Returning a 500 prompts the admin to retry — the next attempt will re-delete (finds nothing)
+    // Returning a 500 prompts the admin to retry - the next attempt will re-delete (finds nothing)
     // and re-insert cleanly.
     async function replaceChildren(table, field, value, rows) {
       const { error: delErr } = await supabase.from(table).delete().eq(field, value);
@@ -2109,7 +2109,7 @@ app.post('/api/races/upload', adminAuth, (req, res) => {
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
     } finally {
       // Clean up the formidable temp file regardless of upload outcome.
-      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone - ignore */ }
     }
   });
 });
@@ -2172,7 +2172,7 @@ app.post('/api/training-clubs/upload', adminAuth, (req, res) => {
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
     } finally {
       // Clean up the formidable temp file regardless of upload outcome.
-      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone - ignore */ }
     }
   });
 });
@@ -2235,7 +2235,7 @@ app.post('/api/beneficiaries/upload', adminAuth, (req, res) => {
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
     } finally {
       // Clean up the formidable temp file regardless of upload outcome.
-      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone - ignore */ }
     }
   });
 });
@@ -2298,7 +2298,7 @@ app.post('/api/team-members/upload', adminAuth, (req, res) => {
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
     } finally {
       // Clean up the formidable temp file regardless of upload outcome.
-      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone - ignore */ }
     }
   });
 });
@@ -2361,12 +2361,12 @@ app.post('/api/global-sponsors/upload', adminAuth, (req, res) => {
       return res.status(500).json({ error: 'Upload failed: ' + error.message });
     } finally {
       // Clean up the formidable temp file regardless of upload outcome.
-      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone — ignore */ }
+      try { fs.unlinkSync(file.filepath); } catch (_) { /* file already gone - ignore */ }
     }
   });
 });
 
-// Sentry error handler — must be registered AFTER all routes but BEFORE any other
+// Sentry error handler - must be registered AFTER all routes but BEFORE any other
 // error-handling middleware. No-op when SENTRY_DSN is unset.
 if (process.env.SENTRY_DSN) {
   Sentry.setupExpressErrorHandler(app);
@@ -2464,7 +2464,7 @@ app.post('/api/signup', async (req, res) => {
     const cleanLast = lastName?.trim().slice(0, 100) || null;
     const cleanSource = (source || 'website').slice(0, 50);
 
-    // Insert or ignore on duplicate email — do not overwrite existing name data.
+    // Insert or ignore on duplicate email - do not overwrite existing name data.
     // A returning subscriber shouldn't have their name clobbered by a repeat signup.
     const { error } = await supabase
       .from('email_signups')

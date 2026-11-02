@@ -1,5 +1,5 @@
 // Cron: export new email signups since last run, email as CSV via Postmark.
-// Standalone Vercel serverless function — avoids loading the full Express
+// Standalone Vercel serverless function - avoids loading the full Express
 // bundle so cold-start is faster than routing through server.js.
 //
 // Schedule defined in vercel.json `crons`. Auth: Bearer ${CRON_SECRET}.
@@ -7,7 +7,7 @@
 const { createClient } = require('@supabase/supabase-js');
 const { ServerClient } = require('postmark');
 
-// CSV cell sanitization — quote-escape and prefix any cell starting with =, +, -,
+// CSV cell sanitization - quote-escape and prefix any cell starting with =, +, -,
 // @, tab, or carriage return so spreadsheet apps don't interpret it as a formula.
 function sanitizeCSVCell(value) {
   if (value === null || value === undefined) return '';
@@ -27,7 +27,7 @@ module.exports = async function handler(req, res) {
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
   const postmarkToken = process.env.POSTMARK_API_TOKEN;
   const fromEmail = process.env.SIGNUP_EXPORT_FROM;
-  // Recipient pinned to info@whyracingevents.com (per Ken, 2026-06-10 —
+  // Recipient pinned to info@whyracingevents.com (per Ken, 2026-06-10 - 
   // newsletter signups should go to info@). Previously brock@whyracingevents.com.
   // Hardcoded to stay independent of Vercel env state. Change this string to redirect.
   const toEmail = 'info@whyracingevents.com';
@@ -51,7 +51,7 @@ module.exports = async function handler(req, res) {
   try {
     const snapshotTime = new Date().toISOString();
 
-    // Fetch unexported signups — include id so we can update by exact IDs to
+    // Fetch unexported signups - include id so we can update by exact IDs to
     // avoid a race window between the select filter and the later update filter.
     const { data: signups, error: fetchError } = await supabase
       .from('email_signups')
@@ -110,7 +110,7 @@ module.exports = async function handler(req, res) {
       ],
     });
 
-    // Mark exactly the rows we emailed as exported — update by ID so any rows
+    // Mark exactly the rows we emailed as exported - update by ID so any rows
     // that arrived after snapshotTime aren't silently skipped.
     const exportedIds = signups.map(s => s.id);
     const { error: updateError } = await supabase

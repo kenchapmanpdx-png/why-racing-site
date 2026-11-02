@@ -144,9 +144,9 @@ Think of your landing page like a **high-performance race car**: SEO Research is
 
 ### Critical Success Factors
 
-- **Match search intent perfectly** — if intent isn't matched, rankings are "dead in the water"
+- **Match search intent perfectly** - if intent isn't matched, rankings are "dead in the water"
 - **Title Tag, H1, and URL** are the "Three Kings" of on-page SEO
-- **Above-the-fold content** determines success — most users don't scroll
+- **Above-the-fold content** determines success - most users don't scroll
 - **Core Web Vitals**: LCP <2.5s, INP <200ms, CLS <0.1
 - **Backlinks** remain the most powerful ranking factor
 - **E-E-A-T signals** are essential for credibility
@@ -162,10 +162,10 @@ Think of your landing page like a **high-performance race car**: SEO Research is
 
 ### Essential Tools
 
-- **Google Search Console & GA4** — performance tracking
-- **Screaming Frog** — technical audits
-- **PageSpeed Insights** — Core Web Vitals
-- **Hemingway Editor & Grammarly** — content quality
-- **Hotjar/Mouseflow** — user behavior analysis
-- **Rich Results Test** — schema validation
-- **Semrush/Ahrefs** — keyword and backlink tracking
+- **Google Search Console & GA4** - performance tracking
+- **Screaming Frog** - technical audits
+- **PageSpeed Insights** - Core Web Vitals
+- **Hemingway Editor & Grammarly** - content quality
+- **Hotjar/Mouseflow** - user behavior analysis
+- **Rich Results Test** - schema validation
+- **Semrush/Ahrefs** - keyword and backlink tracking

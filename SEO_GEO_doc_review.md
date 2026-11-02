@@ -1,10 +1,10 @@
-# SEO/GEO Reference — Review Before Applying to Why Racing Events
+# SEO/GEO Reference - Review Before Applying to Why Racing Events
 
 Reviewing `SEO GEO on-site-seo-geo-reference-unified (1).md` against the WRE codebase. Findings ordered: doc-itself issues, WRE-specific gaps, current-site baseline, decisions needed before implementation.
 
 ---
 
-## 1. Doc Quality — Strong Foundations
+## 1. Doc Quality - Strong Foundations
 
 Keep as-is:
 - Rules-vs-heuristics framing with `[SPEC]`/`[STUDY]`/`[HEURISTIC]` tags
@@ -19,7 +19,7 @@ Keep as-is:
 
 ---
 
-## 2. Doc Issues — Fix or Caveat Before Applying
+## 2. Doc Issues - Fix or Caveat Before Applying
 
 ### Outdated or shifting facts (as of 2026-05-13)
 
@@ -27,17 +27,17 @@ Keep as-is:
 |---|---|---|
 | §26 / §32 | "ChatGPT 87% Bing top-10 correlation, Feb 2025" | OpenAI's own index has rolled out further through 2025–2026; Bing dependency weakened further. Keep Bing Webmaster Tools setup for AI Performance Report, but downgrade rationale weight. |
 | §32 | Profound 30M-citation patterns (Wikipedia 47.9%, Reddit 46.7%, YouTube overtaking Reddit Q1 2026) | Already tagged `[STUDY]`. Add caveat that citation source mix has continued shifting; do not over-index on these percentages for content strategy. |
-| §24 VideoObject | `transcript` listed as property | Schema.org accepts it, but Google's documented VideoObject properties don't include `transcript` as a rich-result driver. AI ingestion benefit > Google benefit. Doc already says "not required by Google" — strengthen that callout. |
+| §24 VideoObject | `transcript` listed as property | Schema.org accepts it, but Google's documented VideoObject properties don't include `transcript` as a rich-result driver. AI ingestion benefit > Google benefit. Doc already says "not required by Google" - strengthen that callout. |
 | §28 | "30 days for priority pages" freshness | Single Profound study; tagged `[STUDY]` already. For event/race pages this is impossible between annual events. Replace WRE-specific cadence with: results page next-day; event page within 7 days of date changes; evergreen content quarterly. |
-| §29 | "302 for permanent URL changes" listed under don'ts | Doc body (§10) correctly notes both 301 and 302 pass equity, only indexation signaling differs. Don'ts list reads stricter than body text — align wording. |
+| §29 | "302 for permanent URL changes" listed under don'ts | Doc body (§10) correctly notes both 301 and 302 pass equity, only indexation signaling differs. Don'ts list reads stricter than body text - align wording. |
 
 ### Internal contradictions / under-specified
 
 - §7 "Author byline (Person schema)" listed as required per-page. Does not fit event/listing/results pages. Make conditional on content type (article/blog/guide only).
-- §11 "Don't `noindex` paginated pages" + §11 "internal search → noindex,follow". Both are correct but adjacent — clarify these are different page classes.
+- §11 "Don't `noindex` paginated pages" + §11 "internal search → noindex,follow". Both are correct but adjacent - clarify these are different page classes.
 - §13 hreflang section assumes one site/one domain. Doc has no guidance for a multi-brand portfolio with shared parent (WRE + Bivouac + X-Dog). See §3 below.
 - §22 ".md mirror at same path" → real cost is doubled content surface + maintenance. Doc presents as one-line action; flag as Phase 6+ deferred, lighter llms.txt-only is the baseline.
-- §27 "AI segment event tagging" gated to "6+ months post-launch." WRE is an existing site with rebuild — clarify whether that gate applies to (a) the rebuild's launch date or (b) original site age.
+- §27 "AI segment event tagging" gated to "6+ months post-launch." WRE is an existing site with rebuild - clarify whether that gate applies to (a) the rebuild's launch date or (b) original site age.
 
 ### Missing / weak coverage
 
@@ -50,7 +50,7 @@ Keep as-is:
 - **No image-gallery / ImageGallery pattern** for event photo archives. WRE has 600+ scraped images.
 - **No SoftwareApplication / WebApplication schema** for the registration platform itself (long-term).
 - **No live-event / BroadcastEvent treatment.** Probably N/A but worth confirming.
-- **Affiliate disclosure is mentioned but not centralized.** WRE has an Amazon affiliate shop page — `rel="sponsored"` is mandatory on every outbound, plus FTC disclosure copy. Pull this into a dedicated bullet in §7 "required per-page elements" for commerce pages.
+- **Affiliate disclosure is mentioned but not centralized.** WRE has an Amazon affiliate shop page - `rel="sponsored"` is mandatory on every outbound, plus FTC disclosure copy. Pull this into a dedicated bullet in §7 "required per-page elements" for commerce pages.
 
 ### Heuristics to relax for WRE
 
@@ -59,7 +59,7 @@ Keep as-is:
 | Subfolder depth ≤ 3–4 | `/events/{year}/{race}/{distance}/results` is 5 levels and legitimate. Treat as soft target. |
 | Click depth ≤ 3 from homepage | 21 events × multiple distances × archive years = mathematically tight. Hub pages soak this up but accept some 4-click paths. |
 | Single H1 convention | Already flagged in doc. WRE event pages with distinct distance variants legitimately have section-level H1s in `<section>` blocks. |
-| Banned filler "transform/empower/seamless" | Check WRE messaging — "What's Your WHY?" is identity-based and benign. Run a sweep before broad enforcement; do not bulk-rewrite hero copy without owner approval. |
+| Banned filler "transform/empower/seamless" | Check WRE messaging - "What's Your WHY?" is identity-based and benign. Run a sweep before broad enforcement; do not bulk-rewrite hero copy without owner approval. |
 | Engagement rate >20% target | Endurance audiences read deep; 20% is a floor, not a goal. Use as alert threshold (below 20% = problem), not a target. |
 
 ---
@@ -128,7 +128,7 @@ Or pair `Event.offers` with `additionalProperty` describing the percentage donat
 
 - ImageObject with `caption`, `contentLocation` (event name + year), `creator` (photographer), `dateCreated`.
 - Required for AI tools to recommend "find your race photos" workflows.
-- Filename rename: `{race-year}-{event}-{distance}-{location}.webp`. Current `Scrapedimages/` folder uses opaque hashes — `1456335100-1.jpg`. Rename batch-by-batch with redirect map.
+- Filename rename: `{race-year}-{event}-{distance}-{location}.webp`. Current `Scrapedimages/` folder uses opaque hashes - `1456335100-1.jpg`. Rename batch-by-batch with redirect map.
 
 ---
 
@@ -161,14 +161,14 @@ Or pair `Event.offers` with `additionalProperty` describing the percentage donat
 
 Doc presents §1–§30 as one pass. For WRE, batch into milestones:
 
-1. **Pre-flight decisions** — Site Profile + AI bot policy + multi-brand handling (see §6 below).
-2. **Critical baseline** — robots.txt audit, sitemap.xml truthful `<lastmod>`, cross-consistency check, HSTS, drop meta keywords, fix OG image dimensions.
-3. **Event schema rollout** — SportsEvent + Schedule + EventStatus on all 21 events; Organization expanded; BreadcrumbList.
-4. **On-page content patterns** — BLUF capsules, H1/H2 hierarchy, FAQ blocks on top event pages.
-5. **Image/video pipeline** — alt text sweep, WebP conversion, srcset, transcript publication for the 102 YouTube videos (largest leverage for AI citation).
-6. **GEO/AI surface** — llms.txt directory, then llms-full.txt, then optional .md mirrors (Phase 6+, lower priority).
-7. **Analytics** — GA4 AI Assistants channel, Bing Webmaster Tools AI Performance Report.
-8. **Defer** — §33 Expert-Tier until 6 months post-rebuild-launch baseline.
+1. **Pre-flight decisions** - Site Profile + AI bot policy + multi-brand handling (see §6 below).
+2. **Critical baseline** - robots.txt audit, sitemap.xml truthful `<lastmod>`, cross-consistency check, HSTS, drop meta keywords, fix OG image dimensions.
+3. **Event schema rollout** - SportsEvent + Schedule + EventStatus on all 21 events; Organization expanded; BreadcrumbList.
+4. **On-page content patterns** - BLUF capsules, H1/H2 hierarchy, FAQ blocks on top event pages.
+5. **Image/video pipeline** - alt text sweep, WebP conversion, srcset, transcript publication for the 102 YouTube videos (largest leverage for AI citation).
+6. **GEO/AI surface** - llms.txt directory, then llms-full.txt, then optional .md mirrors (Phase 6+, lower priority).
+7. **Analytics** - GA4 AI Assistants channel, Bing Webmaster Tools AI Performance Report.
+8. **Defer** - §33 Expert-Tier until 6 months post-rebuild-launch baseline.
 
 ---
 
@@ -176,12 +176,12 @@ Doc presents §1–§30 as one pass. For WRE, batch into milestones:
 
 Batch ask, not blocking research:
 
-1. **Training-bot policy** — Allow or Disallow GPTBot / ClaudeBot / anthropic-ai / CCBot / Google-Extended / Applebot-Extended / Bytespider / Meta-ExternalAgent? Default in doc is Allow; flipping to Disallow does not affect classic search or AI citation (only training corpus inclusion).
-2. **Multi-brand schema linkage** — Treat WRE + Bivouac + X-Dog as separate Organizations (recommended) or with shared parent operator entity?
-3. **Programmatic SEO scope** — §33 is deferred per doc rules, but race × distance × year template pages are likely high-value. Defer or pull forward to Phase 4?
-4. **.md mirror strategy** — Full `/page-path.md` mirror at every priority URL (Stripe pattern), or llms.txt-only directory listing (lighter)?
-5. **Photo gallery scope** — Rename `Scrapedimages/` files with descriptive slugs + 301 map (high lift, high payoff) or accept the hash filenames and only fix alt text?
-6. **Single-author or per-event author** — Race director bylines on event pages, or organization-as-publisher only?
+1. **Training-bot policy** - Allow or Disallow GPTBot / ClaudeBot / anthropic-ai / CCBot / Google-Extended / Applebot-Extended / Bytespider / Meta-ExternalAgent? Default in doc is Allow; flipping to Disallow does not affect classic search or AI citation (only training corpus inclusion).
+2. **Multi-brand schema linkage** - Treat WRE + Bivouac + X-Dog as separate Organizations (recommended) or with shared parent operator entity?
+3. **Programmatic SEO scope** - §33 is deferred per doc rules, but race × distance × year template pages are likely high-value. Defer or pull forward to Phase 4?
+4. **.md mirror strategy** - Full `/page-path.md` mirror at every priority URL (Stripe pattern), or llms.txt-only directory listing (lighter)?
+5. **Photo gallery scope** - Rename `Scrapedimages/` files with descriptive slugs + 301 map (high lift, high payoff) or accept the hash filenames and only fix alt text?
+6. **Single-author or per-event author** - Race director bylines on event pages, or organization-as-publisher only?
 
 ---
 
@@ -190,14 +190,14 @@ Batch ask, not blocking research:
 Net change from doc → WRE-tailored implementation:
 
 - **Add** Event/SportsEvent/Schedule schemas as Tier-1 (doc relegates to "Other Schema Types").
-- **Add** eventStatus handling (postpone/cancel/reschedule patterns) — completely missing.
+- **Add** eventStatus handling (postpone/cancel/reschedule patterns) - completely missing.
 - **Add** multi-brand parentOrganization/memberOf guidance.
 - **Add** image gallery + photographer attribution schema.
 - **Soften** subfolder/click-depth heuristics for event-heavy architecture.
 - **Soften** 30-day freshness rule with race-cadence-aware policy.
 - **Defer** .md mirror to Phase 6+; not baseline.
 - **Make conditional** the "author byline required per page" rule (article-class pages only).
-- **Strengthen** affiliate disclosure callout — pull into a dedicated `rel="sponsored"` + FTC bullet for commerce surfaces.
+- **Strengthen** affiliate disclosure callout - pull into a dedicated `rel="sponsored"` + FTC bullet for commerce surfaces.
 - **Drop** `meta name="keywords"` from current index.html (vestigial).
 - **Replace** OG image with 1200×630 dedicated asset (current OG image is the logo PNG).
 - **Add** HSTS header to vercel.json.
