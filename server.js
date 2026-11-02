@@ -225,6 +225,22 @@ const LEGACY_EVENT_SLUGS = {
   'pacific-crest-endurance': 'pacific-crest-endurance-sports-festival'
 };
 
+// Races Why Racing is not producing right now. While such a race has no live
+// edition, its URLs (new and old-site) 301 to the closest live race. If the race
+// is published again, its own page wins automatically.
+const NOT_PRODUCED_FALLBACK = {
+  // Pacific Crest: not being produced (Karissa, 2026-11-02). Closest match:
+  // Oregon triathlon festival with 70.3, Olympic and Sprint distances.
+  'pacific-crest-endurance-sports-festival': 'hagg-lake-triathlon-trail-festival'
+};
+
+async function fallbackLiveSlug(baseSlug) {
+  const fallback = NOT_PRODUCED_FALLBACK[baseSlug];
+  if (!fallback) return null;
+  const fam = await findRaceFamily(fallback);
+  return fam.liveSlug;
+}
+
 // Retired races from the old site: permanent redirect to the race calendar.
 const RETIRED_LEGACY_SLUGS = {
   'lucky-triathlon': '/#calendar',        // Lucky Triathlon Festival, last held 2022
@@ -263,6 +279,7 @@ app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
   } catch (e) {
     liveSlug = null;
   }
+  if (!liveSlug) liveSlug = await fallbackLiveSlug(target);
   res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
   if (liveSlug) return res.redirect(301, `/events/${liveSlug}`);
   return res.redirect(302, '/#calendar');
@@ -302,6 +319,11 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
       if (family.liveSlug && family.liveSlug !== slug) {
         res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
         return res.redirect(301, `/events/${family.liveSlug}${wantMarkdown ? '.md' : ''}`);
+      }
+      const fallback = await fallbackLiveSlug(slug.replace(/-20\d\d(?:-v\d+)?$/, ''));
+      if (fallback) {
+        res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+        return res.redirect(301, `/events/${fallback}${wantMarkdown ? '.md' : ''}`);
       }
       if (family.exists && !wantMarkdown) {
         res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
