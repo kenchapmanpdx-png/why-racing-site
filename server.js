@@ -1000,6 +1000,7 @@ Guidelines:
 - If you don't know something specific, say so and suggest contacting info@whyracingevents.com or calling (360) 314-4682
 - Encourage participation and highlight the community/charity aspects
 - Keep responses helpful but concise
+- Never use em dashes; use a period, comma, colon or parentheses instead
 - Know all course records, packet pickup times, start times, and policies`;
 
 // The site's chat widget only appears when the chat service is configured.
@@ -1089,6 +1090,15 @@ app.post('/api/chat', async (req, res) => {
     if (data.error) {
       console.error('Anthropic API returned error:', data.error);
       return res.status(502).json({ error: 'Chat service encountered an error. Please try again later.' });
+    }
+
+    // House style: no em dashes in anything the site says, chatbot included.
+    if (Array.isArray(data.content)) {
+      for (const block of data.content) {
+        if (block && block.type === 'text' && typeof block.text === 'string') {
+          block.text = block.text.replace(/(^|\n)[ \t]*\u2014[ \t]*/g, '$1- ').replace(/[ \t]*\u2014[ \t]*/g, ', ');
+        }
+      }
     }
 
     res.json(data);
