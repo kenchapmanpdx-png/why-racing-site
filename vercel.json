@@ -1,5 +1,18 @@
 {
     "version": 2,
+    "images": {
+        "sizes": [384, 640, 828, 1200, 1920],
+        "qualities": [75],
+        "formats": ["image/webp"],
+        "minimumCacheTTL": 2678400,
+        "remotePatterns": [
+            {
+                "protocol": "https",
+                "hostname": "qotqzsbpokvjsgueewdi.supabase.co",
+                "pathname": "^/storage/v1/object/public/race-images/.*$"
+            }
+        ]
+    },
     "rewrites": [
         {
             "source": "/api/(.*)",

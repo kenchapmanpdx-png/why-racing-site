@@ -2360,6 +2360,17 @@
                 .replace(/'/g, '&#39;');
         }
 
+        // Supabase Storage images are served through Vercel's image optimizer
+        // (resized WebP, cached at Vercel's edge) so page views don't burn
+        // Supabase egress. Other paths (local /images) pass through unchanged.
+        const SUPABASE_PUBLIC_IMG = /^https:\/\/qotqzsbpokvjsgueewdi\.supabase\.co\/storage\/v1\/object\/public\//;
+        function optimizedSrc(src, w) {
+            return SUPABASE_PUBLIC_IMG.test(src || '') ? `/_vercel/image?url=${encodeURIComponent(src)}&w=${w}&q=75` : src;
+        }
+        function optimizedSrcset(src, widths) {
+            return SUPABASE_PUBLIC_IMG.test(src || '') ? widths.map(w => `${optimizedSrc(src, w)} ${w}w`).join(', ') : '';
+        }
+
         // Create race card HTML for database races
         function createDynamicRaceCard(race, index = 0) {
             const distances = race.race_distances || [];
@@ -2391,6 +2402,7 @@
             })();
 
             const cardImage = race.thumbnail_url || race.hero_image_url || 'images/action/hagg-lake-run.jpg';
+            const cardSrcset = optimizedSrcset(cardImage, [384, 640, 828]);
             const date = new Date(race.race_date + 'T00:00:00');
             const dateStr = date.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' });
 
@@ -2428,7 +2440,7 @@
 
             card.innerHTML = `
                 <div class="card-img-container skeleton" onclick="showRaceDetails('${safeInfoUrl}')" style="cursor: pointer;">
-                    <img src="${escapeHtml(cardImage)}" alt="${safeName}" loading="lazy" class="loading" onload="this.classList.remove('loading'); this.parentElement.classList.remove('skeleton')" style="${race.name && race.name.includes('Bigfoot') ? 'object-position: center 25%' : ''}">
+                    <img src="${escapeHtml(optimizedSrc(cardImage, 640))}"${cardSrcset ? ` srcset="${escapeHtml(cardSrcset)}" sizes="(max-width: 640px) 100vw, 400px" data-orig="${escapeHtml(cardImage)}" onerror="this.onerror=null; this.removeAttribute('srcset'); this.src=this.dataset.orig"` : ''} alt="${safeName}" loading="lazy" class="loading" onload="this.classList.remove('loading'); this.parentElement.classList.remove('skeleton')" style="${race.name && race.name.includes('Bigfoot') ? 'object-position: center 25%' : ''}">
                 </div>
                 <div class="card-body">
                     <div onclick="showRaceDetails('${safeInfoUrl}')" style="cursor: pointer;">
