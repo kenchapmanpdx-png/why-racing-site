@@ -1,4 +1,4 @@
-# Admin / ETL scripts — not part of the deployed app
+# Admin / ETL scripts - not part of the deployed app
 schema/
 add_distance_types.js
 add_distances_col.js
@@ -18,12 +18,12 @@ replit.md
 # Dev/docs (README, replit.md, etc.)
 *.md
 
-# Env files (belt & suspenders — .gitignore already covers these)
+# Env files (belt & suspenders - .gitignore already covers these)
 .env
 .env.local
 .env.*.local
 
-# Scrapedimages — most are unused (110 MB of 112 MB).
+# Scrapedimages - most are unused (110 MB of 112 MB).
 # Ignore the whole folder, then re-include only the 7 actually referenced.
 # See M1 / cleanup-scrapedimages.sh for permanent on-disk pruning.
 images/Scrapedimages/**

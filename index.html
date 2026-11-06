@@ -69,7 +69,7 @@
 
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Oswald:wght@500;700&display=swap"
         rel="stylesheet">
-    <!-- NOTE: <link rel="preload" as="video"> was removed — Chrome warns it's unsupported
+    <!-- NOTE: <link rel="preload" as="video"> was removed - Chrome warns it's unsupported
          for ranged media fetches. The <video preload="auto"> attribute plus DOMContentLoaded
          injection (see bottom of file) already warms the network cache. -->
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style"
@@ -245,7 +245,7 @@
             position: absolute;
             top: 0;
             left: 0;
-            /* Promote to GPU compositing layer — decouples video playback
+            /* Promote to GPU compositing layer - decouples video playback
                from the main thread so JS activity can't cause frame drops */
             will-change: transform;
             transform: translateZ(0);
@@ -450,7 +450,7 @@
             margin: 0 auto;
         }
 
-        /* Partner Events grid — 70% size of main tiles, auto-fit chronological */
+        /* Partner Events grid - 70% size of main tiles, auto-fit chronological */
         .event-grid-partner {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(196px, 1fr));
@@ -1976,7 +1976,7 @@
             </div>
         </div>
 
-        <!-- PARTNER EVENTS — smaller tiles, chronological, no quarter grouping -->
+        <!-- PARTNER EVENTS - smaller tiles, chronological, no quarter grouping -->
         <div class="partner-events-section section q-alt" id="partner-section">
             <div class="section-header">
                 <h2>Partner Events</h2>
@@ -2227,7 +2227,7 @@
     <!-- Not deferred: the inline script below calls window.formatExternalUrl from nav.js -->
     <script src="assets/js/nav.js"></script>
     <script>
-        // toggleMobileMenu() is defined in /assets/js/nav.js (loaded above) — it
+        // toggleMobileMenu() is defined in /assets/js/nav.js (loaded above) - it
         // includes null guards and the close-on-link-click handler.
 
         function showRaceDetails(registrationUrl) {
@@ -2408,7 +2408,7 @@
 
             const regUrl = window.formatExternalUrl(race.registration_url) || '#';
             // When registration is closed and there's no separate info PDF, don't link the
-            // card body to the registrar — that would bypass the "Coming Soon" button state.
+            // card body to the registrar - that would bypass the "Coming Soon" button state.
             const hasInfoPdf = !!race.instructions_pdf_url;
             const cardClickUrl = hasInfoPdf
                 ? window.formatExternalUrl(race.instructions_pdf_url)
@@ -2476,7 +2476,7 @@
 
         // Detect partner-hosted races (Bivouac / X-Dog) by their registration URL
         // host or logo_url substring. This is the most reliable signal short of a
-        // dedicated `is_partner_race` DB column — both fields are admin-controlled
+        // dedicated `is_partner_race` DB column - both fields are admin-controlled
         // and stable for the existing partners. To onboard a new partner: either
         // register at their domain (caught automatically) or extend the lists
         // below.
@@ -2494,7 +2494,7 @@
                     const host = (new URL(reg)).hostname.replace(/^www\./, '').toLowerCase();
                     if (PARTNER_HOSTS.some(h => host === h || host.endsWith('.' + h))) return true;
                 }
-            } catch (e) { /* malformed URL — fall through */ }
+            } catch (e) { /* malformed URL - fall through */ }
             const logo = (race.logo_url || '').toLowerCase();
             return PARTNER_LOGO_HINTS.some(h => logo.includes(h));
         }
@@ -2791,7 +2791,7 @@
         });
     </script>
 
-    <!-- Chatbot Widget (vanilla JS — no React/Babel) -->
+    <!-- Chatbot Widget (vanilla JS - no React/Babel) -->
     <div id="chatbot-root"></div>
     <style>
         @keyframes chatBounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }

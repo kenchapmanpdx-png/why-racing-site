@@ -11,7 +11,7 @@
 // Second step: permanently remove races deleted more than 30 days ago
 // (lib/race-trash.js). Runs after renew and cannot affect it.
 //
-// Standalone Vercel serverless function — does not load the full Express bundle,
+// Standalone Vercel serverless function - does not load the full Express bundle,
 // so cold-start is faster than routing through server.js.
 //
 // Schedule defined in vercel.json `crons`. Auth: Bearer ${CRON_SECRET}.
@@ -21,7 +21,7 @@ const { renewPastRaces } = require('../../lib/race-clone');
 const { purgeDeletedRaces } = require('../../lib/race-trash');
 
 module.exports = async function handler(req, res) {
-  // Auth — Vercel cron sends a Bearer token in the Authorization header
+  // Auth - Vercel cron sends a Bearer token in the Authorization header
   if (req.headers.authorization !== `Bearer ${process.env.CRON_SECRET}`) {
     return res.status(401).json({ error: 'Unauthorized' });
   }

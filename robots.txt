@@ -1,4 +1,4 @@
-# Why Racing Events — robots.txt
+# Why Racing Events - robots.txt
 # Policy: Allow all major search + AI crawlers (citation + training tiers).
 # Reference: §18 of SEO/GEO doc; revisit if data-licensing policy changes.
 
@@ -8,7 +8,7 @@ Allow: /
 User-agent: Bingbot
 Allow: /
 
-# AI citation / search crawlers — these cite content with attribution
+# AI citation / search crawlers - these cite content with attribution
 User-agent: OAI-SearchBot
 Allow: /
 
@@ -36,7 +36,7 @@ Allow: /
 User-agent: Meta-WebIndexer
 Allow: /
 
-# AI training crawlers — allowed per current data policy
+# AI training crawlers - allowed per current data policy
 User-agent: GPTBot
 Allow: /
 

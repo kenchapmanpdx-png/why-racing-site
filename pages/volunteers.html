@@ -697,7 +697,7 @@
         <div class="container">
             <div class="section-header reveal">
                 <h2>Why Volunteer?</h2>
-                <p>More than just race day support—it's a community experience that changes lives, starting with yours.
+                <p>More than just race day support, it's a community experience that changes lives, starting with yours.
                 </p>
             </div>
             <div class="grid">
@@ -769,7 +769,7 @@
                 Ready to <span class="motive-cta-highlight">Volunteer?</span>
             </div>
             <p class="motive-cta-text">
-                Behind every personal record, every emotional finish, and every first-timer crossing the line — there's
+                Behind every personal record, every emotional finish, and every first-timer crossing the line, there's
                 a volunteer who made it possible.
             </p>
             <a href="#volunteer-form" class="motive-cta-btn">
@@ -943,7 +943,7 @@
                     const d = new Date(r.race_date + 'T12:00:00');
                     const dateLabel = d.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
                     opt.value = r.name;
-                    opt.textContent = `${r.name} — ${dateLabel}`;
+                    opt.textContent = `${r.name} (${dateLabel})`;
                     select.appendChild(opt);
                 });
                 const anyOpt = document.createElement('option');

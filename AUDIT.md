@@ -1,4 +1,4 @@
-# Why Racing Site — Full Audit (verified, in-progress fixes)
+# Why Racing Site - Full Audit (verified, in-progress fixes)
 
 Date: 2026-05-07
 Repo: github.com/kenchapmanpdx-png/why-racing-site
@@ -8,7 +8,7 @@ Live: why-racing-site.vercel.app
 
 | ID | Status | Notes |
 |---|---|---|
-| C1 | `[FIXED]` | Reversed direction: kept Express GET route, made `api/races.js` a proxy to server.js. (Original delete-the-Express-route plan would have broken admin POST — caught during fixes.) |
+| C1 | `[FIXED]` | Reversed direction: kept Express GET route, made `api/races.js` a proxy to server.js. (Original delete-the-Express-route plan would have broken admin POST - caught during fixes.) |
 | C2 | `[FIXED]` | Logo path corrected in 4 admin files. |
 | H1 | `[FIXED]` | 20 `events.html` links → `../index.html#calendar` in locations.html. |
 | H2 | `[FIXED]` | View Live button now opens `race.registration_url` (or shows disabled when missing). |
@@ -20,7 +20,7 @@ Live: why-racing-site.vercel.app
 | M6 | `[FIXED]` | partners.html `og:url` added. |
 | H5 | `[FIXED]` | Hero4.mp4 re-encoded h264/CRF26 with faststart: 20 MB → 8.9 MB. Hero.mp4 orphan added to .vercelignore. |
 | H6 | `[FIXED]` | 3 collage photos resized to 1600px max + 82q progressive: 47 MB → 0.8 MB total (98% reduction). |
-| H8 | `[NEW + FIXED]` | 3 pages (`beneficiary.html`, `volunteers.html`, `first-5k.html`) declared UTF-8 but contained Windows-1252 bytes (`0x95`, `0x97`, `0xa9`) — found while patching skip links. Re-encoded all to proper UTF-8. |
+| H8 | `[NEW + FIXED]` | 3 pages (`beneficiary.html`, `volunteers.html`, `first-5k.html`) declared UTF-8 but contained Windows-1252 bytes (`0x95`, `0x97`, `0xa9`) - found while patching skip links. Re-encoded all to proper UTF-8. |
 | M1 | `[PARTIAL FIXED]` | Workspace permissions block file deletion. Added `.vercelignore` rules to skip 553 unused Scrapedimages on deploy (saves 110 MB on Vercel) and committed `cleanup-scrapedimages.sh` for permanent on-disk pruning when the user runs it locally. |
 | M7 | `[FIXED]` | CSP `connect-src` now allows `https://*.ingest.sentry.io` for future frontend Sentry. |
 | M8 | `[FIXED]` | CSP `img-src`/`media-src` widened from a hardcoded Supabase project URL to `*.supabase.co`. |
@@ -30,21 +30,21 @@ Live: why-racing-site.vercel.app
 | L2 | `[FIXED]` | Skip-to-content link added to all 10 pages (visually-hidden, focusable). Each has `id="main-content"` on its `<main>`/`<header>`/first `<section>`. |
 | L6 | `[FIXED]` | server.js `express.static` hardened with deny-list middleware and `dotfiles: 'deny'` + filename guard in `setHeaders`. |
 | H4 | `[FIXED]` | CSP flipped from `Content-Security-Policy-Report-Only` to enforcing. Existing Report-Only had no monitoring history; widened directives in M7/M8 cover all known external resources (Google Fonts, cdnjs, Supabase, Sentry). Browser console will surface any missed resource immediately for fast rollback. |
-| M2 | `[PARTIAL FIXED]` | Audit's "188 KB inline duplicated" was overstated — analysis showed only ~8.6 KB of fully-identical rules across 9 pages (most inline CSS is page-unique design code). Extracted the 3 shared utilities I added (`.skip-to-content`, `.skip-to-content:focus`, `.visually-hidden`) into `assets/css/brand.css` and removed the duplicated inline copies from 10 pages (~3.7 KB saved). Broader extraction is low-yield and risky without a build step. |
+| M2 | `[PARTIAL FIXED]` | Audit's "188 KB inline duplicated" was overstated - analysis showed only ~8.6 KB of fully-identical rules across 9 pages (most inline CSS is page-unique design code). Extracted the 3 shared utilities I added (`.skip-to-content`, `.skip-to-content:focus`, `.visually-hidden`) into `assets/css/brand.css` and removed the duplicated inline copies from 10 pages (~3.7 KB saved). Broader extraction is low-yield and risky without a build step. |
 | M3 | `[FIXED]` | Added `Cache-Control: public, max-age=86400, must-revalidate` to `/images/(.*)`, `/videos/(.*)`, `/assets/(.*)` in vercel.json. Conservative 1-day cache (no immutable, since assets aren't hashed). Admin pages keep their `no-store` rule. |
-| M4 | `[FIXED]` | Both crons extracted to standalone Vercel functions: `api/cron/archive-races.js` and `api/cron/export-signups.js`. Each only loads its needed deps (Supabase, optionally Postmark) — far smaller cold start than routing through Express. Express handlers removed from server.js. Verified both functions handle auth and missing-env correctly. |
+| M4 | `[FIXED]` | Both crons extracted to standalone Vercel functions: `api/cron/archive-races.js` and `api/cron/export-signups.js`. Each only loads its needed deps (Supabase, optionally Postmark) - far smaller cold start than routing through Express. Express handlers removed from server.js. Verified both functions handle auth and missing-env correctly. |
 | M10 | `[FIXED]` | Heading hierarchy corrected: first-5k.html (4× h4 → h3), locations.html (14× h4 → h3 region names + 56× h5 → h4 guide-box titles, with matching CSS selector updates), training.html (2× dynamic h4 → h3 club-name cards). Footer h4s ("Quick Links", "Join the Movement") preserved as standard. |
 | L4 | `[FIXED]` | Moved `Ultimate-SEO-Landing-Page-Guide.md` from `images/` to repo root (so it doesn't sit under a public-asset folder). Already excluded from deploy via `.vercelignore` `*.md` rule. |
-| L5 | not done | `schema/` rename considered — multiple internal scripts reference each other by relative path; renaming risks breaking ETL workflows for purely cosmetic reasons. Already excluded from deploy. Recommend leaving as-is. |
+| L5 | not done | `schema/` rename considered - multiple internal scripts reference each other by relative path; renaming risks breaking ETL workflows for purely cosmetic reasons. Already excluded from deploy. Recommend leaving as-is. |
 | L7 | partial | Workspace permissions blocked deletion of `.replit` and `replit.md`. Both already excluded from deploy via `.vercelignore`. User can `git rm` locally if desired. |
 
-## Verification Pass — Summary
+## Verification Pass - Summary
 
 Each finding below was re-checked against the code. Symbols:
-- `[VERIFIED]` — issue and proposed fix both confirmed correct
-- `[ADJUSTED]` — issue is real but the proposed fix needed correction (see notes)
-- `[NEW]` — issue not in original audit, found during verification
-- `[REVISED-DOWN]` — issue exists but lower severity than first reported
+- `[VERIFIED]` - issue and proposed fix both confirmed correct
+- `[ADJUSTED]` - issue is real but the proposed fix needed correction (see notes)
+- `[NEW]` - issue not in original audit, found during verification
+- `[REVISED-DOWN]` - issue exists but lower severity than first reported
 
 | Severity | Count | Notes |
 |---|---|---|
@@ -57,9 +57,9 @@ Each finding below was re-checked against the code. Symbols:
 
 ## CRITICAL
 
-### C1. `[FIXED]` `/api/races` had TWO implementations — admin POST was silently broken
+### C1. `[FIXED]` `/api/races` had TWO implementations - admin POST was silently broken
 - Confirmed: Vercel filesystem routing matches `api/races.js` first, BEFORE rewrites. The Express GET route at `server.js:202` never executed in production.
-- **Bigger problem found mid-fix:** `api/races.js` returned 405 for any non-GET method. The admin "create race" form (`pages/admin/races.html:296` posts to `/api/races`) was therefore broken in production — every POST hit api/races.js and got 405, never reaching the Express POST handler at `server.js:1024`.
+- **Bigger problem found mid-fix:** `api/races.js` returned 405 for any non-GET method. The admin "create race" form (`pages/admin/races.html:296` posts to `/api/races`) was therefore broken in production - every POST hit api/races.js and got 405, never reaching the Express POST handler at `server.js:1024`.
 - **Original plan would have made it worse:** I'd planned to delete the Express GET route and let api/races.js handle GET. That left admin POST still broken.
 - **Actual fix shipped:**
   - Restored the Express GET route in server.js (single source of truth for all methods).
@@ -74,7 +74,7 @@ Each finding below was re-checked against the code. Symbols:
 
 ## HIGH
 
-### H1. `[VERIFIED]` `events.html` — 20 broken nav links in `pages/locations.html`
+### H1. `[VERIFIED]` `events.html` - 20 broken nav links in `pages/locations.html`
 - Confirmed: 20 `<a href="events.html">` references, no events.html exists.
 - **Refined fix:** the homepage doesn't have per-race anchors (only `#calendar`, `#q1-section`–`#q4-section`). Best fix: change to `../index.html#calendar` so users land at the events grid. (Linking each to a race-specific URL would require building a race-detail page, which doesn't exist.)
 
@@ -87,7 +87,7 @@ Each finding below was re-checked against the code. Symbols:
   - (c) Hide the button until a detail page is built.
   - Option (a) is closest to the original "View Live" intent.
 
-### H3. `[ADJUSTED]` `npm audit` — 3 vulnerabilities (1 high, 2 moderate)
+### H3. `[ADJUSTED]` `npm audit` - 3 vulnerabilities (1 high, 2 moderate)
 - Confirmed CVEs: 13 axios advisories (via `postmark@4.0.5` → `axios@1.15.0`); `ip-address ≤10.1.0` XSS via `express-rate-limit@8.2.1`.
 - **Original fix was wrong.** I wrote `npm audit fix`, but `npm audit fix --dry-run` shows 0 changes (axios is pinned by postmark to `^1.13.5`; ip-address is in lockfile at 10.1.0). npm cannot bump these without `--force`.
 - **Corrected fix:** add npm `overrides` to package.json:
@@ -100,14 +100,14 @@ Each finding below was re-checked against the code. Symbols:
   Then `rm package-lock.json node_modules && npm install`. Test the email export cron and rate limiter after the bump. Postmark's only direct axios usage is HTTP requests; minor version bump should be safe.
 - Alternative: `npm audit fix --force` works but may install breaking major versions of unrelated transitives.
 
-### H4. `[VERIFIED]` CSP is Report-Only — provides no protection
+### H4. `[VERIFIED]` CSP is Report-Only - provides no protection
 - Confirmed: `vercel.json:32` uses `Content-Security-Policy-Report-Only`.
-- CSP audit against actual usage: site loads Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`) and Font Awesome (`cdnjs.cloudflare.com`) — both already allowed. YouTube links exist as `<a>` tags only (no iframe, so `frame-src 'none'` is fine). Sentry is server-side only.
+- CSP audit against actual usage: site loads Google Fonts (`fonts.googleapis.com`, `fonts.gstatic.com`) and Font Awesome (`cdnjs.cloudflare.com`) - both already allowed. YouTube links exist as `<a>` tags only (no iframe, so `frame-src 'none'` is fine). Sentry is server-side only.
 - Fix as written is correct: monitor `/api/csp-report` logs, then flip header name from `Content-Security-Policy-Report-Only` → `Content-Security-Policy`.
 
-### H5. `[VERIFIED]` Hero video shipped uncompressed — 19.79 MB
+### H5. `[VERIFIED]` Hero video shipped uncompressed - 19.79 MB
 - Confirmed: `videos/Hero4.mp4` = 20 MB, `videos/Hero.mp4` = 11 MB orphan.
-- **Note:** `.vercelignore` references `hero-animation-2026.mp4` and `hero-video.mp4` (different filenames!) — the actual orphan `videos/Hero.mp4` is NOT excluded and ships to prod.
+- **Note:** `.vercelignore` references `hero-animation-2026.mp4` and `hero-video.mp4` (different filenames!) - the actual orphan `videos/Hero.mp4` is NOT excluded and ships to prod.
 - Fix as written is correct, plus update `.vercelignore` patterns to match real filenames.
 
 ### H6. `[VERIFIED]` Homepage collage ships ~45 MB of full-size photos
@@ -136,7 +136,7 @@ Each finding below was re-checked against the code. Symbols:
 
 ### M3. `[ADJUSTED]` No long-cache headers on static assets
 - Confirmed only `/pages/admin/*` has explicit cache headers.
-- **Original fix was risky.** I suggested `max-age=31536000, immutable` — but the site does NOT use hashed filenames. If you ship `assets/js/nav.js` with a year-long immutable header, an updated nav.js would never reach users until they clear cache.
+- **Original fix was risky.** I suggested `max-age=31536000, immutable` - but the site does NOT use hashed filenames. If you ship `assets/js/nav.js` with a year-long immutable header, an updated nav.js would never reach users until they clear cache.
 - **Corrected fix:** either (a) add filename hashing to a build step, then long-cache; or (b) use shorter max-age (e.g., `public, max-age=3600, must-revalidate`) until hashing exists. Vercel's defaults are reasonable; this is "nice-to-have", not urgent.
 
 ### M4. `[VERIFIED]` Cron endpoints route through full Express bundle
@@ -159,7 +159,7 @@ Each finding below was re-checked against the code. Symbols:
 - Confirmed: `vercel.json:32` allows only `https://qotqzsbpokvjsgueewdi.supabase.co`.
 - Fix as written is correct (use `*.supabase.co` or env-templated).
 
-### M9. `[VERIFIED]` Form inputs have no `<label>` — only placeholders (a11y)
+### M9. `[VERIFIED]` Form inputs have no `<label>` - only placeholders (a11y)
 - Confirmed at `index.html:2153, 2155, 2158`. The honeypot has a label, the visible inputs don't.
 - Fix as written is correct.
 
@@ -185,7 +185,7 @@ Each finding below was re-checked against the code. Symbols:
 - Confirmed: `/video-mapping.json` and `/chatbot-widget.html` files don't exist. Fix correct.
 
 ### L4. `[REVISED-DOWN]` `images/Ultimate-SEO-Landing-Page-Guide.md` would deploy
-- Re-verified: `.vercelignore` has `*.md` (line 16) which uses gitignore-style matching — pattern matches at any depth, so the file IS excluded from deploy. Original concern was overblown.
+- Re-verified: `.vercelignore` has `*.md` (line 16) which uses gitignore-style matching - pattern matches at any depth, so the file IS excluded from deploy. Original concern was overblown.
 - Action: none needed (or move it out of `images/` for organizational cleanliness only).
 
 ### L5. `[VERIFIED]` `schema/` directory name is misleading
@@ -198,7 +198,7 @@ Each finding below was re-checked against the code. Symbols:
 ### L7. `[VERIFIED]` Replit artifacts in repo
 - `.replit`, `replit.md` excluded from deploy. Cleanup-only.
 
-### L8. `[NEW]` 404.html uses relative links — broken at deep paths
+### L8. `[NEW]` 404.html uses relative links - broken at deep paths
 - Found: `404.html:284, 288, 313` use `href="index.html"` and `href="pages/training.html"` (relative).
 - When Vercel serves 404 at e.g. `/some/deep/path`, browser resolves `index.html` → `/some/deep/index.html` (also 404), and `pages/training.html` → `/some/deep/pages/training.html`.
 - Fix: change all relative links in 404.html to absolute (`/`, `/pages/training.html`, etc.).
@@ -228,13 +228,13 @@ Each finding below was re-checked against the code. Symbols:
 
 ## Recommended Fix Order (revised)
 
-1. **C2** (broken admin logo) — 5-min fix, blocks admin UX.
-2. **H7** (UTF-8 corruption + wrong copyright year) — visible on every footer.
-3. **C1** (duplicate `/api/races`) — pick one before they diverge.
-4. **H3** (vulnerable deps) — use overrides, not plain `npm audit fix`.
-5. **H1, H2** (broken navigation) — visible 404s.
-6. **L8** (404.html absolute links) — small change, big UX impact.
-7. **H5, H6, M1** (oversized assets) — biggest perf win.
-8. **M11** (formidable cleanup) — small but easy.
-9. **H4** (flip CSP) — after a monitoring window.
+1. **C2** (broken admin logo) - 5-min fix, blocks admin UX.
+2. **H7** (UTF-8 corruption + wrong copyright year) - visible on every footer.
+3. **C1** (duplicate `/api/races`) - pick one before they diverge.
+4. **H3** (vulnerable deps) - use overrides, not plain `npm audit fix`.
+5. **H1, H2** (broken navigation) - visible 404s.
+6. **L8** (404.html absolute links) - small change, big UX impact.
+7. **H5, H6, M1** (oversized assets) - biggest perf win.
+8. **M11** (formidable cleanup) - small but easy.
+9. **H4** (flip CSP) - after a monitoring window.
 10. Everything else as time permits.

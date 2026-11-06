@@ -1,6 +1,6 @@
 # Rollback playbook
 
-Quick reverts for the riskier changes shipped in commit `4934e3e` (Audit fixes: security, perf, a11y, encoding — 37 items).
+Quick reverts for the riskier changes shipped in commit `4934e3e` (Audit fixes: security, perf, a11y, encoding - 37 items).
 
 ## CSP (most likely to need rollback)
 
@@ -9,7 +9,7 @@ Symptom: Any browser console error `Refused to load … because it violates the 
 Fix:
 1. Edit `vercel.json`
 2. Change the response header key from `Content-Security-Policy` back to `Content-Security-Policy-Report-Only`
-3. Commit + push — Vercel auto-deploys in ~1 min
+3. Commit + push - Vercel auto-deploys in ~1 min
 4. Violations now log to `/api/csp-report` without blocking
 
 The CSP allowlist:
@@ -30,7 +30,7 @@ To allow a new external host, add it to the matching directive in `vercel.json` 
 
 Symptom: Hero plays glitched, doubled, or doesn't play.
 
-Fix: revert commits `29bc93e` (output-side seek re-trim) and/or `2f5467c` (initial trim) — restores the original 16 MB Hero4.mp4.
+Fix: revert commits `29bc93e` (output-side seek re-trim) and/or `2f5467c` (initial trim) - restores the original 16 MB Hero4.mp4.
 
 ```bash
 git revert 29bc93e 2f5467c
