@@ -2,6 +2,9 @@
  * WHY RACING EVENTS Email Signup Form Logic
  */
 document.addEventListener('DOMContentLoaded', () => {
+    // Bot check: server drops submissions sent within seconds of page load
+    // (people take longer than that to type a name and email).
+    const loadedAt = Date.now();
     const signupForm = document.getElementById('email-signup-form');
     if (!signupForm) return;
 
@@ -24,7 +27,8 @@ document.addEventListener('DOMContentLoaded', () => {
             firstName: formData.get('firstName'),
             lastName: formData.get('lastName'),
             source: formData.get('source') || 'website',
-            website: formData.get('website') // Honeypot
+            website: formData.get('website'), // Honeypot
+            elapsedMs: Date.now() - loadedAt // Time trap
         };
 
         try {

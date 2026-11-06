@@ -2455,11 +2455,19 @@ function sanitizeCSVCell(value) {
 // 1. Capture Signup
 app.post('/api/signup', async (req, res) => {
   try {
-    const { email, firstName, lastName, source, website } = req.body;
+    const { email, firstName, lastName, source, website, elapsedMs } = req.body;
 
-    // Honeypot bot detection
+    // Bot checks. Bots get a normal success reply so they don't retry or adapt.
+    // 1. Honeypot: hidden "website" field that people never see or fill.
     if (website) {
-      console.log('Bot detected via honeypot');
+      console.log('[signup] bot dropped: honeypot');
+      return res.json({ success: true });
+    }
+    // 2. Time trap: signup-form.js sends ms since page load. Missing = posted
+    //    straight to the API without the page; under 3 s = filled by a script.
+    const elapsed = Number(elapsedMs);
+    if (!Number.isFinite(elapsed) || elapsed < 3000) {
+      console.log(`[signup] bot dropped: time trap (elapsedMs=${elapsedMs})`);
       return res.json({ success: true });
     }
 
