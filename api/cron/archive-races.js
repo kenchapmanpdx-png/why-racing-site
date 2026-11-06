@@ -36,7 +36,10 @@ module.exports = async function handler(req, res) {
   const supabase = createClient(supabaseUrl, supabaseKey);
 
   // Optional dry-run for safe manual testing: /api/cron/archive-races?dryRun=1
-  const dryRun = req.query && (req.query.dryRun === '1' || req.query.dryRun === 'true');
+  // WHATWG URL instead of req.query: Vercel's req.query getter calls the
+  // deprecated url.parse() and logs DEP0169 on every run.
+  const dryRunParam = new URL(req.url || '/', 'http://localhost').searchParams.get('dryRun');
+  const dryRun = dryRunParam === '1' || dryRunParam === 'true';
 
   // Step 1: renew. Step 2: purge. Each runs even if the other fails.
   let result = null;

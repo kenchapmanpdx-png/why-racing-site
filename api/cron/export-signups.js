@@ -1,5 +1,6 @@
-// Cron: export new email signups since last run, email as CSV via Postmark.
-// Standalone Vercel serverless function — avoids loading the full Express
+// Cron: export new email signups since last run, email as CSV.
+// Sends via Resend when RESEND_API_KEY is set (preferred), otherwise Postmark.
+// Standalone Vercel serverless function: avoids loading the full Express
 // bundle so cold-start is faster than routing through server.js.
 //
 // Schedule defined in vercel.json `crons`. Auth: Bearer ${CRON_SECRET}.
@@ -7,7 +8,7 @@
 const { createClient } = require('@supabase/supabase-js');
 const { ServerClient } = require('postmark');
 
-// CSV cell sanitization — quote-escape and prefix any cell starting with =, +, -,
+// CSV cell sanitization: quote-escape and prefix any cell starting with =, +, -,
 // @, tab, or carriage return so spreadsheet apps don't interpret it as a formula.
 function sanitizeCSVCell(value) {
   if (value === null || value === undefined) return '';
@@ -25,9 +26,11 @@ module.exports = async function handler(req, res) {
 
   const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL || process.env.SUPABASE_URL;
   const supabaseKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+  const resendKey = process.env.RESEND_API_KEY;
   const postmarkToken = process.env.POSTMARK_API_TOKEN;
-  const fromEmail = process.env.SIGNUP_EXPORT_FROM;
-  // Recipient pinned to info@whyracingevents.com (per Ken, 2026-06-10 —
+  // Must be on a domain verified with the active provider.
+  const fromEmail = process.env.SIGNUP_EXPORT_FROM || 'Why Racing Signups <signups@whyracingevents.com>';
+  // Recipient pinned to info@whyracingevents.com (per Ken, 2026-06-10 -
   // newsletter signups should go to info@). Previously brock@whyracingevents.com.
   // Hardcoded to stay independent of Vercel env state. Change this string to redirect.
   const toEmail = 'info@whyracingevents.com';
@@ -36,22 +39,46 @@ module.exports = async function handler(req, res) {
     console.error('[cron export-signups] Missing Supabase credentials');
     return res.status(500).json({ error: 'Supabase config missing' });
   }
-  if (!postmarkToken) {
-    console.error('[cron export-signups] Missing POSTMARK_API_TOKEN');
-    return res.status(500).json({ error: 'Postmark config missing' });
-  }
-  if (!fromEmail) {
-    console.error('[cron export-signups] Missing SIGNUP_EXPORT_FROM env var (sender email, must be Postmark-verified)');
-    return res.status(500).json({ error: 'Sender email not configured' });
+  if (!resendKey && !postmarkToken) {
+    console.error('[cron export-signups] Missing RESEND_API_KEY (or POSTMARK_API_TOKEN)');
+    return res.status(500).json({ error: 'Email provider config missing' });
   }
 
   const supabase = createClient(supabaseUrl, supabaseKey);
-  const postmark = new ServerClient(postmarkToken);
+
+  // Provider-neutral send. attachments: [{ name, content (base64), type }]
+  async function sendEmail({ subject, text, attachments = [] }) {
+    if (resendKey) {
+      const r = await fetch('https://api.resend.com/emails', {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${resendKey}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          from: fromEmail,
+          to: [toEmail],
+          subject,
+          text,
+          attachments: attachments.map(a => ({ filename: a.name, content: a.content })),
+        }),
+      });
+      if (!r.ok) {
+        throw new Error(`Resend ${r.status}: ${await r.text()}`);
+      }
+      return;
+    }
+    const postmark = new ServerClient(postmarkToken);
+    await postmark.sendEmail({
+      From: fromEmail,
+      To: toEmail,
+      Subject: subject,
+      TextBody: text,
+      Attachments: attachments.map(a => ({ Name: a.name, Content: a.content, ContentType: a.type })),
+    });
+  }
 
   try {
     const snapshotTime = new Date().toISOString();
 
-    // Fetch unexported signups — include id so we can update by exact IDs to
+    // Fetch unexported signups: include id so we can update by exact IDs to
     // avoid a race window between the select filter and the later update filter.
     const { data: signups, error: fetchError } = await supabase
       .from('email_signups')
@@ -83,34 +110,30 @@ module.exports = async function handler(req, res) {
     });
     const csvContent = [csvHeader, ...csvRows].join('\n');
 
-    // Postmark email size guard (10 MB total, leave room for headers)
+    // Email size guard (10 MB total, leave room for headers)
     const csvSizeBytes = Buffer.byteLength(csvContent, 'utf8');
     if (csvSizeBytes > 9 * 1024 * 1024) {
-      await postmark.sendEmail({
-        From: fromEmail,
-        To: toEmail,
-        Subject: `⚠️ Signup Export Too Large — ${signups.length} signups`,
-        TextBody: `The weekly signup export has ${signups.length} new signups and the CSV is too large to email. Please export manually from Supabase.`,
+      await sendEmail({
+        subject: `Signup Export Too Large: ${signups.length} signups`,
+        text: `The weekly signup export has ${signups.length} new signups and the CSV is too large to email. Please export manually from Supabase.`,
       });
       return res.status(400).json({ error: 'CSV too large to email', count: signups.length });
     }
 
     const today = new Date().toLocaleDateString('en-US');
-    await postmark.sendEmail({
-      From: fromEmail,
-      To: toEmail,
-      Subject: `New Email Signups — ${today} (${signups.length} new)`,
-      TextBody: `Attached is a CSV with ${signups.length} new email signup(s) since the last export.\n\nHave a great day!`,
-      Attachments: [
+    await sendEmail({
+      subject: `New Email Signups: ${today} (${signups.length} new)`,
+      text: `Attached is a CSV with ${signups.length} new email signup(s) since the last export.\n\nHave a great day!`,
+      attachments: [
         {
-          Name: `email-signups-${new Date().toISOString().split('T')[0]}.csv`,
-          Content: Buffer.from(csvContent).toString('base64'),
-          ContentType: 'text/csv',
+          name: `email-signups-${new Date().toISOString().split('T')[0]}.csv`,
+          content: Buffer.from(csvContent).toString('base64'),
+          type: 'text/csv',
         },
       ],
     });
 
-    // Mark exactly the rows we emailed as exported — update by ID so any rows
+    // Mark exactly the rows we emailed as exported: update by ID so any rows
     // that arrived after snapshotTime aren't silently skipped.
     const exportedIds = signups.map(s => s.id);
     const { error: updateError } = await supabase
