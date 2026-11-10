@@ -2395,13 +2395,15 @@
             }
 
             // Phones show only a ~420px-wide center slice of the 1280px video, so they get
-            // a center-cropped 480px encode (same framing, ~1/3 the bytes). Falls back to
-            // the full file whenever the visible slice would be wider than 480px.
+            // a center-cropped 480px encode (same framing, ~1/3 the bytes). Wider mobile
+            // layouts (tablets, up to 768px) get a 912x600 center crop: on desktop the
+            // source's bottom-right "clideo.com" watermark sits under the Next-up bar,
+            // but at tablet widths it would show, so that file drops the bottom rows.
             function heroSrcFor(box) {
                 if (box !== heroBgMobile) return "videos/Hero4.mp4";
                 const boxH = box.getBoundingClientRect().height || heroHeader.getBoundingClientRect().height;
                 const visibleSrcWidth = window.innerWidth * 720 / (boxH * 1.08);
-                return visibleSrcWidth <= 470 ? "videos/Hero4-mobile.mp4" : "videos/Hero4.mp4";
+                return visibleSrcWidth <= 470 ? "videos/Hero4-mobile.mp4" : "videos/Hero4-tablet.mp4";
             }
 
             // Inject a video only into the container visible at this width, so phones
