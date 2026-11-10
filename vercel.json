@@ -269,16 +269,6 @@
             "permanent": true
         },
         {
-            "source": "/events",
-            "destination": "/",
-            "permanent": true
-        },
-        {
-            "source": "/events/",
-            "destination": "/",
-            "permanent": true
-        },
-        {
             "source": "/training-programs",
             "destination": "/pages/training.html",
             "permanent": true
