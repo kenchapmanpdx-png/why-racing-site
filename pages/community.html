@@ -14,6 +14,8 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="WHY RACING EVENTS">
+    <meta property="og:locale" content="en_US">
     <meta property="og:url" content="https://whyracingevents.com/pages/community.html">
     <meta property="og:title" content="PNW Racing Community & Athlete Teams | WHY RACING EVENTS">
     <meta property="og:description"
@@ -21,12 +23,12 @@
     <meta property="og:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://whyracingevents.com/pages/community.html">
-    <meta property="twitter:title" content="PNW Racing Community & Athlete Teams | WHY RACING EVENTS">
-    <meta property="twitter:description"
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://whyracingevents.com/pages/community.html">
+    <meta name="twitter:title" content="PNW Racing Community & Athlete Teams | WHY RACING EVENTS">
+    <meta name="twitter:description"
         content="Find your tribe in the PNW's most supportive racing community. Sister companies, team racing, social runs & community events across Washington and Oregon.">
-    <meta property="twitter:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
+    <meta name="twitter:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -54,7 +56,7 @@
         rel="stylesheet">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    <link rel="stylesheet" href="../assets/css/brand.css?v=20261031">
+    <link rel="stylesheet" href="../assets/css/brand.css?v=20261110">
 
     <style>
 :root {
@@ -450,7 +452,8 @@
             margin-bottom: 20px;
         }
 
-        .testimonial-card h4 {
+        .testimonial-card h4,
+        .testimonial-card h3 {
             color: var(--brand-red);
             font-size: 1rem;
             letter-spacing: 2px;
@@ -1271,6 +1274,7 @@
         <a href="../index.html#calendar" class="nav-btn mt-20">Find Your Race</a>
     </div>
 
+    <main>
     <header class="hero" id="main-content">
         <div class="hero-collage"></div>
         <div class="hero-overlay"></div>
@@ -1497,26 +1501,26 @@
                         class="avatar-circle">
                     <p>"The Girlfriends Half Marathon is an annual tradition for me... the atmosphere is always
                         supportive and encouraging. This event welcomes every level of athlete."</p>
-                    <h4>Jenni, Ambassador</h4>
+                    <h3>Jenni, Ambassador</h3>
                 </div>
                 <div class="testimonial-card reveal delay-2">
                     <img loading="lazy" src="../images/Scrapedimages/Brian-Jones-IMAGE.jpg" alt="Brian Jones" class="avatar-circle">
                     <p>"Why Racing Events puts on a great event and race. Great timing all the time because they hire
                         good timers... The post party is one of the best by far."</p>
-                    <h4>Brian Jones</h4>
+                    <h3>Brian Jones</h3>
                 </div>
                 <div class="testimonial-card reveal delay-3">
                     <img loading="lazy" src="../images/Scrapedimages/rebecca-cady-age30.jpg" alt="Rebecca Cady" class="avatar-circle">
                     <p>"5 weeks ago I set myself a challenge of doing a triathlon... Not fast. Not flashy. Not last.
                         Just steady, committed, and proud."</p>
-                    <h4>Rebecca Cady, First-Timer</h4>
+                    <h3>Rebecca Cady, First-Timer</h3>
                 </div>
                 <div class="testimonial-card reveal delay-4">
                     <img loading="lazy" src="../images/Scrapedimages/Noland-Hoshino.jpg" alt="Noland Hoshino" class="avatar-circle">
                     <p>"Why Racing of course put on another amazing show as always. This course was pretty, through
                         downtown, parks &amp; along the river. Free lunch with burgers &amp; entertainment at the end!"
                     </p>
-                    <h4>Noland Hoshino</h4>
+                    <h3>Noland Hoshino</h3>
                 </div>
             </div>
             <div class="spotlight-cta reveal testimonial-ig-cta">
@@ -1617,6 +1621,8 @@
         </div>
     </div>
 
+    </main>
+
     <footer>
         <div class="footer-container">
             <!-- Brand Section -->
@@ -1635,7 +1641,7 @@
 
             <!-- Links Section -->
             <div class="footer-links-section">
-                <h4>Quick Links</h4>
+                <h2>Quick Links</h2>
                 <div class="footer-links-grid">
                     <a href="../index.html#calendar">Races</a>
                     <a href="training.html">Training</a>
@@ -1651,7 +1657,7 @@
 
             <!-- Newsletter Section -->
             <div class="footer-newsletter-section">
-                <h4>Join the Movement</h4>
+                <h2>Join the Movement</h2>
                 <div class="newsletter-spot">
                     <p>Get race updates, training tips, and exclusive early-bird registration alerts.</p>
                     <form id="email-signup-form">
@@ -1661,13 +1667,16 @@
                             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                         </div>
                         <div class="newsletter-signup-row">
-                            <input type="text" name="firstName" placeholder="First Name" required
-                                class="newsletter-input">
-                            <input type="text" name="lastName" placeholder="Last Name" required
-                                class="newsletter-input">
+                            <label for="signup-first-name" class="visually-hidden">First Name</label>
+                            <input type="text" id="signup-first-name" name="firstName" placeholder="First Name" required
+                                autocomplete="given-name" class="newsletter-input">
+                            <label for="signup-last-name" class="visually-hidden">Last Name</label>
+                            <input type="text" id="signup-last-name" name="lastName" placeholder="Last Name" required
+                                autocomplete="family-name" class="newsletter-input">
                         </div>
-                        <input type="email" name="email" placeholder="Email Address" required
-                            class="newsletter-input newsletter-email-input">
+                        <label for="signup-email" class="visually-hidden">Email Address</label>
+                        <input type="email" id="signup-email" name="email" placeholder="Email Address" required
+                            autocomplete="email" class="newsletter-input newsletter-email-input">
                         <button type="submit" class="btn newsletter-submit">KEEP ME POSTED! <i
                                 class="fas fa-arrow-right"></i></button>
                         <div id="signup-status" class="status-message newsletter-status-message"></div>
@@ -1677,7 +1686,7 @@
         </div>
 
         <div class="footer-bottom">
-            <div class="footer-copy">© 2026 WHY RACING EVENTS Inc. • La Center, WA • (360) 314-4682</div>
+            <div class="footer-copy">© 2026 WHY RACING EVENTS Inc. • La Center, WA • <a href="tel:+13603144682" style="color: inherit; text-decoration: inherit;">(360) 314-4682</a></div>
             <div class="staff-portal-footer">
                 <a href="admin/races.html" class="staff-portal-link">Staff Portal</a>
             </div>

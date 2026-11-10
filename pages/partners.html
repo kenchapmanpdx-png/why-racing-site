@@ -22,12 +22,14 @@
     <meta property="og:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://whyracingevents.com/pages/partners.html">
-    <meta property="twitter:title" content="Sponsor WHY RACING EVENTS | PNW Race Sponsorship Opportunities">
-    <meta property="twitter:description" content="Partner with WHY RACING EVENTS to reach thousands of passionate PNW runners, cyclists, and triathletes. Explore sponsorship packages today.">
-    <meta property="twitter:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://whyracingevents.com/pages/partners.html">
+    <meta name="twitter:title" content="Sponsor WHY RACING EVENTS | PNW Race Sponsorship Opportunities">
+    <meta name="twitter:description" content="Partner with WHY RACING EVENTS to reach thousands of passionate PNW runners, cyclists, and triathletes. Explore sponsorship packages today.">
+    <meta name="twitter:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="WHY RACING EVENTS">
+    <meta property="og:locale" content="en_US">
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     
@@ -37,7 +39,7 @@
         rel="stylesheet">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    <link rel="stylesheet" href="../assets/css/brand.css?v=20261031">
+    <link rel="stylesheet" href="../assets/css/brand.css?v=20261110">
 
     <script type="application/ld+json">
     {
@@ -368,7 +370,8 @@
             box-shadow: 0 20px 40px rgba(227, 24, 55, 0.3);
         }
 
-        .advantage-card h4 {
+        .advantage-card h4,
+        .advantage-card h3 {
             font-size: 1.4rem;
             margin-bottom: 15px;
             display: flex;
@@ -614,7 +617,16 @@
             transform: scale(1.1);
         }
 
-        .form-btn h5 {
+        .form-btn h3 {
+            /* was h5 (heading order fix); keep the original h5 look */
+            font-family: 'Inter', sans-serif;
+            line-height: inherit;
+            letter-spacing: normal;
+            text-transform: none;
+        }
+
+        .form-btn h5,
+        .form-btn h3 {
             font-size: 1.1rem;
             margin-bottom: 5px;
             color: var(--brand-black);
@@ -827,6 +839,7 @@
         <a href="../index.html#calendar" class="nav-btn mt-20">Find Your Race</a>
     </div>
 
+    <main>
     <header class="hero" id="main-content">
         <div class="hero-collage"></div>
         <div class="hero-overlay"></div>
@@ -892,17 +905,17 @@
             </div>
             <div class="advantage-grid">
                 <div class="advantage-card reveal delay-1">
-                    <h4><i class="fas fa-shield-alt"></i> Category Protection</h4>
+                    <h3><i class="fas fa-shield-alt"></i> Category Protection</h3>
                     <p>We don't clutter the course. We can offer category exclusivity so your competitor isn't standing next
                         to you at the finish line.</p>
                 </div>
                 <div class="advantage-card reveal delay-2">
-                    <h4><i class="fas fa-calendar-alt"></i> Year-Round Scale</h4>
+                    <h3><i class="fas fa-calendar-alt"></i> Year-Round Scale</h3>
                     <p>With 14 events, we offer a full-year marketing calendar with a single contract. Stop negotiating
                         20 tiny deals.</p>
                 </div>
                 <div class="advantage-card reveal delay-3">
-                    <h4><i class="fas fa-bullseye"></i> Proven Loyalty</h4>
+                    <h3><i class="fas fa-bullseye"></i> Proven Loyalty</h3>
                     <p>Our athletes return year after year. Partnering with us builds long-term equity with a community
                         that trusts our endorsements.</p>
                 </div>
@@ -996,21 +1009,21 @@
                 <div class="form-grid">
                     <a href="mailto:jess@whyracingevents.com?subject=Sponsorship%20Inquiry" class="form-btn">
                         <div>
-                            <h5>Sponsorship Inquiry</h5>
+                            <h3>Sponsorship Inquiry</h3>
                             <p>Get Started →</p>
                         </div>
                         <i class="fas fa-handshake"></i>
                     </a>
                     <a href="mailto:info@whyracingevents.com?subject=Vendor%20Application" class="form-btn">
                         <div>
-                            <h5>Vendor Application</h5>
+                            <h3>Vendor Application</h3>
                             <p>Apply Now →</p>
                         </div>
                         <i class="fas fa-store"></i>
                     </a>
                     <a href="corporate-wellness.html" class="form-btn">
                         <div>
-                            <h5>Corporate Teams</h5>
+                            <h3>Corporate Teams</h3>
                             <p>Learn More →</p>
                         </div>
                         <i class="fas fa-users"></i>
@@ -1032,6 +1045,8 @@
         </div>
     </section>
 
+    </main>
+
     <footer>
         <div class="footer-container">
             <!-- Brand Section -->
@@ -1050,7 +1065,7 @@
 
             <!-- Links Section -->
             <div class="footer-links-section">
-                <h4>Quick Links</h4>
+                <h2>Quick Links</h2>
                 <div class="footer-links-grid">
                     <a href="../index.html#calendar">Races</a>
                     <a href="training.html">Training</a>
@@ -1066,7 +1081,7 @@
 
             <!-- Newsletter Section -->
             <div class="footer-newsletter-section">
-                <h4>Join the Movement</h4>
+                <h2>Join the Movement</h2>
                 <div class="newsletter-spot">
                     <p>Get race updates, training tips, and exclusive early-bird registration alerts.</p>
                     <form id="email-signup-form">
@@ -1076,13 +1091,16 @@
                             <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
                         </div>
                         <div class="newsletter-signup-row">
-                            <input type="text" name="firstName" placeholder="First Name" required
-                                class="newsletter-input">
-                            <input type="text" name="lastName" placeholder="Last Name" required
-                                class="newsletter-input">
+                            <label for="signup-first-name" class="visually-hidden">First Name</label>
+                            <input type="text" id="signup-first-name" name="firstName" placeholder="First Name" required
+                                autocomplete="given-name" class="newsletter-input">
+                            <label for="signup-last-name" class="visually-hidden">Last Name</label>
+                            <input type="text" id="signup-last-name" name="lastName" placeholder="Last Name" required
+                                autocomplete="family-name" class="newsletter-input">
                         </div>
-                        <input type="email" name="email" placeholder="Email Address" required
-                            class="newsletter-input newsletter-email-input">
+                        <label for="signup-email" class="visually-hidden">Email Address</label>
+                        <input type="email" id="signup-email" name="email" placeholder="Email Address" required
+                            autocomplete="email" class="newsletter-input newsletter-email-input">
                         <button type="submit" class="btn newsletter-submit">KEEP ME POSTED! <i
                                 class="fas fa-arrow-right"></i></button>
                         <div id="signup-status" class="status-message newsletter-status-message"></div>
@@ -1092,7 +1110,7 @@
         </div>
 
         <div class="footer-bottom">
-            <div class="footer-copy">© 2026 WHY RACING EVENTS Inc. • La Center, WA • (360) 314-4682</div>
+            <div class="footer-copy">© 2026 WHY RACING EVENTS Inc. • La Center, WA • <a href="tel:+13603144682" style="color: inherit; text-decoration: inherit;">(360) 314-4682</a></div>
             <div class="staff-portal-footer">
                 <a href="admin/races.html" class="staff-portal-link">Staff Portal</a>
             </div>

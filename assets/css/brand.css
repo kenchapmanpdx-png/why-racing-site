@@ -777,7 +777,11 @@ footer {
 }
 
 .footer-links-section h4,
-.footer-newsletter-section h4 {
+.footer-newsletter-section h4,
+.footer-links-section h2,
+.footer-newsletter-section h2 {
+    /* h2 since 2026-11-10 (heading order); pin weight to the old h4 rendering */
+    font-weight: 700;
     color: white;
     font-family: 'Oswald', sans-serif;
     text-transform: uppercase;

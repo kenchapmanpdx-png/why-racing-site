@@ -16,6 +16,8 @@
 
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
+    <meta property="og:site_name" content="WHY RACING EVENTS">
+    <meta property="og:locale" content="en_US">
     <meta property="og:url" content="https://whyracingevents.com/">
     <meta property="og:title" content="WHY RACING EVENTS | Pacific Northwest Premier Marathons & Triathlons">
     <meta property="og:description"
@@ -23,12 +25,12 @@
     <meta property="og:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
 
     <!-- Twitter -->
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:url" content="https://whyracingevents.com/">
-    <meta property="twitter:title" content="WHY RACING EVENTS | Pacific Northwest Premier Marathons & Triathlons">
-    <meta property="twitter:description"
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://whyracingevents.com/">
+    <meta name="twitter:title" content="WHY RACING EVENTS | Pacific Northwest Premier Marathons & Triathlons">
+    <meta name="twitter:description"
         content="Join the PNW's most supportive racing community. 20+ signature events every year.">
-    <meta property="twitter:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
+    <meta name="twitter:image" content="https://whyracingevents.com/images/logos/new-why-racing-logo.png">
 
     <!-- Structured Data -->
     <script type="application/ld+json">
@@ -77,7 +79,7 @@
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </noscript>
-    <link rel="stylesheet" href="assets/css/brand.css?v=20261031">
+    <link rel="stylesheet" href="assets/css/brand.css?v=20261110">
     <style>
 :root {
             --brand-red: #E31837;
@@ -222,6 +224,14 @@
             text-align: center;
             color: white;
             padding: 100px 20px 150px;
+        }
+
+        .hero-video-toggle {
+            border: 0;
+            cursor: pointer;
+            font: inherit;
+            font-weight: 700;
+            top: 80px;
         }
 
         .hero-bg {
@@ -608,7 +618,8 @@
             object-fit: cover;
         }
 
-        .testimonial-author .info h4 {
+        .testimonial-author .info h4,
+        .testimonial-author .info h3 {
             font-size: 14px;
             color: var(--brand-blue);
             margin-bottom: 3px;
@@ -1298,6 +1309,20 @@
             border-radius: 6px;
         }
 
+        .card-link {
+            display: block;
+            color: inherit;
+            text-decoration: none;
+        }
+
+        a.card-link {
+            cursor: pointer;
+        }
+
+        .card-title .card-link {
+            display: inline;
+        }
+
         .card-img-container {
             height: 200px;
             position: relative;
@@ -1848,6 +1873,7 @@
     </div>
 
     <!-- HERO -->
+    <main>
     <header id="main-content">
         <div class="hero-bg" id="heroBg">
             <!-- Video injected via JS to resolve compatibility warnings -->
@@ -2010,7 +2036,7 @@
                 <div class="testimonial-author">
                     <img src="images/athletes/jenni.jpg" alt="Jenni, Spring Classic Finisher" loading="lazy">
                     <div class="info">
-                        <h4>Finisher</h4>
+                        <h3>Finisher</h3>
                         <span>Spring Classic Duathlon & Half Marathon</span>
                     </div>
                 </div>
@@ -2028,7 +2054,7 @@
                 <div class="testimonial-author">
                     <img loading="lazy" src="images/athletes/dan.jpg" alt="Dan, proud Why Racing Events participant">
                     <div class="info">
-                        <h4>Participant</h4>
+                        <h3>Participant</h3>
                         <span>Couve Clover Run</span>
                     </div>
                 </div>
@@ -2046,7 +2072,7 @@
                 <div class="testimonial-author">
                     <img loading="lazy" src="images/athletes/amy.jpg" alt="Amy, proud Why Racing Events runner">
                     <div class="info">
-                        <h4>Runner</h4>
+                        <h3>Runner</h3>
                         <span>Appletree Marathon</span>
                     </div>
                 </div>
@@ -2140,6 +2166,8 @@
     </div>
 
     <!-- FOOTER -->
+    </main>
+
     <footer>
         <div class="footer-container">
             <!-- Brand Section -->
@@ -2158,7 +2186,7 @@
 
             <!-- Links Section -->
             <div class="footer-links-section">
-                <h4>Quick Links</h4>
+                <h2>Quick Links</h2>
                 <div class="footer-links-grid">
                     <a href="#calendar">Races</a>
                     <a href="pages/training.html">Training</a>
@@ -2174,7 +2202,7 @@
 
             <!-- Newsletter Section -->
             <div class="footer-newsletter-section">
-                <h4>Join the Movement</h4>
+                <h2>Join the Movement</h2>
                 <div class="newsletter-spot">
                     <p>Get race updates, training tips, and exclusive early-bird registration alerts.</p>
                     <form id="email-signup-form">
@@ -2203,7 +2231,7 @@
         </div>
 
         <div class="footer-bottom">
-            <div class="footer-copy">© 2026 WHY RACING EVENTS Inc. • La Center, WA • (360) 314-4682</div>
+            <div class="footer-copy">© 2026 WHY RACING EVENTS Inc. • La Center, WA • <a href="tel:+13603144682" style="color: inherit; text-decoration: inherit;">(360) 314-4682</a></div>
             <div class="staff-portal-footer">
                 <a href="pages/admin/races.html" class="staff-portal-link">Staff Portal</a>
             </div>
@@ -2301,36 +2329,64 @@
         document.addEventListener('DOMContentLoaded', function () {
             const heroBg = document.getElementById('heroBg');
             const heroBgMobile = document.getElementById('heroBgMobile');
+            const heroHeader = document.getElementById('main-content');
+            // Matches the 768px breakpoint that swaps .hero-bg / .hero-bg-mobile in CSS.
+            const mobileMq = window.matchMedia('(max-width: 768px)');
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+            const POSTER = "images/Scrapedimages/our-lifestyle-img.jpg";
+            let userPaused = reduceMotion;
+            let toggleBtn = null;
 
-            if (heroBg) {
-                const video = document.createElement('video');
-                video.autoplay = true;
-                video.muted = true;
-                video.loop = true;
-                video.preload = 'auto'; // aggressively buffer the full file
-                video.playbackRate = 0.85;
-                video.setAttribute('playsinline', '');
-                video.poster = "images/Scrapedimages/our-lifestyle-img.jpg";
-                const source = document.createElement('source');
-                source.src = "videos/Hero4.mp4";
-                source.type = "video/mp4";
-                video.appendChild(source);
-                heroBg.appendChild(video);
+            function visibleVideo() {
+                const box = mobileMq.matches ? heroBgMobile : heroBg;
+                return box ? box.querySelector('video') : null;
             }
 
-            if (heroBgMobile) {
+            function updateToggle() {
+                const v = visibleVideo();
+                if (toggleBtn && v) toggleBtn.textContent = v.paused ? 'Play background video' : 'Pause background video';
+            }
+
+            // Inject a video only into the container visible at this width, so phones
+            // never download the desktop copy (and vice versa). Called again if the
+            // viewport crosses the breakpoint (tablet rotation, window resize).
+            function injectHeroVideo() {
+                const box = mobileMq.matches ? heroBgMobile : heroBg;
+                if (!box || box.querySelector('video')) return;
                 const video = document.createElement('video');
-                video.autoplay = true;
+                video.autoplay = !userPaused;
                 video.muted = true;
                 video.loop = true;
-                video.preload = 'auto';
+                video.preload = userPaused ? 'metadata' : 'auto';
                 video.playbackRate = 0.85;
                 video.setAttribute('playsinline', '');
+                if (box === heroBg || userPaused) video.poster = POSTER;
                 const source = document.createElement('source');
                 source.src = "videos/Hero4.mp4";
                 source.type = "video/mp4";
                 video.appendChild(source);
-                heroBgMobile.appendChild(video);
+                video.addEventListener('play', updateToggle);
+                video.addEventListener('pause', updateToggle);
+                box.appendChild(video);
+                updateToggle();
+            }
+
+            injectHeroVideo();
+            if (mobileMq.addEventListener) mobileMq.addEventListener('change', injectHeroVideo);
+
+            // Pause/play control for the background video (WCAG 2.2.2). Styled like the
+            // skip link: off-screen until it receives keyboard focus, so the design is unchanged.
+            if (heroHeader && (heroBg || heroBgMobile)) {
+                toggleBtn = document.createElement('button');
+                toggleBtn.type = 'button';
+                toggleBtn.className = 'skip-to-content hero-video-toggle';
+                toggleBtn.addEventListener('click', function () {
+                    const v = visibleVideo();
+                    if (!v) return;
+                    if (v.paused) { userPaused = false; v.play(); } else { userPaused = true; v.pause(); }
+                });
+                heroHeader.insertBefore(toggleBtn, heroHeader.firstChild);
+                updateToggle();
             }
         });
 
@@ -2426,6 +2482,13 @@
             const safeState = race.state ? ', ' + escapeHtml(race.state) : '';
             const safeDistanceText = escapeHtml(distanceText);
             const safeInfoUrl = escapeHtml(infoUrl);
+            const safeEventUrl = race.slug ? '/events/' + encodeURIComponent(race.slug) : '';
+            // Image and meta keep their existing destination (info PDF or registration,
+            // new tab); the title links to the race's own event page.
+            const infoOpen = infoUrl !== '#'
+                ? `href="${safeInfoUrl}" target="_blank" rel="noopener"`
+                : '';
+            const infoTag = infoOpen ? 'a' : 'div';
 
             const logoHtml = race.logo_url
                 ? `<img src="${escapeHtml(race.logo_url)}" alt="${safeName} logo" class="card-logo" loading="lazy">`
@@ -2439,19 +2502,19 @@
             card.style.transitionDelay = `${index * 0.05}s`;
 
             card.innerHTML = `
-                <div class="card-img-container skeleton" onclick="showRaceDetails('${safeInfoUrl}')" style="cursor: pointer;">
+                <${infoTag} class="card-img-container card-link skeleton" ${infoOpen} tabindex="-1" aria-hidden="true">
                     <img src="${escapeHtml(optimizedSrc(cardImage, 640))}"${cardSrcset ? ` srcset="${escapeHtml(cardSrcset)}" sizes="(max-width: 640px) 100vw, 400px" data-orig="${escapeHtml(cardImage)}" onerror="this.onerror=null; this.removeAttribute('srcset'); this.src=this.dataset.orig"` : ''} alt="${safeName}" loading="lazy" class="loading" onload="this.classList.remove('loading'); this.parentElement.classList.remove('skeleton')" style="${race.name && race.name.includes('Bigfoot') ? 'object-position: center 25%' : ''}">
-                </div>
+                </${infoTag}>
                 <div class="card-body">
-                    <div onclick="showRaceDetails('${safeInfoUrl}')" style="cursor: pointer;">
+                    <div>
                         <span class="card-date">${escapeHtml(dateStr)}</span>
                         <h3 class="card-title">
-                            ${safeName || 'New Race'}
+                            ${safeEventUrl ? `<a class="card-link" href="${safeEventUrl}">${safeName || 'New Race'}</a>` : (safeName || 'New Race')}
                             ${race.name && race.name.toLowerCase().includes('girlfriend') ? ' <i class="fas fa-ribbon" style="color: #ff69b4;" title="Breast Cancer Awareness"></i>' : ''}
                         </h3>
                     </div>
                     <div style="margin-top: auto;">
-                        <div onclick="showRaceDetails('${safeInfoUrl}')" style="cursor: pointer;">
+                        <${infoTag} class="card-link" ${infoOpen} tabindex="-1" aria-hidden="true">
                             <div class="card-meta-row">
                                 <div class="card-meta" style="margin-bottom: 0; padding-top: 0; border-top: none;">
                                     <span><i class="fas fa-route"></i> ${safeDistanceText}</span>
@@ -2459,7 +2522,7 @@
                                 </div>
                                 ${logoHtml}
                             </div>
-                        </div>
+                        </${infoTag}>
                         <div style="padding-top: 10px;">
                             ${registerButton}
                         </div>
