@@ -269,6 +269,11 @@
             "permanent": true
         },
         {
+            "source": "/events/",
+            "destination": "/events",
+            "permanent": true
+        },
+        {
             "source": "/training-programs",
             "destination": "/pages/training.html",
             "permanent": true
