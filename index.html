@@ -226,12 +226,53 @@
             padding: 100px 20px 150px;
         }
 
+        /* Pause/play for the background video (WCAG 2.2.2) */
         .hero-video-toggle {
-            border: 0;
+            position: absolute;
+            right: 20px;
+            /* clears the fixed 74px "Next up" bar, which overlaps the full-height hero */
+            bottom: 94px;
+            z-index: 3;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            background: rgba(0, 0, 0, 0.45);
+            color: #fff;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
             cursor: pointer;
-            font: inherit;
-            font-weight: 700;
-            top: 80px;
+            opacity: 0.75;
+            transition: opacity 0.2s, background 0.2s;
+        }
+
+        .hero-video-toggle:hover,
+        .hero-video-toggle:focus-visible {
+            opacity: 1;
+            background: rgba(0, 0, 0, 0.7);
+        }
+
+        .hero-video-toggle:focus-visible {
+            outline: 2px solid #fff;
+            outline-offset: 2px;
+        }
+
+        @media (max-width: 768px) {
+            .hero-video-toggle {
+                bottom: 20px;
+            }
+        }
+
+        .stats-ticker .ticker-track:hover {
+            animation-play-state: paused;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .stats-ticker .ticker-track {
+                animation: none;
+            }
         }
 
         .hero-bg {
@@ -1842,6 +1883,7 @@
         <a href="index.html" class="logo"><img loading="lazy" src="images/logos/new-why-racing-logo.png"
                 alt="WHY RACING EVENTS Home"></a>
         <div class="nav-links">
+            <a href="/events">Races</a>
             <a href="pages/training.html">Training</a>
             <a href="pages/volunteers.html">Volunteer</a>
             <a href="pages/beneficiary.html">Give Back</a>
@@ -1861,6 +1903,7 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="index.html">Home</a>
+        <a href="/events">Races</a>
         <a href="pages/training.html">Training</a>
         <a href="pages/volunteers.html">Volunteer</a>
         <a href="pages/beneficiary.html">Give Back</a>
@@ -2344,7 +2387,21 @@
 
             function updateToggle() {
                 const v = visibleVideo();
-                if (toggleBtn && v) toggleBtn.textContent = v.paused ? 'Play background video' : 'Pause background video';
+                if (!toggleBtn || !v) return;
+                const label = v.paused ? 'Play background video' : 'Pause background video';
+                toggleBtn.setAttribute('aria-label', label);
+                toggleBtn.title = label;
+                toggleBtn.innerHTML = v.paused ? '<i class="fas fa-play" aria-hidden="true"></i>' : '<i class="fas fa-pause" aria-hidden="true"></i>';
+            }
+
+            // Phones show only a ~420px-wide center slice of the 1280px video, so they get
+            // a center-cropped 480px encode (same framing, ~1/3 the bytes). Falls back to
+            // the full file whenever the visible slice would be wider than 480px.
+            function heroSrcFor(box) {
+                if (box !== heroBgMobile) return "videos/Hero4.mp4";
+                const boxH = box.getBoundingClientRect().height || heroHeader.getBoundingClientRect().height;
+                const visibleSrcWidth = window.innerWidth * 720 / (boxH * 1.08);
+                return visibleSrcWidth <= 470 ? "videos/Hero4-mobile.mp4" : "videos/Hero4.mp4";
             }
 
             // Inject a video only into the container visible at this width, so phones
@@ -2362,7 +2419,7 @@
                 video.setAttribute('playsinline', '');
                 if (box === heroBg || userPaused) video.poster = POSTER;
                 const source = document.createElement('source');
-                source.src = "videos/Hero4.mp4";
+                source.src = heroSrcFor(box);
                 source.type = "video/mp4";
                 video.appendChild(source);
                 video.addEventListener('play', updateToggle);
@@ -2374,18 +2431,17 @@
             injectHeroVideo();
             if (mobileMq.addEventListener) mobileMq.addEventListener('change', injectHeroVideo);
 
-            // Pause/play control for the background video (WCAG 2.2.2). Styled like the
-            // skip link: off-screen until it receives keyboard focus, so the design is unchanged.
+            // Pause/play control for the background video (WCAG 2.2.2).
             if (heroHeader && (heroBg || heroBgMobile)) {
                 toggleBtn = document.createElement('button');
                 toggleBtn.type = 'button';
-                toggleBtn.className = 'skip-to-content hero-video-toggle';
+                toggleBtn.className = 'hero-video-toggle';
                 toggleBtn.addEventListener('click', function () {
                     const v = visibleVideo();
                     if (!v) return;
                     if (v.paused) { userPaused = false; v.play(); } else { userPaused = true; v.pause(); }
                 });
-                heroHeader.insertBefore(toggleBtn, heroHeader.firstChild);
+                heroHeader.appendChild(toggleBtn);
                 updateToggle();
             }
         });

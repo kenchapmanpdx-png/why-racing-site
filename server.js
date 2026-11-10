@@ -163,6 +163,7 @@ const { renderEventPage } = require('./lib/seo/event-page');
 const { renderEventMarkdown } = require('./lib/seo/event-md');
 const { renderSitemapXml } = require('./lib/seo/sitemap');
 const { renderLlmsTxt } = require('./lib/seo/llms-txt');
+const { renderEventsIndex } = require('./lib/seo/events-index');
 const { renewPastRaces } = require('./lib/race-clone');
 const { restoreUntil, softDeleteRace, restoreRace } = require('./lib/race-trash');
 
@@ -353,6 +354,28 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
     console.error('[GET /events/:slug] error:', err);
     if (wantMarkdown) return res.status(500).type('text/plain').send('Server error.\n');
     return res.status(500).type('text/html').send('<!DOCTYPE html><title>Error</title><h1>Server error</h1>');
+  }
+});
+
+// Server-rendered race calendar (crawlable list of every live event page).
+app.get(['/events', '/events/'], async (req, res) => {
+  try {
+    const { data: races, error } = await supabase
+      .from('races')
+      .select('slug, name, race_date, race_type, city, state, distances, registration_url, registration_open, is_partner_race, race_distances (name)')
+      .eq('is_visible', true)
+      .eq('status', 'active')
+      .order('race_date', { ascending: true });
+    if (error) {
+      console.error('[GET /events] supabase error:', error);
+      return res.redirect(302, '/#calendar');
+    }
+    res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+    res.set('Content-Type', 'text/html; charset=utf-8');
+    return res.status(200).send(renderEventsIndex(races || []));
+  } catch (err) {
+    console.error('[GET /events] error:', err);
+    return res.redirect(302, '/#calendar');
   }
 });
 

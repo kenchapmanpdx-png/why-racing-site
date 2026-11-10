@@ -179,7 +179,7 @@ nav {
     }
 }
 
-/* Nine nav links + Find My Race need ~1370px; collapse to the hamburger
+/* Ten nav links + Find My Race need ~1440px; collapse to the hamburger
    before they overflow. #navbar outranks per-page .nav-links rules. The logo
    is scaled 2.5x visually, so reserve room for it beside the links. */
 #navbar .logo {
@@ -192,7 +192,7 @@ nav {
     }
 }
 
-@media (max-width: 1366px) {
+@media (max-width: 1439px) {
     #navbar .nav-links,
     #navbar .nav-btn {
         display: none;

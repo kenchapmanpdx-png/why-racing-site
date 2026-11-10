@@ -19,6 +19,10 @@
             "destination": "/api/index.js"
         },
         {
+            "source": "/events",
+            "destination": "/api/index.js"
+        },
+        {
             "source": "/events/:slug",
             "destination": "/api/index.js"
         },

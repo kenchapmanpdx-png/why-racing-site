@@ -100,6 +100,18 @@
             line-height: 1.2;
         }
 
+        /* Same collapse point as the rest of the site (brand.css #navbar): the full
+           link row needs ~1440px or it runs under the logo. */
+        @media (max-width: 1439px) {
+            nav .nav-links {
+                display: none !important;
+            }
+
+            nav .mobile-menu-btn {
+                display: flex !important;
+            }
+        }
+
         /* Footer headings were h4 (not in the rule above); keep their inherited line-height */
         .footer-links-section h2,
         .footer-newsletter-section h2 {
@@ -1237,6 +1249,7 @@
                 alt="WHY RACING EVENTS"></a>
         <div class="nav-links">
             <a href="../index.html">Home</a>
+            <a href="/events">Races</a>
             <a href="training.html">Training</a>
             <a href="volunteers.html">Volunteer</a>
             <a href="beneficiary.html">Give Back</a>
@@ -1253,6 +1266,7 @@
 
     <div class="mobile-menu" id="mobileMenu">
         <a href="../index.html">Home</a>
+        <a href="/events">Races</a>
         <a href="training.html">Training</a>
         <a href="volunteers.html">Volunteer</a>
         <a href="beneficiary.html">Give Back</a>
