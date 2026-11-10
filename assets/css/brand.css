@@ -436,7 +436,7 @@ section[style*="background: var(--brand-blue)"] .price-was {
 .sponsor-ticker-label {
     text-align: center;
     font-size: 15px;
-    color: #888;
+    color: #767676;
     text-transform: uppercase;
     letter-spacing: 2.5px;
     margin-bottom: 15px;
@@ -913,7 +913,9 @@ footer {
 
 .footer-copy {
     font-size: 0.8rem;
-    color: #777;
+    color: #7c7c7c;
+    /* overrides the 0.5 opacity above: #777 at half opacity was ~1.9:1 contrast */
+    opacity: 1;
 }
 
 .staff-portal-footer {
@@ -921,7 +923,7 @@ footer {
 }
 
 .staff-portal-link {
-    color: #777;
+    color: #7c7c7c;
     transition: 0.3s;
     text-decoration: none;
 }
