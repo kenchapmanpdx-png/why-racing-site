@@ -206,6 +206,8 @@ async function fetchRaceFull(slug) {
 // is published, so these never point visitors or Google at a 404.
 const LEGACY_EVENT_SLUGS = {
   'girlfriends-run': 'girlfriends-half-marathon-10k-6k',
+  'girlfriends': 'girlfriends-half-marathon-10k-6k',
+  'girlfriends-run-for-a-cure-half-marathon': 'girlfriends-half-marathon-10k-6k',
   'scary-run': 'scary-run',
   'scary-run-half-marathon-10k-5k': 'scary-run',
   'couve-clover-run': 'couve-clover-run',
