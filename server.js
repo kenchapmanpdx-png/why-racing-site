@@ -254,29 +254,38 @@ const LEGACY_EVENT_SLUGS = {
   'hagg-lake-triathlon-trail': 'hagg-lake-triathlon-trail-festival',
   'girlfriends-triathlon': 'girlfriends-all-women-s-triathlon-fitness-festival',
   'bigfoot-run': 'bigfoot-5k-10k',
-  'pacific-crest-endurance': 'pacific-crest-endurance-sports-festival'
+  'pacific-crest-endurance': 'pacific-crest-endurance-sports-festival',
+  'lucky-triathlon': 'lucky-triathlon',
+  'the-lucky-triathlon': 'lucky-triathlon'
 };
 
-// Races Why Racing is not producing right now. While such a race has no live
-// edition, its URLs (new and old-site) 301 to the closest live race. If the race
-// is published again, its own page wins automatically.
-const NOT_PRODUCED_FALLBACK = {
-  // Pacific Crest: not being produced (Karissa, 2026-11-02). Closest match:
-  // Oregon triathlon festival with 70.3, Olympic and Sprint distances.
-  'pacific-crest-endurance-sports-festival': 'hagg-lake-triathlon-trail-festival'
-};
-
-async function fallbackLiveSlug(baseSlug) {
-  const fallback = NOT_PRODUCED_FALLBACK[baseSlug];
-  if (!fallback) return null;
-  const fam = await findRaceFamily(fallback);
-  return fam.liveSlug;
-}
-
-// Retired races from the old site: permanent redirect to the race calendar.
-const RETIRED_LEGACY_SLUGS = {
-  'lucky-triathlon': '/#calendar',        // Lucky Triathlon Festival, last held 2022
-  'the-lucky-triathlon': '/#calendar'
+// Races that keep their own page but have no database row to build it from:
+// Pacific Crest's rows are soft-deleted and the Lucky Triathlon predates the
+// current database. Each gets a 200 "not on the current calendar" page
+// (handbook section 10, Retired items) that names the most similar live race.
+// Publishing an edition in the Staff Portal brings the full event page back on
+// its own, because a live race always wins over the stub.
+const STATIC_RACE_STUBS = {
+  // Not being produced (Karissa, 2026-11-02). Second most-linked page on the
+  // site (49 referring domains, Semrush 2026-11-13), so it keeps its own URL
+  // instead of redirecting to another race. Name and city from its last
+  // edition (2024, Bend). Similar race: Oregon triathlon festival.
+  'pacific-crest-endurance-sports-festival': {
+    name: 'Pacific Crest Endurance Sports Festival',
+    city: 'Bend',
+    state: 'OR',
+    notProduced: true,
+    similar: 'hagg-lake-triathlon-trail-festival'
+  },
+  // Old-site page: "Lucky Triathlon Festival", July 30-31, 2022, Horseshoe Lake
+  // Park, Woodland WA (its last listing). It grew out of the Blue Lake Park
+  // triathlon that PDX Triathlon Festival continues (The Reflector, 2019).
+  'lucky-triathlon': {
+    name: 'Lucky Triathlon Festival',
+    city: 'Woodland',
+    state: 'WA',
+    similar: 'pdx-triathlon-festival'
+  }
 };
 
 // Spam posts injected into the old WordPress site (essay-writing, online
@@ -284,18 +293,10 @@ const RETIRED_LEGACY_SLUGS = {
 // them to a real race page through the legacy redirect.
 const LEGACY_SPAM_PATH = /^\/(couve-clover-run|bigfoot-run)\/blog(\/|$)/;
 
-app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
-  if (LEGACY_SPAM_PATH.test(req.path)) {
-    res.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
-    return res.status(410).type('text/html').send('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex"><title>Page Removed | WHY RACING EVENTS</title></head><body style="font-family:system-ui,sans-serif;max-width:640px;margin:15vh auto;padding:0 20px;text-align:center"><h1>This page has been removed</h1><p><a href="/#calendar">See the race calendar</a></p></body></html>');
-  }
-  const retired = RETIRED_LEGACY_SLUGS[req.params[0]];
-  if (retired) {
-    res.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
-    return res.redirect(301, retired);
-  }
-  const target = LEGACY_EVENT_SLUGS[req.params[0]];
-  if (!target) return next();
+// Where a legacy race URL should land: the live edition when there is one,
+// otherwise the race's own "not on the current calendar" page. null when the
+// race is unknown.
+async function resolveLegacyRaceUrl(target) {
   // Match the base slug or a year edition of it (e.g. scary-run-2027), whichever is live.
   let liveSlug = null;
   try {
@@ -311,13 +312,97 @@ app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
   } catch (e) {
     liveSlug = null;
   }
-  if (!liveSlug) liveSlug = await fallbackLiveSlug(target);
-  res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
-  if (liveSlug) return res.redirect(301, `/events/${liveSlug}`);
+  if (liveSlug) return `/events/${liveSlug}`;
   // No live edition: the race keeps its own page (200, not on the current
   // calendar). Never the homepage (soft 404).
+  if (STATIC_RACE_STUBS[target]) return `/events/${target}`;
   const family = await findRaceFamily(target);
-  if (family.exists) return res.redirect(301, `/events/${target}`);
+  return family.exists ? `/events/${target}` : null;
+}
+
+// Old WordPress event IDs (/event/871/) that other sites still link to. They
+// returned 404 after the move (Semrush backlink audit 2026-11-13). Each ID maps
+// to the race it was. Evidence is the page that links to it: RunSignup race
+// pages ("Additional race information can be found at .../event/NNN"), Run
+// Oregon previews, Columbian articles and Sherri McMillan's Columbian blog.
+// The old site issued a new ID per race per season, so one race has several.
+const PACIFIC_CREST = 'pacific-crest-endurance-sports-festival';
+const COUVE_CLOVER = 'couve-clover-run';
+const GIRLFRIENDS_RUN = 'girlfriends-half-marathon-10k-6k';
+const GIRLFRIENDS_TRI = 'girlfriends-all-women-s-triathlon-fitness-festival';
+const COLUMBIA_RIVER = 'columbia-river-triathlon-endurance-sports-festival';
+const HAGG_LAKE = 'hagg-lake-triathlon-trail-festival';
+const SPRING_CLASSIC = 'spring-classic-duathlon-half-marathon-10k-5k';
+// Blue Lake Triathlon and MidSummer Triathlon (both Blue Lake Park, Fairview)
+// became the PDX Triathlon ("34th Annual PDX TRI ... formerly MidSummer
+// MultiSport Festival", RunSignup 2018).
+const PDX_TRI = 'pdx-triathlon-festival';
+// Run to Remember (Washougal, Reflection Plaza) was renamed Reflection Run.
+const REFLECTION_RUN = 'reflection-run';
+const LEGACY_EVENT_IDS = {
+  '692': COLUMBIA_RIVER,     // Columbia River Triathlon (2015 season list)
+  '693': GIRLFRIENDS_RUN,    // Girlfriends Run for a Cure (RunSignup 2016)
+  '829': PDX_TRI,            // Blue Lake Triathlon, June 2015
+  '851': HAGG_LAKE,          // Hagg Lake Triathlon, July 2015
+  '868': COUVE_CLOVER,       // Couve Clover Run 2016
+  '871': PACIFIC_CREST,      // Pacific Crest Weekend Sports Festival 2016
+  '873': PDX_TRI,            // Blue Lake Triathlon (RunSignup)
+  '876': PDX_TRI,            // MidSummer Triathlon & Duathlon, July 2016 (RunSignup)
+  '882': REFLECTION_RUN,     // Run to Remember 2016 (Columbian, 2016-05-27)
+  '923': COUVE_CLOVER,       // Couve Clover Run (RunSignup)
+  '925': REFLECTION_RUN,     // Run to Remember (RunSignup)
+  '927': PACIFIC_CREST,      // Pacific Crest, Sunriver (RunSignup)
+  '930': HAGG_LAKE,          // Hagg Lake Triathlon (RunSignup)
+  '931': GIRLFRIENDS_TRI,    // Girlfriends Triathlon 2017 (RunSignup)
+  '934': GIRLFRIENDS_RUN,    // Girlfriends Run for a Cure 2017 (RunSignup)
+  '936': PDX_TRI,            // MidSummer Triathlon 2017 (RunSignup)
+  '963': COUVE_CLOVER,       // Couve Clover Run 2018 (RunSignup)
+  '972': SPRING_CLASSIC,     // Spring Classic 2018 (RunSignup)
+  '988': PDX_TRI,            // Blue Lake Triathlon 2018 (Run Oregon preview)
+  '989': PACIFIC_CREST,      // 2018: sits between Blue Lake (988) and Hagg Lake (990); linked from Sunriver listings
+  '990': HAGG_LAKE,          // Hagg Lake Triathlon (Discover Forest Grove listing)
+  '992': GIRLFRIENDS_TRI,    // Girlfriends All-Women's Triathlon 2018 (RunSignup)
+  '993': COLUMBIA_RIVER,     // Columbia River Triathlon 2018 (RunSignup)
+  '995': 'scary-run',        // Scary Run 2018 (RunSignup)
+  '998': 'appletree-marathon', // Appletree Marathon 2018 (RunSignup)
+  '1026': COUVE_CLOVER,      // Couve Clover Run 2019 (RunSignup)
+  '1031': SPRING_CLASSIC,    // Spring Classic 2019 (RunSignup)
+  '1037': REFLECTION_RUN,    // Run to Remember Washington 2019 (RunSignup)
+  '1049': PDX_TRI,           // PDX Triathlon 2019 (RunSignup)
+  '1058': GIRLFRIENDS_RUN,   // Search Console 404 list, 2026-11-11
+  '1059': GIRLFRIENDS_RUN
+};
+
+// Old event IDs that other sites link to but that no linking page identifies.
+// Every one was a race page, so they go to the race calendar (the closest
+// page) instead of a 404. Move an ID into LEGACY_EVENT_IDS once its race is known.
+const LEGACY_EVENT_IDS_UNIDENTIFIED = new Set(['867', '877', '881', '926', '1024']);
+
+const EVENT_NOT_FOUND_HTML = '<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex"><title>Event Not Found | WHY RACING EVENTS</title></head><body style="font-family:system-ui,sans-serif;max-width:640px;margin:15vh auto;padding:0 20px;text-align:center"><h1>Event not found</h1><p><a href="/events">See the race calendar</a></p></body></html>';
+
+app.get(/^\/event\/(\d+)(?:\/.*)?$/, async (req, res) => {
+  const target = LEGACY_EVENT_IDS[req.params[0]];
+  if (!target) {
+    res.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    if (LEGACY_EVENT_IDS_UNIDENTIFIED.has(req.params[0])) return res.redirect(301, '/events');
+    return res.status(404).type('text/html').send(EVENT_NOT_FOUND_HTML);
+  }
+  const url = await resolveLegacyRaceUrl(target);
+  res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+  if (url) return res.redirect(301, url);
+  return res.redirect(302, '/events');
+});
+
+app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
+  if (LEGACY_SPAM_PATH.test(req.path)) {
+    res.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    return res.status(410).type('text/html').send('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex"><title>Page Removed | WHY RACING EVENTS</title></head><body style="font-family:system-ui,sans-serif;max-width:640px;margin:15vh auto;padding:0 20px;text-align:center"><h1>This page has been removed</h1><p><a href="/#calendar">See the race calendar</a></p></body></html>');
+  }
+  const target = LEGACY_EVENT_SLUGS[req.params[0]];
+  if (!target) return next();
+  const url = await resolveLegacyRaceUrl(target);
+  res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+  if (url) return res.redirect(301, url);
   return res.redirect(302, '/#calendar');
 });
 
@@ -365,16 +450,17 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
         res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
         return res.redirect(301, `/events/${family.liveSlug}${wantMarkdown ? '.md' : ''}`);
       }
-      const fallback = await fallbackLiveSlug(slug.replace(/-20\d\d(?:-v\d+)?$/, ''));
-      if (fallback) {
-        res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
-        return res.redirect(301, `/events/${fallback}${wantMarkdown ? '.md' : ''}`);
-      }
-      if (family.exists && !wantMarkdown) {
-        const base = slug.replace(/-20\d\d(?:-v\d+)?$/, '');
+      const base = slug.replace(/-20\d\d(?:-v\d+)?$/, '');
+      const staticStub = STATIC_RACE_STUBS[base];
+      if ((family.exists || staticStub) && !wantMarkdown) {
         res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
         if (base !== slug) return res.redirect(301, `/events/${base}`);
-        const stub = await fetchRaceStub(slug);
+        // Database row when one exists (staff may have edited the name or
+        // city), otherwise the static stub. Static extras apply either way.
+        const row = family.exists ? await fetchRaceStub(slug) : null;
+        const stub = row || staticStub
+          ? { ...(staticStub || {}), ...(row || {}), slug: base }
+          : null;
         if (stub) {
           const { html } = renderRetiredEventPage(stub, await moreRacesPromise);
           if (html) {
@@ -382,7 +468,7 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
             return res.status(200).send(html);
           }
         }
-        return res.redirect(302, '/#calendar');
+        return res.redirect(302, '/events');
       }
       res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=60');
       if (wantMarkdown) return res.status(404).type('text/plain').send('Event not found.\n');

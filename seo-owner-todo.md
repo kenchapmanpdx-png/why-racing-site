@@ -9,6 +9,9 @@ updated: 2026-11-13 | handbook 4.2
 | D3 | Staff Portal footer link | Kept: staff need it to reach the portal (Ken, 2026-11-13). Admin stays protected by server login + X-Robots-Tag noindex | Decided |
 | D4 | Homepage title order (A27): topic first, brand last, drop "Premier" | Unchanged (copy) | Ken |
 | D5 | Build step for CSS/JS minification + hashed immutable assets (A26) | Not added (new pipeline step) | Ken |
+| D6 | Pacific Crest page wording: "is not currently being produced and is not on the WHY RACING EVENTS race calendar", similar race = Hagg Lake Triathlon & Trail Festival. Lucky Triathlon page: similar race = PDX Triathlon Festival. Confirm or change | Live as written (B03, B04) | Karissa |
+| D7 | Add "First 5K Guide" to footer Quick Links sitewide (page has one internal link) | Not added | Ken |
+| D8 | Semrush: enable Position Tracking (keyword list in project doc semrush-full-analysis); exclude /pages/admin/ from Site Audit | Not set up (Semrush UI) | Ken |
 
 ## Business facts needed (never invented)
 | ID | Fact | Where it shows |
@@ -29,3 +32,9 @@ updated: 2026-11-13 | handbook 4.2
 | X3 | GA4 property G-R4M214WTK7: confirm AI Assistant channel + add custom AI group | P10 |
 | X4 | Vercel firewall / bot protection settings visible to the connector (team scope 403) | P9 CDN check (SP12) |
 | X5 | After deploy: GSC Events report "Validate Fix"; Page indexing soft 404 "Validate Fix" | P10 |
+
+## Open data gaps
+| ID | Gap | Unblocks |
+|---|---|---|
+| G1 | Race behind old event IDs 867, 877, 881, 926, 1024 and `/events/1063` (7 referring domains total). No public page names them. Sources that would: old WordPress database export, or the Wayback Machine opened in a browser (e.g. `web.archive.org/web/2017/http://whyracingevents.com/event/881/`) | Move each ID from the calendar redirect to its race in `LEGACY_EVENT_IDS` (server.js) |
+| G2 | Semrush API units are at zero | Keyword gap, full position 4-20 list, AI Overview keyword list, backlink sources per URL |

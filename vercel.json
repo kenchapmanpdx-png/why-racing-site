@@ -39,6 +39,14 @@
             "destination": "/api/index.js"
         },
         {
+            "source": "/event/:id(\\d+)",
+            "destination": "/api/index.js"
+        },
+        {
+            "source": "/event/:id(\\d+)/(.*)",
+            "destination": "/api/index.js"
+        },
+        {
             "source": "/girlfriends-run",
             "destination": "/api/index.js"
         },
@@ -295,6 +303,36 @@
             "permanent": true
         },
         {
+            "source": "/upcoming-events",
+            "destination": "/events",
+            "permanent": true
+        },
+        {
+            "source": "/upcoming-events/(.*)",
+            "destination": "/events",
+            "permanent": true
+        },
+        {
+            "source": "/event",
+            "destination": "/events",
+            "permanent": true
+        },
+        {
+            "source": "/event/",
+            "destination": "/events",
+            "permanent": true
+        },
+        {
+            "source": "/events/1063",
+            "destination": "/events",
+            "permanent": true
+        },
+        {
+            "source": "/events/1063/",
+            "destination": "/events",
+            "permanent": true
+        },
+        {
             "source": "/events/:slug/",
             "destination": "/events/:slug",
             "permanent": true
@@ -371,12 +409,12 @@
         },
         {
             "source": "/triathlon-duathlon-awards-series",
-            "destination": "/",
+            "destination": "/events",
             "permanent": true
         },
         {
             "source": "/triathlon-duathlon-awards-series/(.*)",
-            "destination": "/",
+            "destination": "/events",
             "permanent": true
         },
         {
