@@ -312,7 +312,16 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
   const slug = req.params[0];
   const wantMarkdown = req.params[1] === '.md';
   try {
-    const race = await fetchRaceFull(slug);
+    // Live race list for the "More Races" links, fetched alongside the race.
+    // Markdown mirrors don't use it. A failure only drops that section.
+    const moreRacesPromise = wantMarkdown ? Promise.resolve([]) : supabase
+      .from('races')
+      .select('slug, name, race_date, city, state')
+      .eq('is_visible', true)
+      .eq('status', 'active')
+      .order('race_date', { ascending: true })
+      .then(({ data, error }) => (error || !Array.isArray(data) ? [] : data), () => []);
+    const [race, moreRaces] = await Promise.all([fetchRaceFull(slug), moreRacesPromise]);
     if (!race) {
       // Not live under this slug. When next year's edition is published the race
       // moves to a new slug (e.g. hagg-lake-...-2027), so send visitors and Google
@@ -347,7 +356,7 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
       res.set('Link', `<https://whyracingevents.com/events/${race.slug}>; rel="canonical"`);
       return res.status(200).send(md);
     }
-    const { html, statusCode } = renderEventPage(race);
+    const { html, statusCode } = renderEventPage(race, { moreRaces });
     if (!html) return res.status(statusCode || 500).end();
     res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
     res.set('Content-Type', 'text/html; charset=utf-8');
