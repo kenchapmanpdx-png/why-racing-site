@@ -23,3 +23,16 @@ handbook 4.2 | run 2026-11-13
 | A25 | §14 | CSP: frame-src + form-action allow https://www.facebook.com (Meta Pixel) | vercel.json | console CSP errors on every page | live render console | DONE |
 | - | §19 | Sitemap lastmod: static pages 2026-11-13 (structured data / links changed); event pages max(updated_at, EVENT_TEMPLATE_LASTMOD 2026-11-13) | lib/seo/sitemap.js | | live sitemap | DONE |
 | - | §12 | Event pages: "More Races" links (Semrush: 9 pages with 1 incoming link); title never equals h1; Training links First 5K guide | lib/seo/event-page.js, server.js, pages/training.html | (commit d9e534e, earlier same day) | live curl | DONE |
+| A06 | §14 | Hero collage built after load + idle (was DOMContentLoaded); tiles still under reduced motion | assets/js/collage.js, assets/css/brand.css (v=20261113.2) | Travel LCP 13.2 s -> 3.3 s, TBT 10,170 -> 800 ms; Sponsors 12.3 -> 6.0 s (with collage blocked: 4.4 s) | Lighthouse 12 mobile, container | DONE (Sponsors still > 2.5 s: OPEN) |
+| A08 | §14 | Footer text contrast 0.4 -> 0.7 alpha (first-5k tagline, 404 labels) | pages/first-5k.html, 404.html | axe serious color-contrast | axe re-run: 0 serious on 14 URLs | DONE |
+
+## Lab after fixes (Lighthouse mobile, container, 2026-11-13)
+| Template | LCP before -> after | CLS before -> after | Weight before -> after | A11y before -> after |
+|---|---|---|---|---|
+| / | 4.9 -> 4.9 s | 0 -> 0 | 7.4 -> 7.4 MB | 95 -> 100 |
+| locations | 10.7 -> 3.3 s | 0 -> 0.024 | 53.2 -> 4.2 MB | 94 -> 100 |
+| partners | 11.6 -> 6.0 s | 0 -> 0 | 43.2 -> 2.4 MB | 93 -> 99 |
+| first-5k | 2.8 -> 2.2 s | 0.37 -> 0 | 44.0 -> 3.4 MB | 95 -> 95 |
+| about | 3.8 -> 3.1 s | 0 -> 0 | 46.9 -> 6.3 MB | 94 -> 100 |
+| community | 3.4 -> 1.9 s | 0 -> 0 | 43.1 -> 2.4 MB | 94 -> 100 |
+| /events/scary-run (new) | - -> 2.1 s | - -> 0 | - -> 0.6 MB | - -> 100 |
