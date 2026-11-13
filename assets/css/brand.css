@@ -1176,6 +1176,8 @@ footer {
     border: 0;
 }
 
-/* Staff Portal footer link: readable on the black footer (WCAG AA contrast). */
+/* Staff Portal footer link: readable on the black footer (WCAG AA contrast).
+   Page styles set the wrapper to opacity 0.5; undone here. */
+.footer-bottom .staff-portal-footer { opacity: 1; }
 .footer-bottom .staff-portal-link { color: rgba(255, 255, 255, 0.7); text-decoration: none; }
 .footer-bottom .staff-portal-link:hover { color: #fff; }
