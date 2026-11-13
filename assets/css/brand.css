@@ -1175,3 +1175,7 @@ footer {
     white-space: nowrap;
     border: 0;
 }
+
+/* Staff Portal footer link: readable on the black footer (WCAG AA contrast). */
+.footer-bottom .staff-portal-link { color: rgba(255, 255, 255, 0.7); text-decoration: none; }
+.footer-bottom .staff-portal-link:hover { color: #fff; }

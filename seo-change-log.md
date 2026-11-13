@@ -14,7 +14,7 @@ handbook 4.2 | run 2026-11-13
 | A09 | §24 | Static pages reference `#organization` by @id (+name, url); duplicate SportsOrganization (locations) and partners Organization node replaced; WebPage url + isPartOf; WebSite @id, alternateName "Why Racing", url = canonical home, publisher | index.html, pages/*.html | 9 unlinked Organization nodes -> 1 org identity | JSON-LD parse all pages | DONE |
 | A10 | §2 | 1200x630 share images for Training, Volunteers, Corporate Wellness (cropped from page heroes) + og:image:width/height | images/og/*.jpg, 3 pages | logo -> page photo | file dims = declared 1200x630 | DONE (8 pages remain: owner F5) |
 | A11 | §14 | `.reveal` visible with `@media (scripting: none)` and `prefers-reduced-motion: reduce` | assets/css/brand.css (cache key v=20261113 on 14 refs) | content opacity:0 without JS | JS-disabled Chrome | DONE |
-| A15 | §12, §18 | Staff Portal footer link removed | index.html, 9 pages, 404.html, lib/seo/event-page.js | public link on 28 pages -> none | grep 0 | DONE |
+| A15 | §12, §18 | Staff Portal footer link removed, then restored same day: staff need it to reach the portal (owner decision D3). Contrast raised to 0.7 alpha (brand.css v=20261113.3) | index.html, 9 pages, lib/seo/event-page.js, assets/css/brand.css | link kept; axe contrast fixed | axe | N/A (owner decision) |
 | A16 | §10 | Removed canonical from 404 template | 404.html | 404 body canonical = home -> none | grep | DONE |
 | A20 | §2 | `max-image-preview:large` on all indexable templates | index.html, 10 pages, event-page.js, events-index.js | absent -> present | grep / curl | DONE |
 | A21 | §3 | Main `<nav aria-label="Main">` | index.html, 10 pages, 404.html, event-page.js | unlabeled -> labelled | grep | DONE |

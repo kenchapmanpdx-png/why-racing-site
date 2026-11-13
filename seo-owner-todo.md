@@ -6,7 +6,7 @@ updated: 2026-11-13 | handbook 4.2
 |---|---|---|---|
 | D1 | Scary Run, Reflection Run, Pacific Coast Running Festival: running in 2027? | Each URL now serves a 200 "not on the current calendar" page with upcoming races (A01). Publishing a 2027 edition in the Staff Portal restores the full page automatically | Karissa |
 | D2 | Boilerplate FAQ on 11 event pages (A12): write per-race FAQs, or remove the shared set? | Unchanged (visible copy on 11 pages; needs approval) | Karissa / Brock |
-| D3 | Staff Portal footer link removed (A15) | Staff use https://whyracingevents.com/pages/admin/races.html (bookmark) | Ken: tell Brock + Karissa |
+| D3 | Staff Portal footer link | Kept: staff need it to reach the portal (Ken, 2026-11-13). Admin stays protected by server login + X-Robots-Tag noindex | Decided |
 | D4 | Homepage title order (A27): topic first, brand last, drop "Premier" | Unchanged (copy) | Ken |
 | D5 | Build step for CSS/JS minification + hashed immutable assets (A26) | Not added (new pipeline step) | Ken |
 

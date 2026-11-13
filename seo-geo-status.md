@@ -66,7 +66,7 @@ CLEAR (A05 placeholder copy fixed; admin API needs server bearer auth; no unwaiv
 - [DONE A01] moved URLs to closest page, never homepage · [DONE] legacy URL map (vercel.json + server.js) · [DONE A01] retired items page
 - [DONE] internal links to redirected URLs: 0 (locations links now 200) · [DONE] spam URLs 410 · [DONE] unknown URL 404 · [DONE A16] 404 own template, no canonical
 - [DONE] URL inventory: sitemap 29 = canonicals; first-5k orphan fixed (d9e534e) · [DONE] crawl sitemap vs links (Semrush 28 of 29; now linked)
-- [DONE A15] hidden pages: admin noindex header, not in sitemap, unlinked
+- [N/A A15] hidden pages: admin noindex header + server auth, not in sitemap; footer link kept by owner decision (D3, 2026-11-13)
 - [DONE A02] robots full rule set per group, parser-tested · [DONE] admin auth + X-Robots-Tag, no Disallow conflict
 - [DONE] lastmod provenance (static: commit dates of significant changes; events: max(updated_at, template date))
 - [OPEN] evergreen archive on own domain (results/photos pages: none) · [DONE] cross-consistency host · [DONE] render-resource guard (/api render endpoints allowed)
@@ -99,7 +99,7 @@ CLEAR (A05 placeholder copy fixed; admin API needs server bearer auth; no unwaiv
 - [DONE] CLS lab per template (all <= 0.026) · [FAIL] lab LCP < 2.5 s on home 4.9, partners 6.0, locations 3.3, about 3.1 · [DONE] environment recorded (container; PSI 429)
 ### P8
 - [DONE] HSTS max-age=31536000 includeSubDomains preload (already live), CSP incl. frame-ancestors, nosniff, Referrer-Policy, Permissions-Policy, XFO
-- [DONE] contrast (A08) · [DONE] axe after scroll · [DONE] skip link, icon links named, alt text · [DONE] headers by value · [DONE] labels, nav labels, reduced motion
+- [DONE] contrast (A08; staff link 0.7 alpha) · [DONE] axe after scroll · [DONE] skip link, icon links named, alt text · [DONE] headers by value · [DONE] labels, nav labels, reduced motion
 - [N/A] SP6 · [N/A] sensitive forms (newsletter: name + email only) · [N/A] consent banner
 ### P9
 - [BLOCKED X4] CDN bot settings; bot-UA parity 200 identical (DONE); verified-bot logs DEFERRED
