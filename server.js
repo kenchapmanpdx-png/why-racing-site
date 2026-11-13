@@ -159,7 +159,7 @@ app.use(express.json({ limit: '500kb' }));
 // These MUST be registered before the static middleware so /events/:slug,
 // /sitemap.xml, /llms.txt resolve to Express handlers instead of falling through
 // to disk. On Vercel, paired vercel.json rewrites send these paths to /api/index.js.
-const { renderEventPage } = require('./lib/seo/event-page');
+const { renderEventPage, renderRetiredEventPage } = require('./lib/seo/event-page');
 const { renderEventMarkdown } = require('./lib/seo/event-md');
 const { renderSitemapXml } = require('./lib/seo/sitemap');
 const { renderLlmsTxt } = require('./lib/seo/llms-txt');
@@ -196,8 +196,37 @@ async function fetchRaceFull(slug) {
     faqs: faqsResult.data || [],
     sponsors: sponsorsResult.data || [],
     beneficiaries: beneficiariesResult.data || [],
-    packet_pickup: packetPickupResult.data || []
+    packet_pickup: (packetPickupResult.data || []).filter(p => !isPlaceholderPickup(p))
   };
+}
+
+// Seeded default pickup row ("Race Village / Finish Line Area", "Main Event
+// Site") that new races were created with. It is not real information, so the
+// public page and Markdown mirror hide it until staff enter a real location.
+function isPlaceholderPickup(p) {
+  if (!p) return true;
+  const name = String(p.location_name || p.name || '').trim().toLowerCase();
+  const addr = String(p.address || '').trim().toLowerCase();
+  return name === 'race village / finish line area' && (addr === 'main event site' || addr === '');
+}
+
+// Latest non-deleted edition of a race family, for the page a race keeps
+// while it has no live edition.
+async function fetchRaceStub(slug) {
+  const base = slug.replace(/-20\d\d(?:-v\d+)?$/, '');
+  try {
+    const { data, error } = await supabase
+      .from('races')
+      .select('slug, name, city, state, race_type, hero_image_url, thumbnail_url, logo_url, race_date')
+      .or(`slug.eq.${base},slug.like.${base}-20%`)
+      .is('deleted_at', null)
+      .order('race_date', { ascending: false })
+      .limit(1);
+    if (error || !Array.isArray(data) || !data.length) return null;
+    return { ...data[0], slug: base };
+  } catch (e) {
+    return null;
+  }
 }
 
 // Old WordPress event URLs (e.g. /girlfriends-run/, /appletree-run/course-details/).
@@ -285,6 +314,10 @@ app.get(/^\/([a-z0-9-]+)(?:\/.*)?$/, async (req, res, next) => {
   if (!liveSlug) liveSlug = await fallbackLiveSlug(target);
   res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
   if (liveSlug) return res.redirect(301, `/events/${liveSlug}`);
+  // No live edition: the race keeps its own page (200, not on the current
+  // calendar). Never the homepage (soft 404).
+  const family = await findRaceFamily(target);
+  if (family.exists) return res.redirect(301, `/events/${target}`);
   return res.redirect(302, '/#calendar');
 });
 
@@ -338,7 +371,17 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
         return res.redirect(301, `/events/${fallback}${wantMarkdown ? '.md' : ''}`);
       }
       if (family.exists && !wantMarkdown) {
+        const base = slug.replace(/-20\d\d(?:-v\d+)?$/, '');
         res.set('Cache-Control', 'public, s-maxage=300, stale-while-revalidate=60');
+        if (base !== slug) return res.redirect(301, `/events/${base}`);
+        const stub = await fetchRaceStub(slug);
+        if (stub) {
+          const { html } = renderRetiredEventPage(stub, await moreRacesPromise);
+          if (html) {
+            res.set('Content-Type', 'text/html; charset=utf-8');
+            return res.status(200).send(html);
+          }
+        }
         return res.redirect(302, '/#calendar');
       }
       res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=60');
@@ -366,6 +409,21 @@ app.get(/^\/events\/([a-z0-9][a-z0-9-]{0,79})(\.md)?$/, async (req, res) => {
     if (wantMarkdown) return res.status(500).type('text/plain').send('Server error.\n');
     return res.status(500).type('text/html').send('<!DOCTYPE html><title>Error</title><h1>Server error</h1>');
   }
+});
+
+// Event URLs that are not lowercase slugs (e.g. /events/Appletree-Marathon):
+// 301 to the lowercase form when it is a valid slug, otherwise the same
+// "Event not found" 404 as an unknown slug (not Express's bare error page).
+app.get(/^\/events\/([^/.]+)$/, (req, res, next) => {
+  const raw = req.params[0];
+  const lower = raw.toLowerCase();
+  if (lower !== raw && SLUG_REGEX.test(lower)) {
+    res.set('Cache-Control', 'public, s-maxage=3600, stale-while-revalidate=86400');
+    return res.redirect(301, `/events/${lower}`);
+  }
+  if (SLUG_REGEX.test(raw)) return next();
+  res.set('Cache-Control', 'public, s-maxage=60, stale-while-revalidate=60');
+  return res.status(404).type('text/html').send('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="robots" content="noindex"><title>Event Not Found | WHY RACING EVENTS</title></head><body style="font-family:system-ui,sans-serif;max-width:640px;margin:15vh auto;padding:0 20px;text-align:center"><h1>Event not found</h1><p><a href="/events">See the race calendar</a></p></body></html>');
 });
 
 // Server-rendered race calendar (crawlable list of every live event page).
