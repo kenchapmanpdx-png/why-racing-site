@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="max-image-preview:large">
     <title>WHY RACING EVENTS | Premier PNW Marathons, Triathlons & 5Ks</title>
     <meta name="description"
         content="Join the Pacific Northwest's most supportive racing community. Discover 20+ premier marathons, half marathons, trail runs, and triathlons. What's your WHY?">
@@ -71,8 +72,11 @@
         },
         {
           "@type": "WebSite",
+          "@id": "https://whyracingevents.com/#website",
           "name": "WHY RACING EVENTS",
-          "url": "https://whyracingevents.com"
+          "alternateName": ["Why Racing"],
+          "url": "https://whyracingevents.com/",
+          "publisher": { "@id": "https://whyracingevents.com/#organization" }
         }
       ]
     }
@@ -91,7 +95,7 @@
     <noscript>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </noscript>
-    <link rel="stylesheet" href="assets/css/brand.css?v=20261110.3">
+    <link rel="stylesheet" href="assets/css/brand.css?v=20261113">
     <style>
 :root {
             --brand-red: #E31837;
@@ -1891,7 +1895,7 @@
     <a class="skip-to-content" href="#main-content">Skip to main content</a>
 
     <!-- NAV -->
-    <nav id="navbar">
+    <nav id="navbar" aria-label="Main">
         <a href="/" class="logo"><img src="images/logos/new-why-racing-logo.png"
                 alt="WHY RACING EVENTS Home"></a>
         <div class="nav-links">
@@ -2287,14 +2291,11 @@
 
         <div class="footer-bottom">
             <div class="footer-copy">© 2026 WHY RACING EVENTS Inc. • La Center, WA • <a href="tel:+13603144682" style="color: inherit; text-decoration: inherit;">(360) 314-4682</a></div>
-            <div class="staff-portal-footer">
-                <a href="pages/admin/races.html" class="staff-portal-link">Staff Portal</a>
-            </div>
         </div>
     </footer>
 
     <!-- DYNAMIC STICKY BAR -->
-    <div id="stickyBar" class="sticky-bar">
+    <div id="stickyBar" class="sticky-bar" role="region" aria-label="Next race">
         <div class="sticky-info">
             <div class="sticky-label-group">
                 <span class="sticky-label">Next Up</span>
@@ -2745,7 +2746,6 @@
                         startDate: r.race_date,
                         endDate: r.race_date,
                         sport: isTri(r) ? 'Triathlon' : 'Running',
-                        performer: { '@type': 'PerformingGroup', name: r.name + ' Athletes' },
                         location: {
                             '@type': 'Place',
                             name: locationName,
