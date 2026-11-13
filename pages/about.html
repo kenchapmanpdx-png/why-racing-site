@@ -4,6 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="max-image-preview:large">
     <title>About WHY RACING EVENTS | PNW Race Production Team</title>
     <meta name="description"
         content="Meet WHY RACING EVENTS, the premier race production team in the Pacific Northwest. Discover our mission, meet our team, and register for your next event!">
@@ -32,21 +33,73 @@
 
     <!-- Structured Data -->
     <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
     {
-      "@context": "https://schema.org",
       "@type": "AboutPage",
+      "url": "https://whyracingevents.com/pages/about.html",
+      "name": "About WHY RACING EVENTS",
+      "isPartOf": {
+        "@id": "https://whyracingevents.com/#website"
+      },
       "mainEntity": {
         "@type": "Organization",
+        "@id": "https://whyracingevents.com/#organization",
         "name": "WHY RACING EVENTS",
-        "url": "https://whyracingevents.com",
-        "logo": "https://whyracingevents.com/images/logos/new-why-racing-logo.png",
-        "sameAs": [
-          "https://www.facebook.com/whyracingevents/",
-          "https://www.instagram.com/why_racing_events/",
-          "https://www.youtube.com/@WhyRacingEvents"
-        ]
+        "url": "https://whyracingevents.com"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Karissa Schoene",
+      "jobTitle": "Owner & Race Director",
+      "worksFor": {
+        "@id": "https://whyracingevents.com/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Rod Schoene",
+      "jobTitle": "Owner & Race Director",
+      "worksFor": {
+        "@id": "https://whyracingevents.com/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Brock Schoene",
+      "jobTitle": "Race Director",
+      "worksFor": {
+        "@id": "https://whyracingevents.com/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Jesse Green",
+      "jobTitle": "Operations",
+      "worksFor": {
+        "@id": "https://whyracingevents.com/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Marla Stone",
+      "jobTitle": "Volunteer Coordinator",
+      "worksFor": {
+        "@id": "https://whyracingevents.com/#organization"
+      }
+    },
+    {
+      "@type": "Person",
+      "name": "Jim Mitts",
+      "jobTitle": "Swim Course Manager",
+      "worksFor": {
+        "@id": "https://whyracingevents.com/#organization"
       }
     }
+  ]
+}
     </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     
@@ -56,7 +109,7 @@
         rel="stylesheet">
     <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
     <noscript><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"></noscript>
-    <link rel="stylesheet" href="../assets/css/brand.css?v=20261110.3">
+    <link rel="stylesheet" href="../assets/css/brand.css?v=20261113">
 
     <style>
 .team-status-message {
@@ -552,7 +605,7 @@
 <body>
     <a class="skip-to-content" href="#main-content">Skip to main content</a>
 
-    <nav id="navbar">
+    <nav id="navbar" aria-label="Main">
         <a href="/" class="logo"><img src="../images/logos/new-why-racing-logo.png"
                 alt="WHY RACING EVENTS Home"></a>
         <div class="nav-links">
@@ -671,8 +724,101 @@
         </div>
 
         <div class="team-grid" id="teamGrid">
-            <!-- Dynamically populated by JavaScript -->
-            <p class="team-status-message">Loading team...</p>
+            <!-- Server-HTML snapshot of /api/team-members (2026-11-13) so crawlers
+                 that do not run JavaScript see the team. loadTeamMembers() replaces it
+                 with live data; re-run the snapshot when the roster changes. -->
+            <div class="team-card reveal delay-1">
+                <div class="team-photo">
+                    <img loading="lazy" src="../images/team/karissa-and-rod-schoene.jpg" alt="Karissa &amp; Rod Schoene" class="">
+                </div>
+                <div class="team-info">
+                    <h3>Karissa &amp; Rod Schoene</h3>
+                    <span class="team-role">Owners &amp; Race Directors</span>
+                                <p class="team-bio-text">
+                                    <strong>My WHY:</strong> To keep up with our kids; To teach our kids to be good humans; To enjoy all life has to offer...
+                                </p>
+                                <button class="expand-btn" onclick="toggleExpand(this)">
+                                    Read full story <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="team-why-full">
+                                    <p class="team-bio-full-text">We approach each WHY RACING EVENT as a challenge to give our athletes an experience that they can’t wait to tell their friends and family about and they can’t wait to come back and do it again! With the amazing WHY RACING EVENTS team, it is my goal to make sure our athletes feel the WHY LOVE that we all provide.</p><p class="team-bio-full-text">Having grown up in the Northwest, we are entrenched in this community allowing me the ability to provide an experience that our athletes have come to expect from WHY RACING EVENTS. We love to be part of a team that strives to provide the best racing experience for our athletes.</p><p class="team-bio-full-text">It is a family affair. We can’t do this without our family around us. From our kids, to my family and friends who have volun-TOLDED, to our sponsors, vendors, volunteers and athletes, our “WHY” is because we love the people!</p>
+                                    <a href="mailto:Karissa@whyracingevents.com" class="team-email">Karissa@whyracingevents.com</a>
+                                </div>
+                </div>
+            </div>
+            <div class="team-card reveal delay-2">
+                <div class="team-photo">
+                    <img loading="lazy" src="https://qotqzsbpokvjsgueewdi.supabase.co/storage/v1/object/public/race-images/team-members/a8ee6573-d62c-4797-a19c-bdfd8960e5fc-1793410037029-hdjcht-Forest_hikers_with_poles_and_orange_mug.png" alt="Brock Schoene" class="">
+                </div>
+                <div class="team-info">
+                    <h3>Brock Schoene</h3>
+                    <span class="team-role">Race Director</span>
+                                <p class="team-bio-text">
+                                    <strong>My WHY:</strong> To promote and encourage getting outdoors and doing challenging things with family, friends, and members of the community.
+                                </p>
+                                <button class="expand-btn" onclick="toggleExpand(this)">
+                                    Read full story <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="team-why-full">
+                                    <p class="team-bio-full-text">I grew up at WHY RACING EVENTS and love the atmosphere of our event venues. I am so excited to be part of making the athlete experience as amazing as possible. WHY provides so many opportunities to connect with our community, supporting local beneficiaries at each event, I take pride in connecting our local volunteers to our athletes.</p><p class="team-bio-full-text">My goal is to assist our volunteers so they can be the best support crew ever and have so much fun that they want to volunteer at our events all the time.</p>
+                                    <a href="mailto:Brock@whyracingevents.com" class="team-email">Brock@whyracingevents.com</a>
+                                </div>
+                </div>
+            </div>
+            <div class="team-card reveal delay-3">
+                <div class="team-photo">
+                    <img loading="lazy" src="../images/team/jesse-green.jpg" alt="Jesse Green" class="">
+                </div>
+                <div class="team-info">
+                    <h3>Jesse Green</h3>
+                    <span class="team-role">Operations</span>
+                                <button class="expand-btn" onclick="toggleExpand(this)">
+                                    Read full story <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="team-why-full">
+                                    <p class="team-bio-full-text">Jesse keeps race day running smoothly behind the scenes. Full bio coming soon.</p>
+                                    
+                                </div>
+                </div>
+            </div>
+            <div class="team-card reveal delay-1">
+                <div class="team-photo">
+                    <img loading="lazy" src="../images/team/marla-stone.jpg" alt="Marla Stone" class="marla-photo">
+                </div>
+                <div class="team-info">
+                    <h3>Marla Stone</h3>
+                    <span class="team-role">Volunteer Coordinator</span>
+                                <p class="team-bio-text">
+                                    <strong>My WHY:</strong> To encourage others to test their limits and to enjoy what every day has to offer. To be an example...
+                                </p>
+                                <button class="expand-btn" onclick="toggleExpand(this)">
+                                    Read full story <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="team-why-full">
+                                    <p class="team-bio-full-text">I began trail running in my 30’s and drifted to triathlons when I “grew up.” My love for being in the outdoors in a variety of conditions and sports culminated in beginning to work for WHY RACING EVENTS. My joy is to assist in creating the best event experience for athletes of all skill levels.</p><p class="team-bio-full-text">It is not always winning the race but completion or improving racing times from prior events. WHY RACING EVENTS strives to provide an amazing racing experience while simultaneously raising money and awareness for our beneficiaries’ causes. The WHY Family is a reality – we care about you, the athlete, and the community around you.</p>
+                                    <a href="mailto:Marla@whyracingevents.com" class="team-email">Marla@whyracingevents.com</a>
+                                </div>
+                </div>
+            </div>
+            <div class="team-card reveal delay-2">
+                <div class="team-photo">
+                    <img loading="lazy" src="../images/team/jim-mitts.jpg" alt="Jim Mitts" class="">
+                </div>
+                <div class="team-info">
+                    <h3>Jim Mitts</h3>
+                    <span class="team-role">Swim Course Manager</span>
+                                <p class="team-bio-text">
+                                    <strong>My WHY:</strong> To have fun while being involved in the running community.
+                                </p>
+                                <button class="expand-btn" onclick="toggleExpand(this)">
+                                    Read full story <i class="fas fa-chevron-down"></i>
+                                </button>
+                                <div class="team-why-full">
+                                    <p class="team-bio-full-text">I have always been involved in running. It started in grade school when I participated in AAU Junior Olympics and continued through High school. I also participated in various indoor and outdoor sports throughout my adult life.</p><p class="team-bio-full-text">I got more involved in road races and found WHY RACING EVENTS to be a great race experience and eventually started working with them in 2021. I truly love seeing race participants competing but especially in our multi sport events.</p>
+                                    <a href="mailto:jlmitts55@gmail.com" class="team-email">jlmitts55@gmail.com</a>
+                                </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -791,9 +937,6 @@
 
         <div class="footer-bottom">
             <div class="footer-copy">© 2026 WHY RACING EVENTS Inc. • La Center, WA • <a href="tel:+13603144682" style="color: inherit; text-decoration: inherit;">(360) 314-4682</a></div>
-            <div class="staff-portal-footer">
-                <a href="admin/races.html" class="staff-portal-link">Staff Portal</a>
-            </div>
         </div>
     </footer>
 
@@ -890,7 +1033,7 @@
 
                 const grid = document.getElementById('teamGrid');
                 if (members.length === 0) {
-                    grid.innerHTML = '<p class="team-status-message">We are updating our team roster. Check back soon!</p>';
+                    if (!grid.querySelector('.team-card')) grid.innerHTML = '<p class="team-status-message">We are updating our team roster. Check back soon!</p>';
                     return;
                 }
 
@@ -962,7 +1105,9 @@
 
             } catch (err) {
                 console.error('Error loading team members:', err);
-                document.getElementById('teamGrid').innerHTML = '<p class="team-status-message">Failed to load team members. Please try refreshing.</p>';
+                // Keep the server snapshot if it is there; otherwise say so.
+                const grid = document.getElementById('teamGrid');
+                if (grid && !grid.querySelector('.team-card')) grid.innerHTML = '<p class="team-status-message">Failed to load team members. Please try refreshing.</p>';
             }
         }
 
