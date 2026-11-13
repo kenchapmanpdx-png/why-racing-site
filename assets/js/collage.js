@@ -68,10 +68,15 @@ function initHeroCollage() {
         [pool[i], pool[j]] = [pool[j], pool[i]];
     }
 
-    // Fill the grid
+    // Fill the grid. Tiles are ~100px wide, so photos are served through the
+    // Vercel image optimizer at 384px (originals are 1-4 MB each; pages
+    // weighed 44-56 MB). SVGs are served as-is.
+    const tileSrc = (name) => /\.svg$/i.test(name)
+        ? `${pathPrefix}images/collage/${name}`
+        : `/_vercel/image?url=${encodeURIComponent('/images/collage/' + name)}&w=384&q=75`;
     for (let i = 0; i < targetCount; i++) {
         const imgSrc = pool[i % pool.length];
-        html += `<img src="${pathPrefix}images/collage/${imgSrc}" alt="" loading="lazy" decoding="async">`;
+        html += `<img src="${tileSrc(imgSrc)}" alt="" width="384" height="256" loading="lazy" decoding="async">`;
     }
 
     collageContainer.innerHTML = html;

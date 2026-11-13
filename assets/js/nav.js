@@ -79,6 +79,11 @@ async function initSponsorTicker() {
                 if (!logoSrc.startsWith('http') && !logoSrc.startsWith('/')) {
                     logoSrc = '/' + logoSrc;
                 }
+                // Logos show at ~63px tall; originals are up to 1.3 MB. Serve
+                // site-hosted raster logos through the Vercel image optimizer.
+                if (logoSrc.startsWith('/') && !/\.svg$/i.test(logoSrc)) {
+                    logoSrc = `/_vercel/image?url=${encodeURIComponent(logoSrc)}&w=384&q=75`;
+                }
             } else {
                 return ''; // skip if no logo
             }
