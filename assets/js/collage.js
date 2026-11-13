@@ -97,4 +97,14 @@ function initHeroCollage() {
     }, 100);
 }
 
-document.addEventListener('DOMContentLoaded', initHeroCollage);
+// Build the collage after the page has loaded and the browser is idle, so the
+// headline (the page's LCP element) paints first. 160 animated tiles started
+// at DOMContentLoaded held lab LCP at 12-13 s on Travel and Sponsors.
+function scheduleHeroCollage() {
+    const run = () => ('requestIdleCallback' in window)
+        ? requestIdleCallback(initHeroCollage, { timeout: 2000 })
+        : setTimeout(initHeroCollage, 200);
+    if (document.readyState === 'complete') run();
+    else window.addEventListener('load', run, { once: true });
+}
+scheduleHeroCollage();

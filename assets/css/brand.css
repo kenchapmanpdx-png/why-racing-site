@@ -1095,6 +1095,11 @@ footer {
     transform: translateY(0);
 }
 
+/* Collage tiles hold still for visitors who ask for reduced motion. */
+@media (prefers-reduced-motion: reduce) {
+    .hero-collage img.revealed.shimmering { animation: none; }
+}
+
 /* Content stays visible without JavaScript (no-JS crawlers, reader modes)
    and for visitors who ask for reduced motion (handbook §14: no primary
    content left at opacity:0 waiting for an animation). */
