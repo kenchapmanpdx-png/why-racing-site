@@ -34,3 +34,6 @@ images/Scrapedimages/**
 !images/Scrapedimages/Noland-Hoshino.jpg
 !images/Scrapedimages/our-lifestyle-img.jpg
 !images/Scrapedimages/rebecca-cady-age30.jpg
+
+# Screaming Frog crawl exports (local analysis only)
+screaming-frog/

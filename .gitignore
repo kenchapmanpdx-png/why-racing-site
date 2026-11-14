@@ -43,3 +43,6 @@ env/
 # Tool artifacts
 .claude/
 .playwright-mcp/
+
+# Screaming Frog crawl exports (local analysis only)
+screaming-frog/
