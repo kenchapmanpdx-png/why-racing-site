@@ -62,3 +62,9 @@ source: Screaming Frog SEO Spider 23.1 crawl 2026-11-14 (240 URLs; project doc c
 
 Not changed (reason): image renames (DB `logo_url` values reference the filenames); static page titles over 561 px (only the brand suffix truncates; Google shows the site name separately); beneficiary readability (copy, owner); UltraSignup `eid` link (event ID rolls to current year); nosniff/Referrer-Policy on `/_vercel/image` (platform route).
 
+## /events race cards (2026-11-14)
+source: owner request (make /events look like the homepage calendar, same race cards, no SEO or redirect changes) | commit ca81ffe
+
+| ID | § | Change | Files | Before -> After | Verified with | Result |
+|---|---|---|---|---|---|---|
+| D01 | design | /events: each race drawn as the homepage race card (photo, date, title, distances, location, logo, register button), server-rendered, one grid in date order; month h2 above the first race of each month; Oswald headings. Unchanged: URL, title, meta description, canonical, og/twitter, ItemList + BreadcrumbList JSON-LD, h1, intro line, breadcrumb, h2/h3 text and order, internal links + anchors, "Hosted by" links, sitemap, llms.txt, redirects | lib/seo/events-index.js, lib/seo/event-page.js (2 exports), server.js (/events select: 4 image/info columns) | text list -> cards; HTML 30.9 -> 79.8 KB raw; links in main 65 -> 84 (19 photo links to the info/registration page, same as homepage cards, aria-hidden + tabindex -1; 2 new targets: xdogadventures.org info pages); register anchor "Register" -> "Register Now & Event Details" | local render from live /api/races diffed against live HTML (head tags, JSON-LD, headings, links); Chrome 1440 / 900 / 390 px: 19 cards, 0 broken images, 0 console errors, no horizontal scroll; live curl after deploy | DONE |
