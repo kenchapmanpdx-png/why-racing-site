@@ -24,7 +24,7 @@ updated: 2026-11-14 | handbook 4.2
 | F6 | Profile URLs for `sameAs`: Google Business Profile (if any), RunSignUp organizer page, LinkedIn | Organization schema |
 | F7 | Updated club URLs: Steelhead Coaching now redirects to monarchcoachinggroup.com; Chris Bagg Coaching to campfireendurance.com | Training page (Staff Portal: training clubs) |
 | F8 | EM3 Concrete sponsor website: `https://em3concrete.com` 301s to `https://www.em3concrete.com/` | Sponsor ticker, every page (Staff Portal: global sponsors) |
-| F9 | Appletree Marathon logo: `logo_url` is an old WordPress path (308, not an image); homepage card now hides it | Homepage race card (Staff Portal: race logo) |
+| F9 | Appletree Marathon logo: `logo_url` is an old WordPress path (308, not an image); homepage card now hides it. On /events it loads through the 308 at full size (20 KB, not optimized); set `logo_url` to `images/logos/appletree-marathon.png` | Homepage + /events race card (Staff Portal: race logo) |
 
 ## Owner access needed
 | ID | Access | Unblocks |
