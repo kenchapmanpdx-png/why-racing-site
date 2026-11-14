@@ -42,3 +42,23 @@ handbook 4.2 | run 2026-11-13
 | about | 3.8 -> 3.1 s | 0 -> 0 | 46.9 -> 6.3 MB | 94 -> 100 |
 | community | 3.4 -> 1.9 s | 0 -> 0 | 43.1 -> 2.4 MB | 94 -> 100 |
 | /events/scary-run (new) | - -> 2.1 s | - -> 0 | - -> 0.6 MB | - -> 100 |
+
+## Screaming Frog crawl fixes (2026-11-14)
+source: Screaming Frog SEO Spider 23.1 crawl 2026-11-14 (240 URLs; project doc claude/screaming-frog-crawl-2026-11-14.md) | commit 324bc74
+
+| ID | § | Change | Files | Before -> After | Verified with | Result |
+|---|---|---|---|---|---|---|
+| C01 | §14, §15 | Site-hosted raster images through Vercel image optimizer (srcset where wide), `data-orig` + onerror fallback to the original. Static: 3 page heroes (`fetchpriority="high"`), About team + mission photos, First 5K, Corporate Wellness, Give Back photo + 19 charity logos, Sponsors podium, Travel race logos (8), testimonial avatars (home 3, community 4). JS-rendered: homepage race-card logos, Sponsors page logos, About live team photos. Event template: `optimizedSrc` accepts /images/ paths (local heroes), sponsor/beneficiary logos at 384 w | index.html, pages/*.html, lib/seo/event-page.js | static optimized imgs 10.7 MB -> 1.5 MB (src width, WebP); homepage card logos 6.8 MB -> 0.4 MB; Bigfoot hero 1.08 MB -> 75 KB | live curl: 103 optimizer/og URLs 200 image/* | DONE |
+| C02 | §2 | Event + retired-page og:image/twitter:image = picked image via optimizer at 1200 w (absolute URL). Schema image unchanged | lib/seo/event-page.js | 19 event og images 23.0 MB -> 4.7 MB (Accept */*; Couve Clover 4.2 MB -> 137 KB) | live curl | DONE (1.91:1 crops: owner F5) |
+| C03 | §2 (A10) | 1200x630 share images for Home, Races, About, Community, Sponsors, Give Back, Travel, First 5K, cropped from site photos (pro-action-1, hagg-lake-run, karissa-and-rod-schoene, pro-action-3, finish-line, group-swim, Cities/Vancouver, family-finish) + og:image:width/height | images/og/*.jpg, 7 pages, lib/seo/events-index.js | logo 291x237 -> 1200x630 on 8 pages | live HTML | DONE |
+| C04 | §12 | Facebook profile link in final form (footer, event template, 404, schema sameAs) | 11 HTML + event-page.js | /whyracingevents/ 302 -> /WhyRacingEvents/ 200 | live HTML + curl | DONE |
+| C05 | §12 (A18) | Outbound 301 links to final URLs: EM3 Concrete (static ticker, 6 pages), Bivouac Racing, Vancouver Public Schools, Washougal Schools Foundation, Clark County Food Bank, NW Battle Buddies, La Center Schools, Trailkeepers of Oregon | 7 pages | 9 redirecting hosts -> 200 | curl final URLs 200 | DONE (EM3 in live ticker data: owner F8) |
+| C06 | §2 | Title fit by estimated SERP pixel width (lib/seo/serp.js: Arial 19.2 px, fit <= 550 px; calibrated to SF, mean error 6 px) instead of 65 chars, event + retired templates | lib/seo/serp.js, lib/seo/event-page.js | over 561 px: 5 events + Scary Run -> 0 (Columbia River uses year variant) | local render 19 events + 2 retired; live HTML | DONE |
+| C07 | §2 | Meta descriptions <= 155 chars and <= 940 px est.: Community, Training, Volunteers, Travel, /events; retired-page variants checked the same way | 4 pages, events-index.js, event-page.js | 5 static over 155 chars / 4 over 985 px -> 0 | serp.js + live HTML | DONE |
+| C08 | §5 | Event "About the Race" h2 names the race | lib/seo/event-page.js | duplicate h2 on 19 pages -> unique | local render | DONE ("Race Day Details" kept) |
+| C09 | §15 | Nav logo width/height (291x237) + CSS width:auto; brand.css v=20261114.1 on 14 files | 11 HTML, brand.css, 404 inline CSS, event-page.js, events-index.js | missing size attrs -> set; render unchanged | diff | DONE |
+| C10 | §16 | Podium image alt text shortened (102 -> 70 chars) | pages/partners.html | | diff | DONE |
+| C11 | ops | Local Screaming Frog exports ignored | .gitignore, .vercelignore | | | DONE |
+
+Not changed (reason): image renames (DB `logo_url` values reference the filenames); static page titles over 561 px (only the brand suffix truncates; Google shows the site name separately); beneficiary readability (copy, owner); UltraSignup `eid` link (event ID rolls to current year); nosniff/Referrer-Policy on `/_vercel/image` (platform route).
+

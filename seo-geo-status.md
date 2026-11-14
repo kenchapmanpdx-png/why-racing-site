@@ -1,5 +1,5 @@
 # SEO/GEO Status
-handbook: 4.2 | mode: AUDIT | tier: T3 (events collection: /events index + 18 templated /events/{slug} pages from Supabase) | updated: 2026-11-13
+handbook: 4.2 | mode: AUDIT | tier: T3 (events collection: /events index + 18 templated /events/{slug} pages from Supabase) | updated: 2026-11-14
 
 ## Stack
 - Host/CDN: Vercel (static files from repo root + one Express function `api/index.js` for /events, /events/{slug}(.md), /sitemap.xml, /llms.txt, legacy redirects, /api/*). Not a hosted builder; no build step.
@@ -33,7 +33,7 @@ training bots: Allow · GSC Search generative AI: Include (default) · canonical
 | P1 | PASS | 2026-11-13 | seo-audit-baseline.md (27 findings, reconciled) |
 | P2 | FAIL | 2026-11-13 | A17 homepage calendar + training clubs JS-only (S3, mitigated by /events SSR) |
 | P3 | PASS | 2026-11-13 | robots parser test 0/102 fail; unknown URL 404; 0 internal links to redirects; A24 LIMITED |
-| P4 | FAIL | 2026-11-13 | 8 pages og:image = logo (owner F5); home title brand-first (D4) |
+| P4 | FAIL | 2026-11-14 | home title brand-first (D4); og:image logo pages fixed (C03) |
 | P5 | BLOCKED | 2026-11-13 | stats sources (F1, F2), key facts (F3), boilerplate FAQ (D2) |
 | P6 | PASS | 2026-11-13 | JSON-LD parses on all pages; 1 org @id; no filler performer/funder; RRT URL mode not run (BLOCKED) |
 | P7 | FAIL | 2026-11-13 | lab LCP > 2.5 s: home 4.9 (video), partners 6.0, locations 3.3, about 3.1 (container; PSI 429) |
@@ -75,13 +75,13 @@ CLEAR (A05 placeholder copy fixed; admin API needs server bearer auth; no unwaiv
 - [DONE] unique titles/meta/H1 (title != h1, d9e534e) · [OPEN A27] home title brand-first (D4)
 - [DONE] meta descriptions present, <= 160 (A22) · [DONE] viewport · [DONE] searched names (Girlfriends Run) · [DONE] no hard-coded years
 - [DONE] hub titles · [DONE] one main, nav labelled (A21) · [OPEN A19] 32 H4 card labels on Travel (kept; heuristic)
-- [OPEN A10] og:image per page: 3 static pages fixed; 8 pages logo; events use race thumbnails (F5)
+- [DONE A10/C03] og:image per page: 10 static pages + /events 1200x630; events: race image at 1200 w via optimizer (C02); 1.91:1 race crops owner (F5)
 - [N/A] Article · [DONE A20] max-image-preview · [DONE] target=_blank noopener
 ### P5
 - [DONE] opening sentence (BLUF on event pages; static pages unchanged)
 - [BLOCKED A13] stats sourced + single count (F1, F2) · [DONE A05] no placeholder copy · [OPEN A13] superlatives
 - [BLOCKED A12] page-specific FAQ (D2) · [DONE] brand spelling · [N/A] SP7 address block
-- [N/A] awards · [N/A] price lists (none on site) · [OPEN A18] outbound links to final URLs (F7) · [DONE] primary CTA (Register / Find Your Race)
+- [N/A] awards · [N/A] price lists (none on site) · [OPEN A18] outbound links to final URLs (C04/C05 done; F7, F8 owner) · [DONE] primary CTA (Register / Find Your Race)
 - [BLOCKED A14] key-facts block (F3) · [DONE] contact block (footer phone tel:) · [DONE A03] About named people + Person schema · [BLOCKED] intent map (GSC X1)
 ### P6
 - [DONE A09] WebSite node (@id, alternateName, url, publisher) · [DONE] no empty fields, https URLs
@@ -93,7 +93,7 @@ CLEAR (A05 placeholder copy fixed; admin API needs server bearer auth; no unwaiv
 ### P7
 - [DONE] hero video poster/pause/reduced motion (2026-11-10)
 - [DONE A07] images dimensioned or CSS-sized (collage fixed; ticker logos fixed-height CSS, no attrs: S4)
-- [DONE] LCP image real <img>; [DONE A06] photos at display size via optimizer (static pages 44-56 MB -> 2.4-6.4 MB)
+- [DONE] LCP image real <img>; [DONE A06/C01] photos at display size via optimizer (static pages 44-56 MB -> 2.4-6.4 MB; C01: heroes, team, logos, homepage card logos 6.8 -> 0.4 MB)
 - [OPEN] analytics deferred after load (GA4 + Pixel load at defer; consent N/A)
 - [OPEN A26] render-blocking Google Fonts; minify; immutable assets (D5)
 - [DONE] CLS lab per template (all <= 0.026) · [FAIL] lab LCP < 2.5 s on home 4.9, partners 6.0, locations 3.3, about 3.1 · [DONE] environment recorded (container; PSI 429)

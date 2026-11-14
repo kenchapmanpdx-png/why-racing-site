@@ -1,5 +1,5 @@
 # SEO Owner To-Do
-updated: 2026-11-13 | handbook 4.2
+updated: 2026-11-14 | handbook 4.2
 
 ## Decisions
 | ID | Item | Default applied | Needed from |
@@ -20,9 +20,11 @@ updated: 2026-11-13 | handbook 4.2
 | F2 | One event count: "20+" (home) vs "21" (event copy) vs 18 live races | Home title/meta/ticker, About, llms.txt |
 | F3 | Per race: entry prices + price-change dates, start time, venue street address + ZIP, parking, cutoffs | 18 event pages + schema `offers.price`, `startDate` time, `location.address` |
 | F4 | Real packet pickup location/time per race (9 races showed placeholder rows; now hidden) | Event pages "Packet Pickup" |
-| F5 | 1200x630 share image per race (Girlfriends Triathlon uses an Unsplash stock photo) | Event og:image |
+| F5 | 1200x630 share image per race (Girlfriends Triathlon uses an Unsplash stock photo). File weight fixed in code (C02); 1.91:1 crop still needed on 17 of 19 races | Event og:image |
 | F6 | Profile URLs for `sameAs`: Google Business Profile (if any), RunSignUp organizer page, LinkedIn | Organization schema |
 | F7 | Updated club URLs: Steelhead Coaching now redirects to monarchcoachinggroup.com; Chris Bagg Coaching to campfireendurance.com | Training page (Staff Portal: training clubs) |
+| F8 | EM3 Concrete sponsor website: `https://em3concrete.com` 301s to `https://www.em3concrete.com/` | Sponsor ticker, every page (Staff Portal: global sponsors) |
+| F9 | Appletree Marathon logo: `logo_url` is an old WordPress path (308, not an image); homepage card now hides it | Homepage race card (Staff Portal: race logo) |
 
 ## Owner access needed
 | ID | Access | Unblocks |
