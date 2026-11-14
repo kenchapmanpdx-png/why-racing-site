@@ -517,7 +517,7 @@ app.get(['/events', '/events/'], async (req, res) => {
   try {
     const { data: races, error } = await supabase
       .from('races')
-      .select('slug, name, race_date, race_type, city, state, distances, registration_url, registration_open, is_partner_race, race_distances (name)')
+      .select('slug, name, race_date, race_type, city, state, distances, registration_url, registration_open, is_partner_race, thumbnail_url, hero_image_url, logo_url, instructions_pdf_url, race_distances (name)')
       .eq('is_visible', true)
       .eq('status', 'active')
       .order('race_date', { ascending: true });
