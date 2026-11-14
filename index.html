@@ -724,6 +724,23 @@
             border-top: 1px solid #eee;
         }
 
+        .card-host {
+            margin: -5px 0 5px;
+            font-size: 13px;
+            color: #555;
+        }
+
+        .card-host a {
+            color: inherit;
+            text-decoration: underline;
+            text-underline-offset: 2px;
+            white-space: nowrap;
+        }
+
+        .event-grid-partner .card-host {
+            font-size: 12px;
+        }
+
         .event-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
@@ -2514,6 +2531,22 @@
             return optimizerSource(src) ? widths.map(w => `${optimizedSrc(src, w)} ${w}w`).join(', ') : '';
         }
 
+        // Partner races are organized by separate companies (source: each race's
+        // registration page). Keep in sync with PARTNER_HOSTS in lib/seo/event-page.js.
+        // Used by the race cards ("Hosted by") and the SportsEvent schema (organizer).
+        const PARTNER_BIVOUAC = { name: 'Bivouac Racing', url: 'https://www.bivouacracing.com/' };
+        const PARTNER_XDOG = { name: 'X-Dog Adventures', url: 'https://www.xdogadventures.org/' };
+        const RACE_HOSTS = {
+            'battle-to-the-pacific': PARTNER_BIVOUAC, 'crown-stub-100': PARTNER_BIVOUAC,
+            'stub-stewart-trail-challenge': PARTNER_BIVOUAC, 'hellz-bellz-ultra': PARTNER_BIVOUAC,
+            'silver-falls-trail-challenge': PARTNER_BIVOUAC,
+            'ho-ho-5k': PARTNER_XDOG, 'white-river-snow-shoe': PARTNER_XDOG
+        };
+        // Partner that hosts the race (year-edition slugs map to the base slug), else null.
+        function partnerHost(race) {
+            return RACE_HOSTS[String(race.slug || '').replace(/-20\d\d(?:-v\d+)?$/, '')] || null;
+        }
+
         // Create race card HTML for database races
         function createDynamicRaceCard(race, index = 0) {
             const distances = race.race_distances || [];
@@ -2585,6 +2618,11 @@
                     : `<img src="${escapeHtml(race.logo_url)}" onerror="this.onerror=null;this.style.display='none'" alt="${safeName} logo" class="card-logo" loading="lazy">`)
                 : '';
 
+            const host = partnerHost(race);
+            const hostHtml = host
+                ? `<p class="card-host">Hosted by <a href="${escapeHtml(host.url)}" target="_blank" rel="noopener">${escapeHtml(host.name)}</a></p>`
+                : '';
+
             const card = document.createElement('div');
             card.className = 'event-card dynamic-db-card loading';
             card.dataset.distance = filterKeywords;
@@ -2614,6 +2652,7 @@
                                 ${logoHtml}
                             </div>
                         </${infoTag}>
+                        ${hostHtml}
                         <div style="padding-top: 10px;">
                             ${registerButton}
                         </div>
@@ -2719,18 +2758,8 @@
             if (!Array.isArray(races) || races.length === 0) return;
 
             var BASE = 'https://whyracingevents.com';
-            // Partner races are organized by separate companies (source: each race's
-            // registration page). Keep in sync with PARTNER_HOSTS in lib/seo/event-page.js.
-            var BIVOUAC = { name: 'Bivouac Racing', url: 'https://www.bivouacracing.com/' };
-            var XDOG = { name: 'X-Dog Adventures', url: 'https://www.xdogadventures.org/' };
-            var PARTNER_HOSTS = {
-                'battle-to-the-pacific': BIVOUAC, 'crown-stub-100': BIVOUAC,
-                'stub-stewart-trail-challenge': BIVOUAC, 'hellz-bellz-ultra': BIVOUAC,
-                'silver-falls-trail-challenge': BIVOUAC,
-                'ho-ho-5k': XDOG, 'white-river-snow-shoe': XDOG
-            };
             function raceOrganizer(r) {
-                var p = PARTNER_HOSTS[String(r.slug || '').replace(/-20\d\d(?:-v\d+)?$/, '')];
+                var p = partnerHost(r);
                 if (p) return { '@type': 'Organization', name: p.name, url: p.url };
                 if (r.is_partner_race) return null;
                 return { '@type': 'Organization', '@id': BASE + '/#organization', name: 'WHY RACING EVENTS', url: BASE };
